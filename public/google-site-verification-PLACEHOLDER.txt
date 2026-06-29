@@ -1,0 +1,8 @@
+Google Search Console verification placeholder.
+
+The previous owner's verification HTML file was removed because it belonged to
+the old Search Console account of the previously-deployed school site.
+
+When the new GMS Taj Muhammad Search Console account is set up, place the new
+verification HTML file (with the exact filename Google provides) in this
+/public folder and re-deploy.
