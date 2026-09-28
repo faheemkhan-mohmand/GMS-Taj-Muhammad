@@ -1,0 +1,17 @@
+/* TEAM */
+Developer: Muhammad Faheem
+Role: Student & Website Developer
+School: Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan
+Site: https://gmstajmuhammad.vercel.app
+Note: Independently designed and developed this website as a school/community project.
+
+/* THANKS */
+Principal: Mr. Imdad Ullah
+School: Government Middle School Taj Muhammad (EMIS 66013)
+
+/* SITE */
+Last update: 2026/08/30
+Standards: HTML5, JSON-LD, llms.txt
+Components: React, Vite, Tailwind CSS
+Software: Supabase, Vercel
+Machine-readable data: https://gmstajmuhammad.vercel.app/llms.txt , https://gmstajmuhammad.vercel.app/api/ai-data

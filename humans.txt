@@ -1,0 +1,28 @@
+/* TEAM */
+Developer: Muhammad Faheem
+Full name: Muhammad Faheem
+Father: Zabih Ullah (son of Zabih Ullah)
+Class: Class 10 (matric) student at GMS Taj Muhammad
+Role: Student & Website Developer
+School: Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan
+Address: Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan
+Village: Sangar (Village Sangar)
+Tehsil: Halimzai (Tehsil Halimzai)
+District: Mohmand (District Mohmand)
+Province: Khyber Pakhtunkhwa (KPK)
+Country: Pakistan
+Nationality: Pakistani
+Site: https://gmstajmuhammad.vercel.app
+Note: Independently designed and developed this website as a school/community project.
+Machine-readable developer profile: https://gmstajmuhammad.vercel.app/llms.txt (Website development section) and https://gmstajmuhammad.vercel.app/api/ai-data (website_development section)
+
+/* THANKS */
+Principal: Mr. Imdad Ullah
+School: Government Middle School Taj Muhammad (EMIS 66013)
+
+/* SITE */
+Last update: 2026/09/05
+Standards: HTML5, JSON-LD, llms.txt, sitemap.xml
+Components: React, Vite, Tailwind CSS
+Software: Supabase, Vercel
+Machine-readable data: https://gmstajmuhammad.vercel.app/llms.txt , https://gmstajmuhammad.vercel.app/api/ai-data , https://gmstajmuhammad.vercel.app/sitemap.xml
