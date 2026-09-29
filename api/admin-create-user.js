@@ -23,6 +23,28 @@ function parseBody(body) {
   return null;
 }
 
+function createPrivilegedClient(createClient, supabaseUrl, serviceKey) {
+  // Modern Supabase secret keys are not JWTs. Keep them in the apikey header
+  // only; forwarding them as Authorization: Bearer makes the Auth gateway
+  // reject them as an invalid JWT. Legacy service_role JWTs use the default.
+  if (!serviceKey.startsWith("sb_secret_")) {
+    return createClient(supabaseUrl, serviceKey, AUTH_OPTIONS);
+  }
+
+  const fetchWithoutSecretBearer = (input, init = {}) => {
+    const headers = new Headers(init.headers);
+    if (headers.get("Authorization")?.trim() === `Bearer ${serviceKey}`) {
+      headers.delete("Authorization");
+    }
+    return globalThis.fetch(input, { ...init, headers });
+  };
+
+  return createClient(supabaseUrl, serviceKey, {
+    ...AUTH_OPTIONS,
+    global: { fetch: fetchWithoutSecretBearer },
+  });
+}
+
 /**
  * Factory is exported so the endpoint's authorization, persistence, and
  * rollback behavior can be tested without a live Supabase project.
@@ -36,7 +58,7 @@ export function createAdminCreateUserHandler({ createClient = createSupabaseClie
 
     const supabaseUrl = env.SUPABASE_URL || env.VITE_SUPABASE_URL;
     const anonKey = env.SUPABASE_ANON_KEY || env.VITE_SUPABASE_ANON_KEY;
-    const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+    const serviceRoleKey = String(env.SUPABASE_SECRET_KEY || env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
     if (!supabaseUrl || !anonKey || !serviceRoleKey) {
       return send(res, 503, { error: "Admin user management is not configured on the server." });
     }
@@ -76,7 +98,7 @@ export function createAdminCreateUserHandler({ createClient = createSupabaseClie
 
       // Keep the server-only service key exclusively for privileged Auth and
       // profile mutations, after the caller's role has been verified.
-      const adminClient = createClient(supabaseUrl, serviceRoleKey, AUTH_OPTIONS);
+      const adminClient = createPrivilegedClient(createClient, supabaseUrl, serviceRoleKey);
 
       if (body.action === "create") {
         const fullName = typeof body.full_name === "string" ? body.full_name.trim() : "";

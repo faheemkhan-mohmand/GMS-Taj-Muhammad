@@ -13,7 +13,7 @@ function fakeResponse() {
   return response;
 }
 
-function fixture({ role = "admin", profileError = null as any, callerProfileError = null as any } = {}) {
+function fixture({ role = "admin", profileError = null as any, callerProfileError = null as any, serviceKey = "service-key", serviceKeyEnv = "SUPABASE_SERVICE_ROLE_KEY" } = {}) {
   const targetProfiles = new Map<string, any>();
   const upserts: any[] = [];
   const deleteUser = vi.fn(async () => ({ error: null }));
@@ -49,7 +49,7 @@ function fixture({ role = "admin", profileError = null as any, callerProfileErro
   const createClient = vi.fn((_url: string, key: string) => key === "anon-key" ? authClient : adminClient);
   const handler = createAdminCreateUserHandler({
     createClient,
-    env: { SUPABASE_URL: "https://example.supabase.co", SUPABASE_ANON_KEY: "anon-key", SUPABASE_SERVICE_ROLE_KEY: "service-key" },
+    env: { SUPABASE_URL: "https://example.supabase.co", SUPABASE_ANON_KEY: "anon-key", [serviceKeyEnv]: serviceKey },
   });
   return { handler, createClient, authClient, adminClient, createUser, deleteUser, upserts, callerQuery };
 }
@@ -58,7 +58,10 @@ function request(body: unknown, authorization = "Bearer test-token") {
   return { method: "POST", headers: { authorization }, body } as any;
 }
 
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => {
+  vi.restoreAllMocks();
+  vi.unstubAllGlobals();
+});
 
 describe("admin-create-user API", () => {
   it("rejects requests without a bearer session", async () => {
@@ -94,6 +97,26 @@ describe("admin-create-user API", () => {
       id: "new-admin-1", full_name: "New Admin", role: "admin", status: "approved", phone: "0300",
     })]);
     expect(res.body.user.role).toBe("admin");
+  });
+
+  it("sends modern Supabase secret keys via apikey only, not as a Bearer JWT", async () => {
+    const { handler, createClient } = fixture({ serviceKey: "sb_secret_example", serviceKeyEnv: "SUPABASE_SECRET_KEY" });
+    const res = fakeResponse();
+    await handler(request({ action: "create", full_name: "New Admin", email: "new@example.com", password: "secret1" }), res);
+    expect(res.statusCode).toBe(201);
+
+    const serviceOptions = createClient.mock.calls[1][2];
+    expect(serviceOptions.global.fetch).toBeTypeOf("function");
+    const upstreamFetch = vi.fn(async (_input: any, _init: any) => new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", upstreamFetch);
+    await serviceOptions.global.fetch("https://example.supabase.co/auth/v1/admin/users", {
+      method: "POST",
+      headers: { apikey: "sb_secret_example", Authorization: "Bearer sb_secret_example" },
+    });
+
+    const forwardedHeaders = new Headers(upstreamFetch.mock.calls[0][1].headers);
+    expect(forwardedHeaders.get("apikey")).toBe("sb_secret_example");
+    expect(forwardedHeaders.get("Authorization")).toBeNull();
   });
 
   it("reports a profile lookup failure without attempting privileged account changes", async () => {

@@ -338,7 +338,7 @@ Copy `env.example` → `.env` for local dev; add the same variables in
 
 | Variable | Required | Description |
 |---|---|---|
-| `SUPABASE_SERVICE_ROLE_KEY` | For admin account management | Server-only Supabase service-role secret used by `/api/admin-create-user`; never prefix with `VITE_` |
+| `SUPABASE_SECRET_KEY` or `SUPABASE_SERVICE_ROLE_KEY` | For admin account management | Server-only Supabase secret key (`sb_secret_...`, recommended) or legacy service-role JWT used by `/api/admin-create-user`; never prefix either with `VITE_` |
 | `ZAI_API_KEY` | For AI features | Z.AI API key (free flash models) — powers `/api/ai-chat` |
 | `ZAI_MODEL` | Optional | Override model. Default `glm-4.5-flash`; `glm-4.7-flash` also free |
 | `ZAI_API_URL` | Optional | API URL override — **ignored unless it starts with `https://api.z.ai/`** |
