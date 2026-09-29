@@ -9,7 +9,7 @@
 // (api.dictionaryapi.dev, api.datamuse.com, api.wordnik.com). On the deployed
 // site this broke permanently. Verified against production on 2026-08-31:
 //
-//   GET https://gmstajmuhammad.vercel.app/api/word-of-day  →  HTTP 502
+//   GET https://gmstajmuhamad.vercel.app/api/word-of-day  →  HTTP 502
 //   {"ok":false,"detail":["Dictionary timed out after 8000ms",
 //                         "No Datamuse candidate resolved"]}
 //

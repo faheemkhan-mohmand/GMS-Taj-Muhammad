@@ -4,7 +4,7 @@
  *
  * Uses jspdf (already in deps) for PDF generation + qrcode (already in deps)
  * for QR encoding. The QR contains a verification URL like:
- *   https://gmstajmuhammad.vercel.app/admission/verify?ref=OHS-2026-0001
+ *   https://gmstajmuhamad.vercel.app/admission/verify?ref=OHS-2026-0001
  *
  * The card includes:
  *  - School logo + name header
@@ -42,7 +42,7 @@ interface Admission {
   created_at: string;
 }
 
-const SITE_URL = "https://gmstajmuhammad.vercel.app";
+const SITE_URL = "https://gmstajmuhamad.vercel.app";
 const SCHOOL_NAME = "GMS Taj Muhammad";
 const SCHOOL_SUB = "Government Middle School, District Mohmand, KPK";
 const LOGO_PATH = "/icon-512.png"; // the school's real logo, served from /public
@@ -215,7 +215,7 @@ export default function AdmitCard({ admission }: { admission: Admission }) {
         "2. Carry original B-Form, previous result card, and 2 passport-size photos.",
         "3. Reach at least 15 minutes before your scheduled time.",
         "4. This card is non-transferable. Tampering will result in disqualification.",
-        "5. For queries, call 0346-9898295 or visit gmstajmuhammad.vercel.app",
+        "5. For queries, call 0346-9898295 or visit gmstajmuhamad.vercel.app",
       ];
       y += 4;
       instructions.forEach(line => {

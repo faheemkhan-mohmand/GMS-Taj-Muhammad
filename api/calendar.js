@@ -12,7 +12,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-const SITE_URL  = "https://gmstajmuhammad.vercel.app";
+const SITE_URL  = "https://gmstajmuhamad.vercel.app";
 const SITE_NAME = "GMS Taj Muhammad";
 const CAL_NAME  = "GMS Taj Muhammad — School Calendar";
 const CAL_DESC  = "Exams, holidays, PTMs, sports days, results & fee due dates — Government Middle School Taj Muhammad, District Mohmand, KPK.";
@@ -125,7 +125,7 @@ export default async function handler(req, res) {
 
     lines.push(
       "BEGIN:VEVENT",
-      `UID:${e.id}@gmstajmuhammad.vercel.app`,
+      `UID:${e.id}@gmstajmuhamad.vercel.app`,
       `DTSTAMP:${now}`,
       `DTSTART;VALUE=DATE:${startICS}`,
       `DTEND;VALUE=DATE:${endICS}`,

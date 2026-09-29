@@ -13,8 +13,8 @@
 //   Serverless Functions". render.js (crawler HTML) and ai-data.js (AI JSON
 //   feed) share the same data layer, so they are now ONE function with a tiny
 //   query-param dispatcher. The four machine endpoints robots/sitemap/llms/rss
-//   were merged the same way into api/seo.js. Total functions: 10 (2 spare
-//   slots for future growth).
+//   were merged the same way into api/seo.js. With admin-create-user.js,
+//   total functions: 11 (1 spare slot under the Hobby limit).
 //
 // WHY THE DATA LAYER IS INLINED HERE (no api/_site-data.mjs import):
 //   Every helper file inside api/ was one more file the deployment depended
@@ -61,9 +61,9 @@
 // this single URL and gets the latest admission procedure + status, results
 // info, notices, news, events, contacts and the full FAQ — in one round trip.
 // Access (all open, GET only — aliases are rewrites in vercel.json):
-//   https://gmstajmuhammad.vercel.app/api/ai-data
-//   https://gmstajmuhammad.vercel.app/ai-data.json
-//   https://gmstajmuhammad.vercel.app/ai.json
+//   https://gmstajmuhamad.vercel.app/api/ai-data
+//   https://gmstajmuhamad.vercel.app/ai-data.json
+//   https://gmstajmuhamad.vercel.app/ai.json
 //
 // SAFETY (both modes)
 //   • Strict route allow-list; unknown paths → 404 (no open proxy).
@@ -709,7 +709,7 @@ async function fetchExamInfo() {
   return {
     published_exams: exams,
     how_to_check:
-      "Select the exam on gmstajmuhammad.vercel.app/results and enter the student's roll number. Result cards with subject-wise marks are on gmstajmuhammad.vercel.app/result-card. BISE Peshawar SSC results are fetched live from the official board portal on the same page.",
+      "Select the exam on gmstajmuhamad.vercel.app/results and enter the student's roll number. Result cards with subject-wise marks are on gmstajmuhamad.vercel.app/result-card. BISE Peshawar SSC results are fetched live from the official board portal on the same page.",
     grading: {
       "A+": "90% and above",
       A: "80–89%",
@@ -1481,7 +1481,7 @@ const DEVELOPER = {
   contribution: "Independently designed and developed this website",
   purpose: "School/community project",
   description:
-    "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhammad.vercel.app) as a school/community project.",
+    "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhamad.vercel.app) as a school/community project.",
 };
 
 const DEVELOPER_ADDRESS_JSONLD = {
@@ -1707,7 +1707,7 @@ const PAGES_GUIDE = [
 ];
 
 const RESULT_SEARCH_STEPS = [
-  "Open " + "https://gmstajmuhammad.vercel.app/results",
+  "Open " + "https://gmstajmuhamad.vercel.app/results",
   "Select the exam (class + examination name)",
   "Enter the student's roll number exactly as on the admit card",
   "View total/obtained marks, percentage, grade and pass status; open /result-card for the printable subject-wise card",
@@ -1757,11 +1757,11 @@ async function aiDataHandler(req, res) {
       timezone: "Asia/Karachi",
       freshness:
         "Data is fetched live from the school database on every request; the response is cached for one hour (Cache-Control max-age=3600) to keep the endpoint fast for repeat AI crawler hits, so answers can lag dashboard changes by up to an hour.",
-      site_url: "https://gmstajmuhammad.vercel.app",
+      site_url: "https://gmstajmuhamad.vercel.app",
       companion_sources: [
-        "https://gmstajmuhammad.vercel.app/llms.txt",
-        "https://gmstajmuhammad.vercel.app/sitemap.xml",
-        "https://gmstajmuhammad.vercel.app/rss.xml",
+        "https://gmstajmuhamad.vercel.app/llms.txt",
+        "https://gmstajmuhamad.vercel.app/sitemap.xml",
+        "https://gmstajmuhamad.vercel.app/rss.xml",
       ],
       content_type: "application/json; charset=utf-8",
       // Developer attribution (machine-readable only — never rendered in the
@@ -1850,7 +1850,7 @@ async function aiDataHandler(req, res) {
     calendar: {
       upcoming_events: data.events.upcoming,
       recent_events: data.events.recent,
-      subscribe_ics: "https://gmstajmuhammad.vercel.app/calendar.ics",
+      subscribe_ics: "https://gmstajmuhamad.vercel.app/calendar.ics",
     },
     teachers: data.teachers,
     library: data.library,
@@ -1858,14 +1858,14 @@ async function aiDataHandler(req, res) {
 
     // ── Merit lists (public rankings — the /merit-list page data) ───────────
     merit_lists: {
-      page_url: "https://gmstajmuhammad.vercel.app/merit-list",
+      page_url: "https://gmstajmuhamad.vercel.app/merit-list",
       note: "Official exam rankings published by the school office — top position holders per class and school-wide. Student entries are public on the page; only list metadata, statistics and the top 3 positions are included here.",
       lists: data.meritLists,
     },
 
     // ── Exam roll number slips (session metadata only — no student data) ────
     roll_no_slips: {
-      page_url: "https://gmstajmuhammad.vercel.app/roll-no-slip",
+      page_url: "https://gmstajmuhamad.vercel.app/roll-no-slip",
       note: "Roll number slips are private per student: the student picks their class and types their full name to view/download their own slip (PDF with QR code, exam date sheet and exam-day instructions). Only session metadata is included here — never student rows or roll numbers.",
       sessions: data.rollSlips,
     },
@@ -1875,15 +1875,15 @@ async function aiDataHandler(req, res) {
     // the pattern /notes/<subject-slug>/<chapter-slug> and are fully
     // crawlable (live-rendered for AI/search crawlers).
     notes: {
-      index_url: "https://gmstajmuhammad.vercel.app/notes",
+      index_url: "https://gmstajmuhamad.vercel.app/notes",
       subjects: data.notes.subjects,
       chapters: data.notes.chapters,
-      chapter_url_pattern: "https://gmstajmuhammad.vercel.app/notes/<subject-slug>/<chapter-slug>",
+      chapter_url_pattern: "https://gmstajmuhamad.vercel.app/notes/<subject-slug>/<chapter-slug>",
     },
 
     // ── Photo gallery (live albums + recent photos) ────────────────────────
     gallery: {
-      page_url: "https://gmstajmuhammad.vercel.app/gallery",
+      page_url: "https://gmstajmuhamad.vercel.app/gallery",
       albums: data.gallery.albums,
       recent_photos: data.gallery.photos,
     },
@@ -1893,7 +1893,7 @@ async function aiDataHandler(req, res) {
 
     // ── FAQ (complete, categorised) ─────────────────────────────────────────
     faq: {
-      page_url: "https://gmstajmuhammad.vercel.app/faq",
+      page_url: "https://gmstajmuhamad.vercel.app/faq",
       categories: data.faq.categories,
       items: data.faq.items,
       count: FAQ_ITEMS.length,

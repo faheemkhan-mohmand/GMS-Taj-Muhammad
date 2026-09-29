@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-export const SITE_URL  = "https://gmstajmuhammad.vercel.app";
+export const SITE_URL  = "https://gmstajmuhamad.vercel.app";
 export const SITE_NAME = "GMS Taj Muhammad";
 
 // ✅ OG image: actual file is 1730×909 px (public/og-image.jpg)

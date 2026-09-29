@@ -533,7 +533,7 @@ function drawFooter(ctx: Ctx, linkPath = "/results") {
   ctx.fillStyle = g;
   ctx.fillRect(M, y, W - 2 * M, FOOTER_H);
 
-  const linkText = `gmstajmuhammad.vercel.app${linkPath}`;
+  const linkText = `gmstajmuhamad.vercel.app${linkPath}`;
   ctx.textBaseline = "middle";
   ctx.textAlign = "left";
   setFont(ctx, 22, 600);

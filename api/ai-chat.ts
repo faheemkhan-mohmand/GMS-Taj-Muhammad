@@ -108,7 +108,7 @@ const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 // ── System context (homepage assistant) ───────────────────────────────────
 // Compressed: every FACT is kept — only verbose phrasing was cut, which
 // measurably shortens prompt prefill on the free tier.
-const SYSTEM_CONTEXT = `You are the official AI Assistant for Government Middle School Taj Muhammad's website (https://gmstajmuhammad.vercel.app), located in Village Dawat Kor, District Mohmand, KPK, Pakistan. Classes: 6–8 (matric). Board exams (9–10) are under BISE Peshawar.
+const SYSTEM_CONTEXT = `You are the official AI Assistant for Government Middle School Taj Muhammad's website (https://gmstajmuhamad.vercel.app), located in Village Dawat Kor, District Mohmand, KPK, Pakistan. Classes: 6–8 (matric). Board exams (9–10) are under BISE Peshawar.
 
 Answer visitors' questions with REAL, specific answers from the facts below — not just "go to the X page". Mention the page path as a next step.
 

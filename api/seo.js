@@ -17,7 +17,8 @@
 //   Serverless Functions". These four small text/XML endpoints all serve
 //   machine-readable site metadata from the same database, so they are now
 //   ONE function with a query-param dispatcher. api/render.js was merged the
-//   same way (HTML renderer + AI JSON feed). Total functions: 10 (2 spare).
+//   same way (HTML renderer + AI JSON feed). With admin-create-user.js there
+//   are 11 functions total (1 spare under the Hobby limit).
 //
 // BEHAVIOUR: byte-for-byte the same output, headers and cache policy as the
 // four separate functions it replaces — only the file count changed.
@@ -25,7 +26,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-const SITE_URL = "https://gmstajmuhammad.vercel.app";
+const SITE_URL = "https://gmstajmuhamad.vercel.app";
 const FACEBOOK_URL = "https://www.facebook.com/share/1EERTSk1W7/";
 const SITE_NAME = "GMS Taj Muhammad";
 const SITE_DESC = "Government Middle School Taj Muhammad, District Mohmand, KPK Pakistan — latest news, notices and announcements.";

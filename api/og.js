@@ -15,7 +15,7 @@ import { createClient } from "@supabase/supabase-js";
 //
 // Access at: /api/og?path=/some/route  (middleware.ts sets this query param)
 
-const SITE_URL = "https://gmstajmuhammad.vercel.app";
+const SITE_URL = "https://gmstajmuhamad.vercel.app";
 const SITE_NAME = "GMS Taj Muhammad";
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 const DEFAULT_IMAGE_WIDTH = "1730";

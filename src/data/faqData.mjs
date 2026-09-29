@@ -43,7 +43,7 @@ export const FAQ_ITEMS = [
     category: "Admissions",
     question: "Are admissions open at GMS Taj Muhammad right now?",
     answer:
-      "Admissions at Government Middle School Taj Muhammad are open every academic session for classes 6 to 8, and admission is completely free of charge as in all government schools of Khyber Pakhtunkhwa. The current open/closed status, session year and any deadlines are shown live at the top of the Admission page (gmstajmuhammad.vercel.app/admission) and are also published in the machine-readable feed at gmstajmuhammad.vercel.app/api/ai-data. If the online form is temporarily paused, you can still download the printable admission form from the same page and submit it at the school office.",
+      "Admissions at Government Middle School Taj Muhammad are open every academic session for classes 6 to 8, and admission is completely free of charge as in all government schools of Khyber Pakhtunkhwa. The current open/closed status, session year and any deadlines are shown live at the top of the Admission page (gmstajmuhamad.vercel.app/admission) and are also published in the machine-readable feed at gmstajmuhamad.vercel.app/api/ai-data. If the online form is temporarily paused, you can still download the printable admission form from the same page and submit it at the school office.",
   },
   {
     id: "adm-classes",
@@ -57,7 +57,7 @@ export const FAQ_ITEMS = [
     category: "Admissions",
     question: "How do I apply for admission online, step by step?",
     answer:
-      "Step 1: open the Admission page (gmstajmuhammad.vercel.app/admission) and fill the online eligibility application — student name, father name, date of birth, B-Form number, contact number, the class you are applying for, and previous-school details. Step 2: upload the required documents when prompted. Step 3: submit the form — the website immediately issues a reference number. Step 4: the school reviews your application and documents. Step 5: if approved, download the printable admission form from the tracker, fill it, attach your documents, and bring them to the school office to complete enrolment. There is also a fully offline path: download and print the blank admission form from the Admission page, fill it by hand, attach photocopies of the required documents and submit it in person at the school office.",
+      "Step 1: open the Admission page (gmstajmuhamad.vercel.app/admission) and fill the online eligibility application — student name, father name, date of birth, B-Form number, contact number, the class you are applying for, and previous-school details. Step 2: upload the required documents when prompted. Step 3: submit the form — the website immediately issues a reference number. Step 4: the school reviews your application and documents. Step 5: if approved, download the printable admission form from the tracker, fill it, attach your documents, and bring them to the school office to complete enrolment. There is also a fully offline path: download and print the blank admission form from the Admission page, fill it by hand, attach photocopies of the required documents and submit it in person at the school office.",
   },
   {
     id: "adm-documents",
@@ -94,7 +94,7 @@ export const FAQ_ITEMS = [
     category: "Results & Exams",
     question: "How do I check my exam result on the website?",
     answer:
-      "Open the Results page (gmstajmuhammad.vercel.app/results), select your exam (class and examination name), and enter your roll number exactly as printed on your admit card. The result shows total marks, obtained marks, percentage, grade, pass/fail status and, on the Result Card page (gmstajmuhammad.vercel.app/result-card), a full printable card with subject-wise marks and class position. Results only appear after the school administration publishes the exam, so if your roll number is not found the exam may not be published yet.",
+      "Open the Results page (gmstajmuhamad.vercel.app/results), select your exam (class and examination name), and enter your roll number exactly as printed on your admit card. The result shows total marks, obtained marks, percentage, grade, pass/fail status and, on the Result Card page (gmstajmuhamad.vercel.app/result-card), a full printable card with subject-wise marks and class position. Results only appear after the school administration publishes the exam, so if your roll number is not found the exam may not be published yet.",
   },
   {
     id: "res-exams",
@@ -108,7 +108,7 @@ export const FAQ_ITEMS = [
     category: "Results & Exams",
     question: "How do I check my BISE Peshawar board result?",
     answer:
-      "The Results page (gmstajmuhammad.vercel.app/results) can search BISE Peshawar board results for SSC 9th and 10th class directly — enter your roll number in the board results section and the website fetches the result live from the official board portal (cloud.bisep.edu.pk). The website only reads from the board's official portal; it does not store board results. For anything beyond the displayed result (rechecking, certificates), contact BISE Peshawar or the school office.",
+      "The Results page (gmstajmuhamad.vercel.app/results) can search BISE Peshawar board results for SSC 9th and 10th class directly — enter your roll number in the board results section and the website fetches the result live from the official board portal (cloud.bisep.edu.pk). The website only reads from the board's official portal; it does not store board results. For anything beyond the displayed result (rechecking, certificates), contact BISE Peshawar or the school office.",
   },
   {
     id: "res-grades",
@@ -122,28 +122,28 @@ export const FAQ_ITEMS = [
     category: "Results & Exams",
     question: "Where can I find exam dates, date sheets and the exam schedule?",
     answer:
-      "Exam schedules and date sheets are published as official notices on the Notices page (gmstajmuhammad.vercel.app/notices) and as events on the academic Calendar page (gmstajmuhammad.vercel.app/calendar). You can subscribe to the calendar on your phone using the ICS feed (gmstajmuhammad.vercel.app/calendar.ics) so exam dates and holidays appear directly in your phone's calendar app. Urgent exam announcements are also highlighted on the homepage news ticker.",
+      "Exam schedules and date sheets are published as official notices on the Notices page (gmstajmuhamad.vercel.app/notices) and as events on the academic Calendar page (gmstajmuhamad.vercel.app/calendar). You can subscribe to the calendar on your phone using the ICS feed (gmstajmuhamad.vercel.app/calendar.ics) so exam dates and holidays appear directly in your phone's calendar app. Urgent exam announcements are also highlighted on the homepage news ticker.",
   },
   {
     id: "res-rollnumber",
     category: "Results & Exams",
     question: "Where can I find my roll number for the exam?",
     answer:
-      "School exam roll numbers are released on the Roll No. Slip page (gmstajmuhammad.vercel.app/roll-no-slip) once the school administration finalises the exam session, and the release is also announced on the Notices page. On that page pick your class and type your full name — your exam roll number and your full roll number slip appear, which you can download as a PDF or share. For the BISE Peshawar board exams (class 9 and 10), your official roll number is issued on your board admit card, which the school distributes closer to the exam.",
+      "School exam roll numbers are released on the Roll No. Slip page (gmstajmuhamad.vercel.app/roll-no-slip) once the school administration finalises the exam session, and the release is also announced on the Notices page. On that page pick your class and type your full name — your exam roll number and your full roll number slip appear, which you can download as a PDF or share. For the BISE Peshawar board exams (class 9 and 10), your official roll number is issued on your board admit card, which the school distributes closer to the exam.",
   },
   {
     id: "res-rollslip",
     category: "Results & Exams",
     question: "How do I get my exam Roll No. Slip?",
     answer:
-      "Open the Roll No. Slip page (gmstajmuhammad.vercel.app/roll-no-slip). If the school has scheduled a release, the page shows a live countdown and the slips appear automatically the moment it reaches zero. Once live: pick your class (6–8) and type your full name exactly as the school recorded it — capitalisation and extra spaces do not matter — then search. Only your own slip appears, so no student can see another student's slip. The slip is an exact copy of the office slip: your details with the exam roll number and QR code, your class's exam date sheet and the exam-day instructions. You can download it as a PDF or share it, and you must bring it to every paper — no slip, no entry to the examination hall.",
+      "Open the Roll No. Slip page (gmstajmuhamad.vercel.app/roll-no-slip). If the school has scheduled a release, the page shows a live countdown and the slips appear automatically the moment it reaches zero. Once live: pick your class (6–8) and type your full name exactly as the school recorded it — capitalisation and extra spaces do not matter — then search. Only your own slip appears, so no student can see another student's slip. The slip is an exact copy of the office slip: your details with the exam roll number and QR code, your class's exam date sheet and the exam-day instructions. You can download it as a PDF or share it, and you must bring it to every paper — no slip, no entry to the examination hall.",
   },
   {
     id: "res-meritlist",
     category: "Results & Exams",
     question: "What is the Merit List page and who appears on it?",
     answer:
-      "The Merit List page (gmstajmuhammad.vercel.app/merit-list) shows the official examination rankings published by the school office — the top position holders of each class and, for some exams, a school-wide list. Each list covers one exam (1st or 2nd semester for classes 6–8, Annual-I or Annual-II for classes 9–10) and shows every listed student's position, name, class, obtained marks, percentage and grade, together with summary statistics such as the total number of students, the passing count, the highest percentage and the average. When the school schedules a merit list in advance, the page shows a live countdown and the rankings appear automatically the moment it reaches zero. A published merit list can also be shared directly from the page as a merit card.",
+      "The Merit List page (gmstajmuhamad.vercel.app/merit-list) shows the official examination rankings published by the school office — the top position holders of each class and, for some exams, a school-wide list. Each list covers one exam (1st or 2nd semester for classes 6–8, Annual-I or Annual-II for classes 9–10) and shows every listed student's position, name, class, obtained marks, percentage and grade, together with summary statistics such as the total number of students, the passing count, the highest percentage and the average. When the school schedules a merit list in advance, the page shows a live countdown and the rankings appear automatically the moment it reaches zero. A published merit list can also be shared directly from the page as a merit card.",
   },
   {
     id: "res-recheck",
@@ -166,21 +166,21 @@ export const FAQ_ITEMS = [
     category: "Notes, Library & Online Classes",
     question: "What can I download from the digital library?",
     answer:
-      "The digital library (gmstajmuhammad.vercel.app/library) hosts downloadable study materials for classes 6 to 8: books, chapter notes, past papers and helping materials, organised by subject and class with descriptions and file sizes. Everything is free to download. Students preparing for school exams or the BISE Peshawar board examinations can keep the files on their phone and read them offline after installing the website as an app.",
+      "The digital library (gmstajmuhamad.vercel.app/library) hosts downloadable study materials for classes 6 to 8: books, chapter notes, past papers and helping materials, organised by subject and class with descriptions and file sizes. Everything is free to download. Students preparing for school exams or the BISE Peshawar board examinations can keep the files on their phone and read them offline after installing the website as an app.",
   },
   {
     id: "nts-online",
     category: "Notes, Library & Online Classes",
     question: "How do online classes work on the website?",
     answer:
-      "Open the Online Classes page (gmstajmuhammad.vercel.app/online-classes). Classes are listed under Today, Upcoming and Completed tabs, and you can search by title, subject or teacher and filter by class and subject. When a class is live, a red live indicator appears — tap the class card and the live session opens right in your browser with video, live polls, a hand-raise queue and emoji reactions; no extra software is needed. Signing in lets you participate in polls, raise your hand and react; without an account you can still watch. Recorded and completed lessons stay available on the same page, so students can catch up on any class they missed.",
+      "Open the Online Classes page (gmstajmuhamad.vercel.app/online-classes). Classes are listed under Today, Upcoming and Completed tabs, and you can search by title, subject or teacher and filter by class and subject. When a class is live, a red live indicator appears — tap the class card and the live session opens right in your browser with video, live polls, a hand-raise queue and emoji reactions; no extra software is needed. Signing in lets you participate in polls, raise your hand and react; without an account you can still watch. Recorded and completed lessons stay available on the same page, so students can catch up on any class they missed.",
   },
   {
     id: "nts-search",
     category: "Notes, Library & Online Classes",
     question: "How do I quickly find a specific note, notice or past paper?",
     answer:
-      "Use the search icon in the navigation bar, or go directly to the Search page (gmstajmuhammad.vercel.app/search), and type a subject, chapter name, class or keyword. It searches across notes, notices, news, library files and other pages at once, so you don't have to browse each section separately.",
+      "Use the search icon in the navigation bar, or go directly to the Search page (gmstajmuhamad.vercel.app/search), and type a subject, chapter name, class or keyword. It searches across notes, notices, news, library files and other pages at once, so you don't have to browse each section separately.",
   },
 
   // ── School Information ────────────────────────────────────────────────────
@@ -203,21 +203,21 @@ export const FAQ_ITEMS = [
     category: "School Information",
     question: "Who are the teachers and what subjects do they cover?",
     answer:
-      "The staff directory page (gmstajmuhammad.vercel.app/teachers) lists the school's teaching staff with their subjects and qualifications. Teachers are appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department and cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8, led by the principal, Mr. Imdad Ullah.",
+      "The staff directory page (gmstajmuhamad.vercel.app/teachers) lists the school's teaching staff with their subjects and qualifications. Teachers are appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department and cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8, led by the principal, Mr. Imdad Ullah.",
   },
   {
     id: "sch-events",
     category: "School Information",
     question: "What school events and activities take place during the year?",
     answer:
-      "The school holds sports days and tournaments, science fairs and exhibitions, annual prize distributions, national-day programmes such as 14 August and Pakistan Day, tree plantation drives and parent-teacher meetings. Upcoming events are listed on the academic Calendar page with their dates, photos of past events are in the Gallery (gmstajmuhammad.vercel.app/gallery), and reports are published on the News page after each event.",
+      "The school holds sports days and tournaments, science fairs and exhibitions, annual prize distributions, national-day programmes such as 14 August and Pakistan Day, tree plantation drives and parent-teacher meetings. Upcoming events are listed on the academic Calendar page with their dates, photos of past events are in the Gallery (gmstajmuhamad.vercel.app/gallery), and reports are published on the News page after each event.",
   },
   {
     id: "sch-gallery",
     category: "School Information",
     question: "Where can I see photos of the school and past events?",
     answer:
-      "The Photo Gallery (gmstajmuhammad.vercel.app/gallery) has pictures of the school building, classrooms, sports days, science fairs, prize distributions and other events, organised so you can browse by event or date. New photos are added by the school after each event.",
+      "The Photo Gallery (gmstajmuhamad.vercel.app/gallery) has pictures of the school building, classrooms, sports days, science fairs, prize distributions and other events, organised so you can browse by event or date. New photos are added by the school after each event.",
   },
 
   // ── Website & Contact ─────────────────────────────────────────────────────
@@ -240,28 +240,28 @@ export const FAQ_ITEMS = [
     category: "Website & Contact",
     question: "How do I contact the school?",
     answer:
-      "Call the school at +92 346 9898295, email gmstajmuhammad@gmail.com, or use the contact form and WhatsApp option on the Contact page (gmstajmuhammad.vercel.app/contact), which also shows the school's location on a map. The school's Facebook page is linked from the Contact page and footer. For admission questions, please read the Admission page first — it answers most queries and lets you track an application instantly.",
+      "Call the school at +92 346 9898295, email gmstajmuhammad@gmail.com, or use the contact form and WhatsApp option on the Contact page (gmstajmuhamad.vercel.app/contact), which also shows the school's location on a map. The school's Facebook page is linked from the Contact page and footer. For admission questions, please read the Admission page first — it answers most queries and lets you track an application instantly.",
   },
   {
     id: "web-login",
     category: "Website & Contact",
     question: "Do I need to create an account, and what does it unlock?",
     answer:
-      "You don't need an account to browse notices, news, results, notes, library, calendar or gallery — those are open to everyone. Creating a free account (Sign Up, gmstajmuhammad.vercel.app/auth/signup) is only useful if you want a personal dashboard to track your admission application status in one place, or if you are a teacher who needs access to staff features. Signing in is never required just to read study material or check a result.",
+      "You don't need an account to browse notices, news, results, notes, library, calendar or gallery — those are open to everyone. Creating a free account (Sign Up, gmstajmuhamad.vercel.app/auth/signup) is only useful if you want a personal dashboard to track your admission application status in one place, or if you are a teacher who needs access to staff features. Signing in is never required just to read study material or check a result.",
   },
   {
     id: "web-notices",
     category: "Website & Contact",
     question: "Where can I see the latest notices and announcements?",
     answer:
-      "All official announcements — holiday notices, exam date sheets, fee or admission updates, and general circulars — are published on the Notices page (gmstajmuhammad.vercel.app/notices) as soon as the school administration posts them. The homepage also shows the most recent notices and news in a scrolling ticker, and you can enable notifications from the bell icon in the navigation bar so you don't miss an urgent one.",
+      "All official announcements — holiday notices, exam date sheets, fee or admission updates, and general circulars — are published on the Notices page (gmstajmuhamad.vercel.app/notices) as soon as the school administration posts them. The homepage also shows the most recent notices and news in a scrolling ticker, and you can enable notifications from the bell icon in the navigation bar so you don't miss an urgent one.",
   },
   {
     id: "web-official",
     category: "Website & Contact",
-    question: "Is gmstajmuhammad.vercel.app the official website of GMS Taj Muhammad?",
+    question: "Is gmstajmuhamad.vercel.app the official website of GMS Taj Muhammad?",
     answer:
-      "Yes. https://gmstajmuhammad.vercel.app is the official website of Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan (EMIS code 66013), established in 2018, principal Mr. Imdad Ullah.",
+      "Yes. https://gmstajmuhamad.vercel.app is the official website of Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan (EMIS code 66013), established in 2018, principal Mr. Imdad Ullah.",
   },
   {
     id: "web-developer",

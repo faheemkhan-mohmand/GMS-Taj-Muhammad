@@ -49,7 +49,7 @@ function toICalDate(dateStr: string, timeStr: string | null): string {
 
 /** Create a stable UID for each event (avoids duplicate imports on re-download) */
 function makeUID(entry: ICSExamEntry, schoolSlug: string): string {
-  return `gms-${schoolSlug}-exam-${entry.id}@gmstajmuhammad.vercel.app`;
+  return `gms-${schoolSlug}-exam-${entry.id}@gmstajmuhamad.vercel.app`;
 }
 
 /** Current UTC timestamp in iCal format */
@@ -106,7 +106,7 @@ export function generateExamICS(
       entry.hall        ? `Hall: ${entry.hall}`             : "",
       entry.notes       ? `Notes: ${entry.notes}`           : "",
       "",
-      `GMS Taj Muhammad — gmstajmuhammad.vercel.app`,
+      `GMS Taj Muhammad — gmstajmuhamad.vercel.app`,
     ];
 
     const description = esc(descParts.filter(Boolean).join("\n"));

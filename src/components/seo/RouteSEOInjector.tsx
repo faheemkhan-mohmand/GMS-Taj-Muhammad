@@ -36,7 +36,7 @@ const admissionFAQSchema = {
       name: "Are admissions open at GMS Taj Muhammad right now?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes — admissions at Government Middle School Taj Muhammad are open every academic session. The online admission application form is available at https://gmstajmuhammad.vercel.app/admission for Class 6 to Class 8. Apply directly from your phone or computer.",
+        text: "Yes — admissions at Government Middle School Taj Muhammad are open every academic session. The online admission application form is available at https://gmstajmuhamad.vercel.app/admission for Class 6 to Class 8. Apply directly from your phone or computer.",
       },
     },
     {
@@ -76,7 +76,7 @@ const admissionFAQSchema = {
       name: "Is there an online application form available?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes, GMS Taj Muhammad provides an online admission application form available at https://gmstajmuhammad.vercel.app/admission. You can apply directly from your phone or computer.",
+        text: "Yes, GMS Taj Muhammad provides an online admission application form available at https://gmstajmuhamad.vercel.app/admission. You can apply directly from your phone or computer.",
       },
     },
     {

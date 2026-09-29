@@ -504,7 +504,7 @@ export default async function middleware(request: Request) {
           "Retry-After": String(rateLimitResult.retryAfter || 60),
           "X-RateLimit-Limit": String(RATE_LIMITS[limitType].maxRequests),
           "X-RateLimit-Remaining": "0",
-          "Access-Control-Allow-Origin": "https://gmstajmuhammad.vercel.app",
+          "Access-Control-Allow-Origin": "https://gmstajmuhamad.vercel.app",
         },
       }
     );

@@ -11,7 +11,7 @@
 [![Supabase](https://img.shields.io/badge/Supabase-Backend-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com)
 [![Vercel](https://img.shields.io/badge/Vercel-Hosting-000000?logo=vercel&logoColor=white)](https://vercel.com)
 
-**🌐 Live site: [gmstajmuhammad.vercel.app](https://gmstajmuhammad.vercel.app)**
+**🌐 Live site: [gmstajmuhamad.vercel.app](https://gmstajmuhamad.vercel.app)**
 
 A modern, offline-capable, SEO-hardened school platform — public website, student & admin dashboards,
 AI study tools, a full exam-management suite, admissions, fees and an online notes platform —
@@ -186,8 +186,8 @@ The admin suite at `/admin` (role-gated) covers the entire school operation:
                         └──────┬───────────────────────┬───────────────┘
                                │                       │
              ┌─────────────────▼─────┐   ┌─────────────▼──────────────────┐
-             │  React SPA (Vite)     │   │  10 Serverless Functions       │
-             │ • 25+ lazy routes     │   │  ai-chat · render · seo · og   │
+             │  React SPA (Vite)     │   │  11 Serverless Functions       │
+             │ • 25+ lazy routes     │   │  admin-create-user · ai-chat   │
              │ • React Query cache   │   │  bisep-proxy · phet · calendar │
              │ • IndexedDB offline   │   │  word-of-day · resolve-fb      │
              │ • Service Worker      │   │  auto-publish-results          │
@@ -203,10 +203,10 @@ The admin suite at `/admin` (role-gated) covers the entire school operation:
 
 **Key design decisions**
 
-1. **One SPA + 10 serverless functions.** Vercel's *Hobby plan caps deployments at 12 serverless
+1. **One SPA + 11 serverless functions.** Vercel's *Hobby plan caps deployments at 12 serverless
    functions*, so related endpoints are deliberately consolidated (e.g. `/api/seo` serves robots,
    sitemap, llms.txt and RSS via a `?kind=` parameter; `/api/render` serves both live crawler HTML
-   and the AI JSON feed). Keep this limit in mind before adding files to `api/`.
+   and the AI JSON feed). One function slot remains; keep this limit in mind before adding files to `api/`.
 2. **Crawlers get live HTML, humans get the SPA.** The Edge middleware detects search/AI crawlers
    and proxies them to `/api/render`, which builds a complete semantic HTML page from the **live
    database** (fresh content between deploys). If the renderer is slow or down, the request
@@ -247,7 +247,8 @@ The admin suite at `/admin` (role-gated) covers the entire school operation:
 
 ```text
 GMS-Taj-Muhammad-main/
-├── api/                        # Vercel serverless functions (10 — Hobby limit is 12!)
+├── api/                        # Vercel serverless functions (11 — Hobby limit is 12!)
+│   ├── admin-create-user.js    # Admin-only account creation/deletion + profile persistence
 │   ├── ai-chat.ts              # Z.AI GLM proxy — SSE streaming, model fallback
 │   ├── auto-publish-results.js # Scheduled publish: flips is_published when publish_at passes
 │   ├── bisep-proxy.js          # BISE Peshawar results (curl → Cloudflare bypass) + live title
@@ -329,7 +330,7 @@ Copy `env.example` → `.env` for local dev; add the same variables in
 | `VITE_SUPABASE_ANON_KEY` | ✅ | Supabase anonymous/public key (RLS protects data) |
 | `VITE_CLOUDINARY_CLOUD_NAME` | For uploads | Cloudinary cloud name (dashboard home) — pre-filled: `a1tq4kba` |
 | `VITE_CLOUDINARY_UPLOAD_PRESET` | For uploads | Cloudinary **unsigned** upload preset — pre-filled: `gms taj muhammad` (keep the quotes in a `.env` file; paste raw in Vercel) |
-| `VITE_PLAUSIBLE_DOMAIN` | Optional | Domain registered at plausible.io — pre-filled: `gmstajmuhammad.vercel.app` — leave **empty to disable analytics** |
+| `VITE_PLAUSIBLE_DOMAIN` | Optional | Domain registered at plausible.io — pre-filled: `gmstajmuhamad.vercel.app` — leave **empty to disable analytics** |
 | `VITE_PLAUSIBLE_SRC` | Optional | Custom script URL for **self-hosted** Plausible |
 | `VITE_BISEP_EXAM_TITLE` | Optional | Fallback board-exam title, used only if the live BISEP scraper fails |
 
@@ -337,6 +338,7 @@ Copy `env.example` → `.env` for local dev; add the same variables in
 
 | Variable | Required | Description |
 |---|---|---|
+| `SUPABASE_SERVICE_ROLE_KEY` | For admin account management | Server-only Supabase service-role secret used by `/api/admin-create-user`; never prefix with `VITE_` |
 | `ZAI_API_KEY` | For AI features | Z.AI API key (free flash models) — powers `/api/ai-chat` |
 | `ZAI_MODEL` | Optional | Override model. Default `glm-4.5-flash`; `glm-4.7-flash` also free |
 | `ZAI_API_URL` | Optional | API URL override — **ignored unless it starts with `https://api.z.ai/`** |
@@ -377,6 +379,7 @@ compression, per-feature folders). No public Supabase buckets are required for a
 
 | Endpoint | Purpose |
 |---|---|
+| `POST /api/admin-create-user` | Admin-only create/delete of admin Auth accounts; verifies the caller and persists the matching approved `profiles` row |
 | `POST /api/ai-chat` | AI assistant proxy (Z.AI GLM) — **SSE stream**, protocol: `{"token": "…"}` frames → `{"done": true}` |
 | `GET /api/render?path=/…` | Live database-rendered HTML page for AI/search crawlers |
 | `GET /api/render?feed=ai` | Complete **AI JSON feed** (also reachable at `/ai-data.json`, `/ai.json`, `/api/ai-data`) |
@@ -460,8 +463,9 @@ npm run test:watch   # Vitest — watch mode
 npm run lint         # ESLint (flat config, react-hooks + react-refresh rules)
 ```
 
-- **Vitest** is configured (`vitest.config.ts` + `vitest.standalone.config.mts`) with
-  Testing Library + jest-dom; e.g. `api/ai-chat.test.mts` covers the AI proxy protocol.
+- **Vitest** is configured in `vitest.config.ts` to discover frontend and API tests;
+  `api/ai-chat.test.mts` covers the AI proxy protocol and `api/admin-create-user.test.mts`
+  covers admin authorization, profile persistence, and rollback on failure.
 - **Playwright** (`@playwright/test`) is installed for end-to-end coverage — new e2e specs can
   be added and wired into CI as the project grows.
 
@@ -478,8 +482,8 @@ npm run lint         # ESLint (flat config, react-hooks + react-refresh rules)
 5. Deploy. The prerender pipeline runs automatically inside `vite build` (via the `closeBundle`
    hook) — no extra build step is needed, and it can never be silently skipped by CI.
 
-> ⚠️ **Mind the 12-function limit** on Vercel's Hobby plan. The project currently ships **10**
-> serverless functions — you have 2 slots left before you must consolidate or upgrade.
+> ⚠️ **Mind the 12-function limit** on Vercel's Hobby plan. The project currently ships **11**
+> serverless functions — one slot remains before you must consolidate or upgrade.
 
 ### First Admin Setup
 

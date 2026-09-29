@@ -3,14 +3,14 @@
 // Plausible Analytics integration for GMS Taj Muhammad.
 //
 // SETUP (one-time):
-//   1. Go to https://plausible.io → "Add a website" → enter gmstajmuhammad.vercel.app
-//   2. Copy your domain (e.g. "gmstajmuhammad.vercel.app") into VITE_PLAUSIBLE_DOMAIN
+//   1. Go to https://plausible.io → "Add a website" → enter gmstajmuhamad.vercel.app
+//   2. Copy your domain (e.g. "gmstajmuhamad.vercel.app") into VITE_PLAUSIBLE_DOMAIN
 //   3. If self-hosting Plausible, set VITE_PLAUSIBLE_SRC to your instance URL
 //      e.g. https://plausible.yourserver.com/js/script.js
 //      Leave blank to use the default Plausible cloud.
 //
 // ENV VARS (in .env / Vercel dashboard):
-//   VITE_PLAUSIBLE_DOMAIN=gmstajmuhammad.vercel.app
+//   VITE_PLAUSIBLE_DOMAIN=gmstajmuhamad.vercel.app
 //   VITE_PLAUSIBLE_SRC=          ← optional, leave blank for cloud
 //
 // USAGE:

@@ -28,7 +28,7 @@
 
 import { FAQ_ITEMS, FAQ_CATEGORIES } from "../src/data/faqData.mjs";
 
-export const SITE_URL = "https://gmstajmuhammad.vercel.app";
+export const SITE_URL = "https://gmstajmuhamad.vercel.app";
 export const SITE_NAME = "GMS Taj Muhammad";
 export const SITE_LONG_NAME = "Government Middle School Taj Muhammad, District Mohmand";
 
@@ -657,7 +657,7 @@ export function buildJsonLd(route) {
         alternateName: "Faheem",
         jobTitle: "Student & Website Developer",
         description:
-          "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhammad.vercel.app) as a school/community project.",
+          "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhamad.vercel.app) as a school/community project.",
         fatherName: "Zabih Ullah",
         parent: [
           {
