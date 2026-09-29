@@ -45,6 +45,19 @@ function createPrivilegedClient(createClient, supabaseUrl, serviceKey) {
   });
 }
 
+async function findAuthUserByEmail(adminClient, email) {
+  const perPage = 1000;
+  for (let page = 1; page <= 100; page += 1) {
+    const { data, error } = await adminClient.auth.admin.listUsers({ page, perPage });
+    if (error) return { user: null, error };
+    const users = data?.users ?? [];
+    const user = users.find((candidate) => candidate.email?.toLowerCase() === email);
+    if (user) return { user, error: null };
+    if (users.length < perPage) return { user: null, error: null };
+  }
+  return { user: null, error: new Error("Auth user lookup exceeded its page limit.") };
+}
+
 /**
  * Factory is exported so the endpoint's authorization, persistence, and
  * rollback behavior can be tested without a live Supabase project.
@@ -120,6 +133,55 @@ export function createAdminCreateUserHandler({ createClient = createSupabaseClie
         });
         if (createError || !created?.user?.id) {
           const message = createError?.message || "Supabase did not return the new account.";
+          if (createError && /already.*registered|already exists/i.test(message)) {
+            const { user: existingUser, error: lookupError } = await findAuthUserByEmail(adminClient, email);
+            if (lookupError) {
+              console.error("admin-create-user: duplicate account lookup failed:", lookupError.message);
+              return send(res, 502, { error: "Could not verify the existing account. No profile was changed." });
+            }
+
+            if (existingUser) {
+              const { data: existingProfile, error: existingProfileError } = await adminClient
+                .from("profiles")
+                .select("role, full_name")
+                .eq("id", existingUser.id)
+                .maybeSingle();
+              if (existingProfileError) {
+                console.error("admin-create-user: duplicate profile lookup failed:", existingProfileError.message);
+                return send(res, 500, { error: "Could not verify the existing profile. No profile was changed." });
+              }
+
+              if (existingProfile?.role === "admin") {
+                return send(res, 200, {
+                  user: { id: existingUser.id, email: existingUser.email, full_name: existingProfile.full_name || fullName, role: "admin" },
+                  already_admin: true,
+                });
+              }
+              if (existingProfile) {
+                return send(res, 409, { error: "This email already belongs to a non-admin account. Use a different email." });
+              }
+
+              const profile = {
+                id: existingUser.id,
+                full_name: fullName,
+                role: "admin",
+                status: "approved",
+                ...(phone ? { phone } : {}),
+              };
+              const { error: profileError } = await adminClient
+                .from("profiles")
+                .upsert(profile, { onConflict: "id" });
+              if (profileError) {
+                console.error("admin-create-user: duplicate profile repair failed:", profileError.message);
+                return send(res, 500, { error: "The existing login was found, but its admin profile could not be saved." });
+              }
+
+              return send(res, 200, {
+                user: { id: existingUser.id, email: existingUser.email, full_name: fullName, role: "admin" },
+                recovered_profile: true,
+              });
+            }
+          }
           const status = /already|registered|invalid email|password/i.test(message) ? 400 : 502;
           return send(res, status, { error: message });
         }

@@ -13,12 +13,16 @@ function fakeResponse() {
   return response;
 }
 
-function fixture({ role = "admin", profileError = null as any, callerProfileError = null as any, serviceKey = "service-key", serviceKeyEnv = "SUPABASE_SERVICE_ROLE_KEY" } = {}) {
+function fixture({ role = "admin", profileError = null as any, callerProfileError = null as any, serviceKey = "service-key", serviceKeyEnv = "SUPABASE_SERVICE_ROLE_KEY", createError = null as any, existingUsers = [] as any[], initialProfiles = [] as any[] } = {}) {
   const targetProfiles = new Map<string, any>();
+  for (const profile of initialProfiles) targetProfiles.set(profile.id, profile);
   const upserts: any[] = [];
   const deleteUser = vi.fn(async () => ({ error: null }));
-  const createUser = vi.fn(async (input: any) => ({
-    data: { user: { id: "new-admin-1", email: input.email } }, error: null,
+  const createUser = vi.fn(async (input: any) => createError
+    ? { data: { user: null }, error: createError }
+    : { data: { user: { id: "new-admin-1", email: input.email } }, error: null });
+  const listUsers = vi.fn(async ({ page = 1, perPage = 1000 }: any = {}) => ({
+    data: { users: existingUsers.slice((page - 1) * perPage, page * perPage) }, error: null,
   }));
   const callerQuery: any = {};
   callerQuery.select = vi.fn(() => callerQuery);
@@ -29,7 +33,7 @@ function fixture({ role = "admin", profileError = null as any, callerProfileErro
     from: vi.fn(() => callerQuery),
   };
   const adminClient: any = {
-    auth: { admin: { createUser, deleteUser } },
+    auth: { admin: { createUser, deleteUser, listUsers } },
     from: vi.fn(() => {
       let selectedId = "";
       const query: any = {
@@ -51,7 +55,7 @@ function fixture({ role = "admin", profileError = null as any, callerProfileErro
     createClient,
     env: { SUPABASE_URL: "https://example.supabase.co", SUPABASE_ANON_KEY: "anon-key", [serviceKeyEnv]: serviceKey },
   });
-  return { handler, createClient, authClient, adminClient, createUser, deleteUser, upserts, callerQuery };
+  return { handler, createClient, authClient, adminClient, createUser, deleteUser, listUsers, upserts, callerQuery };
 }
 
 function request(body: unknown, authorization = "Bearer test-token") {
@@ -97,6 +101,50 @@ describe("admin-create-user API", () => {
       id: "new-admin-1", full_name: "New Admin", role: "admin", status: "approved", phone: "0300",
     })]);
     expect(res.body.user.role).toBe("admin");
+  });
+
+  it("repairs a missing profile when an admin retries an existing Auth email", async () => {
+    const existingUser = { id: "orphan-1", email: "new@example.com" };
+    const { handler, listUsers, upserts } = fixture({
+      createError: { message: "A user with this email address has already been registered" },
+      existingUsers: [existingUser],
+    });
+    const res = fakeResponse();
+    await handler(request({ action: "create", full_name: "New Admin", email: "NEW@example.com", password: "secret1" }), res);
+    expect(res.statusCode).toBe(200);
+    expect(listUsers).toHaveBeenCalledWith({ page: 1, perPage: 1000 });
+    expect(upserts).toEqual([expect.objectContaining({
+      id: "orphan-1", full_name: "New Admin", role: "admin", status: "approved",
+    })]);
+    expect(res.body.recovered_profile).toBe(true);
+  });
+
+  it("treats an already-admin Auth account as success without changing it", async () => {
+    const existingUser = { id: "existing-admin", email: "new@example.com" };
+    const { handler, upserts } = fixture({
+      createError: { message: "A user with this email address has already been registered" },
+      existingUsers: [existingUser],
+      initialProfiles: [{ id: "existing-admin", role: "admin", full_name: "Existing Admin" }],
+    });
+    const res = fakeResponse();
+    await handler(request({ action: "create", full_name: "New Admin", email: "new@example.com", password: "secret1" }), res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.already_admin).toBe(true);
+    expect(upserts).toHaveLength(0);
+  });
+
+  it("refuses to promote an existing non-admin profile after a duplicate email", async () => {
+    const existingUser = { id: "existing-student", email: "new@example.com" };
+    const { handler, upserts } = fixture({
+      createError: { message: "A user with this email address has already been registered" },
+      existingUsers: [existingUser],
+      initialProfiles: [{ id: "existing-student", role: "student", full_name: "Existing Student" }],
+    });
+    const res = fakeResponse();
+    await handler(request({ action: "create", full_name: "New Admin", email: "new@example.com", password: "secret1" }), res);
+    expect(res.statusCode).toBe(409);
+    expect(res.body.error).toMatch(/non-admin account/i);
+    expect(upserts).toHaveLength(0);
   });
 
   it("sends modern Supabase secret keys via apikey only, not as a Bearer JWT", async () => {

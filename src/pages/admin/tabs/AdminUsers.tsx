@@ -121,7 +121,7 @@ const AdminUsers = () => {
         password: addForm.password,
         phone: addForm.phone.trim(),
       });
-      toast.success(`Admin account created for ${email}.`);
+      toast.success(`Admin account is ready for ${email}.`);
       setAddForm(EMPTY_FORM);
       setAddOpen(false);
       await queryClient.invalidateQueries({ queryKey: ["admin-users"] });
