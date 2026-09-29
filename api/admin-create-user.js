@@ -49,14 +49,19 @@ export function createAdminCreateUserHandler({ createClient = createSupabaseClie
     if (!body) return send(res, 400, { error: "A valid JSON request body is required." });
 
     try {
-      const authClient = createClient(supabaseUrl, anonKey, AUTH_OPTIONS);
+      const authClient = createClient(supabaseUrl, anonKey, {
+        ...AUTH_OPTIONS,
+        global: { headers: { Authorization: `Bearer ${bearer[1]}` } },
+      });
       const { data: authData, error: authError } = await authClient.auth.getUser(bearer[1]);
       if (authError || !authData?.user) {
         return send(res, 401, { error: "Your session is invalid or expired. Please sign in again." });
       }
 
-      const adminClient = createClient(supabaseUrl, serviceRoleKey, AUTH_OPTIONS);
-      const { data: callerProfile, error: callerProfileError } = await adminClient
+      // Check the caller's role under their own authenticated JWT. This matches
+      // the profile access the signed-in admin UI already uses and avoids using
+      // the privileged key for a read that should be governed by caller RLS.
+      const { data: callerProfile, error: callerProfileError } = await authClient
         .from("profiles")
         .select("role")
         .eq("id", authData.user.id)
@@ -68,6 +73,10 @@ export function createAdminCreateUserHandler({ createClient = createSupabaseClie
       if (callerProfile?.role !== "admin") {
         return send(res, 403, { error: "Only an administrator can manage admin accounts." });
       }
+
+      // Keep the server-only service key exclusively for privileged Auth and
+      // profile mutations, after the caller's role has been verified.
+      const adminClient = createClient(supabaseUrl, serviceRoleKey, AUTH_OPTIONS);
 
       if (body.action === "create") {
         const fullName = typeof body.full_name === "string" ? body.full_name.trim() : "";
