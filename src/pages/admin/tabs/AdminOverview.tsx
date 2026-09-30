@@ -311,7 +311,7 @@ const AdminOverview = () => {
           <div className="col-span-2 grid grid-cols-3 gap-2">
             {[
               { label: "Pass Rate", value: `${settings?.pass_percentage ?? 98}%`, icon: TrendingUp, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
-              { label: "Est. Year", value: settings?.established_year ?? 2018, icon: Calendar, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-500/10" },
+              { label: "Est. Year", value: settings?.established_year ?? 2010, icon: Calendar, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-500/10" },
               { label: "Content Items", value: isLoading ? "…" : totalContent, icon: FileText, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-500/10" },
             ].map((item) => (
               <div key={item.label} className={`${item.bg} border border-border rounded-xl p-3 flex flex-col gap-1`}>
@@ -443,7 +443,7 @@ const AdminOverview = () => {
         </div>
         <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
           <span>📍 {settings?.address || "District Mohmand, KPK"}</span>
-          <span>🏫 Est. {settings?.established_year || 2018}</span>
+          <span>🏫 Est. {settings?.established_year || 2010}</span>
           <span>📋 EMIS: {settings?.emis_code || "66013"}</span>
           {settings?.phone && <span>📞 {settings.phone}</span>}
           {settings?.email && <span className="col-span-2 truncate">✉️ {settings.email}</span>}

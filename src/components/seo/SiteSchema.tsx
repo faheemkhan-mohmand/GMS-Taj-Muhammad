@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 import { useSchoolSettings } from "@/hooks/useSchoolSettings";
 import { SITE_URL, SITE_NAME } from "./SEO";
 
@@ -27,43 +28,41 @@ const SiteSchema = () => {
   const logoIcon = `${SITE_URL}/apple-touch-icon.png`;
 
   // ── Live contact data (falls back to real school details) ──
-  const phone = (settings?.phone || "+923469898295").trim();
-  const email = (settings?.email || "gmstajmuhammad@gmail.com").trim();
-  const principal = (settings?.principal_name || "").trim();
+  const rawPhone = (settings?.phone || SCHOOL_PROFILE.phone).trim();
+  const phone = rawPhone.startsWith("0") ? `+92${rawPhone.slice(1)}` : rawPhone;
+  const email = (settings?.email || SCHOOL_PROFILE.email).trim();
+  const principal = (settings?.principal_name || SCHOOL_PROFILE.principal).trim();
 
-  // Use live coordinates when the admin has set them; otherwise the
-  // district defaults (these match the fallbackSettings in useSchoolSettings).
-  const lat = settings?.location_lat ?? 34.4084;
-  const lng = settings?.location_lng ?? 71.3707;
+  // Only publish map coordinates explicitly verified and entered by the school.
+  const lat = settings?.location_lat;
+  const lng = settings?.location_lng;
 
-  const organization: Record<string, any> = {
+  const organization: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": ["EducationalOrganization", "HighSchool"],
+    "@type": "EducationalOrganization",
     "@id": `${SITE_URL}#organization`,
-    name: settings?.school_name || "Government Middle School Taj Muhammad",
+    name: settings?.school_name || SCHOOL_PROFILE.fullName,
     alternateName: SITE_NAME,
     url: SITE_URL,
-    identifier: "EMIS 66013",
+    identifier: { "@type": "PropertyValue", propertyID: "EMIS", value: SCHOOL_PROFILE.emisCode },
     logo: logoIcon,
     image: ogImage,
-    foundingDate: String(settings?.established_year || 2018),
+    foundingDate: String(settings?.established_year ?? SCHOOL_PROFILE.establishedYear),
     description:
       settings?.description ||
-      "Government Middle School Taj Muhammad — quality education and excellence since 2018, District Mohmand, KPK Pakistan.",
+      `${SCHOOL_PROFILE.fullName} — quality education in District Mohmand, Khyber Pakhtunkhwa, Pakistan.`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Taj Muhammad",
-      addressLocality: "Taj Muhammad",
+      streetAddress: "Village Dawat Kor",
+      addressLocality: "Dawat Kor",
       addressRegion: "Khyber Pakhtunkhwa",
-      postalCode: "24220",
       addressCountry: "PK",
     },
-    geo: {
+    ...(lat != null && lng != null ? { geo: {
       "@type": "GeoCoordinates",
       latitude: String(lat),
       longitude: String(lng),
-    },
-    hasMap: `https://maps.google.com/?q=${lat},${lng}`,
+    }, hasMap: `https://maps.google.com/?q=${lat},${lng}` } : {}),
     telephone: phone,
     email: email,
     areaServed: {
@@ -71,7 +70,7 @@ const SiteSchema = () => {
       name: "District Mohmand, Khyber Pakhtunkhwa, Pakistan",
     },
     // Official Facebook page — connects website + FB into ONE Google entity.
-    sameAs: ["https://www.facebook.com/share/1EERTSk1W7/"],
+    sameAs: [SCHOOL_PROFILE.facebookUrl],
   };
 
   // Principal as a named employee (richer Knowledge Panel)

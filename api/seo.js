@@ -25,10 +25,11 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { createClient } from "@supabase/supabase-js";
+import { SCHOOL_PROFILE } from "../src/data/schoolProfile.mjs";
 
-const SITE_URL = "https://gmstajmuhamad.vercel.app";
-const FACEBOOK_URL = "https://www.facebook.com/share/1EERTSk1W7/";
-const SITE_NAME = "GMS Taj Muhammad";
+const SITE_URL = SCHOOL_PROFILE.siteUrl;
+const FACEBOOK_URL = SCHOOL_PROFILE.facebookUrl;
+const SITE_NAME = SCHOOL_PROFILE.shortName;
 const SITE_DESC = "Government Middle School Taj Muhammad, District Mohmand, KPK Pakistan — latest news, notices and announcements.";
 
 // ── Shared Supabase client (serverless, no session; used by 3 of 4 kinds) ───
@@ -197,12 +198,12 @@ Sitemap: ${SITE_URL}/sitemap.xml
 
 // Current real values — used only when the live DB fetch fails.
 const LLM_FALLBACK = {
-  school_name: "GMS Taj Muhammad",
-  phone: "+92 346 9898295",
-  email: "gmstajmuhammad@gmail.com",
-  principal: "Mr. Imdad Ullah",
-  established: "2018",
-  emis: "66013",
+  school_name: SCHOOL_PROFILE.shortName,
+  phone: SCHOOL_PROFILE.phone,
+  email: SCHOOL_PROFILE.email,
+  principal: SCHOOL_PROFILE.principal,
+  established: String(SCHOOL_PROFILE.establishedYear),
+  emis: SCHOOL_PROFILE.emisCode,
 };
 
 // school_settings is a public table — the anon key works, no auth needed.
@@ -508,15 +509,6 @@ function buildUrlEntry(page, lastmod) {
   </url>`;
 }
 
-// Machine-readable files listed in the sitemap alongside human pages — this
-// is the extra nudge that gets AI/search crawlers to actually open llms.txt
-// and the live JSON feed instead of only reading HTML pages.
-const MACHINE_READABLE_ENTRIES = [
-  { path: "/llms.txt", changefreq: "daily", priority: "0.5" },
-  { path: "/api/ai-data", changefreq: "daily", priority: "0.5" },
-  { path: "/humans.txt", changefreq: "monthly", priority: "0.3" },
-];
-
 /**
  * Fetch recent rows (id + created_at) from a content table and build
  * detail-page <url> entries for them: /<basePath>/<id>.
@@ -593,8 +585,6 @@ async function sitemapHandler(req, res) {
     buildUrlEntry({ path: c.path, changefreq: "monthly", priority: "0.6" }, c.lastmod)
   );
 
-  const machineEntries = MACHINE_READABLE_ENTRIES.map((page) => buildUrlEntry(page, STATIC_LASTMOD));
-
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
@@ -607,8 +597,6 @@ async function sitemapHandler(req, res) {
  ${noticeDetails.join("\n")}
 
  ${newsDetails.join("\n")}
-
- ${machineEntries.join("\n")}
 
 </urlset>`;
 

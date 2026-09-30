@@ -720,7 +720,7 @@ const MeritListPage = () => {
               {liveLists.length} live · {scheduledLists.length} upcoming
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
-              <Award className="w-3 h-3 text-gold" /> Est. 2018
+              <Award className="w-3 h-3 text-gold" /> Est. 2010
             </span>
           </motion.div>
         </div>

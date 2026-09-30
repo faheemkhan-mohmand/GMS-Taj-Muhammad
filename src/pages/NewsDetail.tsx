@@ -144,7 +144,7 @@ const NewsDetail = () => {
             <div className="absolute bottom-4 right-4 w-3 h-3 border-b-2 border-r-2 border-gold" />
             <div className="w-full h-full flex flex-col items-center justify-center gap-2 px-6">
               <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.3em] text-primary/55">
-                <span>EST. 2018</span>
+                <span>EST. 2010</span>
                 <span className="inline-block w-1.5 h-1.5 rotate-45 bg-gold/70" />
                 <span>№ 01</span>
               </div>

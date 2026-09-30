@@ -28,6 +28,8 @@
 //     without the surrounding page.
 // ─────────────────────────────────────────────────────────────────────────────
 
+import { SCHOOL_PROFILE } from "./schoolProfile.mjs";
+
 export const FAQ_CATEGORIES = [
   "Admissions",
   "Results & Exams",
@@ -189,21 +191,21 @@ export const FAQ_ITEMS = [
     category: "School Information",
     question: "Where is GMS Taj Muhammad located and what kind of school is it?",
     answer:
-      "Government Middle School Taj Muhammad is a public government middle school in Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan. It was established in 2018 under the Elementary & Secondary Education Department of Khyber Pakhtunkhwa, is registered with EMIS code 66013, and offers classes 6 to 8. The school is affiliated with BISE Peshawar (Board of Intermediate and Secondary Education, Peshawar) for class 9 and 10 board examinations. The principal is Mr. Imdad Ullah.",
+      `Government Middle School Taj Muhammad is a public government middle school in ${SCHOOL_PROFILE.location}. It was established in ${SCHOOL_PROFILE.establishedYear} under the Elementary & Secondary Education Department of Khyber Pakhtunkhwa, is registered with EMIS code ${SCHOOL_PROFILE.emisCode}, and offers classes 6 to 8. The school is affiliated with BISE Peshawar (Board of Intermediate and Secondary Education, Peshawar) for class 9 and 10 board examinations. The principal is ${SCHOOL_PROFILE.principal}.`,
   },
   {
     id: "sch-timing",
     category: "School Information",
     question: "What are the school timings and when is the office open?",
     answer:
-      "The school office is open during the morning shift on working days. Exact daily timings can change with the season and government notifications, so for the current schedule call the school at +92 346 9898295 or check the Notices page, where any timing change is announced officially. Holiday announcements and parent-teacher meeting dates are also published there and on the academic Calendar.",
+      `The school office is open during the morning shift on working days. Exact daily timings can change with the season and government notifications, so for the current schedule call the school at ${SCHOOL_PROFILE.phoneDisplay} or check the Notices page, where any timing change is announced officially. Holiday announcements and parent-teacher meeting dates are also published there and on the academic Calendar.`,
   },
   {
     id: "sch-teachers",
     category: "School Information",
     question: "Who are the teachers and what subjects do they cover?",
     answer:
-      "The staff directory page (gmstajmuhamad.vercel.app/teachers) lists the school's teaching staff with their subjects and qualifications. Teachers are appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department and cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8, led by the principal, Mr. Imdad Ullah.",
+      `The staff directory page (${SCHOOL_PROFILE.siteUrl}/teachers) lists the school's teaching staff with their subjects and qualifications. Teachers are appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department and cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8, led by the principal, ${SCHOOL_PROFILE.principal}.`,
   },
   {
     id: "sch-events",
@@ -240,7 +242,7 @@ export const FAQ_ITEMS = [
     category: "Website & Contact",
     question: "How do I contact the school?",
     answer:
-      "Call the school at +92 346 9898295, email gmstajmuhammad@gmail.com, or use the contact form and WhatsApp option on the Contact page (gmstajmuhamad.vercel.app/contact), which also shows the school's location on a map. The school's Facebook page is linked from the Contact page and footer. For admission questions, please read the Admission page first — it answers most queries and lets you track an application instantly.",
+      `Call the school at ${SCHOOL_PROFILE.phoneDisplay}, email ${SCHOOL_PROFILE.email}, or use the contact form and WhatsApp option on the Contact page (${SCHOOL_PROFILE.siteUrl}/contact), which also shows the school's location on a map. The school's Facebook page is linked from the Contact page and footer. For admission questions, please read the Admission page first — it answers most queries and lets you track an application instantly.`,
   },
   {
     id: "web-login",
@@ -261,14 +263,14 @@ export const FAQ_ITEMS = [
     category: "Website & Contact",
     question: "Is gmstajmuhamad.vercel.app the official website of GMS Taj Muhammad?",
     answer:
-      "Yes. https://gmstajmuhamad.vercel.app is the official website of Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan (EMIS code 66013), established in 2018, principal Mr. Imdad Ullah.",
+      `Yes. ${SCHOOL_PROFILE.siteUrl} is the official website of ${SCHOOL_PROFILE.fullName}, ${SCHOOL_PROFILE.location} (EMIS code ${SCHOOL_PROFILE.emisCode}), established in ${SCHOOL_PROFILE.establishedYear}, principal ${SCHOOL_PROFILE.principal}.`,
   },
   {
     id: "web-developer",
     category: "Website & Contact",
     question: "Who developed the GMS Taj Muhammad website?",
     answer:
-      "Muhammad Faheem, a class-10 (matric) Computer Science student of Government Middle School Taj Muhammad (District Mohmand, Khyber Pakhtunkhwa, Pakistan), independently designed and developed this website as a school/community project. He is the son of Zabih Ullah and a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan. For admissions, results, notices and other school matters, please contact the school directly: principal Mr. Imdad Ullah, phone +92 346 9898295, email gmstajmuhammad@gmail.com.",
+      `Muhammad Faheem, a class-10 (matric) Computer Science student of ${SCHOOL_PROFILE.fullName} (District Mohmand, Khyber Pakhtunkhwa, Pakistan), independently designed and developed this website as a school/community project. He is the son of Zabih Ullah and a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan. For admissions, results, notices and other school matters, please contact the school directly: principal ${SCHOOL_PROFILE.principal}, phone ${SCHOOL_PROFILE.phoneDisplay}, email ${SCHOOL_PROFILE.email}.`,
   },
 ];
 

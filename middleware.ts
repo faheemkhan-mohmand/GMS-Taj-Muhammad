@@ -262,6 +262,11 @@ function shouldLiveRender(pathname: string): boolean {
  */
 const RENDER_PROXY_TIMEOUT_MS = 4000;
 
+/** Accept successful pages and intentional HTML 404s, never error payloads. */
+export function isRenderableHtmlResponse(status: number, contentType: string): boolean {
+  return (status === 200 || status === 404) && String(contentType).toLowerCase().includes("text/html");
+}
+
 async function proxyToLiveRender(request: Request, pathname: string): Promise<Response> {
   const renderUrl = new URL("/api/render", request.url);
   renderUrl.searchParams.set("path", pathname);
@@ -278,7 +283,10 @@ async function proxyToLiveRender(request: Request, pathname: string): Promise<Re
     signal: AbortSignal.timeout(RENDER_PROXY_TIMEOUT_MS),
   });
   const contentType = resp.headers.get("content-type") || "";
-  if (!resp.ok || !contentType.includes("text/html")) {
+  // A 404 from the renderer is authoritative: pass its noindex not-found page
+  // through with the real HTTP status instead of falling back to the SPA shell
+  // (which returns the homepage with 200 and creates a soft 404 for crawlers).
+  if (!isRenderableHtmlResponse(resp.status, contentType)) {
     // Renderer failed (cold-start 504, Supabase outage 5xx, rate limit, …).
     // Throw so the caller serves the prerendered page instead of piping the
     // error body to the crawler.

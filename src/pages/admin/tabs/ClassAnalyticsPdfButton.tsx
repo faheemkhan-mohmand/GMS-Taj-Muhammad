@@ -220,7 +220,7 @@ function generateClassAnalyticsPdf(data: ReturnType<typeof computeAnalyticsPdfDa
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7.5);
   doc.setTextColor(PDF.sub[0], PDF.sub[1], PDF.sub[2]);
-  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2018", w / 2, 25.5, { align: "center" });
+  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2010", w / 2, 25.5, { align: "center" });
 
   doc.setFillColor(PDF.navy[0], PDF.navy[1], PDF.navy[2]);
   doc.roundedRect(w / 2 - 46, 28.5, 92, 8.5, 1.5, 1.5, "F");
@@ -597,7 +597,7 @@ function generateAllClassesCombinedPdf(
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7);
   doc.setTextColor(PDF.sub[0], PDF.sub[1], PDF.sub[2]);
-  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2018", w / 2, 22, { align: "center" });
+  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2010", w / 2, 22, { align: "center" });
 
   doc.setFillColor(PDF.navy[0], PDF.navy[1], PDF.navy[2]);
   doc.roundedRect(w / 2 - 62, 24.5, 124, 7.5, 1.5, 1.5, "F");

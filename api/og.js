@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { SCHOOL_PROFILE } from "../src/data/schoolProfile.mjs";
 
 // api/og.js
 // Vercel Serverless Function — returns fully-formed static HTML with the
@@ -15,8 +16,8 @@ import { createClient } from "@supabase/supabase-js";
 //
 // Access at: /api/og?path=/some/route  (middleware.ts sets this query param)
 
-const SITE_URL = "https://gmstajmuhamad.vercel.app";
-const SITE_NAME = "GMS Taj Muhammad";
+const SITE_URL = SCHOOL_PROFILE.siteUrl;
+const SITE_NAME = SCHOOL_PROFILE.shortName;
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
 const DEFAULT_IMAGE_WIDTH = "1730";
 const DEFAULT_IMAGE_HEIGHT = "909";
@@ -431,12 +432,13 @@ function getResultsExtraSchemas(url) {
 // text is generic for those specific pages.
 const ROUTES = [
   { pattern: "/", title: "GMS Taj Muhammad — Government Middle School, District Mohmand KPK", description: "Government Middle School Taj Muhammad, District Mohmand, KPK Pakistan. Quality education, notices, news, results, online classes, library and admissions." },
-  { pattern: "/about", title: "About GMS Taj Muhammad — History, Mission & Vision | District Mohmand KPK", description: "Learn about Government Middle School Taj Muhammad — our history since 2018, mission, vision, faculty and commitment to quality education in District Mohmand." },
+  { pattern: "/about", title: "About GMS Taj Muhammad — History, Mission & Vision | District Mohmand KPK", description: `Learn about Government Middle School Taj Muhammad — established in ${SCHOOL_PROFILE.establishedYear}, with its history, mission, vision, faculty and commitment to quality education in District Mohmand.` },
   { pattern: "/teachers", title: "Teachers & Faculty — GMS Taj Muhammad | District Mohmand KPK", description: "Meet the qualified teachers and faculty of GMS Taj Muhammad — dedicated educators shaping the future of students in District Mohmand, KPK." },
   { pattern: "/notices", title: "School Notices & Announcements — GMS Taj Muhammad", description: "Browse the latest school notices, urgent announcements, academic updates and event information from Government Middle School Taj Muhammad." },
   { pattern: "/news", title: "News & Updates — GMS Taj Muhammad | District Mohmand", description: "Read the latest news, stories and achievements from Government Middle School Taj Muhammad — events, sports, academics and student success." },
   { pattern: "/results", title: "BISE Peshawar Result 2026 — SSC Result, BISEP Result, Peshawar Board Result | GMS Taj Muhammad", description: "Check BISE Peshawar Result 2026 by roll number — SSC Result (9th & 10th class), HSSC Result (11th & 12th class), BISEP Result, Peshawar Board Result, Annual-I & Annual-II exams. Fast, free, mobile-friendly BISE Peshawar board result lookup powered by GMS Taj Muhammad." },
   { pattern: "/merit-list", title: "Merit List — Official School Exam Rankings | GMS Taj Muhammad", description: "Official GMS Taj Muhammad merit list — top position holders of every exam, class-wise and whole-school rankings with marks, percentages and grades." },
+  { pattern: "/roll-no-slip", title: "Roll No. Slip — GMS Taj Muhammad | Exam Roll Numbers & Admit Card", description: "Find your exam roll number and download your admit card for GMS Taj Muhammad, District Mohmand. Students search by class and full name to view only their own Roll No. Slip; student slips are not listed publicly." },
   { pattern: "/result-card", title: "Result Card — GMS Taj Muhammad Student Performance Report", description: "Download or view your detailed student result card from GMS Taj Muhammad with subject-wise marks, grade and overall performance." },
   { pattern: "/gallery", title: "Photo Gallery — GMS Taj Muhammad School Events & Activities", description: "Explore the photo and video gallery of Government Middle School Taj Muhammad — events, sports, academic activities and celebrations." },
   { pattern: "/library", title: "Digital Library — GMS Taj Muhammad | Books, Notes & Past Papers", description: "Access the digital library of GMS Taj Muhammad — books, study notes, past papers and educational resources for all classes." },

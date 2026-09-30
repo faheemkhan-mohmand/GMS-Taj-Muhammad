@@ -27,21 +27,22 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { FAQ_ITEMS, FAQ_CATEGORIES } from "../src/data/faqData.mjs";
+import { SCHOOL_PROFILE } from "../src/data/schoolProfile.mjs";
 
-export const SITE_URL = "https://gmstajmuhamad.vercel.app";
-export const SITE_NAME = "GMS Taj Muhammad";
-export const SITE_LONG_NAME = "Government Middle School Taj Muhammad, District Mohmand";
+export const SITE_URL = SCHOOL_PROFILE.siteUrl;
+export const SITE_NAME = SCHOOL_PROFILE.shortName;
+export const SITE_LONG_NAME = SCHOOL_PROFILE.fullName;
 
 const SCHOOL_FACTS = [
-  "Full name: Government Middle School Taj Muhammad (GMS Taj Muhammad)",
-  "Location: Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan",
-  "Established: 2018",
-  "EMIS code: 66013",
-  "Principal: Mr. Imdad Ullah",
+  `Full name: ${SCHOOL_PROFILE.fullName} (${SCHOOL_PROFILE.shortName})`,
+  `Location: ${SCHOOL_PROFILE.location}`,
+  `Established: ${SCHOOL_PROFILE.establishedYear}`,
+  `EMIS code: ${SCHOOL_PROFILE.emisCode}`,
+  `Principal: ${SCHOOL_PROFILE.principal}`,
   "Classes offered: 6, 7, 8, 9 and 10 (matriculation)",
   "Board affiliation: BISE Peshawar — classes 9 and 10 sit board examinations",
-  "Phone: +92 346 9898295",
-  "Email: gmstajmuhammad@gmail.com",
+  `Phone: ${SCHOOL_PROFILE.phoneDisplay}`,
+  `Email: ${SCHOOL_PROFILE.email}`,
 ];
 
 // Main public navigation — appended to every fallback page as internal links
@@ -88,7 +89,7 @@ const PAGES = {
     blocks: [
       {
         p: [
-          "Government Middle School (GMS) Taj Muhammad is a government middle school in Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan, established in 2018 (EMIS code 66013). The school offers classes 6 to 8 and is affiliated with BISE Peshawar, the Board of Intermediate and Secondary Education Peshawar, whose examinations our class 9 and 10 students sit every year. Mr. Imdad Ullah is the principal of the school.",
+          `Government Middle School (GMS) Taj Muhammad is a government middle school in ${SCHOOL_PROFILE.location}, established in ${SCHOOL_PROFILE.establishedYear} (EMIS code ${SCHOOL_PROFILE.emisCode}). The school offers classes 6 to 8 and is affiliated with BISE Peshawar, the Board of Intermediate and Secondary Education Peshawar, whose examinations our class 9 and 10 students sit every year. ${SCHOOL_PROFILE.principal} is the principal of the school.`,
           "This official website is the school's digital front door. Students and parents can apply for admission online, search exam results by roll number, read official notices and school news, download free study notes and past papers, check the academic calendar, browse the teacher directory and view photos of school events. The site also works as a Progressive Web App (PWA), so it can be installed on a phone and used offline.",
         ],
       },
@@ -118,12 +119,12 @@ const PAGES = {
   "/about": {
     title: "About Us — GMS Taj Muhammad, Village Dawat Kor, District Mohmand",
     description:
-      "About Government Middle School Taj Muhammad, District Mohmand, KPK: established 2018, EMIS code 66013, principal Mr. Imdad Ullah, classes 6–8, affiliated with BISE Peshawar. Our mission, vision and values.",
+      `About Government Middle School Taj Muhammad, District Mohmand, KPK: established ${SCHOOL_PROFILE.establishedYear}, EMIS code ${SCHOOL_PROFILE.emisCode}, principal ${SCHOOL_PROFILE.principal}, classes 6–8, affiliated with BISE Peshawar. Our mission, vision and values.`,
     h1: "About GMS Taj Muhammad",
     blocks: [
       {
         p: [
-          "Government Middle School Taj Muhammad is a public middle school serving Taj Muhammad and the surrounding villages of District Mohmand, Khyber Pakhtunkhwa, Pakistan. The school was established in 2018 under the Elementary & Secondary Education Department of Khyber Pakhtunkhwa and is registered with EMIS code 66013. It educates students from class 6 through class 10, preparing them for the Secondary School Certificate examinations conducted by BISE Peshawar.",
+          `Government Middle School Taj Muhammad is a public middle school serving Dawat Kor and the surrounding villages of District Mohmand, Khyber Pakhtunkhwa, Pakistan. The school was established in ${SCHOOL_PROFILE.establishedYear} under the Elementary & Secondary Education Department of Khyber Pakhtunkhwa and is registered with EMIS code ${SCHOOL_PROFILE.emisCode}. It educates students from class 6 through class 10, preparing them for the Secondary School Certificate examinations conducted by BISE Peshawar.`,
           "The school serves a rural tribal district, and its mission is to give every child of the area access to qualified teachers, a proper science education and modern learning tools — free of cost, as provided by the Government of Khyber Pakhtunkhwa. Students receive free textbooks under the provincial free textbook scheme, and the school building houses science facilities, a library corner and a playground for sports and assemblies.",
         ],
       },
@@ -151,7 +152,7 @@ const PAGES = {
   "/contact": {
     title: "Contact Us — GMS Taj Muhammad, Village Dawat Kor, District Mohmand",
     description:
-      "Contact Government Middle School Taj Muhammad: phone +92 346 9898295, email gmstajmuhammad@gmail.com, Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan. Contact form, WhatsApp and location map.",
+      `Contact Government Middle School Taj Muhammad: phone ${SCHOOL_PROFILE.phoneDisplay}, email ${SCHOOL_PROFILE.email}, ${SCHOOL_PROFILE.location}. Contact form, WhatsApp and location map.`,
     h1: "Contact GMS Taj Muhammad",
     blocks: [
       {
@@ -163,11 +164,11 @@ const PAGES = {
         h2: "Contact details",
         ul: [
           "School: Government Middle School Taj Muhammad",
-          "Address: Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan",
-          "Phone: +92 346 9898295",
-          "Email: gmstajmuhammad@gmail.com",
-          "Principal: Mr. Imdad Ullah",
-          "Facebook page: https://www.facebook.com/share/1EERTSk1W7/",
+          `Address: ${SCHOOL_PROFILE.location}`,
+          `Phone: ${SCHOOL_PROFILE.phoneDisplay}`,
+          `Email: ${SCHOOL_PROFILE.email}`,
+          `Principal: ${SCHOOL_PROFILE.principal}`,
+          `Facebook page: ${SCHOOL_PROFILE.facebookUrl}`,
         ],
       },
       {
@@ -323,12 +324,12 @@ const PAGES = {
   "/teachers": {
     title: "Teachers — Staff Directory | GMS Taj Muhammad",
     description:
-      "Teaching staff of Government Middle School Taj Muhammad, District Mohmand — subject teachers for classes 6–8 with qualifications, and the principal Mr. Imdad Ullah.",
+      `Teaching staff of Government Middle School Taj Muhammad, District Mohmand — subject teachers for classes 6–8 with qualifications, and the principal ${SCHOOL_PROFILE.principal}.`,
     h1: "Our Teachers",
     blocks: [
       {
         p: [
-          "Government Middle School Taj Muhammad is staffed by qualified subject teachers appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department. The staff directory on this page lists the teaching staff with their subjects and qualifications, led by the principal, Mr. Imdad Ullah. Teachers cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8.",
+          `Government Middle School Taj Muhammad is staffed by qualified subject teachers appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department. The staff directory on this page lists the teaching staff with their subjects and qualifications, led by the principal, ${SCHOOL_PROFILE.principal}. Teachers cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8.`,
         ],
       },
     ],
@@ -405,14 +406,14 @@ const PAGES = {
   },
 
   "/roll-no-slip": {
-    title: "Roll No. Slip — Exam Admit Card Finder | GMS Taj Muhammad",
+    title: "Roll No. Slip — GMS Taj Muhammad | Exam Roll Numbers & Admit Card",
     description:
-      "Exam roll number slips of GMS Taj Muhammad — students pick their class and type their full name to view, download (PDF with QR code) or share their own slip, with the exam date sheet and exam-day instructions.",
+      "Find your exam roll number and download your admit card for GMS Taj Muhammad, District Mohmand. Students search by class and full name to view only their own Roll No. Slip; student slips are not listed publicly.",
     h1: "Roll No. Slip",
     blocks: [
       {
         p: [
-          "Exam roll number slips are released on this page by the school administration. While a release is scheduled, a live countdown shows exactly when the slips appear, and the page flips automatically the moment the countdown reaches zero. Once live, a student picks their class (6–8) and types their full name — only their own slip appears, keeping every other student's slip private. Each slip is an exact replica of the office copy: the school header, the student's information with exam roll number and QR code, the class's exam date sheet and the nine exam-day instructions, and it can be downloaded as a PDF identical to the printed version or shared. Students must bring the slip to every paper — no slip, no entry to the examination hall.",
+          "Exam roll number slips are released on this page by the school administration. While a release is scheduled, a live countdown shows exactly when the slips appear, and the page flips automatically the moment the countdown reaches zero. Once live, a student picks their class (6–8) and types their full name — only their own slip appears, keeping every other student's slip private. Individual slips are not exposed in this landing-page content or published as a public student directory. Each slip is an exact replica of the office copy: the school header, the student's information with exam roll number and QR code, the class's exam date sheet and the nine exam-day instructions, and it can be downloaded as a PDF identical to the printed version or shared. Students must bring the slip to every paper — no slip, no entry to the examination hall.",
         ],
       },
     ],
@@ -570,7 +571,7 @@ function buildContentHtml(route) {
       .join("")}</ul>`
   );
   parts.push(
-    `<p>Contact: Government Middle School Taj Muhammad, District Mohmand, KPK, Pakistan · Phone +92 346 9898295 · Email gmstajmuhammad@gmail.com</p>`
+    `<p>Contact: ${SCHOOL_PROFILE.fullName}, District Mohmand, KPK, Pakistan · Phone ${SCHOOL_PROFILE.phoneDisplay} · Email ${SCHOOL_PROFILE.email}</p>`
   );
   // Developer attribution — machine-readable layer only. This paragraph is
   // part of the build-time static fallback block (.gms-seo-static), which
@@ -611,28 +612,27 @@ export function buildJsonLd(route) {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["EducationalOrganization", "HighSchool"],
+        "@type": "EducationalOrganization",
         "@id": `${SITE_URL}#organization`,
         name: SITE_LONG_NAME,
         alternateName: SITE_NAME,
         url: SITE_URL,
         identifier: "EMIS 66013",
-        telephone: "+92-346-9898295",
-        email: "gmstajmuhammad@gmail.com",
-        foundingDate: "2018",
+        telephone: SCHOOL_PROFILE.phoneE164,
+        email: SCHOOL_PROFILE.email,
+        foundingDate: String(SCHOOL_PROFILE.establishedYear),
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Taj Muhammad",
-          addressLocality: "Taj Muhammad",
+          streetAddress: "Village Dawat Kor",
+          addressLocality: "Dawat Kor",
           addressRegion: "Khyber Pakhtunkhwa",
-          postalCode: "24220",
           addressCountry: "PK",
         },
         areaServed: {
           "@type": "AdministrativeArea",
           name: "District Mohmand, Khyber Pakhtunkhwa, Pakistan",
         },
-        sameAs: ["https://www.facebook.com/share/1EERTSk1W7/"],
+        sameAs: [SCHOOL_PROFILE.facebookUrl],
       },
       {
         "@type": "WebSite",

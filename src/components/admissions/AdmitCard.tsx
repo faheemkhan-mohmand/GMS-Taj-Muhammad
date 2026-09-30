@@ -215,7 +215,7 @@ export default function AdmitCard({ admission }: { admission: Admission }) {
         "2. Carry original B-Form, previous result card, and 2 passport-size photos.",
         "3. Reach at least 15 minutes before your scheduled time.",
         "4. This card is non-transferable. Tampering will result in disqualification.",
-        "5. For queries, call 0346-9898295 or visit gmstajmuhamad.vercel.app",
+        "5. For queries, call 0345-9162160 or visit gmstajmuhamad.vercel.app",
       ];
       y += 4;
       instructions.forEach(line => {

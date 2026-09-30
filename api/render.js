@@ -74,6 +74,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { getPageMeta, NAV_LINKS, SITE_URL, SITE_NAME } from "../scripts/seo-page-content.mjs";
+import { SCHOOL_PROFILE } from "../src/data/schoolProfile.mjs";
 import { FAQ_ITEMS, FAQ_CATEGORIES, buildFaqJsonLd } from "../src/data/faqData.mjs";
 import { getCurrentBisepPayload } from "./bisep-proxy.js";
 
@@ -105,13 +106,13 @@ export const maxDuration = 10;
 const SCHOOL_TZ = "Asia/Karachi";
 
 const FALLBACK_SETTINGS = {
-  school_name: "GMS Taj Muhammad",
-  phone: "+92 346 9898295",
-  email: "gmstajmuhammad@gmail.com",
-  principal: "Mr. Imdad Ullah",
-  established: "2018",
-  emis: "66013",
-  address: "Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan",
+  school_name: SCHOOL_PROFILE.shortName,
+  phone: SCHOOL_PROFILE.phone,
+  email: SCHOOL_PROFILE.email,
+  principal: SCHOOL_PROFILE.principal,
+  established: String(SCHOOL_PROFILE.establishedYear),
+  emis: SCHOOL_PROFILE.emisCode,
+  address: SCHOOL_PROFILE.location,
 };
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
@@ -1005,7 +1006,7 @@ function admissionFilesHtml(admissionFiles) {
 }
 
 /** Route-specific LIVE sections appended after the static blocks. */
-function liveSections(route, data) {
+export function liveSections(route, data, bisep = null) {
   const parts = [];
   const { admission, admissionFiles, notices, news, events, exams, teachers, library, onlineClasses, meritLists, rollSlips, gallery, notes, duty, school } = data;
 
@@ -1021,7 +1022,7 @@ function liveSections(route, data) {
       if (school?.total_students != null) stats.push(`${school.total_students}+ students enrolled`);
       if (school?.total_teachers != null) stats.push(`${school.total_teachers} teachers`);
       if (school?.pass_percentage != null) stats.push(`${school.pass_percentage}% pass rate`);
-      stats.push(`Established ${school?.established || "2018"}`);
+      stats.push(`Established ${school?.established || "2010"}`);
       if (stats.length) {
         parts.push("<h2>School at a glance (live)</h2>");
         parts.push(`<ul>${stats.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>`);
@@ -1529,6 +1530,8 @@ const DEVELOPER_PERSON_JSONLD = {
 /** JSON-LD per route (always fresh). */
 function jsonLdFor(route, data, detail, pageName) {
   const generatedAt = new Date().toISOString();
+  const rawPhone = String(data.school.phone || SCHOOL_PROFILE.phone).trim();
+  const telephone = rawPhone.startsWith("0") ? `+92${rawPhone.slice(1)}` : rawPhone;
   const graph = [
     {
       "@type": "EducationalOrganization",
@@ -1536,9 +1539,10 @@ function jsonLdFor(route, data, detail, pageName) {
       name: "Government Middle School Taj Muhammad, District Mohmand",
       alternateName: SITE_NAME,
       url: SITE_URL,
-      telephone: data.school.phone,
+      telephone,
       email: data.school.email,
       foundingDate: data.school.established,
+      identifier: { "@type": "PropertyValue", propertyID: "EMIS", value: data.school.emis },
       // Live admin-maintained statistics — so AI answers quote the current
       // numbers, never a stale build-time figure.
       ...(typeof data.school.total_students === "number"
@@ -1546,8 +1550,8 @@ function jsonLdFor(route, data, detail, pageName) {
         : {}),
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Taj Muhammad",
-        addressLocality: "Taj Muhammad",
+        streetAddress: "Village Dawat Kor",
+        addressLocality: "Dawat Kor",
         addressRegion: "Khyber Pakhtunkhwa",
         addressCountry: "PK",
       },
@@ -2124,7 +2128,7 @@ ${notesChapter.audio_enabled ? `<p class="meta">Audio narration is available for
         return parts.join("\n");
       })
       .join("\n");
-    contentHtml = staticBlocks + (effectiveRoute === "/faq" ? "" : "\n" + liveSections(effectiveRoute, data));
+    contentHtml = staticBlocks + (effectiveRoute === "/faq" ? "" : "\n" + liveSections(effectiveRoute, data, bisep));
   }
 
   // Live statistics into the static "School at a glance" placeholder — real

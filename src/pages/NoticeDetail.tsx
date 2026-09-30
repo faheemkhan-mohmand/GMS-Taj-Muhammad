@@ -177,7 +177,7 @@ const NoticeDetail = () => {
           <div className="absolute bottom-3 right-3 w-2.5 h-2.5 border-b-[1.5px] border-r-[1.5px] border-gold/80" />
           <div className="w-full h-full flex flex-col items-center justify-center gap-2 px-6">
             <div className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.3em] text-primary/55">
-              <span>EST. 2018</span>
+              <span>EST. 2010</span>
               <span className="inline-block w-1.5 h-1.5 rotate-45 bg-gold/70" />
               <span>№ 01</span>
             </div>

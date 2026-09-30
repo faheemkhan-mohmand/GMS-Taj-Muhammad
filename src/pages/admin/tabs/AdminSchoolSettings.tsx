@@ -355,7 +355,7 @@ const AdminSchoolSettings = () => {
   const [form, setForm] = useState({
     school_name: "", tagline: "", description: "", about_text: "", emis_code: "",
     address: "", phone: "", email: "",
-    established_year: 2018, total_students: 0, total_teachers: 0, pass_percentage: 0, board_results: "",
+    established_year: 2010, total_students: 0, total_teachers: 0, pass_percentage: 0, board_results: "",
     logo_url: null as string | null,
     banner_url: null as string | null,
     location_lat: null as number | null,
@@ -376,7 +376,7 @@ const AdminSchoolSettings = () => {
         address: settings.address || "",
         phone: settings.phone || "",
         email: settings.email || "",
-        established_year: settings.established_year || 2018,
+        established_year: settings.established_year || 2010,
         total_students: settings.total_students || 0,
         total_teachers: settings.total_teachers || 0,
         pass_percentage: settings.pass_percentage || 0,

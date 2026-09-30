@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 import { supabase, supabasePublic } from "@/lib/supabase";
 import { safeCloudinaryUrl, isValidCloudinaryUrl, fixCloudinaryUrl } from "@/lib/cloudinaryValidator";
 
@@ -28,18 +29,18 @@ export interface SchoolSettings {
 
 export const fallbackSettings: SchoolSettings = {
   id: 1,
-  school_name: "GMS Taj Muhammad",
+  school_name: SCHOOL_PROFILE.shortName,
   tagline: "Excellence in Education",
   description:
     "Government Middle School Taj Muhammad is committed to providing quality education and nurturing the future leaders of Pakistan.",
   about_text: null,
   logo_url: null,
   banner_url: null,
-  emis_code: "66013",
-  address: "Village Dawat Kor, District Mohmand, KPK, Pakistan",
-  phone: null,
-  email: "gmstajmuhammad@gmail.com",
-  established_year: 2018,
+  emis_code: SCHOOL_PROFILE.emisCode,
+  address: SCHOOL_PROFILE.location,
+  phone: SCHOOL_PROFILE.phone,
+  email: SCHOOL_PROFILE.email,
+  established_year: SCHOOL_PROFILE.establishedYear,
   // ⚠ KEEP ALIGNED WITH THE ADMIN DASHBOARD (school_settings id=1).
   // These are only shown BEFORE Supabase responds (or if it fails) — but
   // JS-running AI tools (ChatGPT browser, Copilot, screenshot bots) extract
@@ -49,9 +50,10 @@ export const fallbackSettings: SchoolSettings = {
   total_teachers: 8,
   pass_percentage: 95,
   board_results: "A+",
-  location_lat: 34.4084,
-  location_lng: 71.3707,
-  principal_name: null,
+  // Coordinates stay unset unless the school has verified them in settings.
+  location_lat: null,
+  location_lng: null,
+  principal_name: SCHOOL_PROFILE.principal,
   principal_message: null,
   principal_photo_url: null,
 };
@@ -234,4 +236,3 @@ export function useSchoolSettings() {
     placeholderData: (previousData) => previousData ?? readCache() ?? fallbackSettings,
   });
 }
-

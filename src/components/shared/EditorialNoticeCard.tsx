@@ -152,7 +152,7 @@ const MastheadEmblem = ({
     <div className="relative z-10 flex flex-col items-center gap-1 px-3">
       {/* Top line: EST · diamond · roman numeral */}
       <div className="flex items-center gap-1.5 text-[7px] font-bold uppercase tracking-[0.3em] text-primary/55">
-        <span>EST. 2018</span>
+        <span>EST. 2010</span>
         <Diamond className="bg-gold/70" />
         <span>№ {articleNo}</span>
       </div>

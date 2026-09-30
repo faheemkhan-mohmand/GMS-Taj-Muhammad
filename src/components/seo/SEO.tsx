@@ -1,7 +1,8 @@
 import { Helmet } from "react-helmet-async";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
-export const SITE_URL  = "https://gmstajmuhamad.vercel.app";
-export const SITE_NAME = "GMS Taj Muhammad";
+export const SITE_URL  = SCHOOL_PROFILE.siteUrl;
+export const SITE_NAME = SCHOOL_PROFILE.shortName;
 
 // ✅ OG image: actual file is 1730×909 px (public/og-image.jpg)
 const DEFAULT_IMAGE        = `${SITE_URL}/og-image.jpg`;
@@ -55,9 +56,10 @@ const SEO = ({
     ? title
     : `${title} | ${SITE_NAME}`;
 
-  const url =
-    `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`.replace(/\/$/, "") ||
-    SITE_URL;
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const url = normalizedPath === "/"
+    ? `${SITE_URL}/`
+    : `${SITE_URL}${normalizedPath.replace(/\/$/, "")}`;
 
   const schemas: Record<string, any>[] = [];
   if (jsonLd) {

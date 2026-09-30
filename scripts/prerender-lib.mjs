@@ -85,6 +85,7 @@ export const STATIC_ROUTES = [
   "/news",
   "/results",
   "/merit-list",
+  "/roll-no-slip",
   "/result-card",
   "/calendar",
   "/teachers",

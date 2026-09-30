@@ -1143,7 +1143,7 @@ const Home = () => {
               <m.div variants={stagger.child}>
                 <span className={`inline-flex items-center gap-2 ${heroBadgeBg} backdrop-blur-sm rounded-full px-4 py-1.5 text-sm shadow-sm`}>
                   <span className="w-2 h-2 rounded-full bg-azure animate-pulse" />
-                  <span className="tracking-wide">Est. {settings?.established_year || 2018} · EMIS {settings?.emis_code || "66013"}</span>
+                  <span className="tracking-wide">Est. {settings?.established_year || 2010} · EMIS {settings?.emis_code || "66013"}</span>
                 </span>
               </m.div>
               <HeroTypewriterHeading
@@ -1177,7 +1177,7 @@ const Home = () => {
                 { icon: Users,         label: "Students",    value: settings?.total_students   || 180,  suffix: "+" },
                 { icon: GraduationCap, label: "Teachers",    value: settings?.total_teachers   || 8,    suffix: "+" },
                 { icon: Trophy,        label: "Pass Rate",   value: settings?.pass_percentage  || 95,   suffix: "%" },
-                { icon: BookOpen,      label: "Established", value: settings?.established_year || 2018, suffix: ""  },
+                { icon: BookOpen,      label: "Established", value: settings?.established_year || 2010, suffix: ""  },
               ].map((stat, i) => (
                 <m.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.1 }}
                   className={`${heroStatCard} rounded-2xl p-4 shadow-sm`}>
@@ -1204,7 +1204,7 @@ const Home = () => {
                 <CountStat value={settings?.total_students  || 180} suffix="+" label="Students" />
                 <CountStat value={settings?.total_teachers  || 8}   suffix="+" label="Teachers" />
                 <CountStat value={settings?.pass_percentage || 95}  suffix="%" label="Pass Rate" />
-                <CountStat value={settings?.established_year || 2018}            label="Established" />
+                <CountStat value={settings?.established_year || 2010}            label="Established" />
                 <TextStat value={settings?.board_results || "A+"}                label="Results" />
               </>
             )}
@@ -1601,7 +1601,7 @@ const Home = () => {
             <ScrollReveal direction="left">
               <div className="text-foreground">
                 <span className="inline-block bg-card text-foreground border border-azure/30 text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-4">About Us</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-6 leading-tight">Building Future Leaders Since {settings?.established_year || 2018}</h2>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold mb-6 leading-tight">Building Future Leaders Since {settings?.established_year || 2010}</h2>
                 <p className="text-muted-foreground text-lg leading-relaxed mb-8">
                   {settings?.description || "Government Middle School Taj Muhammad has been serving the community of District Mohmand with dedication and excellence. We believe in nurturing every student's potential through quality education and modern teaching methodologies."}
                 </p>

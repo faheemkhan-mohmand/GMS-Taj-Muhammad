@@ -458,7 +458,7 @@ function drawPDFHeader(doc: jsPDF, title: string, subtitle: string, w: number) {
   doc.setFontSize(7.5);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(PDF_COLOR.sub[0], PDF_COLOR.sub[1], PDF_COLOR.sub[2]);
-  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2018", w / 2, 22, { align: "center" });
+  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2010", w / 2, 22, { align: "center" });
   doc.setDrawColor(PDF_COLOR.rule[0], PDF_COLOR.rule[1], PDF_COLOR.rule[2]);
   doc.setLineWidth(0.25);
   doc.line(14, 25, w - 14, 25);

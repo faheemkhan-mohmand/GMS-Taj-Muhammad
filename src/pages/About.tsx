@@ -108,7 +108,7 @@ const About = () => {
             className="mt-8 flex flex-wrap items-center justify-center gap-2.5"
           >
             {[
-              { icon: Calendar, label: `Est. ${settings?.established_year || 2018}` },
+              { icon: Calendar, label: `Est. ${settings?.established_year || 2010}` },
               { icon: GraduationCap, label: `EMIS ${settings?.emis_code || "66013"}` },
               { icon: MapPin, label: settings?.address || "District Mohmand, KPK" },
             ].map(({ icon: Icon, label }) => (
@@ -153,7 +153,7 @@ const About = () => {
                 <>
                   <p className="mt-6 text-muted-foreground leading-relaxed">
                     {settings?.about_text || settings?.description ||
-                      "Established in 2018, GMS Taj Muhammad is a government middle school located in Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan. The school serves as a beacon of education in the region, providing quality education from Class 6 to Class 8."}
+                      "Established in 2010, GMS Taj Muhammad is a government middle school located in Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan. The school serves as a beacon of education in the region, providing quality education from Class 6 to Class 8."}
                   </p>
                   <p className="mt-4 text-muted-foreground leading-relaxed">
                     With an EMIS Code of {settings?.emis_code || "66013"}, our school is
@@ -165,7 +165,7 @@ const About = () => {
                   <div className="mt-7 flex flex-wrap gap-2.5">
                     {[
                       { icon: MapPin, label: settings?.address || "District Mohmand" },
-                      { icon: Calendar, label: `Est. ${settings?.established_year || 2018}` },
+                      { icon: Calendar, label: `Est. ${settings?.established_year || 2010}` },
                       { icon: GraduationCap, label: `EMIS: ${settings?.emis_code || "66013"}` },
                     ].map(({ icon: Icon, label }) => (
                       <span
@@ -186,7 +186,7 @@ const About = () => {
                 {
                   icon: History,
                   title: "Our History",
-                  text: `Founded in ${settings?.established_year || 2018}, GMS Taj Muhammad was established to bring quality education to the youth of Taj Muhammad and surrounding areas in District Mohmand. Since then, we have been steadily growing and producing excellent results.`,
+                  text: `Founded in ${settings?.established_year || 2010}, GMS Taj Muhammad was established to bring quality education to the youth of Taj Muhammad and surrounding areas in District Mohmand. Since then, we have been steadily growing and producing excellent results.`,
                 },
                 {
                   icon: Target,
@@ -266,7 +266,7 @@ const About = () => {
               <BandStat value={settings?.total_teachers || 8} suffix="+" label="Teachers" />
               <BandStat value={settings?.pass_percentage || 95} suffix="%" label="Pass Rate" />
               <BandStat
-                value={new Date().getFullYear() - (settings?.established_year || 2018)}
+                value={new Date().getFullYear() - (settings?.established_year || 2010)}
                 suffix="+"
                 label="Years of Service"
               />

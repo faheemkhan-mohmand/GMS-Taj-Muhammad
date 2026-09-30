@@ -787,7 +787,7 @@ function generateAttendanceReportPdf(data: CombinedReportData) {
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7);
   doc.setTextColor(PDF.sub[0], PDF.sub[1], PDF.sub[2]);
-  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2018", w / 2, 22.5, { align: "center" });
+  doc.text("District Mohmand, Khyber Pakhtunkhwa  |  Established 2010", w / 2, 22.5, { align: "center" });
 
   // Title (text-based, no filled pill)
   doc.setTextColor(PDF.navy[0], PDF.navy[1], PDF.navy[2]);

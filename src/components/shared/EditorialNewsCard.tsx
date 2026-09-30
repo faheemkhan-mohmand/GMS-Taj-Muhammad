@@ -146,7 +146,7 @@ const CornerTicks = () => (
  *  "single letter + 'Official Dispatch'" placeholder.
  *
  *  Layers (top → bottom):
- *    1. Tiny diamond + "EST. 2018" header line (with right-side roman numerals)
+ *    1. Tiny diamond + "EST. 2010" header line (with right-side roman numerals)
  *    2. School monogram — a serif "GMS" inside a hexagonal gold ring
  *    3. Bilingual school name: "GMS TAJ MUHAMMAD" (Latin) + "گھس بابی خیل" (Urdu)
  *    4. Dual-tone gold rule + diamond ornament
@@ -182,7 +182,7 @@ const MastheadEmblem = ({
       <div className={`relative z-10 flex flex-col items-center ${big ? "gap-2 px-6" : "gap-1 px-3"}`}>
         {/* Top line: EST · diamond · roman numeral */}
         <div className="flex items-center gap-1.5 text-[7px] font-bold uppercase tracking-[0.3em] text-primary/55">
-          <span>EST. 2018</span>
+          <span>EST. 2010</span>
           <Diamond className="bg-gold/70" />
           <span>№ {articleNo}</span>
         </div>

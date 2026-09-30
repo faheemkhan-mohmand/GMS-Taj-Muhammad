@@ -1,6 +1,7 @@
 import { useLocation, matchPath } from "react-router-dom";
 import SEO from "./SEO";
 import { SITE_URL } from "./SEO";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 // Shared canonical FAQ dataset — the SAME data the /faq React page, the
 // /api/ai-data feed and /api/render (crawler HTML) serve. Single source,
 // zero drift. (Types come from src/data/faqData.d.mts. The import stays
@@ -159,7 +160,7 @@ const ROUTES: RouteSEO[] = [
     pattern: "/about",
     title: "About GMS Taj Muhammad — History, Mission & Vision | District Mohmand KPK",
     description:
-      "Learn about Government Middle School Taj Muhammad — our history since 2018, mission, vision, faculty and commitment to quality education in District Mohmand.",
+      `Learn about Government Middle School Taj Muhammad — established in ${SCHOOL_PROFILE.establishedYear}, with its history, mission, vision, faculty and commitment to quality education in District Mohmand.`,
     keywords: "about GMS Taj Muhammad, school history, school mission, school vision, Mohmand education",
     breadcrumbs: () => [baseBreadcrumb, { name: "About", path: "/about" }],
     jsonLd: () => ({
@@ -484,7 +485,7 @@ const ROUTES: RouteSEO[] = [
     pattern: "/roll-no-slip",
     title: "Roll No. Slip — GMS Taj Muhammad | Exam Roll Numbers & Admit Card",
     description:
-      "Find your exam roll number and download your admit card (Roll No. Slip) for Government Middle School Taj Muhammad, District Mohmand, KPK.",
+      "Find your exam roll number and download your admit card for GMS Taj Muhammad, District Mohmand. Students search by class and full name to view only their own Roll No. Slip; student slips are not listed publicly.",
     keywords: "roll no slip, exam roll number, admit card, GMS Taj Muhammad roll number, exam admit card Pakistan",
     breadcrumbs: () => [baseBreadcrumb, { name: "Roll No. Slip", path: "/roll-no-slip" }],
   },

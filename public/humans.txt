@@ -6,11 +6,11 @@ Site: https://gmstajmuhamad.vercel.app
 Note: Independently designed and developed this website as a school/community project.
 
 /* THANKS */
-Principal: Mr. Imdad Ullah
+Principal: Mr. Jamshad
 School: Government Middle School Taj Muhammad (EMIS 66013)
 
 /* SITE */
-Last update: 2026/08/30
+Last update: 2026/09/30
 Standards: HTML5, JSON-LD, llms.txt
 Components: React, Vite, Tailwind CSS
 Software: Supabase, Vercel

@@ -298,7 +298,7 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
   ctx.textAlign = "center";
   ctx.fillText("Education · Discipline · Success", W / 2, H - FT_H / 2 + 4);
   ctx.textAlign = "right";
-  ctx.fillText("Est. 2018", W - 16, H - FT_H / 2 + 4);
+  ctx.fillText("Est. 2010", W - 16, H - FT_H / 2 + 4);
   ctx.textAlign = "left";
 
   return canvas.toDataURL("image/png", 1.0);
@@ -443,7 +443,7 @@ async function renderBack(student: Student): Promise<string> {
   ctx.font = "9px 'Georgia', serif";
   ctx.textAlign = "center";
   ctx.fillText(
-    `Education · Discipline · Success   |   EMIS: 66013   |   Est. 2018`,
+    `Education · Discipline · Success   |   EMIS: 66013   |   Est. 2010`,
     W / 2, BOT_Y + BOT_H / 2 + 3
   );
   ctx.textAlign = "left";
