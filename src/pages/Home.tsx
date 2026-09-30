@@ -1632,7 +1632,7 @@ const Home = () => {
                     {settings?.principal_photo_url ? (
                       <img
                         src={optimizedCloudinaryUrl(settings.principal_photo_url, { width: 600 }) || settings.principal_photo_url}
-                        alt={settings?.principal_name || "Principal"}
+                        alt="School principal"
                         className="w-full h-full object-cover"
                         onError={(e) => { const el = e.target as HTMLImageElement; el.style.display = "none"; el.nextElementSibling && ((el.nextElementSibling as HTMLElement).style.display = "flex"); }}
                       />
@@ -1642,9 +1642,8 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-                {settings?.principal_name && (
+                {settings?.principal_photo_url && (
                   <div className="absolute bottom-4 left-4 right-4 bg-card/90 backdrop-blur-sm rounded-xl p-3 text-center">
-                    <p className="font-heading font-bold text-foreground text-sm">{settings.principal_name}</p>
                     <p className="text-xs text-muted-foreground">Principal</p>
                   </div>
                 )}

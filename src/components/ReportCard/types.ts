@@ -87,7 +87,7 @@ export type ClassName = "9th" | "10th" | "1st Year" | "2nd Year";
 export interface ExamSelection {
   /** School name shown on the PDF/Excel title block. Persisted in
    *  localStorage until the user changes it — defaults to
-   *  "GHS Babi Khel, District Mohmand". */
+   *  Government Middle School Taj Muhammad. */
   schoolName: string;
   className: ClassName;
   examType: "Annual-I" | "Annual-II";

@@ -53,7 +53,7 @@ export const fallbackSettings: SchoolSettings = {
   // Coordinates stay unset unless the school has verified them in settings.
   location_lat: null,
   location_lng: null,
-  principal_name: SCHOOL_PROFILE.principal,
+  principal_name: null,
   principal_message: null,
   principal_photo_url: null,
 };

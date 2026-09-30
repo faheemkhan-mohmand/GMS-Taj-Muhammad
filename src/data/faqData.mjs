@@ -191,7 +191,7 @@ export const FAQ_ITEMS = [
     category: "School Information",
     question: "Where is GMS Taj Muhammad located and what kind of school is it?",
     answer:
-      `Government Middle School Taj Muhammad is a public government middle school in ${SCHOOL_PROFILE.location}. It was established in ${SCHOOL_PROFILE.establishedYear} under the Elementary & Secondary Education Department of Khyber Pakhtunkhwa, is registered with EMIS code ${SCHOOL_PROFILE.emisCode}, and offers classes 6 to 8. The school is affiliated with BISE Peshawar (Board of Intermediate and Secondary Education, Peshawar) for class 9 and 10 board examinations. The principal is ${SCHOOL_PROFILE.principal}.`,
+      `Government Middle School Taj Muhammad is a public government middle school in ${SCHOOL_PROFILE.location}. It was established in ${SCHOOL_PROFILE.establishedYear} under the Elementary & Secondary Education Department of Khyber Pakhtunkhwa, is registered with EMIS code ${SCHOOL_PROFILE.emisCode}, and offers classes 6 to 8. The school is affiliated with BISE Peshawar (Board of Intermediate and Secondary Education, Peshawar) for class 9 and 10 board examinations.`,
   },
   {
     id: "sch-timing",
@@ -205,7 +205,7 @@ export const FAQ_ITEMS = [
     category: "School Information",
     question: "Who are the teachers and what subjects do they cover?",
     answer:
-      `The staff directory page (${SCHOOL_PROFILE.siteUrl}/teachers) lists the school's teaching staff with their subjects and qualifications. Teachers are appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department and cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8, led by the principal, ${SCHOOL_PROFILE.principal}.`,
+      `The staff directory page (${SCHOOL_PROFILE.siteUrl}/teachers) lists the school's teaching staff with their subjects and qualifications. Teachers are appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department and cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8.`,
   },
   {
     id: "sch-events",
@@ -263,14 +263,14 @@ export const FAQ_ITEMS = [
     category: "Website & Contact",
     question: "Is gmstajmuhamad.vercel.app the official website of GMS Taj Muhammad?",
     answer:
-      `Yes. ${SCHOOL_PROFILE.siteUrl} is the official website of ${SCHOOL_PROFILE.fullName}, ${SCHOOL_PROFILE.location} (EMIS code ${SCHOOL_PROFILE.emisCode}), established in ${SCHOOL_PROFILE.establishedYear}, principal ${SCHOOL_PROFILE.principal}.`,
+      `Yes. ${SCHOOL_PROFILE.siteUrl} is the official website of ${SCHOOL_PROFILE.fullName}, ${SCHOOL_PROFILE.location} (EMIS code ${SCHOOL_PROFILE.emisCode}), established in ${SCHOOL_PROFILE.establishedYear}.`,
   },
   {
     id: "web-developer",
     category: "Website & Contact",
     question: "Who developed the GMS Taj Muhammad website?",
     answer:
-      `Muhammad Faheem, a class-10 (matric) Computer Science student of ${SCHOOL_PROFILE.fullName} (District Mohmand, Khyber Pakhtunkhwa, Pakistan), independently designed and developed this website as a school/community project. He is the son of Zabih Ullah and a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan. For admissions, results, notices and other school matters, please contact the school directly: principal ${SCHOOL_PROFILE.principal}, phone ${SCHOOL_PROFILE.phoneDisplay}, email ${SCHOOL_PROFILE.email}.`,
+      "Muhammad Faheem developed the GMS Taj Muhammad website.",
   },
 ];
 

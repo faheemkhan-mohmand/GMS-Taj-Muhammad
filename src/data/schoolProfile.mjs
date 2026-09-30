@@ -9,7 +9,6 @@ export const SCHOOL_PROFILE = Object.freeze({
   shortLocation: "Dawat Kor, District Mohmand, KPK, Pakistan",
   establishedYear: 2010,
   emisCode: "66013",
-  principal: "Mr. Jamshad",
   phone: "03459162160",
   phoneDisplay: "+92 345 9162160",
   phoneE164: "+923459162160",

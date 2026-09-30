@@ -30,6 +30,7 @@
 import type { jsPDF } from "jspdf";
 import type { ClassName, ExamSelection, NormalizedResult, ResultStats } from "./types";
 import { classDisplayName, isCollegeClass } from "./classMaxMarks";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
 type RGB = [number, number, number];
 
@@ -373,7 +374,7 @@ function drawPage1(
   doc.setFont("helvetica", "bold");
   doc.setFontSize(18);
   setText(doc, C.ink);
-  doc.text(opts.schoolName || "GHS Babi Khel, District Mohmand", cx, 40, { align: "center" });
+  doc.text(opts.schoolName || SCHOOL_PROFILE.fullName, cx, 40, { align: "center" });
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10.5);
@@ -704,7 +705,7 @@ function drawPage2(
   doc.setFont("helvetica", "bold");
   doc.setFontSize(15);
   setText(doc, C.ink);
-  doc.text(opts.schoolName || "GHS Babi Khel, District Mohmand", cx, 40, { align: "center" });
+  doc.text(opts.schoolName || SCHOOL_PROFILE.fullName, cx, 40, { align: "center" });
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
@@ -1092,7 +1093,7 @@ export async function generateCombinedReportPDF(opts: CombinedPDFOpts): Promise<
     doc.setFontSize(8);
     setText(doc, C.muted);
     doc.text(
-      `${opts.schoolName || "GHS Babi Khel"} · Combined BISE Peshawar Results`,
+      `${opts.schoolName || SCHOOL_PROFILE.fullName} · Combined BISE Peshawar Results`,
       MARGIN, PAGE_H - 18
     );
     doc.text(

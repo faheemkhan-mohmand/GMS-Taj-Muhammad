@@ -9,6 +9,7 @@ import {
 import confetti from "canvas-confetti";
 import PageLayout from "@/components/layout/PageLayout";
 import { useSchoolSettings } from "@/hooks/useSchoolSettings";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -584,7 +585,7 @@ const Contact = () => {
                 </p>
                 <div className="space-y-3">
                   <a
-                    href="https://wa.me/923469898295"
+                    href={`https://wa.me/${SCHOOL_PROFILE.phoneE164.replace(/^\+/, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-3 w-full rounded-2xl border border-[#25D366]/25 bg-[#25D366]/10 hover:bg-[#25D366]/20 hover:border-[#25D366]/50 px-4 py-3 transition-all card-lift"

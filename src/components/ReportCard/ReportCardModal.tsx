@@ -33,13 +33,14 @@ import { computeStats } from "./normalize";
 import { generateResultPDF } from "./generatePDF";
 import { generateResultExcel } from "./generateExcel";
 import { generateCombinedReportPDF } from "./generateCombinedPDF";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
 const PASSWORD = "babikhel#123";
 const SESSION_KEY = "rc_auth_ok";
 const LS_ROLLS_KEY = "rc_roll_entries";
 const LS_SELECTION_KEY = "rc_exam_selection";
 const CLASS_OPTIONS: ClassName[] = ["9th", "10th", "1st Year", "2nd Year"];
-const DEFAULT_SCHOOL = "GHS Babi Khel, District Mohmand";
+const DEFAULT_SCHOOL = SCHOOL_PROFILE.fullName;
 
 type Stage = "password" | "form" | "fetching" | "results";
 
@@ -75,7 +76,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
       }
     } catch {}
     return {
-      schoolName: "GHS Babi Khel, District Mohmand",
+      schoolName: DEFAULT_SCHOOL,
       className: "10th",
       examType: "Annual-I",
       year: String(new Date().getFullYear()),

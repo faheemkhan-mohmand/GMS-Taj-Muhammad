@@ -6,7 +6,6 @@ export const SCHOOL_PROFILE: Readonly<{
   shortLocation: string;
   establishedYear: number;
   emisCode: string;
-  principal: string;
   phone: string;
   phoneDisplay: string;
   phoneE164: string;

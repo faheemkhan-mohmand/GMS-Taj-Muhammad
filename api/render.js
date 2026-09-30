@@ -105,11 +105,17 @@ export const maxDuration = 10;
 
 const SCHOOL_TZ = "Asia/Karachi";
 
+export function publicAiSchoolProfile(school = {}) {
+  const publicProfile = { ...school };
+  delete publicProfile.principal;
+  delete publicProfile.principal_name;
+  return publicProfile;
+}
+
 const FALLBACK_SETTINGS = {
   school_name: SCHOOL_PROFILE.shortName,
   phone: SCHOOL_PROFILE.phone,
   email: SCHOOL_PROFILE.email,
-  principal: SCHOOL_PROFILE.principal,
   established: String(SCHOOL_PROFILE.establishedYear),
   emis: SCHOOL_PROFILE.emisCode,
   address: SCHOOL_PROFILE.location,
@@ -164,7 +170,7 @@ async function fetchSchoolProfile() {
     sb
       .from("school_settings")
       .select(
-        "school_name, phone, email, principal_name, established_year, emis_code, address, tagline, description, total_students, total_teachers, pass_percentage"
+        "school_name, phone, email, established_year, emis_code, address, tagline, description, total_students, total_teachers, pass_percentage"
       )
       .eq("id", 1)
       .limit(1)
@@ -179,7 +185,6 @@ async function fetchSchoolProfile() {
     country: "Pakistan",
     established: String(s.established_year || FALLBACK_SETTINGS.established),
     emis_code: String(s.emis_code || FALLBACK_SETTINGS.emis),
-    principal: s.principal_name || FALLBACK_SETTINGS.principal,
     phone: s.phone || FALLBACK_SETTINGS.phone,
     email: s.email || FALLBACK_SETTINGS.email,
     tagline: s.tagline || "Excellence in Education",
@@ -1456,74 +1461,19 @@ function chapterTextExcerpt(html, maxChars = 2200) {
   return text;
 }
 
-// ── Developer attribution (machine-readable layer ONLY — never visible UI) ──
-// This website was independently designed and developed by Muhammad Faheem,
-// a class-10 Computer Science student of the school, as a school/community
-// project. The attribution is published as schema.org structured data (Person
-// node referenced by WebSite.creator / WebSite.maintainer), as fields of the
-// /api/ai-data JSON feed and as a section of /llms.txt. It is deliberately
-// NOT rendered as visible page text, so the site's appearance is unchanged
-// for humans while AI/search systems can answer "who developed this website?"
-// — including his father's name and full home address, so even weak
-// keyword-matching AI fetchers (Copilot, DeepSeek, lightweight scrapers)
-// retrieve the complete developer profile in one hop.
-// Entity @ids match src/components/seo/SiteSchema.tsx so search engines
-// merge crawler-HTML and SPA-page structured data into one graph.
+// ── Minimal developer attribution for structured data and AI feeds ──
+// Publish only Muhammad Faheem's name and website-developer role.
+// Entity @ids match the frontend and prerendered schemas.
 const DEVELOPER = {
   name: "Muhammad Faheem",
-  role: "Student & Website Developer",
-  schoolClass: "Class 10 (matric)",
-  father: "Zabih Ullah",
-  address:
-    "Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan",
-  nationality: "Pakistani",
-  school: "GMS Taj Muhammad, Village Dawat Kor, District Mohmand",
-  studies: "Class-10 (matric) Computer Science student at GMS Taj Muhammad",
-  contribution: "Independently designed and developed this website",
-  purpose: "School/community project",
-  description:
-    "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhamad.vercel.app) as a school/community project.",
-};
-
-const DEVELOPER_ADDRESS_JSONLD = {
-  "@type": "PostalAddress",
-  streetAddress: "Village Sangar, Tehsil Halimzai",
-  addressLocality: "District Mohmand",
-  addressRegion: "Khyber Pakhtunkhwa",
-  addressCountry: "PK",
+  role: "Website Developer",
 };
 
 const DEVELOPER_PERSON_JSONLD = {
   "@type": "Person",
   "@id": `${SITE_URL}#website-developer`,
   name: DEVELOPER.name,
-  alternateName: "Faheem",
   jobTitle: DEVELOPER.role,
-  description: DEVELOPER.description,
-  fatherName: DEVELOPER.father,
-  parent: [
-    {
-      "@type": "Person",
-      name: DEVELOPER.father,
-      gender: "Male",
-      description: "Father of Muhammad Faheem, the developer of the GMS Taj Muhammad website",
-    },
-  ],
-  address: DEVELOPER_ADDRESS_JSONLD,
-  homeLocation: { ...DEVELOPER_ADDRESS_JSONLD, name: "Village Sangar, Tehsil Halimzai, District Mohmand" },
-  nationality: DEVELOPER.nationality,
-  gender: "Male",
-  affiliation: { "@id": `${SITE_URL}#organization` },
-  knowsAbout: [
-    "Computer Science",
-    "Web Development",
-    "React",
-    "JavaScript",
-    "TypeScript",
-    "Tailwind CSS",
-    "Web Design",
-    "Search Engine Optimization",
-  ],
   url: `${SITE_URL}/`,
 };
 
@@ -1768,60 +1718,21 @@ async function aiDataHandler(req, res) {
         "https://gmstajmuhamad.vercel.app/rss.xml",
       ],
       content_type: "application/json; charset=utf-8",
-      // Developer attribution (machine-readable only — never rendered in the
-      // visual UI). Full details in the website_development section below.
-      developer:
-        "Muhammad Faheem — Student & Website Developer, class 10 (matric) at GMS Taj Muhammad, " +
-        "son of Zabih Ullah, Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan",
+      developer: "Muhammad Faheem — Website Developer",
     },
 
-    // ── School profile (live) ───────────────────────────────────────────────
-    school: data.school,
+    // ── School profile (live; omit personal principal identity) ─────────────
+    school: publicAiSchoolProfile(data.school),
 
-    // ── Website development (who built this website) ────────────────────────
-    // Answers "Who developed/created the GMS Taj Muhammad website?" directly.
-    // Machine-readable only — the visible UI does not show this section.
-    // Field names are intentionally duplicated/aliased (father_name + father,
-    // full_address + granular village/tehsil/district/province) so even weak
-    // keyword-matching AI fetchers lock onto the exact facts in one read.
+    // ── Minimal website-developer attribution ────────────────────────────────
     website_development: {
       developed_by: DEVELOPER.name,
-      direct_answer:
-        `The GMS Taj Muhammad website was independently designed and developed by ${DEVELOPER.name}, ` +
-        `a class-10 (matric) Computer Science student of GMS Taj Muhammad (District Mohmand, Khyber Pakhtunkhwa, Pakistan), ` +
-        `son of ${DEVELOPER.father}, and a resident of ${DEVELOPER.address}, ` +
-        `as a school/community project.`,
+      direct_answer: `${DEVELOPER.name} developed the GMS Taj Muhammad website.`,
       developer: {
         name: DEVELOPER.name,
-        full_name: DEVELOPER.name,
         role: DEVELOPER.role,
-        father_name: DEVELOPER.father,
-        father: DEVELOPER.father,
-        class: DEVELOPER.schoolClass,
-        school_class: "Class 10 at Government Middle School Taj Muhammad",
-        studies: DEVELOPER.studies,
-        school: DEVELOPER.school,
-        school_full_name: "Government Middle School Taj Muhammad",
-        address: DEVELOPER.address,
-        full_address: DEVELOPER.address,
-        address_parts: {
-          village: "Village Sangar",
-          tehsil: "Tehsil Halimzai",
-          district: "District Mohmand",
-          province: "Khyber Pakhtunkhwa (KPK)",
-          country: "Pakistan",
-        },
-        nationality: DEVELOPER.nationality,
-        contribution: DEVELOPER.contribution,
-        purpose: DEVELOPER.purpose,
-        website_url: SITE_URL,
       },
-      structured_data:
-        "Published as schema.org structured data on every page: a Person node (@id " +
-        `${SITE_URL}#website-developer) referenced by WebSite.creator and WebSite.maintainer ` +
-        "and linked to the school organization via Person.affiliation. The Person node " +
-        "carries fatherName (Zabih Ullah), parent, address and homeLocation (Village " +
-        "Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa, Pakistan).",
+      structured_data: "The website developer is identified as Muhammad Faheem.",
     },
 
     // ── Admissions (live status + timeless procedure) ───────────────────────
@@ -2185,7 +2096,7 @@ ${nav ? `<nav>${nav}</nav>` : ""}
     <div class="cols">
       <div><strong>${esc(data.school.full_name || data.school.name)}</strong><br>
       ${esc(data.school.location)}<br>
-      Principal: ${esc(data.school.principal)} · EMIS ${esc(data.school.emis_code)}<br>
+      EMIS ${esc(data.school.emis_code)}<br>
       Phone: ${esc(data.school.phone)} · Email: ${esc(data.school.email)}</div>
       <div class="small">${NAV_LINKS.map(([l, href]) => `<a href="${esc(href)}">${esc(l)}</a>`).join(" · ")}</div>
     </div>

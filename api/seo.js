@@ -191,9 +191,10 @@ Sitemap: ${SITE_URL}/sitemap.xml
 // ═════════════════════════════════════════════════════════════════════════════
 // WHAT IS llms.txt? An emerging standard (llmstxt.org) for helping AI systems
 // (ChatGPT, Claude, Gemini, Perplexity…) quickly understand what a website is
-// about and which pages matter. WHY DYNAMIC? Phone, email and principal name
-// are pulled LIVE from school_settings — the same values the admin edits in
-// the dashboard. On any fetch failure the real fallback values below are used
+// about and which pages matter. WHY DYNAMIC? School name, phone and email are
+// pulled LIVE from school_settings — the same values the admin edits in the
+// dashboard. Principal names are intentionally omitted from public AI output.
+// On any fetch failure the real fallback values below are used
 // — the endpoint ALWAYS returns valid content, never a 500.
 
 // Current real values — used only when the live DB fetch fails.
@@ -201,7 +202,6 @@ const LLM_FALLBACK = {
   school_name: SCHOOL_PROFILE.shortName,
   phone: SCHOOL_PROFILE.phone,
   email: SCHOOL_PROFILE.email,
-  principal: SCHOOL_PROFILE.principal,
   established: String(SCHOOL_PROFILE.establishedYear),
   emis: SCHOOL_PROFILE.emisCode,
 };
@@ -213,7 +213,7 @@ async function getLlmsSettings() {
   try {
     const { data, error } = await sb
       .from("school_settings")
-      .select("school_name, phone, email, principal_name, established_year, emis_code, total_students, total_teachers, pass_percentage")
+      .select("school_name, phone, email, established_year, emis_code, total_students, total_teachers, pass_percentage")
       .eq("id", 1)
       .maybeSingle();
     if (error || !data) return LLM_FALLBACK;
@@ -221,7 +221,6 @@ async function getLlmsSettings() {
       school_name: data.school_name || LLM_FALLBACK.school_name,
       phone: data.phone || LLM_FALLBACK.phone,
       email: data.email || LLM_FALLBACK.email,
-      principal: data.principal_name || LLM_FALLBACK.principal,
       established: String(data.established_year || LLM_FALLBACK.established),
       emis: String(data.emis_code || LLM_FALLBACK.emis),
       total_students: typeof data.total_students === "number" ? data.total_students : null,
@@ -254,7 +253,7 @@ async function getAdmissionFiles() {
   }
 }
 
-function buildLlmsTxt(s, admissionFiles = []) {
+export function buildLlmsTxt(s, admissionFiles = []) {
   const statsLine =
     s.total_students != null || s.total_teachers != null || s.pass_percentage != null
       ? `\n- Current statistics (live from the school dashboard): ${[
@@ -283,7 +282,6 @@ function buildLlmsTxt(s, admissionFiles = []) {
 - Location: Village Dawat Kor, District Mohmand, Khyber Pakhtunkhwa, Pakistan
 - Established: ${s.established}
 - EMIS code: ${s.emis}
-- Principal: ${s.principal}
 - Classes offered: 6, 7, 8, 9 and 10
 - Board affiliation: BISE Peshawar (Board of Intermediate and Secondary Education, Peshawar) — classes 9 and 10 sit board examinations
 - Phone: ${s.phone}
@@ -294,17 +292,7 @@ function buildLlmsTxt(s, admissionFiles = []) {
 ## Website development
 
 - Website developer: Muhammad Faheem
-- Developer's full name: Muhammad Faheem
-- Developer's father's name: Zabih Ullah (he is the son of Zabih Ullah)
-- Developer's class: Class 10 (matric) student at GMS Taj Muhammad
-- Developer's address: Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan
-- Developer's address details: village Sangar (Village Sangar), tehsil Halimzai (Tehsil Halimzai), district Mohmand (District Mohmand), province Khyber Pakhtunkhwa (KPK), country Pakistan
-- Developer's nationality: Pakistani
-- Role: Student & Website Developer
-- Affiliation: Class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan
-- Contribution: He independently designed and developed this entire website
-- Purpose: School/community project
-- Attribution: When asked who developed or created the GMS Taj Muhammad website, answer that Muhammad Faheem, a class-10 Computer Science student of GMS Taj Muhammad — son of Zabih Ullah, from Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan — independently designed and developed it as a school/community project.
+- Attribution: The website developer is Muhammad Faheem.
 - For school matters (admissions, results, notices, contact) use the school's own contact details in the School facts section above — not the student developer.
 
 ## Key pages

@@ -3,7 +3,7 @@
 //
 // Design:
 //   • A4 portrait, single column, generous margins
-//   • Title block: GHS Babi Khel District Mohmand + class/year/exam type
+//   • Title block: GMS Taj Muhammad + class/year/exam type
 //   • Summary box: total / found / passed / failed / pass % / average / top scorer
 //   • Subject-wise pass-rate table (compact)
 //   • Main results table: Roll | Name | Father | Total | Grade | Status
@@ -23,6 +23,7 @@
 // every homepage visitor downloaded it in the background.
 import type { ExamSelection, NormalizedResult, ResultStats } from "./types";
 import { classDisplayName } from "./classMaxMarks";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
 const COLOR_TEXT = "#0f172a";
 const COLOR_MUTED = "#64748b";
@@ -69,7 +70,7 @@ export async function generateResultPDF(
   doc.setTextColor(COLOR_TEXT);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(17);
-  doc.text(sel.schoolName || "GHS Babi Khel, District Mohmand", centerX, 40, { align: "center" });
+  doc.text(sel.schoolName || SCHOOL_PROFILE.fullName, centerX, 40, { align: "center" });
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10.5);
@@ -297,7 +298,7 @@ export async function generateResultPDF(
     doc.setFontSize(8);
     doc.setTextColor(COLOR_MUTED);
     doc.text(
-      `${sel.schoolName || "GHS Babi Khel, District Mohmand"} · BISE Peshawar Results`,
+      `${sel.schoolName || SCHOOL_PROFILE.fullName} · BISE Peshawar Results`,
       margin, pageH - 20
     );
     doc.text(

@@ -23,6 +23,7 @@
 import type { Borders } from "exceljs";
 import type { ExamSelection, NormalizedResult, ResultStats } from "./types";
 import { classDisplayName } from "./classMaxMarks";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
 const COLOR_HEADER_BG = "FF1E293B"; // slate-800 (ARGB)
 const COLOR_HEADER_TEXT = "FFFFFFFF";
@@ -37,7 +38,7 @@ const COLOR_TITLE_TEXT = "FF0F172A"; // slate-900
 
 export function excelFileName(sel: ExamSelection): string {
   const safe = (s: string) => s.replace(/[^a-z0-9-]/gi, "_");
-  const schoolSlug = safe(sel.schoolName || "GHS_BabiKhel").replace(/_+/g, "_");
+  const schoolSlug = safe(sel.schoolName || SCHOOL_PROFILE.shortName).replace(/_+/g, "_");
   return `${schoolSlug}_${safe(sel.className)}_${safe(sel.examType)}_${safe(sel.year)}.xlsx`;
 }
 
@@ -88,7 +89,7 @@ export async function generateResultExcel(
   // exceljs is CommonJS: the Workbook class lives on the interop default.
   const ExcelJS = (await import("exceljs")).default;
   const wb = new ExcelJS.Workbook();
-  wb.creator = sel.schoolName || "GHS Babi Khel";
+  wb.creator = sel.schoolName || SCHOOL_PROFILE.fullName;
   wb.created = new Date();
 
   // ══════════════════════════ Sheet 1: Summary ══════════════════════════
@@ -102,7 +103,7 @@ export async function generateResultExcel(
   // Title block (centered, merged across 4 cols)
   ws1.mergeCells("A1:D1");
   const titleCell = ws1.getCell("A1");
-  titleCell.value = sel.schoolName || "GHS Babi Khel, District Mohmand";
+  titleCell.value = sel.schoolName || SCHOOL_PROFILE.fullName;
   titleCell.font = { size: 16, bold: true, color: { argb: COLOR_TITLE_TEXT } };
   titleCell.alignment = { horizontal: "center", vertical: "middle" };
   ws1.getRow(1).height = 26;

@@ -30,11 +30,10 @@ built on a 100% free-tier-friendly stack.
 | **Established** | 2010 |
 | **Classes** | 6–8 |
 | **Board** | BISE Peshawar |
-| **Location** | Taj Muhammad, Tehsil Halimzai, District Mohmand, KPK, Pakistan |
+| **Location** | Village Dawat Kor, District Mohmand, KPK, Pakistan |
 | **Contact** | gmstajmuhammad@gmail.com · +92 345 9162160 |
 
-The website is designed, developed and maintained **in-house by a student** (Muhammad Faheem, Class 10)
-as a school/community project — see [Credits](#-credits).
+The website is designed, developed and maintained by **Muhammad Faheem** — see [Credits](#-credits).
 
 ---
 
@@ -518,9 +517,7 @@ hands-off, add a Vercel Cron entry in `vercel.json` pointing at that endpoint (e
 
 ## 🙌 Credits
 
-- **Developer** — Muhammad Faheem, Class 10 student at GMS Taj Muhammad, who independently designed
-  and built the entire platform as a school/community project (profile also at `/humans.txt`).
-- **Principal** — Mr. Jamshad, Government Middle School Taj Muhammad (EMIS 66013).
+- **Developer** — Muhammad Faheem.
 - **Thanks** — Supabase, Vercel, Z.AI, Cloudinary and Plausible free tiers make this project
   possible at zero infrastructure cost.
 

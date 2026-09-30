@@ -5,6 +5,7 @@ import {
   Facebook, MessageCircle,
 } from "lucide-react";
 import { useSchoolSettings, safeMediaUrl } from "@/hooks/useSchoolSettings";
+import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
 const footerLinks = {
   quickLinks: [
@@ -120,7 +121,7 @@ const Footer = () => {
                 <Facebook className="w-4 h-4 text-white" />
               </a>
               <a
-                href="https://wa.me/923469898295"
+                href={`https://wa.me/${SCHOOL_PROFILE.phoneE164.replace(/^\+/, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Contact GMS Taj Muhammad on WhatsApp"

@@ -8,8 +8,8 @@ import { SITE_URL, SITE_NAME } from "./SEO";
  * WebSite (with SearchAction). Mounted once at app root.
  *
  * ── Problem 4 fix ──────────────────────────────────────────────────────────
- * Phone, email, address and principal name are now pulled LIVE from the
- * school_settings table (the same values the admin edits in the dashboard),
+ * Phone, email and address are pulled LIVE from the school_settings table
+ * (the same values the admin edits in the dashboard),
  * instead of being hardcoded here. Before, Google read a stale phone and a
  * non-existent email (gmstajmuhammad@edu.pk) from this schema even after the
  * admin updated the website — because this file never changed.
@@ -31,7 +31,6 @@ const SiteSchema = () => {
   const rawPhone = (settings?.phone || SCHOOL_PROFILE.phone).trim();
   const phone = rawPhone.startsWith("0") ? `+92${rawPhone.slice(1)}` : rawPhone;
   const email = (settings?.email || SCHOOL_PROFILE.email).trim();
-  const principal = (settings?.principal_name || SCHOOL_PROFILE.principal).trim();
 
   // Only publish map coordinates explicitly verified and entered by the school.
   const lat = settings?.location_lat;
@@ -73,18 +72,6 @@ const SiteSchema = () => {
     sameAs: [SCHOOL_PROFILE.facebookUrl],
   };
 
-  // Principal as a named employee (richer Knowledge Panel)
-  if (principal) {
-    organization.employee = [
-      {
-        "@type": "Person",
-        name: principal,
-        jobTitle: "Principal",
-        worksFor: { "@id": `${SITE_URL}#organization` },
-      },
-    ];
-  }
-
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -109,61 +96,14 @@ const SiteSchema = () => {
     },
   };
 
-  // ── Website developer attribution (machine-readable layer ONLY) ──
-  // Lets AI tools and search engines answer "Who developed/created the GMS
-  // Taj Muhammad website?" with: Muhammad Faheem, a class-10 Computer Science
-  // student of GMS Taj Muhammad, son of Zabih Ullah, resident of Village
-  // Sangar, Tehsil Halimzai, District Mohmand, KPK, Pakistan, who
-  // independently designed and developed it as a school/community project.
-  // Entity @id matches api/render.js, index.html and scripts/
-  // seo-page-content.mjs so crawler HTML and these pages merge into one
-  // schema.org graph. Structured data only — never shown as visible UI text.
+  // Minimal developer attribution: publish only the name and website role.
+  // Keep the entity ID consistent across crawler and prerendered HTML.
   const developer = {
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": `${SITE_URL}#website-developer`,
     name: "Muhammad Faheem",
-    alternateName: "Faheem",
-    jobTitle: "Student & Website Developer",
-    description:
-      "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhamad.vercel.app) as a school/community project.",
-    fatherName: "Zabih Ullah",
-    parent: [
-      {
-        "@type": "Person",
-        name: "Zabih Ullah",
-        gender: "Male",
-        description: "Father of Muhammad Faheem, the developer of the GMS Taj Muhammad website",
-      },
-    ],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Village Sangar, Tehsil Halimzai",
-      addressLocality: "District Mohmand",
-      addressRegion: "Khyber Pakhtunkhwa",
-      addressCountry: "PK",
-    },
-    homeLocation: {
-      "@type": "PostalAddress",
-      name: "Village Sangar, Tehsil Halimzai, District Mohmand",
-      streetAddress: "Village Sangar, Tehsil Halimzai",
-      addressLocality: "District Mohmand",
-      addressRegion: "Khyber Pakhtunkhwa",
-      addressCountry: "PK",
-    },
-    nationality: "Pakistani",
-    gender: "Male",
-    affiliation: { "@id": `${SITE_URL}#organization` },
-    knowsAbout: [
-      "Computer Science",
-      "Web Development",
-      "React",
-      "JavaScript",
-      "TypeScript",
-      "Tailwind CSS",
-      "Web Design",
-      "Search Engine Optimization",
-    ],
+    jobTitle: "Website Developer",
     url: `${SITE_URL}/`,
   };
 

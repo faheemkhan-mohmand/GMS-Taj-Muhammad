@@ -38,7 +38,6 @@ const SCHOOL_FACTS = [
   `Location: ${SCHOOL_PROFILE.location}`,
   `Established: ${SCHOOL_PROFILE.establishedYear}`,
   `EMIS code: ${SCHOOL_PROFILE.emisCode}`,
-  `Principal: ${SCHOOL_PROFILE.principal}`,
   "Classes offered: 6, 7, 8, 9 and 10 (matriculation)",
   "Board affiliation: BISE Peshawar — classes 9 and 10 sit board examinations",
   `Phone: ${SCHOOL_PROFILE.phoneDisplay}`,
@@ -89,7 +88,7 @@ const PAGES = {
     blocks: [
       {
         p: [
-          `Government Middle School (GMS) Taj Muhammad is a government middle school in ${SCHOOL_PROFILE.location}, established in ${SCHOOL_PROFILE.establishedYear} (EMIS code ${SCHOOL_PROFILE.emisCode}). The school offers classes 6 to 8 and is affiliated with BISE Peshawar, the Board of Intermediate and Secondary Education Peshawar, whose examinations our class 9 and 10 students sit every year. ${SCHOOL_PROFILE.principal} is the principal of the school.`,
+          `Government Middle School (GMS) Taj Muhammad is a government middle school in ${SCHOOL_PROFILE.location}, established in ${SCHOOL_PROFILE.establishedYear} (EMIS code ${SCHOOL_PROFILE.emisCode}). The school offers classes 6 to 8 and is affiliated with BISE Peshawar, the Board of Intermediate and Secondary Education Peshawar, whose examinations our class 9 and 10 students sit every year.`,
           "This official website is the school's digital front door. Students and parents can apply for admission online, search exam results by roll number, read official notices and school news, download free study notes and past papers, check the academic calendar, browse the teacher directory and view photos of school events. The site also works as a Progressive Web App (PWA), so it can be installed on a phone and used offline.",
         ],
       },
@@ -119,7 +118,7 @@ const PAGES = {
   "/about": {
     title: "About Us — GMS Taj Muhammad, Village Dawat Kor, District Mohmand",
     description:
-      `About Government Middle School Taj Muhammad, District Mohmand, KPK: established ${SCHOOL_PROFILE.establishedYear}, EMIS code ${SCHOOL_PROFILE.emisCode}, principal ${SCHOOL_PROFILE.principal}, classes 6–8, affiliated with BISE Peshawar. Our mission, vision and values.`,
+      `About Government Middle School Taj Muhammad, District Mohmand, KPK: established ${SCHOOL_PROFILE.establishedYear}, EMIS code ${SCHOOL_PROFILE.emisCode}, classes 6–8, affiliated with BISE Peshawar. Our mission, vision and values.`,
     h1: "About GMS Taj Muhammad",
     blocks: [
       {
@@ -167,7 +166,6 @@ const PAGES = {
           `Address: ${SCHOOL_PROFILE.location}`,
           `Phone: ${SCHOOL_PROFILE.phoneDisplay}`,
           `Email: ${SCHOOL_PROFILE.email}`,
-          `Principal: ${SCHOOL_PROFILE.principal}`,
           `Facebook page: ${SCHOOL_PROFILE.facebookUrl}`,
         ],
       },
@@ -324,12 +322,12 @@ const PAGES = {
   "/teachers": {
     title: "Teachers — Staff Directory | GMS Taj Muhammad",
     description:
-      `Teaching staff of Government Middle School Taj Muhammad, District Mohmand — subject teachers for classes 6–8 with qualifications, and the principal ${SCHOOL_PROFILE.principal}.`,
+      "Teaching staff of Government Middle School Taj Muhammad, District Mohmand — subject teachers for classes 6–8 with qualifications.",
     h1: "Our Teachers",
     blocks: [
       {
         p: [
-          `Government Middle School Taj Muhammad is staffed by qualified subject teachers appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department. The staff directory on this page lists the teaching staff with their subjects and qualifications, led by the principal, ${SCHOOL_PROFILE.principal}. Teachers cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8.`,
+          "Government Middle School Taj Muhammad is staffed by qualified subject teachers appointed through the Khyber Pakhtunkhwa Elementary & Secondary Education Department. The staff directory on this page lists the teaching staff with their subjects and qualifications. Teachers cover Mathematics, English, Urdu, Islamiat, Pakistan Studies and Computer Science for classes 6 to 8.",
         ],
       },
     ],
@@ -580,7 +578,7 @@ function buildContentHtml(route) {
   // (not only "/") can answer "who developed this website?" and knows where
   // the machine-readable feeds (llms.txt, /api/ai-data) live.
   parts.push(
-    `<p>This website was independently designed and developed by Muhammad Faheem, a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad (District Mohmand, Khyber Pakhtunkhwa, Pakistan), son of Zabih Ullah, and a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, as a school/community project. Machine-readable facts for AI tools: ${SITE_URL}/llms.txt and ${SITE_URL}/api/ai-data</p>`
+    `<p>Website developer: Muhammad Faheem. Machine-readable school facts: ${SITE_URL}/llms.txt and ${SITE_URL}/api/ai-data</p>`
   );
 
   return parts.join("\n      ");
@@ -654,47 +652,7 @@ export function buildJsonLd(route) {
         "@type": "Person",
         "@id": `${SITE_URL}#website-developer`,
         name: "Muhammad Faheem",
-        alternateName: "Faheem",
-        jobTitle: "Student & Website Developer",
-        description:
-          "Muhammad Faheem, son of Zabih Ullah, is a class-10 (matric) Computer Science student at Government Middle School Taj Muhammad, District Mohmand, Khyber Pakhtunkhwa, Pakistan. He is a resident of Village Sangar, Tehsil Halimzai, District Mohmand, Khyber Pakhtunkhwa (KPK), Pakistan, and he independently designed and developed the school's official website (gmstajmuhamad.vercel.app) as a school/community project.",
-        fatherName: "Zabih Ullah",
-        parent: [
-          {
-            "@type": "Person",
-            name: "Zabih Ullah",
-            gender: "Male",
-            description: "Father of Muhammad Faheem, the developer of the GMS Taj Muhammad website",
-          },
-        ],
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Village Sangar, Tehsil Halimzai",
-          addressLocality: "District Mohmand",
-          addressRegion: "Khyber Pakhtunkhwa",
-          addressCountry: "PK",
-        },
-        homeLocation: {
-          "@type": "PostalAddress",
-          name: "Village Sangar, Tehsil Halimzai, District Mohmand",
-          streetAddress: "Village Sangar, Tehsil Halimzai",
-          addressLocality: "District Mohmand",
-          addressRegion: "Khyber Pakhtunkhwa",
-          addressCountry: "PK",
-        },
-        nationality: "Pakistani",
-        gender: "Male",
-        affiliation: { "@id": `${SITE_URL}#organization` },
-        knowsAbout: [
-          "Computer Science",
-          "Web Development",
-          "React",
-          "JavaScript",
-          "TypeScript",
-          "Tailwind CSS",
-          "Web Design",
-          "Search Engine Optimization",
-        ],
+        jobTitle: "Website Developer",
         url: `${SITE_URL}/`,
       },
     ],

@@ -307,7 +307,7 @@ const About = () => {
                     {settings?.principal_photo_url ? (
                       <img
                         src={optimizedCloudinaryUrl(settings.principal_photo_url, { width: 400 }) || settings.principal_photo_url}
-                        alt={settings?.principal_name || "Principal"}
+                        alt="School principal"
                         className="w-full h-full object-cover"
                         onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                       />
@@ -318,11 +318,6 @@ const About = () => {
                     )}
                   </div>
                 </div>
-                {settings?.principal_name && (
-                  <p className="mt-4 font-heading font-semibold text-foreground text-center md:text-left">
-                    {settings.principal_name}
-                  </p>
-                )}
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold mt-0.5 text-center md:text-left">
                   Principal
                 </p>
