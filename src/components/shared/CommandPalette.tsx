@@ -182,10 +182,10 @@ export default function CommandPalette() {
     actions.push({
       kind: "action",
       id: "qa-theme",
-      label: theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode",
+      label: theme === "dark" ? "Switch to Bright Mode" : "Switch to Dark Mode",
       hint: "Toggle site appearance",
       icon: theme === "dark" ? SunMedium : Moon,
-      run: () => setTheme(theme === "dark" ? "system" : "dark"),
+      run: () => setTheme(theme === "dark" ? "bright" : "dark"),
     });
     return actions;
   }, [settings?.phone, theme, setTheme, navigate]);
@@ -321,7 +321,7 @@ export default function CommandPalette() {
           onClick={(e) => {
             if (e.target === e.currentTarget) close();
           }}
-          style={{ background: "linear-gradient(180deg, rgba(8,10,14,0.55), rgba(4,6,10,0.7))", backdropFilter: "blur(2px)" }}
+          style={{ background: "var(--gradient-hero)", backdropFilter: "blur(2px)" }}
           role="dialog"
           aria-modal="true"
           aria-label="Command palette"
@@ -417,7 +417,7 @@ export default function CommandPalette() {
                               active ? "bg-azure/10" : "hover:bg-secondary/60"
                             }`}
                           >
-                            <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${active ? "bg-azure text-white" : "bg-secondary text-azure"}`}>
+                            <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${active ? "bg-azure text-primary-foreground" : "bg-secondary text-azure"}`}>
                               <row.icon className="w-4 h-4" />
                             </span>
                             <span className="min-w-0 flex-1">
@@ -435,7 +435,7 @@ export default function CommandPalette() {
                               active ? "bg-azure/10" : "hover:bg-secondary/60"
                             }`}
                           >
-                            <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${active ? "bg-azure text-white" : "bg-secondary text-muted-foreground"}`}>
+                            <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${active ? "bg-azure text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>
                               <row.hit.icon className="w-4 h-4" />
                             </span>
                             <span className="min-w-0 flex-1">

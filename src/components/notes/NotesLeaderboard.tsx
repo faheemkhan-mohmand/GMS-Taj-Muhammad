@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useWeeklyLeaderboard, useLeaderboard, useGamification, useMyHouse, useHouses, useJoinHouse, getRankOf, BADGES, type BadgeTier } from "@/hooks/useNotes";
 import { useAuth } from "@/hooks/useAuth";
-import { 
+import {
   Trophy, Medal, Star, Flame, Crown, Zap, Target, BookOpen, Award, Home, Users,
   Lock, TrendingUp, Calendar, Gem, Swords, Sparkles, Shield, ChevronRight
 } from "lucide-react";
@@ -9,18 +9,18 @@ import {
 type LeaderboardTab = "weekly" | "alltime" | "houses" | "badges";
 
 function getMotivationalMessage(rank: number | null): { emoji: string; message: string; color: string } {
-  if (rank === 1) return { emoji: "👑", message: "You're the Champion!", color: "text-yellow-500" };
-  if (rank === 2) return { emoji: "🥈", message: "So close to the top!", color: "text-gray-400" };
-  if (rank === 3) return { emoji: "🥉", message: "You're on the podium!", color: "text-amber-600" };
-  if (rank && rank <= 10) return { emoji: "🔥", message: "You're in the elite!", color: "text-orange-500" };
-  if (rank && rank <= 25) return { emoji: "⭐", message: "Great progress! Keep going!", color: "text-blue-500" };
-  return { emoji: "💪", message: "Keep studying to climb the ranks!", color: "text-green-500" };
+  if (rank === 1) return { emoji: "👑", message: "You're the Champion!", color: "text-primary" };
+  if (rank === 2) return { emoji: "🥈", message: "So close to the top!", color: "text-muted" };
+  if (rank === 3) return { emoji: "🥉", message: "You're on the podium!", color: "text-primary" };
+  if (rank && rank <= 10) return { emoji: "🔥", message: "You're in the elite!", color: "text-primary" };
+  if (rank && rank <= 25) return { emoji: "⭐", message: "Great progress! Keep going!", color: "text-primary" };
+  return { emoji: "💪", message: "Keep studying to climb the ranks!", color: "text-primary" };
 }
 
 function AnimatedFire({ size = 24 }: { size?: number }) {
   return (
     <span className="inline-block animate-pulse">
-      <Flame size={size} className="text-orange-500 fill-orange-500" />
+      <Flame size={size} className="text-primary fill-accent" />
     </span>
   );
 }
@@ -28,24 +28,24 @@ function AnimatedFire({ size = 24 }: { size?: number }) {
 function PodiumDisplay({ data, currentUserId }: { data: any[]; currentUserId?: string }) {
   const top3 = data.slice(0, 3);
   const positions = [
-    { pos: 2, data: top3[1], emoji: "🥈", colors: "from-gray-300 to-gray-400 text-gray-800", ring: "ring-gray-300", height: "h-24 sm:h-28" },
-    { pos: 1, data: top3[0], emoji: "🥇", colors: "from-yellow-300 to-amber-400 text-yellow-900", ring: "ring-yellow-300", height: "h-32 sm:h-36 glow-gold" },
-    { pos: 3, data: top3[2], emoji: "🥉", colors: "from-amber-400 to-orange-500 text-amber-900", ring: "ring-amber-400", height: "h-16 sm:h-20" },
+    { pos: 2, data: top3[1], emoji: "🥈", colors: "from-primary to-primary text-primary", ring: "ring-accent", height: "h-24 sm:h-28" },
+    { pos: 1, data: top3[0], emoji: "🥇", colors: "from-accent to-accent text-primary", ring: "ring-accent", height: "h-32 sm:h-36 glow-gold" },
+    { pos: 3, data: top3[2], emoji: "🥉", colors: "from-accent to-accent text-primary", ring: "ring-accent", height: "h-16 sm:h-20" },
   ];
   return (
     <div className="flex items-end justify-center gap-2 sm:gap-4 py-6 px-2">
       {positions.map(({ pos, data: entry, emoji, colors, ring, height }) => (
         <div key={pos} className="flex flex-col items-center flex-1 max-w-[120px]">
           <div className={`relative mb-2 ${pos === 1 ? 'order-first' : ''}`}>
-            <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl font-bold bg-gradient-to-br ${colors} ring-4 ${ring} shadow-lg ${entry?.user_id === currentUserId ? 'ring-4 ring-blue-400 ring-offset-2 ring-offset-background' : ''} ${pos === 1 ? 'animate-bounce-slow' : ''}`}>
+            <div className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl font-bold bg-gradient-to-br ${colors} ring-4 ${ring} shadow-lg ${entry?.user_id === currentUserId ? 'ring-4 ring-accent ring-offset-2 ring-offset-background' : ''} ${pos === 1 ? 'animate-bounce-slow' : ''}`}>
               {emoji}
             </div>
-            {pos === 1 && <Crown className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 text-yellow-400 drop-shadow-lg animate-pulse" />}
+            {pos === 1 && <Crown className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 text-primary drop-shadow-lg animate-pulse" />}
           </div>
           <p className="text-xs sm:text-sm font-semibold text-center truncate w-full px-1">{entry?.full_name || "—"}</p>
           <p className="text-sm font-bold text-primary">{entry ? (entry.total_points ?? entry.weekly_points ?? 0) : 0} pts</p>
-          {entry?.badges?.length > 0 && <div className="flex items-center gap-1 mt-0.5 text-[10px] text-purple-600 dark:text-purple-400"><Award size={10} /> {entry.badges.length}</div>}
-          {entry?.streak_days > 0 && <div className="flex items-center gap-1 mt-0.5"><AnimatedFire size={12} /><span className="text-xs text-orange-600 dark:text-orange-400">{entry.streak_days}</span></div>}
+          {entry?.badges?.length > 0 && <div className="flex items-center gap-1 mt-0.5 text-[10px] text-primary text-primary"><Award size={10} /> {entry.badges.length}</div>}
+          {entry?.streak_days > 0 && <div className="flex items-center gap-1 mt-0.5"><AnimatedFire size={12} /><span className="text-xs text-primary text-primary">{entry.streak_days}</span></div>}
           <div className={`w-full rounded-t-lg bg-gradient-to-t ${colors} flex items-center justify-center ${height} mt-2 shadow-md transition-all duration-300 hover:shadow-lg`}>
             <span className="text-lg sm:text-xl font-black opacity-80">#{pos}</span>
           </div>
@@ -59,7 +59,7 @@ function MyRankStrip({ rank, myHouse }: { rank: number | null; myHouse: any }) {
   if (!rank) return null;
   const motivational = getMotivationalMessage(rank);
   return (
-    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/30 border border-blue-200/50 dark:border-blue-800/30 text-sm">
+    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-background bg-primary-strong/30 border border-border/50 border-border/30 text-sm">
       <span className={`font-bold ${motivational.color}`}>{motivational.emoji}</span>
       <span className="font-semibold">You're ranked #{rank}</span>
       <span className="text-muted-foreground hidden sm:inline">— {motivational.message}</span>
@@ -76,22 +76,22 @@ function MyRankStrip({ rank, myHouse }: { rank: number | null; myHouse: any }) {
 function LeaderboardRow({ entry, index, isCurrentUser }: { entry: any; index: number; isCurrentUser: boolean }) {
   const rank = index + 1;
   const getRankStyle = () => {
-    if (rank === 1) return "bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-950/20 dark:to-amber-950/20 border-l-4 border-yellow-500";
-    if (rank === 2) return "bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 border-l-4 border-gray-400";
-    if (rank === 3) return "bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-l-4 border-amber-600";
-    if (isCurrentUser) return "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border-l-4 border-blue-500";
+    if (rank === 1) return "bg-gradient-to-r from-accent to-accent from-accent/20 to-accent/20 border-l-4 border-border";
+    if (rank === 2) return "bg-gradient-to-r from-primary to-primary from-primary-strong/20 to-primary-strong/20 border-l-4 border-border";
+    if (rank === 3) return "bg-gradient-to-r from-accent to-accent from-accent/20 to-accent/20 border-l-4 border-accent";
+    if (isCurrentUser) return "bg-gradient-to-r from-primary to-primary from-primary-strong/30 to-primary-strong/30 border-l-4 border-border";
     return "hover:bg-muted/50";
   };
   const getRankBadge = () => {
-    if (rank === 1) return <Medal className="w-5 h-5 text-yellow-500 fill-yellow-500" />;
-    if (rank === 2) return <Medal className="w-5 h-5 text-gray-400 fill-gray-400" />;
-    if (rank === 3) return <Medal className="w-5 h-5 text-amber-600 fill-amber-600" />;
+    if (rank === 1) return <Medal className="w-5 h-5 text-primary fill-accent" />;
+    if (rank === 2) return <Medal className="w-5 h-5 text-muted fill-primary" />;
+    if (rank === 3) return <Medal className="w-5 h-5 text-primary fill-accent" />;
     return <span className="text-sm font-mono text-muted-foreground w-5 text-center">{rank}</span>;
   };
   return (
     <div className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-200 ${getRankStyle()}`}>
       <div className="w-8 flex justify-center">{getRankBadge()}</div>
-      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${rank <= 3 ? 'bg-gradient-to-br from-primary to-primary/70 text-white' : 'bg-muted'}`}>
+      <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm ${rank <= 3 ? 'bg-gradient-to-br from-primary to-primary/70 text-primary-foreground' : 'bg-muted'}`}>
         {entry.full_name?.charAt(0)?.toUpperCase() || '?'}
       </div>
       <div className="flex-1 min-w-0">
@@ -99,7 +99,7 @@ function LeaderboardRow({ entry, index, isCurrentUser }: { entry: any; index: nu
           {entry.full_name || 'Anonymous'}{isCurrentUser && <span className="text-xs ml-1 text-muted-foreground">(you)</span>}
         </p>
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          {entry.streak_days > 0 && <span className="flex items-center gap-0.5"><Flame size={10} className="text-orange-500 fill-orange-500" />{entry.streak_days}</span>}
+          {entry.streak_days > 0 && <span className="flex items-center gap-0.5"><Flame size={10} className="text-primary fill-accent" />{entry.streak_days}</span>}
           <span>{entry.badges?.length || 0} badges</span>
         </div>
       </div>
@@ -191,11 +191,11 @@ function HousesContent() {
 
 // ─── Badges Grid — 5 tiers ────────────────────────────────────────────────────
 const TIER_META: Record<BadgeTier, { label: string; color: string; icon: React.ReactNode; glow: string }> = {
-  easy:      { label: "Easy",      color: "text-green-600 dark:text-green-400",       icon: <Star className="w-4 h-4" />,     glow: "from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30" },
-  normal:    { label: "Normal",    color: "text-blue-600 dark:text-blue-400",         icon: <Zap className="w-4 h-4" />,     glow: "from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30" },
-  hard:      { label: "Hard",      color: "text-red-600 dark:text-red-400",          icon: <Flame className="w-4 h-4" />,   glow: "from-red-100 to-rose-100 dark:from-red-900/30 dark:to-rose-900/30" },
-  epic:      { label: "Epic",      color: "text-purple-600 dark:text-purple-400",    icon: <Swords className="w-4 h-4" />,  glow: "from-purple-100 to-fuchsia-100 dark:from-purple-900/30 dark:to-fuchsia-900/30" },
-  legendary: { label: "Legendary", color: "text-yellow-600 dark:text-yellow-400",    icon: <Crown className="w-4 h-4" />,   glow: "from-yellow-100 to-amber-100 dark:from-yellow-900/30 dark:to-amber-900/30" },
+  easy:      { label: "Easy",      color: "text-primary text-primary",       icon: <Star className="w-4 h-4" />,     glow: "from-primary to-primary from-primary-strong/30 to-primary-strong/30" },
+  normal:    { label: "Normal",    color: "text-primary text-primary",         icon: <Zap className="w-4 h-4" />,     glow: "from-primary to-primary from-primary-strong/30 to-primary-strong/30" },
+  hard:      { label: "Hard",      color: "text-primary text-primary",          icon: <Flame className="w-4 h-4" />,   glow: "from-primary to-accent from-primary-strong/30 to-accent/30" },
+  epic:      { label: "Epic",      color: "text-primary text-primary",    icon: <Swords className="w-4 h-4" />,  glow: "from-primary to-accent from-primary-strong/30 to-accent/30" },
+  legendary: { label: "Legendary", color: "text-primary text-primary",    icon: <Crown className="w-4 h-4" />,   glow: "from-accent to-accent from-accent/30 to-accent/30" },
 };
 
 function BadgesGrid({ earnedBadges }: { earnedBadges: string[] }) {
@@ -222,8 +222,8 @@ function BadgesGrid({ earnedBadges }: { earnedBadges: string[] }) {
                 return (
                   <div key={badge.id} className={`
                     relative p-4 rounded-xl border text-center transition-all duration-300
-                    ${earned 
-                      ? `bg-gradient-to-br ${meta.glow} border-yellow-200 dark:border-yellow-800/50 shadow-md` 
+                    ${earned
+                      ? `bg-gradient-to-br ${meta.glow} border-border border-accent/50 shadow-md`
                       : 'bg-muted/50 border-border opacity-50 grayscale'
                     }
                     hover:scale-105 hover:shadow-lg
@@ -233,8 +233,8 @@ function BadgesGrid({ earnedBadges }: { earnedBadges: string[] }) {
                     <p className={`font-bold text-sm ${earned ? '' : 'text-muted-foreground'}`}>{badge.label}</p>
                     <p className="text-[11px] text-muted-foreground mt-1 line-clamp-2">{badge.desc}</p>
                     {earned && (
-                      <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center shadow-sm">
-                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-background rounded-full flex items-center justify-center shadow-sm">
+                        <svg className="w-3 h-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                       </div>
                     )}
                   </div>
@@ -268,10 +268,10 @@ function ProgressRing({ progress, size = 40, strokeWidth = 4 }: { progress: numb
 
 function StatPill({ icon, value, label, highlight = false, color = "blue" }: { icon: React.ReactNode; value: string; label: string; highlight?: boolean; color?: string }) {
   const colorClasses: Record<string, string> = {
-    orange: highlight ? 'bg-orange-100 dark:bg-orange-900/50 ring-2 ring-orange-300 dark:ring-orange-700' : 'bg-white/50 dark:bg-white/5',
-    green: highlight ? 'bg-green-100 dark:bg-green-900/50 ring-2 ring-green-300 dark:ring-green-700' : 'bg-white/50 dark:bg-white/5',
-    yellow: 'bg-white/50 dark:bg-white/5',
-    blue: 'bg-white/50 dark:bg-white/5',
+    orange: highlight ? 'bg-accent-soft bg-accent/50 ring-2 ring-accent ring-accent' : 'bg-surface/50 bg-surface/5',
+    green: highlight ? 'bg-surface-raised bg-primary-strong/50 ring-2 ring-accent ring-accent' : 'bg-surface/50 bg-surface/5',
+    yellow: 'bg-surface/50 bg-surface/5',
+    blue: 'bg-surface/50 bg-surface/5',
   };
   return (
     <div className={`flex flex-col items-center p-1.5 rounded-lg transition-all duration-300 ${colorClasses[color]} ${highlight ? 'animate-pulse-slow' : ''}`}>
@@ -308,15 +308,15 @@ function StudySessionCard({ sessionPoints = 0, chaptersCompleted = 0 }: { sessio
 
   return (
     <div className="
-      p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50
-      dark:from-indigo-950/40 dark:via-purple-950/40 dark:to-pink-950/40
-      border border-indigo-100 dark:border-indigo-900/30 shadow-sm
+      p-2.5 sm:p-3 rounded-xl bg-gradient-to-r from-primary via-primary to-accent
+      from-primary-strong/40 via-primary-strong/40 to-accent/40
+      border border-border border-border/30 shadow-sm
     ">
       {/* Header Row */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1.5">
           <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shrink-0">
-            <Zap className="w-3 h-3 text-white" />
+            <Zap className="w-3 h-3 text-primary-foreground" />
           </div>
           <div>
             <p className="font-bold text-xs leading-tight">Study Session</p>
@@ -325,8 +325,8 @@ function StudySessionCard({ sessionPoints = 0, chaptersCompleted = 0 }: { sessio
         </div>
         <button
           onClick={() => setShowDetails(!showDetails)}
-          className="flex items-center gap-0.5 px-2 py-1 rounded-full bg-white/50 dark:bg-white/10
-                     hover:bg-white/80 dark:hover:bg-white/20 transition-colors text-[11px] font-medium shrink-0"
+          className="flex items-center gap-0.5 px-2 py-1 rounded-full bg-surface/50 bg-surface/10
+                     hover:bg-surface/80 hover:bg-surface/20 transition-colors text-[11px] font-medium shrink-0"
         >
           {showDetails ? 'Hide' : 'Details'}
           <ChevronRight className={`w-3 h-3 transition-transform ${showDetails ? 'rotate-90' : ''}`} />
@@ -335,14 +335,14 @@ function StudySessionCard({ sessionPoints = 0, chaptersCompleted = 0 }: { sessio
 
       {/* Stats Grid */}
       <div className="grid grid-cols-4 gap-1.5">
-        <StatPill icon={<Flame size={13} className="text-orange-500 fill-orange-500" />} value={`${gamification?.streak_days || 0}`} label="Streak" highlight={(gamification?.streak_days || 0) >= 7} color="orange" />
-        <StatPill icon={<Star size={13} className="text-green-500 fill-green-500" />} value={`+${sessionPoints}`} label="Session" highlight={sessionPoints >= 50} color="green" />
-        <StatPill icon={<Trophy size={13} className="text-yellow-500" />} value={currentPoints.toLocaleString()} label="Total" color="yellow" />
-        <StatPill icon={<Target size={13} className="text-blue-500" />} value={chaptersCompleted.toString()} label="Chapters" color="blue" />
+        <StatPill icon={<Flame size={13} className="text-primary fill-accent" />} value={`${gamification?.streak_days || 0}`} label="Streak" highlight={(gamification?.streak_days || 0) >= 7} color="orange" />
+        <StatPill icon={<Star size={13} className="text-primary fill-primary" />} value={`+${sessionPoints}`} label="Session" highlight={sessionPoints >= 50} color="green" />
+        <StatPill icon={<Trophy size={13} className="text-primary" />} value={currentPoints.toLocaleString()} label="Total" color="yellow" />
+        <StatPill icon={<Target size={13} className="text-primary" />} value={chaptersCompleted.toString()} label="Chapters" color="blue" />
       </div>
 
       {/* Progress Bar to Next Milestone */}
-      <div className="mt-2 pt-2 border-t border-white/20 dark:border-white/10">
+      <div className="mt-2 pt-2 border-t border-border/20 border-border/10">
         <div className="flex items-center gap-2">
           <ProgressRing progress={progressToNextRank} size={28} strokeWidth={3} />
           <div className="flex-1 min-w-0">
@@ -350,8 +350,8 @@ function StudySessionCard({ sessionPoints = 0, chaptersCompleted = 0 }: { sessio
               <span className="text-muted-foreground truncate">Next milestone</span>
               <span className="font-medium shrink-0 ml-1">{currentPoints}/{nextMilestone}</span>
             </div>
-            <div className="h-1.5 bg-white/30 dark:bg-black/20 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-primary to-purple-500 rounded-full transition-all duration-500" style={{ width: `${progressToNextRank}%` }} />
+            <div className="h-1.5 bg-surface/30 bg-background/20 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-primary to-primary rounded-full transition-all duration-500" style={{ width: `${progressToNextRank}%` }} />
             </div>
           </div>
         </div>
@@ -359,13 +359,13 @@ function StudySessionCard({ sessionPoints = 0, chaptersCompleted = 0 }: { sessio
 
       {/* Expanded Details */}
       {showDetails && (
-        <div className="mt-2 pt-2 border-t border-white/20 dark:border-white/10 space-y-2 animate-in slide-in-from-top-2">
-          <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/30 dark:bg-black/10">
-            <Award size={13} className="text-purple-500 shrink-0" />
+        <div className="mt-2 pt-2 border-t border-border/20 border-border/10 space-y-2 animate-in slide-in-from-top-2">
+          <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-surface/30 bg-background/10">
+            <Award size={13} className="text-primary shrink-0" />
             <span className="text-[10px] text-muted-foreground flex-1">Badges: {gamification?.badges?.length || 0} earned</span>
             <div className="flex -space-x-1">
               {(gamification?.badges || []).slice(0, 4).map((badge: string, i: number) => (
-                <div key={i} className="w-5 h-5 rounded-full bg-yellow-100 dark:bg-yellow-900/50 flex items-center justify-center text-[10px] border-2 border-background">🏆</div>
+                <div key={i} className="w-5 h-5 rounded-full bg-accent-soft bg-accent/50 flex items-center justify-center text-[10px] border-2 border-background">🏆</div>
               ))}
             </div>
           </div>
@@ -391,7 +391,7 @@ interface NotesLeaderboardProps {
 export default function NotesLeaderboard({ sessionPoints = 0, chaptersCompleted = 0 }: NotesLeaderboardProps) {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<LeaderboardTab>("weekly");
-  
+
   const { data: weeklyData, isLoading: weeklyLoading } = useWeeklyLeaderboard();
   const { data: allTimeData, isLoading: allTimeLoading } = useLeaderboard();
   const { data: gamification } = useGamification(user?.id);
@@ -415,10 +415,10 @@ export default function NotesLeaderboard({ sessionPoints = 0, chaptersCompleted 
 
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-100 to-amber-100 
-                        dark:from-yellow-900/30 dark:to-amber-900/30 rounded-full">
-          <Trophy className="w-5 h-5 text-yellow-600 dark:text-yellow-400" />
-          <span className="font-bold text-yellow-800 dark:text-yellow-200">Notes Leaderboard</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-accent to-accent
+                        from-accent/30 to-accent/30 rounded-full">
+          <Trophy className="w-5 h-5 text-primary text-primary" />
+          <span className="font-bold text-primary text-primary">Notes Leaderboard</span>
         </div>
         <p className="text-sm text-muted-foreground">Compete with classmates and earn rewards!</p>
       </div>
@@ -465,10 +465,10 @@ export default function NotesLeaderboard({ sessionPoints = 0, chaptersCompleted 
       <style>{`
         @keyframes bounce-slow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
         .animate-bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
-        .glow-gold { box-shadow: 0 0 20px rgba(234, 179, 8, 0.4), 0 0 40px rgba(234, 179, 8, 0.2); }
+        .glow-gold { box-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent), 0 0 40px color-mix(in srgb, var(--accent) 20%, transparent); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: hsl(var(--muted)); border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: var(--surface-raised); border-radius: 3px; }
         .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
       `}</style>
     </div>

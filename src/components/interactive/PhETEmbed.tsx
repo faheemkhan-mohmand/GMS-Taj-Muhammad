@@ -379,7 +379,7 @@ export default function PhETEmbed({
             <button
               onClick={() => load(inputValue)}
               disabled={loading}
-              className="shrink-0 px-4 py-2 rounded-lg text-white text-sm font-semibold hover:opacity-90 disabled:opacity-50 flex items-center gap-1.5"
+              className="shrink-0 px-4 py-2 rounded-lg text-primary-foreground text-sm font-semibold hover:opacity-90 disabled:opacity-50 flex items-center gap-1.5"
               style={{ backgroundColor: subjectColor }}
             >
               {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : null}
@@ -423,7 +423,7 @@ export default function PhETEmbed({
 
         {/* Validation error */}
         {error && (
-          <div className="flex items-start gap-2 p-2.5 rounded-lg bg-red-50 border border-red-200 text-red-700">
+          <div className="flex items-start gap-2 p-2.5 rounded-lg bg-background border border-border text-primary">
             <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
             <p className="text-xs">{error}</p>
           </div>
@@ -441,7 +441,7 @@ export default function PhETEmbed({
                 onClick={() => load(sim.id)}
                 className={`text-[10px] px-2.5 py-1.5 rounded-lg font-medium ${
                   simId === sim.id
-                    ? "text-white"
+                    ? "text-primary-foreground"
                     : "bg-secondary hover:bg-secondary/70 text-foreground"
                 }`}
                 style={simId === sim.id ? { backgroundColor: subjectColor } : {}}
@@ -458,7 +458,7 @@ export default function PhETEmbed({
           <>
             <div
               ref={iframeWrapRef}
-              className="relative w-full overflow-hidden rounded-xl bg-white border border-border"
+              className="relative w-full overflow-hidden rounded-xl bg-surface border border-border"
               style={{
                 aspectRatio: isFullscreen ? "auto" : "4 / 3",
                 minHeight: isFullscreen ? "100vh" : "320px",
@@ -472,7 +472,7 @@ export default function PhETEmbed({
                   onClick={toggleFullscreen}
                   title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
                   aria-label={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
-                  className="px-2.5 py-1.5 rounded-md bg-black/70 hover:bg-black/90 text-white text-[11px] font-semibold flex items-center gap-1.5 backdrop-blur-sm shadow-md"
+                  className="px-2.5 py-1.5 rounded-md bg-background/70 hover:bg-background/90 text-primary-foreground text-[11px] font-semibold flex items-center gap-1.5 backdrop-blur-sm shadow-md"
                 >
                   {isFullscreen ? (
                     <>
@@ -490,7 +490,7 @@ export default function PhETEmbed({
 
               {/* Loading overlay */}
               {loading && !timedOut && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-20 gap-3 p-4">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface z-20 gap-3 p-4">
                   <Loader2 className="w-8 h-8 animate-spin" style={{ color: subjectColor }} />
                   <p className="text-sm font-semibold text-foreground text-center">
                     Loading PhET simulation…
@@ -503,8 +503,8 @@ export default function PhETEmbed({
 
               {/* Timeout fallback */}
               {timedOut && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-amber-50 z-20 gap-3 p-4">
-                  <AlertTriangle className="w-8 h-8 text-amber-500" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-accent-soft z-20 gap-3 p-4">
+                  <AlertTriangle className="w-8 h-8 text-primary" />
                   <p className="text-sm font-bold text-foreground text-center">
                     Simulation is taking too long to load
                   </p>
@@ -513,7 +513,7 @@ export default function PhETEmbed({
                   </p>
                   <div className="flex gap-2 mt-1">
                     <a href={simDirectUrl} target="_blank" rel="noreferrer"
-                      className="text-xs px-3 py-2 rounded-lg text-white font-semibold flex items-center gap-1.5"
+                      className="text-xs px-3 py-2 rounded-lg text-primary-foreground font-semibold flex items-center gap-1.5"
                       style={{ backgroundColor: subjectColor }}>
                       <ExternalLink className="w-3.5 h-3.5" /> Open in New Tab
                     </a>
@@ -549,7 +549,7 @@ export default function PhETEmbed({
                   Simulation not loading? Try opening it directly:
                 </p>
                 <a href={simDirectUrl} target="_blank" rel="noreferrer"
-                  className="shrink-0 text-xs px-3 py-1.5 rounded-lg text-white font-semibold flex items-center gap-1.5"
+                  className="shrink-0 text-xs px-3 py-1.5 rounded-lg text-primary-foreground font-semibold flex items-center gap-1.5"
                   style={{ backgroundColor: subjectColor }}>
                   <ExternalLink className="w-3.5 h-3.5" /> New Tab
                 </a>

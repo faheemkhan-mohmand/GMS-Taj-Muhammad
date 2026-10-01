@@ -316,23 +316,23 @@ function attendanceStatus(pct: number): {
   barColor: string;
 } {
   if (pct >= 80)
-    return { label: "Good", color: "text-emerald-600", barColor: "#10b981" };
+    return { label: "Good", color: "text-primary", barColor: "var(--primary)" };
   if (pct >= 75)
-    return { label: "On Limit", color: "text-amber-600", barColor: "#f59e0b" };
+    return { label: "On Limit", color: "text-primary", barColor: "var(--accent)" };
   if (pct > 0)
-    return { label: "Critical", color: "text-red-600", barColor: "#ef4444" };
-  return { label: "No data", color: "text-muted-foreground", barColor: "hsl(var(--muted))" };
+    return { label: "Critical", color: "text-primary", barColor: "var(--primary-strong)" };
+  return { label: "No data", color: "text-muted-foreground", barColor: "var(--surface-raised)" };
 }
 
 // ─── Fee status badge ────────────────────────────────────────────────────────
 
 function FeeStatusBadge({ status }: { status: string }) {
   const map: Record<string, { label: string; cls: string }> = {
-    paid: { label: "Paid", cls: "bg-emerald-100 text-emerald-700" },
-    partial: { label: "Partial", cls: "bg-amber-100 text-amber-700" },
-    unpaid: { label: "Unpaid", cls: "bg-red-100 text-red-700" },
-    overdue: { label: "Overdue", cls: "bg-red-200 text-red-800" },
-    waived: { label: "Waived", cls: "bg-sky-100 text-sky-700" },
+    paid: { label: "Paid", cls: "bg-surface-raised text-primary" },
+    partial: { label: "Partial", cls: "bg-accent-soft text-primary" },
+    unpaid: { label: "Unpaid", cls: "bg-surface-raised text-primary" },
+    overdue: { label: "Overdue", cls: "bg-surface-raised text-primary" },
+    waived: { label: "Waived", cls: "bg-surface-raised text-primary" },
   };
   const m = map[status] ?? { label: status, cls: "bg-muted text-muted-foreground" };
   return (
@@ -403,7 +403,7 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
-          
+
           {/* Header photo with error handling */}
           {student?.photo_url && !headerImgError ? (
             <img
@@ -415,11 +415,11 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
               decoding="async"
             />
           ) : (
-            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-base shrink-0 border-2 border-background shadow-sm">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center text-primary-foreground font-bold text-base shrink-0 border-2 border-background shadow-sm">
               {student ? initials(student.full_name) : "?"}
             </div>
           )}
-          
+
           <div className="flex-1 min-w-0">
             <h2 className="font-heading font-bold text-base sm:text-lg leading-tight truncate">
               {student?.full_name ?? "—"}
@@ -435,7 +435,7 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                 <span
                   className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
                     student.is_active
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-surface-raised text-primary"
                       : "bg-muted text-muted-foreground"
                   }`}
                 >
@@ -519,26 +519,26 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                   </div>
                   {/* Breakdown grid — 2 cols on mobile, 4 on sm */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-center">
-                    <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-1.5">
-                      <p className="text-base font-bold text-emerald-700 dark:text-emerald-300">
+                    <div className="bg-background bg-primary-strong/20 rounded-lg p-1.5">
+                      <p className="text-base font-bold text-primary text-primary">
                         {att.present}
                       </p>
                       <p className="text-[9px] uppercase text-muted-foreground">Present</p>
                     </div>
-                    <div className="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-1.5">
-                      <p className="text-base font-bold text-amber-700 dark:text-amber-300">
+                    <div className="bg-accent-soft bg-accent/20 rounded-lg p-1.5">
+                      <p className="text-base font-bold text-primary text-primary">
                         {att.late}
                       </p>
                       <p className="text-[9px] uppercase text-muted-foreground">Late</p>
                     </div>
-                    <div className="bg-sky-50 dark:bg-sky-900/20 rounded-lg p-1.5">
-                      <p className="text-base font-bold text-sky-700 dark:text-sky-300">
+                    <div className="bg-background bg-primary-strong/20 rounded-lg p-1.5">
+                      <p className="text-base font-bold text-primary text-primary">
                         {att.halfday}
                       </p>
                       <p className="text-[9px] uppercase text-muted-foreground">Half Day</p>
                     </div>
-                    <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-1.5">
-                      <p className="text-base font-bold text-red-700 dark:text-red-300">
+                    <div className="bg-background bg-primary-strong/20 rounded-lg p-1.5">
+                      <p className="text-base font-bold text-primary text-primary">
                         {att.absent}
                       </p>
                       <p className="text-[9px] uppercase text-muted-foreground">Absent</p>
@@ -580,10 +580,10 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                         data={chartData}
                         margin={{ top: 5, right: 8, bottom: 0, left: -22 }}
                       >
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                        <CartesianGrid strokeDasharray="3 3" stroke="rgb(var(--border-rgb) / 0.5)" />
                         <XAxis
                           dataKey="short"
-                          tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                          tick={{ fontSize: 9, fill: "var(--text-muted)" }}
                           tickLine={false}
                           axisLine={false}
                           interval={0}
@@ -591,7 +591,7 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                         />
                         <YAxis
                           domain={[0, 100]}
-                          tick={{ fontSize: 9, fill: "hsl(var(--muted-foreground))" }}
+                          tick={{ fontSize: 9, fill: "var(--text-muted)" }}
                           tickLine={false}
                           axisLine={false}
                           width={28}
@@ -600,9 +600,9 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                           contentStyle={{
                             fontSize: "11px",
                             borderRadius: "8px",
-                            border: "1px solid hsl(var(--border))",
-                            background: "hsl(var(--card))",
-                            color: "hsl(var(--foreground))",
+                            border: "1px solid var(--border)",
+                            background: "var(--surface)",
+                            color: "var(--text-primary)",
                             padding: "6px 8px",
                           }}
                           labelStyle={{ fontSize: "10px", fontWeight: 600 }}
@@ -611,13 +611,13 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                             payload?.[0]?.payload?.label ?? ""
                           }
                         />
-                        <ReferenceLine y={33} stroke="#ef4444" strokeDasharray="2 2" />
+                        <ReferenceLine y={33} stroke="var(--primary-strong)" strokeDasharray="2 2" />
                         <Line
                           type="monotone"
                           dataKey="percentage"
-                          stroke="hsl(var(--primary))"
+                          stroke="var(--primary)"
                           strokeWidth={2}
-                          dot={{ r: 3, fill: "hsl(var(--primary))" }}
+                          dot={{ r: 3, fill: "var(--primary)" }}
                           activeDot={{ r: 5 }}
                           isAnimationActive={false}
                         />
@@ -642,9 +642,9 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                         <div className="flex items-center gap-2 shrink-0">
                           <span className="text-sm font-bold">{Math.round(r.percentage)}%</span>
                           {r.is_pass ? (
-                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                            <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
                           ) : (
-                            <XCircle className="w-3.5 h-3.5 text-red-500" />
+                            <XCircle className="w-3.5 h-3.5 text-primary" />
                           )}
                         </div>
                       </div>
@@ -689,9 +689,9 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                             </td>
                             <td className="py-1.5 pr-2 text-right">
                               {r.is_pass ? (
-                                <span className="text-emerald-600 font-medium">Pass</span>
+                                <span className="text-primary font-medium">Pass</span>
                               ) : (
-                                <span className="text-red-600 font-medium">Fail</span>
+                                <span className="text-primary font-medium">Fail</span>
                               )}
                             </td>
                           </tr>
@@ -729,16 +729,16 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                         {fmtPKR(feesQ.data.totalBilled)}
                       </p>
                     </div>
-                    <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-lg p-2 text-center">
+                    <div className="bg-background bg-primary-strong/20 rounded-lg p-2 text-center">
                       <p className="text-[9px] uppercase text-muted-foreground">Paid</p>
-                      <p className="text-sm font-bold text-emerald-700 dark:text-emerald-300 mt-0.5">
+                      <p className="text-sm font-bold text-primary text-primary mt-0.5">
                         {fmtPKR(feesQ.data.totalPaid)}
                       </p>
                     </div>
                     <div
                       className={`rounded-lg p-2 text-center ${
                         feesQ.data.outstanding > 0
-                          ? "bg-red-50 dark:bg-red-900/20"
+                          ? "bg-background bg-primary-strong/20"
                           : "bg-muted/40"
                       }`}
                     >
@@ -746,8 +746,8 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                       <p
                         className={`text-sm font-bold mt-0.5 ${
                           feesQ.data.outstanding > 0
-                            ? "text-red-700 dark:text-red-300"
-                            : "text-emerald-700 dark:text-emerald-300"
+                            ? "text-primary text-primary"
+                            : "text-primary text-primary"
                         }`}
                       >
                         {fmtPKR(feesQ.data.outstanding)}
@@ -850,7 +850,7 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                           decoding="async"
                         />
                       ) : (
-                        <div className="w-14 h-16 rounded-md bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-sm border border-border">
+                        <div className="w-14 h-16 rounded-md bg-gradient-to-br from-primary to-primary flex items-center justify-center text-primary-foreground font-bold text-sm border border-border">
                           {student ? initials(student.full_name) : "?"}
                         </div>
                       )}
@@ -905,7 +905,7 @@ export function StudentProfileDrawer({ student, open, onOpenChange }: Props) {
                       <p className="uppercase text-muted-foreground">Status</p>
                       <p
                         className={`font-medium ${
-                          student?.is_active ? "text-emerald-600" : "text-muted-foreground"
+                          student?.is_active ? "text-primary" : "text-muted-foreground"
                         }`}
                       >
                         {student?.is_active ? "Active" : "Inactive"}

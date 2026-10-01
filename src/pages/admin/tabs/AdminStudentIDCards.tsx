@@ -75,7 +75,7 @@ function rrect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h
 async function makeQR(s: Student): Promise<string> {
   return QRCode.toDataURL(
     `GMS Taj Muhammad\nName: ${s.full_name}\nClass: ${s.class}\nRoll: ${s.roll_number}${s.father_name ? `\nFather: ${s.father_name}` : ""}`,
-    { width: 220, margin: 1, color: { dark: "#1a1a2e", light: "#ffffff" }, errorCorrectionLevel: "M" }
+    { width: 220, margin: 1, color: { dark: "#1A2E22", light: "#FFFFFF" }, errorCorrectionLevel: "M" }
   );
 }
 
@@ -95,17 +95,17 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
   ctx.textBaseline = "alphabetic";
 
   // Palette
-  const NAVY = "#0078d4";
-  const BLUE = "#50b0f0";
-  const SOFT = "#eaf4fb";
-  const TEXT = "#0f172a";
-  const MUTED = "#64748b";
+  const NAVY = "#14532D";
+  const BLUE = "#14532D";
+  const SOFT = "#F0F7F1";
+  const TEXT = "#1A2E22";
+  const MUTED = "#5B6B5F";
 
   // ── 1. Card background ─────────────────────────────────────────────────────
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   rrect(ctx, 0, 0, W, H, 22);
   ctx.fill();
-  ctx.strokeStyle = "#cfe8f7";
+  ctx.strokeStyle = "#F0F7F1";
   ctx.lineWidth = 1;
   rrect(ctx, 0.5, 0.5, W - 1, H - 1, 22);
   ctx.stroke();
@@ -132,7 +132,7 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
     ctx.save();
     ctx.beginPath();
     ctx.arc(LOGO_X + LOGO_SZ / 2, LOGO_Y + LOGO_SZ / 2, LOGO_SZ / 2, 0, Math.PI * 2);
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "#FFFFFF";
     ctx.fill();
     ctx.clip();
     ctx.drawImage(logo, LOGO_X + 2, LOGO_Y + 2, LOGO_SZ - 4, LOGO_SZ - 4);
@@ -141,24 +141,24 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
 
   // School name (right of logo, centered vertically in header)
   const TXT_X = LOGO_X + LOGO_SZ + 10;
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "bold 18px 'Georgia', serif";
   ctx.textAlign = "left";
   ctx.fillText("GMS TAJ MUHAMMAD", TXT_X, HDR_H / 2 - 14);
-  ctx.fillStyle = "#d9ecf9";
+  ctx.fillStyle = "#F0F7F1";
   ctx.font = "10px 'Georgia', serif";
   ctx.fillText("Govt. Middle School · Mohmand · KPK", TXT_X, HDR_H / 2 + 2);
   ctx.font = "9px 'Georgia', serif";
-  ctx.fillStyle = "#b0d4f1";
+  ctx.fillStyle = "#F0F7F1";
   ctx.fillText(`Session ${student.session ?? `${new Date().getFullYear()}–${new Date().getFullYear() + 1}`}`, TXT_X, HDR_H / 2 + 16);
 
   // "STUDENT ID CARD" right side
   ctx.textAlign = "right";
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "bold 11px 'Georgia', serif";
   ctx.fillText("STUDENT ID CARD", W - 16, HDR_H / 2 - 8);
   ctx.font = "9px 'Georgia', serif";
-  ctx.fillStyle = "#b0d4f1";
+  ctx.fillStyle = "#F0F7F1";
   ctx.fillText("EMIS: 66013", W - 16, HDR_H / 2 + 6);
   ctx.textAlign = "left";
 
@@ -192,9 +192,9 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
     ctx.save();
     rrect(ctx, PHOTO_X, PHOTO_Y, PHOTO_SZ, PHOTO_SZ, 6);
     ctx.clip();
-    ctx.fillStyle = "#dbe7f5";
+    ctx.fillStyle = "#F0F7F1";
     ctx.fillRect(PHOTO_X, PHOTO_Y, PHOTO_SZ, PHOTO_SZ);
-    ctx.fillStyle = "#9bb6d6";
+    ctx.fillStyle = "#D7E5D9";
     const cx = PHOTO_X + PHOTO_SZ / 2;
     ctx.beginPath(); ctx.arc(cx, PHOTO_Y + PHOTO_SZ * 0.36, PHOTO_SZ * 0.16, 0, Math.PI * 2); ctx.fill();
     ctx.beginPath(); ctx.arc(cx, PHOTO_Y + PHOTO_SZ * 1.05, PHOTO_SZ * 0.42, 0, Math.PI * 2); ctx.fill();
@@ -218,7 +218,7 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
 
   // Divider under name
   const DIV_Y = NAME_Y + (student.father_name ? 48 : 20);
-  ctx.strokeStyle = "#e2e8f0";
+  ctx.strokeStyle = "#D7E5D9";
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(30, DIV_Y);
@@ -259,7 +259,7 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
     ctx.fillText(vv, TABLE_X + LABEL_W, y + 18);
 
     // Row separator
-    ctx.strokeStyle = "#eef2f7";
+    ctx.strokeStyle = "#F0F7F1";
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(TABLE_X, y + ROW_H - 2);
@@ -291,7 +291,7 @@ async function renderFront(student: Student, qrDataUrl: string): Promise<string>
   ctx.fillRect(0, H - FT_H, W, FT_H);
   ctx.restore();
 
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "10px 'Georgia', serif";
   ctx.textAlign = "left";
   ctx.fillText(`ID: ${student.id.slice(0, 8).toUpperCase()}`, 16, H - FT_H / 2 + 4);
@@ -317,13 +317,13 @@ async function renderBack(student: Student): Promise<string> {
   ctx.imageSmoothingQuality = "high";
 
   // ── 1. White card background ──────────────────────────────────────────────
-  ctx.fillStyle = "#f5f9ff";
+  ctx.fillStyle = "#FAFDF7";
   rrect(ctx, 0, 0, W, H, 22);
   ctx.fill();
 
   // ── 2. Dashed border ────────────────────────────────────────────────────
   ctx.save();
-  ctx.strokeStyle = "#cfe4f7";
+  ctx.strokeStyle = "#F0F7F1";
   ctx.lineWidth = 2;
   ctx.setLineDash([10, 8]);
   rrect(ctx, 8, 8, W - 16, H - 16, 18);
@@ -346,35 +346,35 @@ async function renderBack(student: Student): Promise<string> {
   ctx.save();
   rrect(ctx, 0, 0, W, BACK_HDR_H + 18, 22);
   ctx.clip();
-  ctx.fillStyle = "#0078d4";
+  ctx.fillStyle = "#14532D";
   ctx.fillRect(0, 0, W, BACK_HDR_H);
   ctx.restore();
 
   // Gold accent line
   const bgGold = ctx.createLinearGradient(0, 0, W, 0);
-  bgGold.addColorStop(0, "#c8a84b");
-  bgGold.addColorStop(0.5, "#f0d060");
-  bgGold.addColorStop(1, "#c8a84b");
+  bgGold.addColorStop(0, "#B8860B");
+  bgGold.addColorStop(0.5, "#B8860B");
+  bgGold.addColorStop(1, "#B8860B");
   ctx.fillStyle = bgGold;
   ctx.fillRect(0, BACK_HDR_H, W, 3);
 
   // Header text
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "bold 18px 'Georgia', serif";
   ctx.textAlign = "center";
   ctx.fillText("GMS TAJ MUHAMMAD", W / 2, BACK_HDR_H / 2 - 4);
   ctx.font = "11px 'Georgia', serif";
-  ctx.fillStyle = "#d9ecf9";
+  ctx.fillStyle = "#F0F7F1";
   ctx.fillText("District Mohmand, KPK", W / 2, BACK_HDR_H / 2 + 16);
   ctx.textAlign = "left";
 
   // ── 5. Terms & Conditions ─────────────────────────────────────────────────
   const TC_TOP = BACK_HDR_H + 30;
-  ctx.fillStyle = "#0078d4";
+  ctx.fillStyle = "#14532D";
   ctx.font = "bold 14px 'Georgia', serif";
   ctx.fillText("Terms & Conditions", 24, TC_TOP);
 
-  ctx.strokeStyle = "#cfe4f7";
+  ctx.strokeStyle = "#F0F7F1";
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(24, TC_TOP + 8); ctx.lineTo(W - 24, TC_TOP + 8); ctx.stroke();
@@ -389,12 +389,12 @@ async function renderBack(student: Student): Promise<string> {
   ];
 
   ctx.font = "11px 'Georgia', serif";
-  ctx.fillStyle = "#106ebe";
+  ctx.fillStyle = "#0E3B20";
   terms.forEach((t, i) => ctx.fillText(t, 24, TC_TOP + 34 + i * 34));
 
   // Divider after terms
   const TERMS_END = TC_TOP + 34 + terms.length * 34 + 18;
-  ctx.strokeStyle = "#cfe4f7";
+  ctx.strokeStyle = "#F0F7F1";
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(24, TERMS_END); ctx.lineTo(W - 24, TERMS_END); ctx.stroke();
@@ -403,27 +403,27 @@ async function renderBack(student: Student): Promise<string> {
   const SIG_Y = TERMS_END + 56;
 
   // Principal signature
-  ctx.strokeStyle = "#4cc2ff";
+  ctx.strokeStyle = "#14532D";
   ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(60, SIG_Y); ctx.lineTo(W - 60, SIG_Y); ctx.stroke();
-  ctx.fillStyle = "#0078d4";
+  ctx.fillStyle = "#14532D";
   ctx.font = "bold 12px 'Georgia', serif";
   ctx.textAlign = "center";
   ctx.fillText("Principal's Signature & Stamp", W / 2, SIG_Y + 18);
   ctx.font = "11px 'Georgia', serif";
-  ctx.fillStyle = "#50b0f0";
+  ctx.fillStyle = "#14532D";
   ctx.fillText("GMS Taj Muhammad", W / 2, SIG_Y + 34);
 
   // Student signature
   const STUDENT_SIG_Y = SIG_Y + 78;
-  ctx.strokeStyle = "#4cc2ff";
+  ctx.strokeStyle = "#14532D";
   ctx.lineWidth = 1.5;
   ctx.beginPath(); ctx.moveTo(60, STUDENT_SIG_Y); ctx.lineTo(W - 60, STUDENT_SIG_Y); ctx.stroke();
-  ctx.fillStyle = "#0078d4";
+  ctx.fillStyle = "#14532D";
   ctx.font = "bold 12px 'Georgia', serif";
   ctx.fillText("Student's Signature", W / 2, STUDENT_SIG_Y + 18);
   ctx.font = "11px 'Georgia', serif";
-  ctx.fillStyle = "#50b0f0";
+  ctx.fillStyle = "#14532D";
   const sName = student.full_name.length > 22 ? student.full_name.slice(0, 20) + "…" : student.full_name;
   ctx.fillText(sName, W / 2, STUDENT_SIG_Y + 34);
 
@@ -435,11 +435,11 @@ async function renderBack(student: Student): Promise<string> {
   ctx.save();
   rrect(ctx, 0, BOT_Y - 16, W, BOT_H + 16, 22);
   ctx.clip();
-  ctx.fillStyle = "#4cc2ff";
+  ctx.fillStyle = "#14532D";
   ctx.fillRect(0, BOT_Y, W, BOT_H);
   ctx.restore();
 
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "9px 'Georgia', serif";
   ctx.textAlign = "center";
   ctx.fillText(
@@ -460,7 +460,7 @@ async function renderCombined(student: Student, qrUrl: string): Promise<string> 
   c.width = fi.width + bi.width + PAD;
   c.height = Math.max(fi.height, bi.height);
   const ctx = c.getContext("2d")!;
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0, 0, c.width, c.height);
   ctx.drawImage(fi, 0, (c.height - fi.height) / 2);
   ctx.drawImage(bi, fi.width + PAD, (c.height - bi.height) / 2);
@@ -501,23 +501,23 @@ const IDCardPreview = ({
     const src = fullView === "front" ? frontUrl : backUrl;
     const label = fullView === "front" ? "Front Side" : "Back Side";
     return (
-      <div className="fixed inset-0 z-[60] bg-black/90 flex flex-col">
+      <div className="fixed inset-0 z-[60] bg-background/90 flex flex-col">
         {/* Sticky top bar — always tappable back button */}
-        <div className="flex items-center justify-between gap-3 px-4 py-3 bg-black/60 backdrop-blur-sm shrink-0">
+        <div className="flex items-center justify-between gap-3 px-4 py-3 bg-background/60 backdrop-blur-sm shrink-0">
           <button
             onClick={() => setFullView(null)}
-            className="flex items-center gap-2 text-white hover:text-white/80 text-sm font-semibold transition-colors px-2 py-1.5 -ml-2 rounded-lg hover:bg-white/10"
+            className="flex items-center gap-2 text-primary-foreground hover:text-primary-foreground text-sm font-semibold transition-colors px-2 py-1.5 -ml-2 rounded-lg hover:bg-surface/10"
           >
             <ChevronDown className="w-5 h-5 rotate-90" />
             <span>Back to both sides</span>
           </button>
-          <span className="text-white/80 text-xs font-medium hidden sm:block">{label}</span>
+          <span className="text-primary-foreground text-xs font-medium hidden sm:block">{label}</span>
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-white/15 hover:bg-white/30 transition-colors"
+            className="p-2 rounded-full bg-surface/15 hover:bg-surface/30 transition-colors"
             aria-label="Close preview"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 text-primary-foreground" />
           </button>
         </div>
         {/* Image — scrollable if taller than viewport */}
@@ -526,7 +526,7 @@ const IDCardPreview = ({
           onClick={() => setFullView(null)}
         >
           <div className="relative w-full max-w-lg" onClick={e => e.stopPropagation()}>
-            <div className="rounded-xl overflow-hidden border border-white/20 shadow-2xl bg-white">
+            <div className="rounded-xl overflow-hidden border border-border/20 shadow-2xl bg-surface">
               <img src={src} alt={label} className="w-full block" />
             </div>
           </div>
@@ -536,44 +536,44 @@ const IDCardPreview = ({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-3 overflow-y-auto" onClick={onClose}>
-      <div className="relative bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-5xl my-6" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 bg-background/70 flex items-center justify-center p-3 overflow-y-auto" onClick={onClose}>
+      <div className="relative bg-surface bg-primary-strong rounded-2xl shadow-2xl w-full max-w-5xl my-6" onClick={e => e.stopPropagation()}>
         {/* Top bar — Close button (always visible, large tap target) */}
-        <div className="sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-slate-100 dark:border-slate-800 rounded-t-2xl">
-          <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 truncate">
+        <div className="sticky top-0 z-20 flex items-center justify-between px-4 py-3 bg-surface/95 bg-primary-strong/95 backdrop-blur-sm border-b border-border border-border rounded-t-2xl">
+          <p className="text-sm font-semibold text-primary text-muted truncate">
             ID Card — {student.full_name}
           </p>
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-black/10 hover:bg-black/20 dark:bg-white/10 dark:hover:bg-white/20 transition-colors shrink-0"
+            className="p-2 rounded-full bg-background/10 hover:bg-background/20 bg-surface/10 hover:bg-surface/20 transition-colors shrink-0"
             aria-label="Close preview"
           >
-            <X className="w-5 h-5 text-slate-700 dark:text-white" />
+            <X className="w-5 h-5 text-primary text-primary-foreground" />
           </button>
         </div>
         <div className="p-4 sm:p-5 space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <p className="text-xs font-semibold text-slate-500 mb-1.5 text-center">FRONT SIDE</p>
+              <p className="text-xs font-semibold text-muted mb-1.5 text-center">FRONT SIDE</p>
               <div
-                className="rounded-xl overflow-hidden border border-slate-200 shadow-md bg-white cursor-pointer hover:ring-2 hover:ring-[#0078d4]/50 transition-all group relative"
+                className="rounded-xl overflow-hidden border border-border shadow-md bg-surface cursor-pointer hover:ring-2 hover:ring-accent transition-all group relative"
                 onClick={() => setFullView("front")}
               >
                 <img src={frontUrl} alt="Front" className="w-full block" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                  <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity drop-shadow-lg" />
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/10 transition-colors flex items-center justify-center">
+                  <ZoomIn className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-80 transition-opacity drop-shadow-lg" />
                 </div>
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold text-slate-500 mb-1.5 text-center">BACK SIDE</p>
+              <p className="text-xs font-semibold text-muted mb-1.5 text-center">BACK SIDE</p>
               <div
-                className="rounded-xl overflow-hidden border border-slate-200 shadow-md bg-white cursor-pointer hover:ring-2 hover:ring-[#0078d4]/50 transition-all group relative"
+                className="rounded-xl overflow-hidden border border-border shadow-md bg-surface cursor-pointer hover:ring-2 hover:ring-accent transition-all group relative"
                 onClick={() => setFullView("back")}
               >
                 <img src={backUrl} alt="Back" className="w-full block" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
-                  <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-80 transition-opacity drop-shadow-lg" />
+                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/10 transition-colors flex items-center justify-center">
+                  <ZoomIn className="w-8 h-8 text-primary-foreground opacity-0 group-hover:opacity-80 transition-opacity drop-shadow-lg" />
                 </div>
               </div>
             </div>
@@ -587,13 +587,13 @@ const IDCardPreview = ({
                 finally { setDl(false); }
               }}
               disabled={dl}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-[#0078d4] text-white text-sm font-semibold hover:bg-[#106ebe] disabled:opacity-50 transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-surface text-primary-foreground text-sm font-semibold hover:bg-surface disabled:opacity-50 transition-colors"
             >
               {dl ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               Download ID Card (Front + Back HD PNG)
             </button>
           )}
-          <p className="text-center text-xs text-slate-400">
+          <p className="text-center text-xs text-muted">
             {isAdminView
               ? "638×1012 px (CR80 Portrait / 300 dpi) — print-ready HD · Tap a side to zoom"
               : "Tap a side to zoom"}
@@ -622,19 +622,19 @@ const StudentRow = ({
   showDelete?: boolean;
   showDownload?: boolean;
 }) => (
-  <div className={`flex flex-col sm:flex-row sm:items-center gap-3 px-4 py-3 border-b border-slate-100 dark:border-slate-800 last:border-0 transition-colors hover:bg-[#eaf4fb] dark:hover:bg-slate-800/30 ${index % 2 === 0 ? "" : "bg-slate-50/40 dark:bg-slate-800/20"}`}>
+  <div className={`flex flex-col sm:flex-row sm:items-center gap-3 px-4 py-3 border-b border-border border-border last:border-0 transition-colors hover:bg-surface hover:bg-primary-strong/30 ${index % 2 === 0 ? "" : "bg-background/40 bg-primary-strong/20"}`}>
     <div className="flex items-center gap-3 flex-1 min-w-0">
       {student.photo_url ? (
         <img src={safeMediaUrl(student.photo_url)!} alt="" crossOrigin="anonymous"
-          className="w-10 h-10 rounded-full object-cover border-2 border-[#cfe4f7] flex-shrink-0" />
+          className="w-10 h-10 rounded-full object-cover border-2 border-border flex-shrink-0" />
       ) : (
-        <div className="w-10 h-10 rounded-full bg-[#eaf4fb] flex items-center justify-center flex-shrink-0">
-          <span className="text-[#0078d4] font-bold text-sm">{student.full_name.charAt(0)}</span>
+        <div className="w-10 h-10 rounded-full bg-surface flex items-center justify-center flex-shrink-0">
+          <span className="text-primary font-bold text-sm">{student.full_name.charAt(0)}</span>
         </div>
       )}
       <div className="flex-1 min-w-0">
-        <p className="font-semibold text-sm text-slate-900 dark:text-white truncate">{student.full_name}</p>
-        <p className="text-xs text-slate-500 truncate">
+        <p className="font-semibold text-sm text-primary text-primary-foreground truncate">{student.full_name}</p>
+        <p className="text-xs text-muted truncate">
           Class {student.class} · Roll {student.roll_number}
           {student.serial_no ? ` · ${student.serial_no}` : ""}
         </p>
@@ -645,19 +645,19 @@ const StudentRow = ({
         ONE Download in the full preview modal. */}
     <div className="flex gap-1.5 sm:flex-shrink-0 flex-wrap sm:justify-end">
       <button onClick={onView}
-        className="flex-1 sm:flex-none flex items-center justify-center gap-1 px-3 py-2 sm:py-1.5 rounded-lg border border-[#0078d4] text-[#0078d4] dark:text-[#4cc2ff] text-xs font-semibold hover:bg-[#eaf4fb] dark:hover:bg-slate-800 transition-colors">
+        className="flex-1 sm:flex-none flex items-center justify-center gap-1 px-3 py-2 sm:py-1.5 rounded-lg border border-border text-primary text-primary text-xs font-semibold hover:bg-surface hover:bg-primary-strong transition-colors">
         <ZoomIn className="w-3.5 h-3.5 sm:w-3 sm:h-3" /> <span>View</span>
       </button>
       {showDownload && (
         <button onClick={onDownload} disabled={downloading}
-          className="flex-1 sm:flex-none flex items-center justify-center gap-1 px-3 py-2 sm:py-1.5 rounded-lg bg-[#0078d4] text-white text-xs font-semibold hover:bg-[#106ebe] disabled:opacity-50 transition-colors">
+          className="flex-1 sm:flex-none flex items-center justify-center gap-1 px-3 py-2 sm:py-1.5 rounded-lg bg-surface text-primary-foreground text-xs font-semibold hover:bg-surface disabled:opacity-50 transition-colors">
           {downloading ? <Loader2 className="w-3.5 h-3.5 sm:w-3 sm:h-3 animate-spin" /> : <Download className="w-3.5 h-3.5 sm:w-3 sm:h-3" />}
           <span>Download</span>
         </button>
       )}
       {showDelete && onDelete && (
         <button onClick={onDelete}
-          className="flex items-center justify-center gap-1 px-3 py-2 sm:py-1.5 rounded-lg border border-red-300 text-red-600 dark:text-red-400 text-xs font-semibold hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
+          className="flex items-center justify-center gap-1 px-3 py-2 sm:py-1.5 rounded-lg border border-border text-primary text-primary text-xs font-semibold hover:bg-background hover:bg-primary-strong/30 transition-colors">
           <Trash2 className="w-3.5 h-3.5 sm:w-3 sm:h-3" /> <span className="sm:hidden">Delete</span>
         </button>
       )}
@@ -878,7 +878,7 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
       {/* Header */}
       <div>
         <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-          <CreditCard className="w-5 h-5 text-[#0078d4]" />
+          <CreditCard className="w-5 h-5 text-primary" />
           Student ID Cards
         </h2>
         <p className="text-xs text-muted-foreground mt-0.5">
@@ -890,13 +890,13 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
 
       {/* Admin generate panel */}
       {isAdminView && (
-        <div className="rounded-2xl border border-[#cfe4f7] dark:border-slate-700 bg-[#eaf4fb] dark:bg-slate-800/40 p-4 sm:p-5 space-y-4">
-          <p className="text-xs font-bold uppercase tracking-wider text-[#0078d4]">Generate ID Cards</p>
+        <div className="rounded-2xl border border-border border-border bg-surface bg-primary-strong/40 p-4 sm:p-5 space-y-4">
+          <p className="text-xs font-bold uppercase tracking-wider text-primary">Generate ID Cards</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-1">Class</label>
+              <label className="block text-[10px] uppercase tracking-wider font-bold text-muted mb-1">Class</label>
               <Select value={classFilter} onValueChange={setClassFilter}>
-                <SelectTrigger className="w-full bg-white dark:bg-slate-900">
+                <SelectTrigger className="w-full bg-surface bg-primary-strong">
                   <SelectValue placeholder="Select class" />
                 </SelectTrigger>
                 <SelectContent>
@@ -906,16 +906,16 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
               </Select>
             </div>
             <div>
-              <label className="block text-[10px] uppercase tracking-wider font-bold text-slate-500 mb-1">Serial No. Prefix</label>
+              <label className="block text-[10px] uppercase tracking-wider font-bold text-muted mb-1">Serial No. Prefix</label>
               <Input
                 value={serialPrefix}
                 onChange={e => setSerialPrefix(e.target.value)}
                 placeholder="e.g. GMSTM-2025"
-                className="bg-white dark:bg-slate-900"
+                className="bg-surface bg-primary-strong"
               />
             </div>
             <div className="flex items-end">
-              <div className="text-xs text-slate-600 dark:text-slate-400 px-3 py-2 rounded-lg bg-white/60 dark:bg-slate-900/40 w-full">
+              <div className="text-xs text-muted text-muted px-3 py-2 rounded-lg bg-surface/60 bg-primary-strong/40 w-full">
                 {classFilter
                   ? studentsLoading
                     ? "Loading students…"
@@ -928,7 +928,7 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
             <button
               onClick={handleGenerate}
               disabled={generating || !classFilter || studentsLoading || !availableCount}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-[#0078d4] text-white text-sm font-semibold hover:bg-[#106ebe] disabled:opacity-50 transition-colors"
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-surface text-primary-foreground text-sm font-semibold hover:bg-surface disabled:opacity-50 transition-colors"
             >
               {generating
                 ? <><Loader2 className="w-4 h-4 animate-spin" /> Generating {genProgress}%…</>
@@ -939,7 +939,7 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
                 <button
                   onClick={handleBulkZip}
                   disabled={bulkLoading}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#106ebe] text-white text-sm font-semibold hover:bg-[#0a5aa0] disabled:opacity-50 transition-colors"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-surface text-primary-foreground text-sm font-semibold hover:bg-surface disabled:opacity-50 transition-colors"
                 >
                   {bulkLoading
                     ? <><Loader2 className="w-4 h-4 animate-spin" />{bulkProgress}%</>
@@ -948,7 +948,7 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
                 <button
                   onClick={handleClearAll}
                   disabled={generating || bulkLoading}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-red-300 text-red-600 dark:text-red-400 text-sm font-semibold hover:bg-red-50 dark:hover:bg-red-950/30 disabled:opacity-50 transition-colors"
+                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-border text-primary text-primary text-sm font-semibold hover:bg-background hover:bg-primary-strong/30 disabled:opacity-50 transition-colors"
                 >
                   <X className="w-4 h-4" /> Clear All
                 </button>
@@ -956,9 +956,9 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
             )}
           </div>
           {(generating || bulkLoading) && (
-            <div className="w-full bg-white dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-surface bg-primary-strong rounded-full h-2 overflow-hidden">
               <div
-                className="h-full bg-[#0078d4] transition-all duration-300 rounded-full"
+                className="h-full bg-surface transition-all duration-300 rounded-full"
                 style={{ width: `${generating ? genProgress : bulkProgress}%` }}
               />
             </div>
@@ -981,12 +981,12 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
 
       {/* List */}
       {loadingSaved ? (
-        <div className="text-center py-16 text-muted-foreground rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700">
-          <Loader2 className="w-10 h-10 mx-auto mb-3 animate-spin text-[#0078d4]" />
+        <div className="text-center py-16 text-muted-foreground rounded-2xl border-2 border-dashed border-border border-border">
+          <Loader2 className="w-10 h-10 mx-auto mb-3 animate-spin text-primary" />
           <p className="text-sm">Loading saved ID cards…</p>
         </div>
       ) : generated.length === 0 ? (
-        <div className="text-center py-16 text-muted-foreground rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700">
+        <div className="text-center py-16 text-muted-foreground rounded-2xl border-2 border-dashed border-border border-border">
           <CreditCard className="w-10 h-10 mx-auto mb-3 opacity-30" />
           <p className="text-sm">
             {isAdminView
@@ -1005,12 +1005,12 @@ const AdminStudentIDCards = ({ isAdminView = true }: { isAdminView?: boolean }) 
             const items = filtered.filter(g => g.student.class === cls);
             if (!items.length) return null;
             return (
-              <div key={cls} className="rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm bg-white dark:bg-slate-900">
-                <div className="flex items-center justify-between px-4 py-3 bg-[#0078d4]">
+              <div key={cls} className="rounded-2xl border border-border border-border overflow-hidden shadow-sm bg-surface bg-primary-strong">
+                <div className="flex items-center justify-between px-4 py-3 bg-surface">
                   <div className="flex items-center gap-2">
-                    <span className="w-7 h-7 rounded-full bg-white/25 text-white font-bold text-sm flex items-center justify-center">{cls}</span>
-                    <span className="font-semibold text-white">Class {cls}</span>
-                    <span className="text-[#d9ecf9] text-xs">({items.length} card{items.length === 1 ? "" : "s"})</span>
+                    <span className="w-7 h-7 rounded-full bg-surface/25 text-primary-foreground font-bold text-sm flex items-center justify-center">{cls}</span>
+                    <span className="font-semibold text-primary-foreground">Class {cls}</span>
+                    <span className="text-primary-foreground text-xs">({items.length} card{items.length === 1 ? "" : "s"})</span>
                   </div>
                 </div>
                 {items.map((g, i) => (

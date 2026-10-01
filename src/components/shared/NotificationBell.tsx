@@ -33,26 +33,26 @@ interface NotificationRow {
 // migration will fall back to the HelpCircle icon + neutral color.
 
 const TYPE_META: Record<string, { icon: any; color: string; bg: string }> = {
-  notice:                { icon: Megaphone,    color: "text-red-500",        bg: "bg-red-500/10"        },
-  news:                  { icon: Newspaper,    color: "text-blue-500",       bg: "bg-blue-500/10"       },
-  result:                { icon: BarChart3,    color: "text-emerald-500",    bg: "bg-emerald-500/10"    },
-  exam_roll:             { icon: Hash,         color: "text-purple-500",     bg: "bg-purple-500/10"     },
-  fee:                   { icon: Wallet,       color: "text-amber-500",      bg: "bg-amber-500/10"      },
-  id_card:               { icon: IdCard,       color: "text-indigo-500",     bg: "bg-indigo-500/10"     },
-  timetable:             { icon: CalendarDays, color: "text-cyan-500",       bg: "bg-cyan-500/10"       },
-  event:                 { icon: CalendarDays, color: "text-pink-500",       bg: "bg-pink-500/10"       },
-  library:               { icon: BookMarked,   color: "text-orange-500",     bg: "bg-orange-500/10"     },
-  video:                 { icon: Video,        color: "text-rose-500",       bg: "bg-rose-500/10"       },
-  online_class:          { icon: MonitorPlay,  color: "text-teal-500",       bg: "bg-teal-500/10"       },
-  admission_open:        { icon: GraduationCap,color: "text-green-500",      bg: "bg-green-500/10"      },
-  achievement:           { icon: Trophy,       color: "text-yellow-500",     bg: "bg-yellow-500/10"     },
-  homework:              { icon: ClipboardList,color: "text-sky-500",        bg: "bg-sky-500/10"        },
-  admission_application: { icon: UserPlus,     color: "text-violet-500",     bg: "bg-violet-500/10"     },
-  admission_doc:         { icon: Upload,       color: "text-fuchsia-500",    bg: "bg-fuchsia-500/10"    },
-  contact_message:       { icon: Mail,         color: "text-blue-600",       bg: "bg-blue-600/10"       },
-  chapter_question:      { icon: MessageSquareText, color: "text-stone-500",  bg: "bg-stone-500/10"      },
-  mistake_report:        { icon: Flag,         color: "text-red-500",        bg: "bg-red-500/10"        },
-  exam_seating:          { icon: LayoutGrid,   color: "text-sky-500",        bg: "bg-sky-500/10"        },
+  notice:                { icon: Megaphone,    color: "text-primary",        bg: "bg-background/10"        },
+  news:                  { icon: Newspaper,    color: "text-primary",       bg: "bg-background/10"       },
+  result:                { icon: BarChart3,    color: "text-primary",    bg: "bg-background/10"    },
+  exam_roll:             { icon: Hash,         color: "text-primary",     bg: "bg-background/10"     },
+  fee:                   { icon: Wallet,       color: "text-primary",      bg: "bg-accent-soft/10"      },
+  id_card:               { icon: IdCard,       color: "text-primary",     bg: "bg-background/10"     },
+  timetable:             { icon: CalendarDays, color: "text-primary",       bg: "bg-background/10"       },
+  event:                 { icon: CalendarDays, color: "text-primary",       bg: "bg-accent-soft/10"       },
+  library:               { icon: BookMarked,   color: "text-primary",     bg: "bg-accent-soft/10"     },
+  video:                 { icon: Video,        color: "text-primary",       bg: "bg-accent-soft/10"       },
+  online_class:          { icon: MonitorPlay,  color: "text-primary",       bg: "bg-background/10"       },
+  admission_open:        { icon: GraduationCap,color: "text-primary",      bg: "bg-background/10"      },
+  achievement:           { icon: Trophy,       color: "text-primary",     bg: "bg-accent-soft/10"     },
+  homework:              { icon: ClipboardList,color: "text-primary",        bg: "bg-background/10"        },
+  admission_application: { icon: UserPlus,     color: "text-primary",     bg: "bg-background/10"     },
+  admission_doc:         { icon: Upload,       color: "text-primary",    bg: "bg-accent-soft/10"    },
+  contact_message:       { icon: Mail,         color: "text-primary",       bg: "bg-primary/10"       },
+  chapter_question:      { icon: MessageSquareText, color: "text-muted",  bg: "bg-background/10"      },
+  mistake_report:        { icon: Flag,         color: "text-primary",        bg: "bg-background/10"        },
+  exam_seating:          { icon: LayoutGrid,   color: "text-primary",        bg: "bg-background/10"        },
   default:               { icon: FileText,     color: "text-muted-foreground", bg: "bg-muted"           },
 };
 
@@ -236,7 +236,7 @@ const NotificationBell = ({ variant = "header" }: NotificationBellProps = {}) =>
         onClick={() => setOpen(!open)}
         className={
           variant === "bottom-bar"
-            ? `flex-1 flex flex-col items-center justify-center py-3.5 relative ${open ? "text-black dark:text-white" : "text-muted-foreground"}`
+            ? `flex-1 flex flex-col items-center justify-center py-3.5 relative ${open ? "text-primary text-primary-foreground" : "text-muted-foreground"}`
             : "p-2 rounded-lg hover:bg-secondary text-muted-foreground relative transition-colors"
         }
         aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ""}`}
@@ -395,4 +395,4 @@ const NotificationBell = ({ variant = "header" }: NotificationBellProps = {}) =>
 
 export default NotificationBell;
 
-  
+

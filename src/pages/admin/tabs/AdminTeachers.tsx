@@ -134,7 +134,7 @@ const AdminTeachers = () => {
                   <TableCell>{t.subject}</TableCell>
                   <TableCell>{t.qualification}</TableCell>
                   <TableCell>
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${t.is_active ? "bg-green-100 text-green-700" : "bg-muted text-muted-foreground"}`}>
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${t.is_active ? "bg-surface-raised text-primary" : "bg-muted text-muted-foreground"}`}>
                       {t.is_active ? "Yes" : "No"}
                     </span>
                   </TableCell>
@@ -218,4 +218,4 @@ const AdminTeachers = () => {
 export default AdminTeachers;
 
 
-      
+

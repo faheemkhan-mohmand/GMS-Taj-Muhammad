@@ -81,13 +81,13 @@ const FREQUENCIES = [
   { value: "one_time", label: "One Time" },
 ];
 const PAYMENT_METHODS = [
-  { value: "cash", label: "Cash", icon: Banknote, color: "text-green-600" },
-  { value: "bank", label: "Bank Transfer", icon: Building2, color: "text-blue-600" },
-  { value: "online", label: "Online / JazzCash / Easypaisa", icon: Smartphone, color: "text-purple-600" },
-  { value: "cheque", label: "Cheque", icon: CreditCard, color: "text-orange-600" },
+  { value: "cash", label: "Cash", icon: Banknote, color: "text-primary" },
+  { value: "bank", label: "Bank Transfer", icon: Building2, color: "text-primary" },
+  { value: "online", label: "Online / JazzCash / Easypaisa", icon: Smartphone, color: "text-primary" },
+  { value: "cheque", label: "Cheque", icon: CreditCard, color: "text-primary" },
 ];
 const CLASS_COLORS: Record<string, string> = {
-  "6": "#6366f1", "7": "#10b981", "8": "#1e3a8a", "9": "#ef4444", "10": "#8b5cf6",
+  "6": "var(--primary)", "7": "var(--primary)", "8": "#1e3a8a", "9": "var(--primary)", "10": "#8b5cf6",
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -155,7 +155,7 @@ function generateVoucherPDF(voucher: FeeVoucher, studentName: string, rollNumber
     ["Roll No", rollNumber || "—"],
     ["Class", `Class ${voucher.class}`],
   ];
-  
+
   const rightInfo = [
     ["Period", voucher.fee_period === "monthly" ? `${MONTHS[voucher.month - 1]} ${voucher.year}` : `${voucher.year}`],
     ["Due Date", format(new Date(voucher.due_date), "dd MMM yyyy")],
@@ -203,15 +203,15 @@ function generateVoucherPDF(voucher: FeeVoucher, studentName: string, rollNumber
     startY: 68,
     head: [["#", "Fee Description", "Type", "Amount"]],
     body: tableBody,
-    headStyles: { 
-      fillColor: TABLE_HEADER, 
-      textColor: [255, 255, 255], 
-      fontStyle: "bold", 
+    headStyles: {
+      fillColor: TABLE_HEADER,
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
       fontSize: 9,
       font: "helvetica"
     },
-    bodyStyles: { 
-      fontSize: 9, 
+    bodyStyles: {
+      fontSize: 9,
       textColor: DARK_INK,
       font: "helvetica",
       lineColor: LIGHT_LINE,
@@ -270,7 +270,7 @@ function generateVoucherPDF(voucher: FeeVoucher, studentName: string, rollNumber
         if (payY > h - 35) return; // Don't overflow page
 
         // Method type label with icon indicator
-        const methodLabel = pm.type === "bank" 
+        const methodLabel = pm.type === "bank"
           ? (pm.bank_name || "Bank Transfer")
           : pm.type === "easypaisa"
           ? `EasyPaisa${pm.account_name ? ` - ${pm.account_name}` : ""}`
@@ -321,7 +321,7 @@ function generateVoucherPDF(voucher: FeeVoucher, studentName: string, rollNumber
       doc.setTextColor(80, 70, 60);
       doc.setFontSize(8);
       doc.setFont("helvetica", "normal");
-      
+
       const legacyBankLines = [
         voucher.bank_details.bank_name ? `Bank: ${voucher.bank_details.bank_name}` : "",
         voucher.bank_details.account_title ? `Account Title: ${voucher.bank_details.account_title}` : "",
@@ -338,7 +338,7 @@ function generateVoucherPDF(voucher: FeeVoucher, studentName: string, rollNumber
   // ── FOOTER ──
   doc.setFillColor(...HEADER_BG);
   doc.rect(8, h - 14, w - 16, 6, "F");
-  
+
   doc.setDrawColor(...LIGHT_LINE);
   doc.setLineWidth(0.3);
   doc.line(8, h - 14, w - 8, h - 14);
@@ -347,7 +347,7 @@ function generateVoucherPDF(voucher: FeeVoucher, studentName: string, rollNumber
   doc.setFontSize(6.5);
   doc.setFont("helvetica", "bold");
   doc.text("GMS Taj Muhammad — Official Document", w / 2, h - 9, { align: "center" });
-  
+
   doc.setFontSize(6);
   doc.setFont("helvetica", "normal");
   doc.text(`Generated: ${format(new Date(), "dd MMM yyyy HH:mm")}`, 12, h - 9);
@@ -379,11 +379,11 @@ const CustomTip = ({ active, payload, label }: any) => {
 // ═══════════════════════════════════════════════════════════════
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  unpaid: { label: "Unpaid", color: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400", icon: <XCircle className="w-3 h-3" /> },
-  partial: { label: "Partial", color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400", icon: <Clock className="w-3 h-3" /> },
-  paid: { label: "Paid", color: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400", icon: <CheckCircle className="w-3 h-3" /> },
-  overdue: { label: "Overdue", color: "bg-red-200 text-red-800 dark:bg-red-900/50 dark:text-red-300", icon: <AlertTriangle className="w-3 h-3" /> },
-  waived: { label: "Waived", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400", icon: <CheckCheck className="w-3 h-3" /> },
+  unpaid: { label: "Unpaid", color: "bg-surface-raised text-primary bg-primary-strong/30 text-primary", icon: <XCircle className="w-3 h-3" /> },
+  partial: { label: "Partial", color: "bg-accent-soft text-primary bg-accent/30 text-primary", icon: <Clock className="w-3 h-3" /> },
+  paid: { label: "Paid", color: "bg-surface-raised text-primary bg-primary-strong/30 text-primary", icon: <CheckCircle className="w-3 h-3" /> },
+  overdue: { label: "Overdue", color: "bg-surface-raised text-primary bg-primary-strong/50 text-primary", icon: <AlertTriangle className="w-3 h-3" /> },
+  waived: { label: "Waived", color: "bg-surface-raised text-primary bg-primary-strong/30 text-primary", icon: <CheckCheck className="w-3 h-3" /> },
 };
 
 const StatusBadge = ({ status }: { status: string }) => {
@@ -474,23 +474,23 @@ function DashboardTab() {
   }
 
   const statCards = [
-    { icon: <CircleDollarSign className="w-5 h-5" />, label: "Total Billed", value: `Rs. ${dash.totalBilled.toLocaleString()}`, color: "#6366f1", bg: "bg-indigo-50 dark:bg-indigo-900/20" },
-    { icon: <CheckCircle className="w-5 h-5" />, label: "Collected", value: `Rs. ${dash.totalCollected.toLocaleString()}`, color: "#10b981", bg: "bg-green-50 dark:bg-green-900/20" },
-    { icon: <AlertTriangle className="w-5 h-5" />, label: "Outstanding", value: `Rs. ${dash.totalOutstanding.toLocaleString()}`, color: "#ef4444", bg: "bg-red-50 dark:bg-red-900/20" },
-    { icon: <TrendingUp className="w-5 h-5" />, label: "Collection Rate", value: `${dash.collectionRate}%`, color: dash.collectionRate >= 80 ? "#10b981" : dash.collectionRate >= 50 ? "#f59e0b" : "#ef4444", bg: "bg-blue-50 dark:bg-blue-900/20" },
-    { icon: <FileText className="w-5 h-5" />, label: "Total Vouchers", value: dash.totalVouchers, color: "#6366f1", bg: "bg-violet-50 dark:bg-violet-900/20" },
-    { icon: <CheckCircle className="w-5 h-5" />, label: "Paid", value: dash.paidVouchers, color: "#10b981", bg: "bg-emerald-50 dark:bg-emerald-900/20" },
-    { icon: <Clock className="w-5 h-5" />, label: "Unpaid", value: dash.unpaidVouchers, color: "#f59e0b", bg: "bg-yellow-50 dark:bg-yellow-900/20" },
-    { icon: <AlertTriangle className="w-5 h-5" />, label: "Overdue", value: dash.overdueVouchers, color: "#ef4444", bg: "bg-red-50 dark:bg-red-900/20" },
+    { icon: <CircleDollarSign className="w-5 h-5" />, label: "Total Billed", value: `Rs. ${dash.totalBilled.toLocaleString()}`, color: "var(--primary)", bg: "bg-background bg-primary-strong/20" },
+    { icon: <CheckCircle className="w-5 h-5" />, label: "Collected", value: `Rs. ${dash.totalCollected.toLocaleString()}`, color: "var(--primary)", bg: "bg-background bg-primary-strong/20" },
+    { icon: <AlertTriangle className="w-5 h-5" />, label: "Outstanding", value: `Rs. ${dash.totalOutstanding.toLocaleString()}`, color: "var(--primary)", bg: "bg-background bg-primary-strong/20" },
+    { icon: <TrendingUp className="w-5 h-5" />, label: "Collection Rate", value: `${dash.collectionRate}%`, color: dash.collectionRate >= 80 ? "var(--primary)" : dash.collectionRate >= 50 ? "var(--accent)" : "var(--primary)", bg: "bg-background bg-primary-strong/20" },
+    { icon: <FileText className="w-5 h-5" />, label: "Total Vouchers", value: dash.totalVouchers, color: "var(--primary)", bg: "bg-background bg-primary-strong/20" },
+    { icon: <CheckCircle className="w-5 h-5" />, label: "Paid", value: dash.paidVouchers, color: "var(--primary)", bg: "bg-background bg-primary-strong/20" },
+    { icon: <Clock className="w-5 h-5" />, label: "Unpaid", value: dash.unpaidVouchers, color: "var(--primary)", bg: "bg-accent-soft bg-accent/20" },
+    { icon: <AlertTriangle className="w-5 h-5" />, label: "Overdue", value: dash.overdueVouchers, color: "var(--primary)", bg: "bg-background bg-primary-strong/20" },
   ];
 
   // Aging chart data
   const agingData = [
-    { name: "Current", value: dash.aging.current, fill: "#10b981" },
-    { name: "1-30 Days", value: dash.aging.days30, fill: "#f59e0b" },
-    { name: "31-60 Days", value: dash.aging.days60, fill: "#f97316" },
-    { name: "61-90 Days", value: dash.aging.days90, fill: "#ef4444" },
-    { name: "90+ Days", value: dash.aging.over90, fill: "#991b1b" },
+    { name: "Current", value: dash.aging.current, fill: "var(--primary)" },
+    { name: "1-30 Days", value: dash.aging.days30, fill: "var(--accent)" },
+    { name: "31-60 Days", value: dash.aging.days60, fill: "var(--accent)" },
+    { name: "61-90 Days", value: dash.aging.days90, fill: "var(--primary)" },
+    { name: "90+ Days", value: dash.aging.over90, fill: "var(--primary-strong)" },
   ].filter((d) => d.value > 0);
 
   // Class breakdown chart
@@ -535,7 +535,7 @@ function DashboardTab() {
         {agingData.length > 0 && (
           <div className="bg-card border border-border rounded-xl p-4 shadow-sm">
             <h3 className="font-bold text-sm text-foreground mb-3 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-orange-500" /> Aging Analysis
+              <AlertTriangle className="w-4 h-4 text-primary" /> Aging Analysis
             </h3>
             <ResponsiveContainer width="100%" height={220}>
               <PieChart margin={{ top: 10, right: 10, left: 10, bottom: 10 }}>
@@ -576,13 +576,13 @@ function DashboardTab() {
             </h3>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={classChartData} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                 <XAxis dataKey="class" tick={{ fontSize: 11 }} />
                 <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}k`} />
                 <Tooltip content={<CustomTip />} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Bar dataKey="collected" name="Collected" fill="#10b981" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="outstanding" name="Outstanding" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="collected" name="Collected" fill="var(--primary)" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="outstanding" name="Outstanding" fill="var(--primary)" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -671,8 +671,8 @@ function StructuresTab() {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ 
-      class: cls, fee_type: "tuition", label: "Tuition Fee", amount: 0, 
+    setForm({
+      class: cls, fee_type: "tuition", label: "Tuition Fee", amount: 0,
       is_optional: false, is_recurring: true, frequency: "monthly",
       payment_methods: [],
     });
@@ -695,7 +695,7 @@ function StructuresTab() {
       console.warn('Failed to parse payment_methods:', e);
       paymentMethods = [];
     }
-    
+
     setForm({
       class: s.class, fee_type: s.fee_type, label: s.label, amount: Number(s.amount),
       is_optional: s.is_optional, is_recurring: s.is_recurring, frequency: s.frequency,
@@ -747,12 +747,12 @@ function StructuresTab() {
         frequency: form.frequency,
         is_active: true,
       };
-      
+
       // Only include payment_methods if we have some and they're valid
       if (form.payment_methods && form.payment_methods.length > 0) {
         payload.payment_methods = form.payment_methods;
       }
-      
+
       await upsert.mutateAsync(payload);
       toast.success(editing ? "Updated" : "Added");
       setModalOpen(false);
@@ -792,7 +792,7 @@ function StructuresTab() {
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {CLASSES.map((c) => (
             <button key={c} onClick={() => setCls(c)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${cls === c ? "bg-primary text-white" : "bg-secondary text-muted-foreground"}`}>
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${cls === c ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>
               Class {c}
             </button>
           ))}
@@ -823,7 +823,7 @@ function StructuresTab() {
                     <div className="flex items-center gap-2 flex-wrap">
                       <p className="font-semibold text-sm">{s.label}</p>
                       <Badge variant="outline" className="text-[10px]">{s.frequency}</Badge>
-                      {s.is_optional && <Badge className="text-[10px] bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400">Optional</Badge>}
+                      {s.is_optional && <Badge className="text-[10px] bg-accent-soft text-primary bg-accent/30 text-primary">Optional</Badge>}
                     </div>
                     <p className="text-xs text-muted-foreground mt-0.5">{s.fee_type} | {s.is_recurring ? "Recurring" : "One-time"}</p>
                   </div>
@@ -899,7 +899,7 @@ function StructuresTab() {
                   <Plus className="w-3 h-3" /> Add Method
                 </Button>
               </div>
-              
+
               {form.payment_methods.length === 0 ? (
                 <p className="text-xs text-muted-foreground text-center py-2">
                   No payment methods added. Students will be instructed to pay at the school office.
@@ -909,8 +909,8 @@ function StructuresTab() {
                   {form.payment_methods.map((pm, idx) => (
                     <div key={idx} className="bg-card border border-border rounded-lg p-3 space-y-2">
                       <div className="flex items-center justify-between">
-                        <Select 
-                          value={pm.type} 
+                        <Select
+                          value={pm.type}
                           onValueChange={(v) => updatePaymentMethod(idx, "type", v)}
                           className="w-36"
                         >
@@ -921,7 +921,7 @@ function StructuresTab() {
                             ))}
                           </SelectContent>
                         </Select>
-                        <button 
+                        <button
                           onClick={() => removePaymentMethod(idx)}
                           className="text-muted-foreground hover:text-destructive transition-colors"
                         >
@@ -932,27 +932,27 @@ function StructuresTab() {
                       {/* Bank-specific fields */}
                       {pm.type === "bank" && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <Input 
-                            placeholder="Bank Name (e.g. HBL)" 
-                            value={pm.bank_name || ""} 
+                          <Input
+                            placeholder="Bank Name (e.g. HBL)"
+                            value={pm.bank_name || ""}
                             onChange={(e) => updatePaymentMethod(idx, "bank_name", e.target.value)}
                             className="h-8 text-xs"
                           />
-                          <Input 
-                            placeholder="Account Title" 
-                            value={pm.account_title || ""} 
+                          <Input
+                            placeholder="Account Title"
+                            value={pm.account_title || ""}
                             onChange={(e) => updatePaymentMethod(idx, "account_title", e.target.value)}
                             className="h-8 text-xs"
                           />
-                          <Input 
-                            placeholder="Account Number" 
-                            value={pm.account_number || ""} 
+                          <Input
+                            placeholder="Account Number"
+                            value={pm.account_number || ""}
                             onChange={(e) => updatePaymentMethod(idx, "account_number", e.target.value)}
                             className="h-8 text-xs"
                           />
-                          <Input 
-                            placeholder="IBAN (optional)" 
-                            value={pm.iban || ""} 
+                          <Input
+                            placeholder="IBAN (optional)"
+                            value={pm.iban || ""}
                             onChange={(e) => updatePaymentMethod(idx, "iban", e.target.value)}
                             className="h-8 text-xs"
                           />
@@ -962,15 +962,15 @@ function StructuresTab() {
                       {/* EasyPaisa/JazzCash fields */}
                       {(pm.type === "easypaisa" || pm.type === "jazzcash") && (
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                          <Input 
-                            placeholder="Account Name" 
-                            value={pm.account_name || ""} 
+                          <Input
+                            placeholder="Account Name"
+                            value={pm.account_name || ""}
                             onChange={(e) => updatePaymentMethod(idx, "account_name", e.target.value)}
                             className="h-8 text-xs"
                           />
-                          <Input 
-                            placeholder="Phone Number (e.g. 0300-1234567)" 
-                            value={pm.phone || ""} 
+                          <Input
+                            placeholder="Phone Number (e.g. 0300-1234567)"
+                            value={pm.phone || ""}
                             onChange={(e) => updatePaymentMethod(idx, "phone", e.target.value)}
                             className="h-8 text-xs"
                           />
@@ -980,15 +980,15 @@ function StructuresTab() {
                       {/* Other/Custom fields */}
                       {pm.type === "other" && (
                         <div className="space-y-2">
-                          <Input 
-                            placeholder="Payment method name (e.g. SadaPay)" 
-                            value={pm.label || ""} 
+                          <Input
+                            placeholder="Payment method name (e.g. SadaPay)"
+                            value={pm.label || ""}
                             onChange={(e) => updatePaymentMethod(idx, "label", e.target.value)}
                             className="h-8 text-xs"
                           />
-                          <Textarea 
-                            placeholder="Instructions for student..." 
-                            value={pm.instructions || ""} 
+                          <Textarea
+                            placeholder="Instructions for student..."
+                            value={pm.instructions || ""}
                             onChange={(e) => updatePaymentMethod(idx, "instructions", e.target.value)}
                             className="min-h-[50px] text-xs"
                           />
@@ -1171,7 +1171,7 @@ function VouchersTab() {
         <div className="flex gap-1.5 overflow-x-auto no-scrollbar">
           {CLASSES.map((c) => (
             <button key={c} onClick={() => setCls(c)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${cls === c ? "bg-primary text-white" : "bg-secondary text-muted-foreground"}`}>
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${cls === c ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>
               Class {c}
             </button>
           ))}
@@ -1404,7 +1404,7 @@ function VouchersTab() {
         <DialogContent className="max-w-md w-full">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Wallet className="w-5 h-5 text-green-600" /> Record Payment
+              <Wallet className="w-5 h-5 text-primary" /> Record Payment
             </DialogTitle>
           </DialogHeader>
           {selectedVoucher && (
@@ -1415,7 +1415,7 @@ function VouchersTab() {
                   #{selectedVoucher.students?.roll_number} | {selectedVoucher.voucher_number} | Rs. {Number(selectedVoucher.total_amount).toLocaleString()}
                 </p>
                 {selectedVoucher.paid_amount > 0 && (
-                  <p className="text-xs text-green-600 mt-1">
+                  <p className="text-xs text-primary mt-1">
                     Already paid: Rs. {Number(selectedVoucher.paid_amount).toLocaleString()}
                   </p>
                 )}
@@ -1468,7 +1468,7 @@ function VouchersTab() {
           )}
           <DialogFooter className="mt-2">
             <Button variant="outline" onClick={() => setPayDialogOpen(false)}>Cancel</Button>
-            <Button onClick={handlePayment} disabled={paying} className="gap-1.5 bg-green-600 hover:bg-green-700 text-white">
+            <Button onClick={handlePayment} disabled={paying} className="gap-1.5 bg-primary hover:bg-primary text-primary-foreground">
               {paying && <Loader2 className="w-4 h-4 animate-spin" />} Record Payment
             </Button>
           </DialogFooter>
@@ -1518,7 +1518,7 @@ function VouchersTab() {
                   <span>Rs. {(Number(selectedVoucher.total_amount) + Number(selectedVoucher.late_fee)).toLocaleString()}</span>
                 </div>
                 {selectedVoucher.paid_amount > 0 && (
-                  <div className="flex justify-between text-sm text-green-600">
+                  <div className="flex justify-between text-sm text-primary">
                     <span>Paid</span>
                     <span className="font-semibold">Rs. {Number(selectedVoucher.paid_amount).toLocaleString()}</span>
                   </div>
@@ -1534,7 +1534,7 @@ function VouchersTab() {
                   <Download className="w-3.5 h-3.5" /> Download PDF
                 </Button>
                 {selectedVoucher.status !== "paid" && selectedVoucher.status !== "waived" && (
-                  <Button size="sm" className="gap-1.5 flex-1 bg-green-600 hover:bg-green-700" onClick={() => { setViewDialogOpen(false); openPayment(selectedVoucher); }}>
+                  <Button size="sm" className="gap-1.5 flex-1 bg-primary hover:bg-primary" onClick={() => { setViewDialogOpen(false); openPayment(selectedVoucher); }}>
                     <Wallet className="w-3.5 h-3.5" /> Record Payment
                   </Button>
                 )}
@@ -1618,8 +1618,8 @@ function PaymentsTab() {
 
       {/* Error state — show clear error message instead of crashing */}
       {error ? (
-        <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-2xl p-6 text-center">
-          <AlertTriangle className="w-8 h-8 text-amber-500 mx-auto mb-2" />
+        <div className="bg-accent-soft bg-accent/30 border border-border border-accent rounded-2xl p-6 text-center">
+          <AlertTriangle className="w-8 h-8 text-primary mx-auto mb-2" />
           <p className="text-sm font-semibold text-foreground">Couldn't load payments</p>
           <p className="text-xs text-muted-foreground mt-1">
             {error?.message || "There was a problem fetching payment records. Try refreshing."}
@@ -1641,10 +1641,10 @@ function PaymentsTab() {
             <Card key={p.id} className="border-border">
               <CardContent className="p-3.5">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-green-50 dark:bg-green-900/20 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-background bg-primary-strong/20 flex items-center justify-center shrink-0">
                     {(() => {
                       const Icon = PAYMENT_METHODS.find((m) => m.value === p.payment_method)?.icon || Wallet;
-                      return <Icon className="w-5 h-5 text-green-600" />;
+                      return <Icon className="w-5 h-5 text-primary" />;
                     })()}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -1659,7 +1659,7 @@ function PaymentsTab() {
                     {p.notes && <p className="text-[10px] text-muted-foreground italic mt-0.5">{p.notes}</p>}
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-lg font-black text-green-600">Rs. {Number(p.amount || 0).toLocaleString()}</p>
+                    <p className="text-lg font-black text-primary">Rs. {Number(p.amount || 0).toLocaleString()}</p>
                     <p className="text-[10px] text-muted-foreground">{p.fee_vouchers?.voucher_number || "—"}</p>
                   </div>
                 </div>
@@ -1737,19 +1737,19 @@ function ReportsTab() {
                 </h3>
                 <ResponsiveContainer width="100%" height={280}>
                   <BarChart data={collectionReport.filter((r) => r.total_vouchers > 0)} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                     <XAxis dataKey="month" tick={{ fontSize: 10 }} tickFormatter={(v: number) => MONTHS[v - 1]?.slice(0, 3) || v} />
                     <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}k`} />
                     <Tooltip content={<CustomTip />} />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
-                    <Bar dataKey="collected" name="Collected" fill="#10b981" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="outstanding" name="Outstanding" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="collected" name="Collected" fill="var(--primary)" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="outstanding" name="Outstanding" fill="var(--primary)" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
 
               <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-                <div className="bg-primary text-white px-4 py-3 font-bold text-sm">
+                <div className="bg-primary text-primary-foreground px-4 py-3 font-bold text-sm">
                   Collection Summary — {year}
                 </div>
                 <div className="overflow-x-auto">
@@ -1770,13 +1770,13 @@ function ReportsTab() {
                           <TableCell className="font-medium text-sm">{MONTHS[r.month - 1]}</TableCell>
                           <TableCell className="text-center text-sm">{r.total_vouchers}</TableCell>
                           <TableCell className="text-right text-sm">Rs. {r.total_amount.toLocaleString()}</TableCell>
-                          <TableCell className="text-right text-sm text-green-600 font-semibold">Rs. {r.collected.toLocaleString()}</TableCell>
+                          <TableCell className="text-right text-sm text-primary font-semibold">Rs. {r.collected.toLocaleString()}</TableCell>
                           <TableCell className="text-right text-sm text-destructive font-semibold">Rs. {r.outstanding.toLocaleString()}</TableCell>
                           <TableCell className="text-center">
                             <Badge className={
-                              r.collection_rate >= 80 ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                              : r.collection_rate >= 50 ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                              : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                              r.collection_rate >= 80 ? "bg-surface-raised text-primary bg-primary-strong/30 text-primary"
+                              : r.collection_rate >= 50 ? "bg-accent-soft text-primary bg-accent/30 text-primary"
+                              : "bg-surface-raised text-primary bg-primary-strong/30 text-primary"
                             }>
                               {r.collection_rate}%
                             </Badge>
@@ -1808,15 +1808,15 @@ function ReportsTab() {
                 </h3>
                 <ResponsiveContainer width="100%" height={240}>
                   <BarChart data={classSummary} margin={{ top: 5, right: 5, left: -15, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
                     <XAxis dataKey="class" tick={{ fontSize: 11 }} />
                     <YAxis tick={{ fontSize: 10 }} tickFormatter={(v: number) => `${(v / 1000).toFixed(0)}k`} />
                     <Tooltip content={<CustomTip />} />
                     <Legend wrapperStyle={{ fontSize: 11 }} />
                     <Bar dataKey="total_collected" name="Collected" radius={[4, 4, 0, 0]}>
-                      {classSummary.map((c, i) => <Cell key={i} fill={CLASS_COLORS[c.class] || "#6366f1"} />)}
+                      {classSummary.map((c, i) => <Cell key={i} fill={CLASS_COLORS[c.class] || "var(--primary)"} />)}
                     </Bar>
-                    <Bar dataKey="total_outstanding" name="Outstanding" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="total_outstanding" name="Outstanding" fill="var(--primary)" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -1832,7 +1832,7 @@ function ReportsTab() {
                       <div className="space-y-1.5 text-xs">
                         <div className="flex justify-between"><span className="text-muted-foreground">Students</span><span className="font-semibold">{c.total_students}</span></div>
                         <div className="flex justify-between"><span className="text-muted-foreground">Billed</span><span className="font-semibold">Rs. {c.total_billed.toLocaleString()}</span></div>
-                        <div className="flex justify-between"><span className="text-muted-foreground">Collected</span><span className="font-semibold text-green-600">Rs. {c.total_collected.toLocaleString()}</span></div>
+                        <div className="flex justify-between"><span className="text-muted-foreground">Collected</span><span className="font-semibold text-primary">Rs. {c.total_collected.toLocaleString()}</span></div>
                         <div className="flex justify-between"><span className="text-muted-foreground">Outstanding</span><span className="font-semibold text-destructive">Rs. {c.total_outstanding.toLocaleString()}</span></div>
                         <div className="flex justify-between"><span className="text-muted-foreground">Defaulters</span><span className="font-semibold">{c.defaulters_count}</span></div>
                       </div>
@@ -1859,8 +1859,8 @@ function ReportsTab() {
           </div>
           {loadingDefaulters ? <Skeleton className="h-64 rounded-xl" /> : defaulters.length === 0 ? (
             <div className="bg-card rounded-2xl border border-border p-10 text-center">
-              <CheckCircle className="w-10 h-10 text-green-500 mx-auto mb-2" />
-              <p className="text-sm font-semibold text-green-600">No defaulters!</p>
+              <CheckCircle className="w-10 h-10 text-primary mx-auto mb-2" />
+              <p className="text-sm font-semibold text-primary">No defaulters!</p>
               <p className="text-xs text-muted-foreground mt-1">All fees are paid or no vouchers exist.</p>
             </div>
           ) : (
@@ -1922,7 +1922,7 @@ function ReportsTab() {
 
 const toneStyles: Record<string, string> = {
   primary: "border-primary/30 bg-primary/5 text-primary",
-  success: "border-green-500/30 bg-green-50 dark:bg-green-900/20 text-green-600",
+  success: "border-border/30 bg-background bg-primary-strong/20 text-primary",
   destructive: "border-destructive/30 bg-destructive/10 text-destructive",
   muted: "border-border bg-muted text-muted-foreground",
 };

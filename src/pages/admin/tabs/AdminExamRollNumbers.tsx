@@ -147,9 +147,9 @@ const TERMS = ["1st Semester", "2nd Semester", "Annual-I", "Annual-II", "Annual"
 
 type Status = ExamAttStatus;
 const statusConfig: Record<Status, { icon: React.ReactNode; label: string; color: string; bg: string }> = {
-  present: { icon: <Check className="w-4 h-4" />, label: "Present", color: "text-emerald-600", bg: "bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700/50" },
-  absent:  { icon: <X className="w-4 h-4" />, label: "Absent",  color: "text-red-600", bg: "bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-700/50" },
-  leave:   { icon: <Palmtree className="w-4 h-4" />, label: "Leave",  color: "text-blue-600", bg: "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700/50" },
+  present: { icon: <Check className="w-4 h-4" />, label: "Present", color: "text-primary", bg: "bg-surface-raised bg-primary-strong/30 border-border border-border/50" },
+  absent:  { icon: <X className="w-4 h-4" />, label: "Absent",  color: "text-primary", bg: "bg-surface-raised bg-primary-strong/30 border-border border-border/50" },
+  leave:   { icon: <Palmtree className="w-4 h-4" />, label: "Leave",  color: "text-primary", bg: "bg-surface-raised bg-primary-strong/30 border-border border-border/50" },
 };
 
 // ── Countdown display component ──────────────────────────────────────────────
@@ -193,22 +193,22 @@ function CountdownTimer({ targetDate, label, onExpire }: { targetDate: string; l
 
   if (expired) {
     return (
-      <div className="flex items-center gap-2 bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/30 rounded-xl px-4 py-2.5">
-        <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0" />
+      <div className="flex items-center gap-2 bg-background bg-background/10 border border-border border-border/30 rounded-xl px-4 py-2.5">
+        <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
         <div>
-          <p className="text-xs text-green-800 dark:text-green-400 font-medium">{label || "Roll numbers publish in"}</p>
-          <p className="text-sm font-bold text-green-900 dark:text-green-300">Live Now — slips are visible to students</p>
+          <p className="text-xs text-primary text-primary font-medium">{label || "Roll numbers publish in"}</p>
+          <p className="text-sm font-bold text-primary text-primary">Live Now — slips are visible to students</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/30 rounded-xl px-4 py-2.5">
-      <Timer className="w-4 h-4 text-blue-500 shrink-0" />
+    <div className="flex items-center gap-2 bg-background bg-background/10 border border-border border-border/30 rounded-xl px-4 py-2.5">
+      <Timer className="w-4 h-4 text-primary shrink-0" />
       <div>
-        <p className="text-xs text-blue-800 dark:text-blue-400 font-medium">{label || "Roll numbers publish in"}</p>
-        <p className="text-sm font-bold text-blue-900 dark:text-blue-300 font-mono">{timeLeft}</p>
+        <p className="text-xs text-primary text-primary font-medium">{label || "Roll numbers publish in"}</p>
+        <p className="text-sm font-bold text-primary text-primary font-mono">{timeLeft}</p>
       </div>
     </div>
   );
@@ -225,7 +225,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
   const [error, setError] = useState<string | null>(null);
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const containerIdRef = useRef(`admin-qr-reader-${Math.random().toString(36).slice(2)}`);
-  
+
   // ── SCAN COOLDOWN (camera stays open, ready for the NEXT student) ──
   // Previously onScan() was immediately followed by stop(), closing the
   // camera after every single scan and forcing the admin to tap "Scan QR"
@@ -259,22 +259,22 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
 
   const start = useCallback(async () => {
     setError(null);
-    
+
     // Detect device type for adaptive settings
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-    
+
     // Explicitly request camera permission first — Android Chrome requires
     // getUserMedia to be called from a user gesture before Html5Qrcode can
     // access the camera. Without this, html5-qrcode throws "Camera access failed".
     try {
-      const constraints: MediaStreamConstraints = { 
-        video: isMobile 
-          ? { facingMode: "environment" } 
-          : { 
+      const constraints: MediaStreamConstraints = {
+        video: isMobile
+          ? { facingMode: "environment" }
+          : {
               facingMode: "environment",
               width: { ideal: 1280 },
               height: { ideal: 720 }
-            } 
+            }
       };
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       stream.getTracks().forEach(t => t.stop()); // release; html5-qrcode will re-open
@@ -290,7 +290,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       return;
     }
     setActive(true);
-    
+
     // Adaptive wait time based on device — gives the camera hardware time
     // to fully release after the permission-check stream above was
     // stopped. Too short a wait here was the likely cause of html5-qrcode's
@@ -300,7 +300,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
     await new Promise(r => setTimeout(r, waitTime));
 
     // Adaptive qrbox size based on screen size
-    const qrboxSize = isMobile 
+    const qrboxSize = isMobile
       ? { width: Math.min(280, window.innerWidth - 80), height: Math.min(280, window.innerWidth - 80) }
       : { width: 320, height: 320 };
 
@@ -309,9 +309,9 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       scannerRef.current = qr;
       await qr.start(
         { facingMode: "environment" },
-        { 
-          fps: isMobile ? 20 : 24, 
-          qrbox: qrboxSize, 
+        {
+          fps: isMobile ? 20 : 24,
+          qrbox: qrboxSize,
           disableFlip: true,
         },
         handleDecoded,
@@ -368,31 +368,31 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
   return (
     <div className="space-y-3">
       {!active ? (
-        <Button onClick={start} disabled={!enabled} className="gap-2 w-full bg-emerald-500 hover:bg-emerald-600 text-white" size="lg">
+        <Button onClick={start} disabled={!enabled} className="gap-2 w-full bg-background hover:bg-primary text-primary-foreground" size="lg">
           <Camera className="w-5 h-5" /> {error ? "Retry Camera" : "Starting Camera…"}
         </Button>
       ) : (
         <div className="space-y-3">
           {/* Scanner container - responsive sizing */}
-          <div 
-            id={containerIdRef.current} 
-            className="w-full rounded-xl bg-black border-2 border-emerald-400/50 overflow-hidden"
+          <div
+            id={containerIdRef.current}
+            className="w-full rounded-xl bg-background border-2 border-border/50 overflow-hidden"
             style={{ minHeight: '250px', minWidth: '200px' }}
           />
-          
+
           {/* Status indicator */}
           <div className="flex items-center justify-center gap-2 py-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-background animate-pulse"></span>
             <p className="text-[11px] text-muted-foreground">Scanner active — point at QR code</p>
           </div>
-          
+
           <Button onClick={stop} variant="outline" className="w-full gap-1.5">
             <X className="w-4 h-4" /> Close Scanner
           </Button>
         </div>
       )}
       {error && (
-        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 rounded-xl p-3 text-sm text-red-600 flex items-center gap-2">
+        <div className="bg-background bg-primary-strong/30 border border-border border-border/50 rounded-xl p-3 text-sm text-primary flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" /> {error}
         </div>
       )}
@@ -526,8 +526,8 @@ const AdminExamRollNumbers = () => {
   const currentScanIdRef = useRef<string>("");
   const AUTO_CONFIRM_MS = 3000; // Increased from 1100ms to 3 seconds for better UX
   useEffect(() => {
-    return () => { 
-      if (scanPreviewTimerRef.current) clearTimeout(scanPreviewTimerRef.current); 
+    return () => {
+      if (scanPreviewTimerRef.current) clearTimeout(scanPreviewTimerRef.current);
     };
   }, []);
   const [showScanner, setShowScanner] = useState(false);
@@ -1560,7 +1560,7 @@ const AdminExamRollNumbers = () => {
         scanId: newScanId,
       };
       setScanPreview(preview);
-      
+
       // Auto-confirm timer - but CHECKS scanId before clearing to prevent
       // race conditions when scanning different QR codes rapidly
       scanPreviewTimerRef.current = setTimeout(() => {
@@ -2109,14 +2109,14 @@ const AdminExamRollNumbers = () => {
         <div className="ml-auto">
           <div className="flex gap-1 bg-secondary/50 rounded-xl p-1">
             <button onClick={() => setMainTab("rolls")} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${mainTab === "rolls" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-indigo-100 dark:bg-indigo-900/40 shrink-0">
-                <Hash className="w-3.5 h-3.5 text-indigo-500" />
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                <Hash className="w-3.5 h-3.5 text-primary" />
               </span>
               Roll Numbers
             </button>
             <button onClick={() => setMainTab("attendance")} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${mainTab === "attendance" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground"}`}>
-              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-teal-100 dark:bg-teal-900/40 shrink-0">
-                <ClipboardCheck className="w-3.5 h-3.5 text-teal-500" />
+              <span className="flex items-center justify-center w-6 h-6 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                <ClipboardCheck className="w-3.5 h-3.5 text-primary" />
               </span>
               Exam Attendance
             </button>
@@ -2154,8 +2154,8 @@ const AdminExamRollNumbers = () => {
                             <Badge variant="secondary">{examTypeLabel(s.exam_term)} {s.exam_year}</Badge>
                             {(() => {
                               const st = rollSessionStatus(s);
-                              if (st === "live") return <Badge className="bg-green-100 text-green-700">Published</Badge>;
-                              if (st === "scheduled") return <Badge className="bg-amber-100 text-amber-800 gap-1"><Timer className="w-3 h-3" /> Scheduled</Badge>;
+                              if (st === "live") return <Badge className="bg-surface-raised text-primary">Published</Badge>;
+                              if (st === "scheduled") return <Badge className="bg-accent-soft text-primary gap-1"><Timer className="w-3 h-3" /> Scheduled</Badge>;
                               return <Badge variant="secondary" className="bg-muted text-muted-foreground">Draft</Badge>;
                             })()}                          </div>
                           <p className="text-sm text-muted-foreground mt-0.5">Classes: {s.class_order.join(" → ")} · Starting: {s.starting_number}</p>
@@ -2168,7 +2168,7 @@ const AdminExamRollNumbers = () => {
                             // already-expired countdown. Tell the admin exactly why.
                             if (st === "draft" && s.publish_at && new Date(s.publish_at).getTime() <= Date.now()) {
                               return (
-                                <p className="text-xs text-amber-600 flex items-center gap-1.5 mt-1">
+                                <p className="text-xs text-primary flex items-center gap-1.5 mt-1">
                                   <AlertCircle className="w-3.5 h-3.5 shrink-0" /> Countdown ended — tap Publish to take it live
                                 </p>
                               );
@@ -2254,12 +2254,12 @@ const AdminExamRollNumbers = () => {
                   <p className="text-sm text-muted-foreground">{examTypeLabel(selectedSession.exam_term)} {selectedSession.exam_year} · {rollNumbers.length} students</p>
                 </div>
                 <div className="flex gap-2 flex-wrap">
-                  <Button size="sm" onClick={() => handleUpdateStudents(selectedSession)} disabled={updatingStudents} className="gap-1.5 bg-amber-500 hover:bg-amber-600 text-white">
+                  <Button size="sm" onClick={() => handleUpdateStudents(selectedSession)} disabled={updatingStudents} className="gap-1.5 bg-primary hover:bg-primary-strong text-primary-foreground">
                     {updatingStudents ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
                     {updatingStudents ? "Updating..." : "Update Students"}
                   </Button>
                   <Button variant="outline" size="sm" onClick={downloadPrint} className="gap-1.5"><QrCode className="w-3.5 h-3.5" /> Roll No Slips</Button>
-                  <Button size="sm" onClick={() => togglePublish(selectedSession)} className={`gap-1.5 ${rollSessionStatus(selectedSession) === "live" ? "bg-blue-500 hover:bg-blue-700" : "bg-green-600 hover:bg-green-700"} text-white`}>
+                  <Button size="sm" onClick={() => togglePublish(selectedSession)} className={`gap-1.5 ${rollSessionStatus(selectedSession) === "live" ? "bg-background hover:bg-primary" : "bg-primary hover:bg-primary"} text-primary-foreground`}>
                     {rollSessionStatus(selectedSession) === "live" ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                     {rollSessionStatus(selectedSession) === "live" ? "Unpublish" : rollSessionStatus(selectedSession) === "scheduled" ? "Go Live Now" : "Publish Now"}
                   </Button>
@@ -2267,8 +2267,8 @@ const AdminExamRollNumbers = () => {
               </div>
 
               {/* Countdown setter */}
-              <Card className="border-blue-200 dark:border-blue-500/30">
-                <CardHeader className="pb-3"><CardTitle className="text-base flex items-center gap-2"><Timer className="w-4 h-4 text-blue-500" />Countdown Timer</CardTitle></CardHeader>
+              <Card className="border-border border-border/30">
+                <CardHeader className="pb-3"><CardTitle className="text-base flex items-center gap-2"><Timer className="w-4 h-4 text-primary" />Countdown Timer</CardTitle></CardHeader>
                 <CardContent className="space-y-3">
                   {(() => {
                     const st = rollSessionStatus(selectedSession);
@@ -2283,7 +2283,7 @@ const AdminExamRollNumbers = () => {
                     }
                     if (st === "draft" && selectedSession.publish_at && new Date(selectedSession.publish_at).getTime() <= Date.now()) {
                       return (
-                        <p className="text-xs text-amber-600 flex items-center gap-1.5">
+                        <p className="text-xs text-primary flex items-center gap-1.5">
                           <AlertCircle className="w-3.5 h-3.5 shrink-0" /> This countdown already ended while the session was a draft — set it again or tap Publish Now.
                         </p>
                       );
@@ -2296,7 +2296,7 @@ const AdminExamRollNumbers = () => {
                   </div>
                   <div><Label className="text-xs">Message</Label><Input value={countdownLabel} onChange={e => setCountdownLabel(e.target.value)} /></div>
                   <div className="flex gap-2">
-                    <Button onClick={() => saveCountdown(selectedSession)} disabled={savingCountdown} className="gap-2 bg-blue-500 hover:bg-blue-700 text-white">
+                    <Button onClick={() => saveCountdown(selectedSession)} disabled={savingCountdown} className="gap-2 bg-background hover:bg-primary text-primary-foreground">
                       {savingCountdown ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Timer className="w-3.5 h-3.5" />} Set
                     </Button>
                     {selectedSession.publish_at && <Button variant="outline" size="sm" onClick={() => clearCountdown(selectedSession)} className="text-destructive">Remove</Button>}
@@ -2437,7 +2437,7 @@ const AdminExamRollNumbers = () => {
                       const subj = allClassSubjects[cls];
                       const times = classPaperTimesByClass[cls];
                       return (
-                        <div key={cls} className={`text-[10px] px-2 py-1 rounded-md border ${times ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 text-emerald-700 dark:text-emerald-400" : "bg-muted/30 border-border text-muted-foreground"}`}>
+                        <div key={cls} className={`text-[10px] px-2 py-1 rounded-md border ${times ? "bg-background bg-primary-strong/20 border-border text-primary text-primary" : "bg-muted/30 border-border text-muted-foreground"}`}>
                           <span className="font-bold">Class {cls}</span>{subj ? ` · ${subj}` : " · no subject"}
                           {times && <span className="ml-1 font-mono">{times.start}–{times.end}</span>}
                         </div>
@@ -2468,9 +2468,9 @@ const AdminExamRollNumbers = () => {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { icon: Check, label: "Present", value: attStats.present, color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-950/20" },
-                  { icon: X, label: "Absent", value: attStats.absent, color: "text-red-600", bg: "bg-red-50 dark:bg-red-950/20" },
-                  { icon: Palmtree, label: "Leave", value: attStats.leave, color: "text-blue-600", bg: "bg-blue-50 dark:bg-blue-950/20" },
+                  { icon: Check, label: "Present", value: attStats.present, color: "text-primary", bg: "bg-background bg-primary-strong/20" },
+                  { icon: X, label: "Absent", value: attStats.absent, color: "text-primary", bg: "bg-background bg-primary-strong/20" },
+                  { icon: Palmtree, label: "Leave", value: attStats.leave, color: "text-primary", bg: "bg-background bg-primary-strong/20" },
                 ].map(s => (
                   <div key={s.label} className={`${s.bg} rounded-xl p-3 text-center border border-border/50`}>
                     <s.icon className={`w-4 h-4 mx-auto mb-1 ${s.color}`} />
@@ -2491,7 +2491,7 @@ const AdminExamRollNumbers = () => {
                         : `Initialize for ${attRollNumbers.length} students of Class ${attClass}`}
                     </p>
                     {!canMarkAtt && (
-                      <div className="mx-auto max-w-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 flex items-start gap-2 text-amber-700 dark:text-amber-400">
+                      <div className="mx-auto max-w-md bg-accent-soft bg-accent/30 border border-border border-accent/50 rounded-xl p-3 flex items-start gap-2 text-primary text-primary">
                         <Lock className="w-4 h-4 mt-0.5 shrink-0" />
                         <span className="text-xs font-semibold text-left">{paperWindowMessage(attWindowStatus, attDisplayPaperStart, attDisplayPaperEnd)}</span>
                       </div>
@@ -2505,12 +2505,12 @@ const AdminExamRollNumbers = () => {
                 <>
                   {/* Locked banner when sheet exists but paper window is closed */}
                   {!canMarkAtt && (
-                    <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 flex items-start gap-2">
-                      <Lock className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                    <div className="bg-accent-soft bg-accent/30 border border-border border-accent/50 rounded-xl p-3 flex items-start gap-2">
+                      <Lock className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                       <div className="text-xs">
-                        <p className="font-semibold text-amber-700 dark:text-amber-400">Attendance Locked — paper is not in progress.</p>
-                        <p className="text-amber-600 dark:text-amber-500 mt-0.5">{paperWindowMessage(attWindowStatus, attDisplayPaperStart, attDisplayPaperEnd)}</p>
-                        <p className="text-amber-600/70 dark:text-amber-500/70 mt-1">Scanning and status changes are locked. Extend the paper end-time from the Live Console to re-open editing.</p>
+                        <p className="font-semibold text-primary text-primary">Attendance Locked — paper is not in progress.</p>
+                        <p className="text-primary text-primary mt-0.5">{paperWindowMessage(attWindowStatus, attDisplayPaperStart, attDisplayPaperEnd)}</p>
+                        <p className="text-primary text-primary mt-1">Scanning and status changes are locked. Extend the paper end-time from the Live Console to re-open editing.</p>
                       </div>
                     </div>
                   )}
@@ -2520,25 +2520,25 @@ const AdminExamRollNumbers = () => {
                     <Button variant="outline" size="sm" onClick={() => setShowManualList(v => !v)} className="gap-1.5">
                       {showManualList ? <><ArrowLeft className="w-3.5 h-3.5" /> Back</> : <><ClipboardCheck className="w-3.5 h-3.5" /> Manual Attendance</>}
                     </Button>
-                    <Button variant="outline" size="sm" onClick={() => setShowScanner(!showScanner)} disabled={!canMarkAtt} className="gap-1.5 bg-emerald-500 text-white hover:bg-emerald-600 border-emerald-500 disabled:opacity-50">
+                    <Button variant="outline" size="sm" onClick={() => setShowScanner(!showScanner)} disabled={!canMarkAtt} className="gap-1.5 bg-background text-primary-foreground hover:bg-primary border-border disabled:opacity-50">
                       <Camera className="w-3.5 h-3.5" /> {showScanner ? "Close Scanner" : "Scan QR"}
                     </Button>
                     <Button variant="outline" size="sm" onClick={handleDeleteSheet}
-                      className={`gap-1.5 ${confirmDelete ? "bg-red-500 text-white hover:bg-red-600" : "text-destructive hover:bg-destructive/10"}`}>
+                      className={`gap-1.5 ${confirmDelete ? "bg-background text-primary-foreground hover:bg-primary" : "text-destructive hover:bg-destructive/10"}`}>
                       <Trash2 className="w-3.5 h-3.5" /> {confirmDelete ? "Confirm?" : "Delete"}
                     </Button>
                   </div>
 
                   {/* QR Scanner area - Mobile Optimized */}
                   {showScanner && (
-                    <Card className="border-emerald-200 dark:border-emerald-800/50 overflow-hidden">
+                    <Card className="border-border border-border/50 overflow-hidden">
                       <CardHeader className="pb-2 sm:pb-3">
                         <CardTitle className="text-base sm:text-lg flex items-center gap-2 flex-wrap">
-                          <ScanLine className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500 shrink-0" />
+                          <ScanLine className="w-4 h-4 sm:w-5 sm:h-5 text-primary shrink-0" />
                           <span>Scan QR Code for Attendance</span>
                           {/* Live indicator */}
                           <span className="flex items-center gap-1 ml-auto">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span className="w-2 h-2 rounded-full bg-background animate-pulse"></span>
                             <span className="text-xs text-muted-foreground">Live</span>
                           </span>
                         </CardTitle>
@@ -2550,22 +2550,22 @@ const AdminExamRollNumbers = () => {
                             the admin can compare name/class/roll against the
                             actual student before it's marked. Stays visible
                             until explicitly confirmed or cancelled.
-                            
+
                             MOBILE OPTIMIZED: Larger touch targets, better spacing,
                             sticky positioning to stay visible while scanning */}
                         {scanPreview && (
-                          <div className="rounded-xl border-2 border-emerald-400 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/40 dark:to-gray-900 p-4 sm:p-5 space-y-4 animate-in fade-in zoom-in-95 duration-200 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/20 relative overflow-hidden">
+                          <div className="rounded-xl border-2 border-border bg-gradient-to-br from-primary to-white from-primary-strong/40 to-primary-strong p-4 sm:p-5 space-y-4 animate-in fade-in zoom-in-95 duration-200 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/20 relative overflow-hidden">
                             {/* Decorative background element */}
-                            <div className="absolute top-0 right-0 w-20 h-20 bg-emerald-100 dark:bg-emerald-900/20 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50"></div>
-                            
+                            <div className="absolute top-0 right-0 w-20 h-20 bg-surface-raised bg-primary-strong/20 rounded-full -translate-y-1/2 translate-x-1/2 opacity-50"></div>
+
                             <div className="relative flex items-center gap-3 sm:gap-4">
-                              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-lg">
+                              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-background text-primary-foreground flex items-center justify-center shrink-0 shadow-lg">
                                 <QrCode className="w-6 h-6 sm:w-7 sm:h-7" />
                               </div>
                               <div className="min-w-0 flex-1">
                                 <p className="font-bold text-lg sm:text-xl leading-tight truncate text-foreground">{scanPreview.studentName}</p>
                                 <p className="text-sm sm:text-base text-muted-foreground mt-0.5">
-                                  <span className="font-semibold text-emerald-700 dark:text-emerald-300">Class {scanPreview.class}</span>
+                                  <span className="font-semibold text-primary text-primary">Class {scanPreview.class}</span>
                                   <span className="mx-1">·</span>
                                   <span>Roll #{scanPreview.classRollNo}</span>
                                 </p>
@@ -2577,21 +2577,21 @@ const AdminExamRollNumbers = () => {
                                 </p>
                               </div>
                             </div>
-                            
+
                             {/* Action buttons - Large touch targets for mobile */}
                             <div className="flex gap-3 pt-2">
-                              <Button 
-                                size="lg" 
-                                className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-5 sm:py-4 text-base sm:text-sm gap-2 active:scale-[0.98] transition-transform" 
+                              <Button
+                                size="lg"
+                                className="flex-1 bg-background hover:bg-primary text-primary-foreground font-bold py-5 sm:py-4 text-base sm:text-sm gap-2 active:scale-[0.98] transition-transform"
                                 onClick={confirmScanNow}
                               >
-                                <CheckCircle2 className="w-5 h-5 sm:w-4 sm:h-4" /> 
+                                <CheckCircle2 className="w-5 h-5 sm:w-4 sm:h-4" />
                                 <span>Confirm Present</span>
                               </Button>
-                              <Button 
-                                size="lg" 
-                                variant="outline" 
-                                className="px-4 sm:px-5 py-5 sm:py-4 font-semibold text-destructive border-red-200 hover:bg-red-50 hover:border-red-300 active:scale-[0.98] transition-transform"
+                              <Button
+                                size="lg"
+                                variant="outline"
+                                className="px-4 sm:px-5 py-5 sm:py-4 font-semibold text-destructive border-border hover:bg-background hover:border-border active:scale-[0.98] transition-transform"
                                 onClick={cancelScanPreview}
                               >
                                 <XCircle className="w-5 h-5 sm:w-4 sm:h-4" />
@@ -2599,16 +2599,16 @@ const AdminExamRollNumbers = () => {
                                 <span className="sm:hidden">✕</span>
                               </Button>
                             </div>
-                            
+
                             {/* Auto-confirm countdown indicator */}
                             <p className="text-xs text-center text-muted-foreground/70">
                               Auto-confirms in 3 seconds...
                             </p>
                           </div>
                         )}
-                        
+
                         {/* QR Scanner Component - Responsive sizing */}
-                        <div className="relative w-full aspect-video max-h-[350px] sm:max-h-[400px] bg-black rounded-xl overflow-hidden shadow-inner">
+                        <div className="relative w-full aspect-video max-h-[350px] sm:max-h-[400px] bg-background rounded-xl overflow-hidden shadow-inner">
                           <QRScanner
                             onScan={handleQRScan}
                             enabled={!!attSession && (isAllClassesMode
@@ -2616,16 +2616,16 @@ const AdminExamRollNumbers = () => {
                               : !!attSubject)}
                           />
                           {/* Scanner overlay hint for mobile */}
-                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full pointer-events-none">
+                          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-background/60 backdrop-blur-sm text-primary-foreground text-xs px-3 py-1 rounded-full pointer-events-none">
                             Point camera at QR code
                           </div>
                         </div>
-                        
+
                         {/* Recent scans - Compact mobile view */}
                         {scanLog.length > 0 && (
                           <div className="space-y-2">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1.5">
-                              <History className="w-3.5 h-3.5" /> 
+                              <History className="w-3.5 h-3.5" />
                               <span>Recent Scans</span>
                               <Badge variant="secondary" className="ml-auto text-[10px] px-1.5 py-0">
                                 {scanLog.length}
@@ -2633,8 +2633,8 @@ const AdminExamRollNumbers = () => {
                             </p>
                             <div className="max-h-32 sm:max-h-24 overflow-y-auto space-y-1.5">
                               {scanLog.slice(0, 8).map((log, i) => (
-                                <div key={`${i}-${log.time}`} className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/20 rounded-lg px-3 py-2.5 sm:py-2 animate-in slide-in-from-right-2 duration-200">
-                                  <CheckCircle2 className={`w-4 h-4 shrink-0 ${log.status === 'present' ? 'text-emerald-500' : log.status === 'absent' ? 'text-red-500' : 'text-amber-500'}`} />
+                                <div key={`${i}-${log.time}`} className="flex items-center gap-2 bg-background bg-primary-strong/20 rounded-lg px-3 py-2.5 sm:py-2 animate-in slide-in-from-right-2 duration-200">
+                                  <CheckCircle2 className={`w-4 h-4 shrink-0 ${log.status === 'present' ? 'text-primary' : log.status === 'absent' ? 'text-primary' : 'text-primary'}`} />
                                   <span className="text-sm font-medium flex-1 truncate">{log.name}</span>
                                   <span className="text-xs text-muted-foreground font-mono shrink-0">{log.roll}</span>
                                   <span className="text-[10px] text-muted-foreground/70 shrink-0 hidden sm:inline">{log.time}</span>
@@ -2863,8 +2863,8 @@ const AdminExamRollNumbers = () => {
                                     {cfg ? <span className={`inline-flex items-center justify-center w-7 h-7 rounded-md text-[10px] font-bold ${cfg.bg} ${cfg.color}`}>{st === "present" ? "P" : st === "absent" ? "A" : "L"}</span> : <span className="text-muted-foreground">—</span>}
                                   </td>;
                                 })}
-                                <td className="p-2 text-center font-bold text-emerald-600">{presentCount}</td>
-                                <td className="p-2 text-center font-bold text-red-600">{absentCount}</td>
+                                <td className="p-2 text-center font-bold text-primary">{presentCount}</td>
+                                <td className="p-2 text-center font-bold text-primary">{absentCount}</td>
                               </tr>
                             );
                           })}
@@ -2934,8 +2934,8 @@ const AdminExamRollNumbers = () => {
                                 <p className="text-xs font-mono text-primary font-bold">{s.examRoll}</p>
                               </div>
                               <div className="flex gap-2 text-xs shrink-0">
-                                <span className="font-bold text-emerald-600">{presentCount}P</span>
-                                <span className="font-bold text-red-600">{absentCount}A</span>
+                                <span className="font-bold text-primary">{presentCount}P</span>
+                                <span className="font-bold text-primary">{absentCount}A</span>
                               </div>
                             </div>
                             <div className="grid grid-cols-2 gap-1.5">
@@ -3009,8 +3009,8 @@ const AdminExamRollNumbers = () => {
                                   {cfg ? <span className={`inline-flex items-center justify-center w-7 h-7 rounded-md text-[10px] font-bold ${cfg.bg} ${cfg.color}`}>{st === "present" ? "P" : st === "absent" ? "A" : "L"}</span> : <span className="text-muted-foreground">—</span>}
                                 </td>;
                               })}
-                              <td className="p-2 text-center font-bold text-emerald-600">{presentCount}</td>
-                              <td className="p-2 text-center font-bold text-red-600">{absentCount}</td>
+                              <td className="p-2 text-center font-bold text-primary">{presentCount}</td>
+                              <td className="p-2 text-center font-bold text-primary">{absentCount}</td>
                             </tr>
                           );
                         })}

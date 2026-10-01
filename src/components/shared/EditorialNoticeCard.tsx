@@ -95,19 +95,18 @@ const SchoolSeal = ({
   return (
     <div
       className={`relative ${dims} ${className}`}
-      style={{ filter: "drop-shadow(0 4px 8px rgba(122,31,43,0.35))" }}
+      style={{ filter: "drop-shadow(0 4px 8px color-mix(in srgb, var(--primary-strong) 35%, transparent))" }}
     >
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(135deg, hsl(35 92% 48%) 0%, hsl(40 95% 65%) 50%, hsl(35 92% 48%) 100%)",
+          background: "var(--gradient-hero)",
           clipPath: HEXAGON_CLIP,
           WebkitClipPath: HEXAGON_CLIP,
         }}
       >
         <div
-          className="absolute inset-[2px] bg-[hsl(38_45%_97%)] overflow-hidden flex items-center justify-center"
+          className="absolute inset-[2px] bg-accent-soft overflow-hidden flex items-center justify-center"
           style={{ clipPath: HEXAGON_CLIP, WebkitClipPath: HEXAGON_CLIP }}
         >
           <img
@@ -183,7 +182,7 @@ const MastheadEmblem = ({
       </div>
 
       {/* Edition tag */}
-      <p className="text-[7px] font-bold uppercase tracking-[0.32em] text-[hsl(20_74%_38%)]">
+      <p className="text-[7px] font-bold uppercase tracking-[0.32em] text-primary">
         {lang === "ur" ? "اطلاعیہ" : "Notice Dispatch"}
       </p>
     </div>
@@ -202,9 +201,9 @@ const ListenPill = ({
     onClick={onClick}
     aria-label={lang === "ur" ? "سننے کے لیے دبائیں" : "Listen to this notice"}
     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wide
-               bg-gradient-to-r from-[hsl(20_74%_38%)] to-[hsl(20_70%_30%)] text-[hsl(40_50%_97%)]
+               bg-gradient-to-r from-primary to-primary text-primary
                shadow-sm hover:shadow-md hover:brightness-110 active:scale-95 transition-all
-               ring-1 ring-[hsl(20_74%_38%)]/30"
+               ring-1 ring-accent"
   >
     <Volume2 className="w-3 h-3" />
     <span>{lang === "ur" ? "سنئیں" : "Listen"}</span>
@@ -253,7 +252,7 @@ const ContentPreview = ({ content, lang }: { content: string; lang: "ur" | "en" 
                  first-letter:font-display first-letter:font-bold
                  first-letter:mr-1.5 first-letter:float-left
                  first-letter:text-[1.8rem] first-letter:leading-[0.85]
-                 first-letter:text-[hsl(20_74%_38%)] text-[12px]"
+                 first-letter:text-primary text-[12px]"
       style={{ fontFamily: "var(--font-body)" }}
     >
       {content}
@@ -302,13 +301,13 @@ const EditorialNoticeCard = ({ item, index = 0, onListen }: Props) => {
     >
       <Link
         to={detailUrl}
-        className="block h-full bg-card rounded-md overflow-hidden shadow-[0_6px_28px_-12px_rgba(0,0,0,0.22)] hover:shadow-[0_18px_44px_-12px_rgba(0,0,0,0.36)] transition-all duration-400 border border-gold/30 hover:border-gold/70 flex flex-col"
+        className="block h-full bg-card rounded-md overflow-hidden shadow-[0_6px_28px_-12px_color-mix(in_srgb,var(--text-primary)_22%,transparent)] hover:shadow-[0_18px_44px_-12px_color-mix(in_srgb,var(--text-primary)_36%,transparent)] transition-all duration-400 border border-gold/30 hover:border-gold/70 flex flex-col"
       >
         {/* Top triple-rule */}
         <div className="relative">
           <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
           <div className="h-px w-full bg-gold/40" />
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-[hsl(20_74%_38%)]/40 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
         </div>
 
         {/* Masthead emblem area — shrunk from h-44 (176px) to h-32 (128px) */}
@@ -317,13 +316,13 @@ const EditorialNoticeCard = ({ item, index = 0, onListen }: Props) => {
           {/* Top-right badge stack: Pinned / Urgent / Category */}
           <div className="absolute top-2 right-2 z-10 flex flex-col items-end gap-1">
             {item.is_pinned && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[7px] font-bold uppercase tracking-[0.25em] bg-gradient-to-r from-[hsl(24_92%_46%)] to-[hsl(30_95%_55%)] text-[hsl(20_75%_20%)] shadow-md ring-1 ring-[hsl(24_92%_46%)]/40">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[7px] font-bold uppercase tracking-[0.25em] bg-gradient-to-r from-primary to-accent text-primary shadow-md ring-1 ring-accent">
                 <Pin className="w-2 h-2" />
                 {titleLang === "ur" ? "پن" : "Pinned"}
               </span>
             )}
             {item.is_urgent && (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[7px] font-bold uppercase tracking-[0.25em] bg-[hsl(20_74%_38%)] text-[hsl(40_50%_97%)] shadow-md ring-1 ring-[hsl(20_74%_38%)]/30 animate-pulse">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[7px] font-bold uppercase tracking-[0.25em] bg-surface text-primary shadow-md ring-1 ring-accent animate-pulse">
                 <AlertCircle className="w-2 h-2" />
                 {titleLang === "ur" ? "فوری" : "Urgent"}
               </span>
@@ -335,11 +334,11 @@ const EditorialNoticeCard = ({ item, index = 0, onListen }: Props) => {
         <div className="p-4 flex flex-col flex-1">
           {/* Eyebrow row: category + article number */}
           <div className="flex items-center gap-2 mb-2">
-            <span className="inline-flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.32em] text-[hsl(20_74%_38%)]">
+            <span className="inline-flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.32em] text-primary">
               <Tag className="w-2 h-2" />
               {item.category}
             </span>
-            <span className="h-px flex-1 bg-gradient-to-r from-[hsl(20_74%_38%_40%)] to-transparent" />
+            <span className="h-px flex-1 bg-gradient-to-r from-primary to-transparent" />
             <span className="text-[8px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
               №&nbsp;{articleNo}
             </span>
@@ -351,7 +350,7 @@ const EditorialNoticeCard = ({ item, index = 0, onListen }: Props) => {
           {/* Meta — date is prominent */}
           <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 text-[9px] text-muted-foreground mt-2 mb-2">
             <span
-              className="font-display italic text-[11px] font-semibold text-[hsl(215_45%_28%)] tracking-wide"
+              className="font-display italic text-[11px] font-semibold text-primary tracking-wide"
               style={{ fontFamily: "var(--font-display)" }}
             >
               {dateText}
@@ -377,7 +376,7 @@ const EditorialNoticeCard = ({ item, index = 0, onListen }: Props) => {
           {/* Footer */}
           <div className="mt-auto pt-3 flex items-center justify-between gap-2">
             <ListenPill onClick={handleListen} lang={titleLang} />
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[hsl(20_74%_38%)] group-hover:gap-1.5 transition-all">
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary group-hover:gap-1.5 transition-all">
               {titleLang === "ur" ? "مزید" : "Read"}
               <ArrowUpRight className="w-3 h-3" />
             </span>
@@ -386,7 +385,7 @@ const EditorialNoticeCard = ({ item, index = 0, onListen }: Props) => {
 
         {/* Bottom triple-rule */}
         <div className="relative">
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-[hsl(20_74%_38%)]/40 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
           <div className="h-px w-full bg-gold/40" />
           <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
         </div>

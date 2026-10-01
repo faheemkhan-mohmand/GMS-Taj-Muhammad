@@ -101,10 +101,10 @@ function activityIcon(type: string) {
 
 function activityColor(type: string) {
   switch (type) {
-    case "notice": return "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400";
-    case "news": return "bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400";
-    case "admission": return "bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400";
-    default: return "bg-purple-100 text-purple-600 dark:bg-purple-500/20 dark:text-purple-400";
+    case "notice": return "bg-accent-soft text-primary bg-accent-soft/20 text-primary";
+    case "news": return "bg-surface-raised text-primary bg-background/20 text-primary";
+    case "admission": return "bg-surface-raised text-primary bg-background/20 text-primary";
+    default: return "bg-surface-raised text-primary bg-background/20 text-primary";
   }
 }
 
@@ -126,7 +126,7 @@ const StatCard = ({ label, value, icon: Icon, color, bgColor, isLoading, badge }
         <Icon className={`w-5 h-5 ${color}`} />
       </div>
       {badge && (
-        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.urgent ? "bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-400" : "bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400"}`}>
+        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.urgent ? "bg-surface-raised text-primary bg-background/20 text-primary" : "bg-surface-raised text-primary bg-background/20 text-primary"}`}>
           {badge.text}
         </span>
       )}
@@ -168,23 +168,23 @@ const PassRateRing = ({ value }: { value: number }) => {
       <svg viewBox="0 0 64 64" className="w-[4.25rem] h-[4.25rem] -rotate-90">
         <defs>
           <linearGradient id="gmsPassRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="hsl(160,84%,45%)" />
-            <stop offset="55%" stopColor="hsl(158,70%,52%)" />
-            <stop offset="100%" stopColor="hsl(43,80%,64%)" />
+            <stop offset="0%" stopColor="var(--primary)" />
+            <stop offset="55%" stopColor="var(--primary-strong)" />
+            <stop offset="100%" stopColor="var(--accent)" />
           </linearGradient>
         </defs>
-        <circle cx="32" cy="32" r={radius} fill="none" stroke="rgba(255,255,255,0.13)" strokeWidth="5.5" />
+        <circle cx="32" cy="32" r={radius} fill="none" stroke="rgb(var(--primary-foreground-rgb) / 0.13)" strokeWidth="5.5" />
         <circle
           cx="32" cy="32" r={radius} fill="none" stroke="url(#gmsPassRingGrad)" strokeWidth="5.5" strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           className="transition-[stroke-dashoffset] duration-1000 ease-out"
-          style={{ filter: "drop-shadow(0 0 5px hsla(160,84%,45%,0.4))" }}
+          style={{ filter: "drop-shadow(0 0 5px color-mix(in srgb, var(--primary) 40%, transparent))" }}
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-[15px] font-extrabold text-white tabular-nums leading-none">{pct}%</span>
-        <span className="text-[7px] font-bold uppercase tracking-[0.18em] text-white/40 mt-0.5">Pass</span>
+        <span className="text-[15px] font-extrabold text-primary-foreground tabular-nums leading-none">{pct}%</span>
+        <span className="text-[7px] font-bold uppercase tracking-[0.18em] text-primary-foreground mt-0.5">Pass</span>
       </div>
     </div>
   );
@@ -203,22 +203,22 @@ const AdminOverview = () => {
   const firstName = profile?.full_name?.split(" ")[0] || "Admin";
 
   const primaryStats = [
-    { key: "students" as const,  label: "Total Students",   icon: GraduationCap, color: "text-blue-600 dark:text-blue-400",   bgColor: "bg-blue-100 dark:bg-blue-500/20" },
-    { key: "teachers" as const,  label: "Total Teachers",   icon: Users,         color: "text-emerald-600 dark:text-emerald-400", bgColor: "bg-emerald-100 dark:bg-emerald-500/20" },
-    { key: "results" as const,   label: "Exam Results",     icon: ClipboardList, color: "text-violet-600 dark:text-violet-400",  bgColor: "bg-violet-100 dark:bg-violet-500/20" },
-    { key: "admissions" as const,label: "Admissions",       icon: FileText,      color: "text-orange-600 dark:text-orange-400",  bgColor: "bg-orange-100 dark:bg-orange-500/20",
+    { key: "students" as const,  label: "Total Students",   icon: GraduationCap, color: "text-primary",   bgColor: "bg-surface-raised/20" },
+    { key: "teachers" as const,  label: "Total Teachers",   icon: Users,         color: "text-primary", bgColor: "bg-surface-raised/20" },
+    { key: "results" as const,   label: "Exam Results",     icon: ClipboardList, color: "text-primary",  bgColor: "bg-surface-raised/20" },
+    { key: "admissions" as const,label: "Admissions",       icon: FileText,      color: "text-primary",  bgColor: "bg-accent-soft/20",
       badge: stats?.pendingAdmissions ? { text: `${stats.pendingAdmissions} pending`, urgent: true } : undefined },
   ];
 
   const contentStats = [
-    { key: "notices" as const,      label: "Notices",        icon: Bell,       color: "text-amber-600 dark:text-amber-400",  bgColor: "bg-amber-100 dark:bg-amber-500/20" },
-    { key: "news" as const,         label: "News Articles",  icon: Newspaper,  color: "text-sky-600 dark:text-sky-400",      bgColor: "bg-sky-100 dark:bg-sky-500/20" },
-    { key: "notes" as const,        label: "Study Notes",    icon: BookMarked, color: "text-teal-600 dark:text-teal-400",    bgColor: "bg-teal-100 dark:bg-teal-500/20" },
-    { key: "library" as const,      label: "Library Files",  icon: BookOpen,   color: "text-cyan-600 dark:text-cyan-400",    bgColor: "bg-cyan-100 dark:bg-cyan-500/20" },
-    { key: "albums" as const,       label: "Gallery Albums", icon: Image,      color: "text-pink-600 dark:text-pink-400",    bgColor: "bg-pink-100 dark:bg-pink-500/20" },
-    { key: "onlineClasses" as const,label: "Online Classes", icon: Video,      color: "text-indigo-600 dark:text-indigo-400",bgColor: "bg-indigo-100 dark:bg-indigo-500/20" },
-    { key: "achievements" as const, label: "Achievements",   icon: Trophy,     color: "text-yellow-600 dark:text-yellow-400",bgColor: "bg-yellow-100 dark:bg-yellow-500/20" },
-    { key: "users" as const,        label: "Registered Users",icon: UserCog,   color: "text-rose-600 dark:text-rose-400",    bgColor: "bg-rose-100 dark:bg-rose-500/20",
+    { key: "notices" as const,      label: "Notices",        icon: Bell,       color: "text-primary",  bgColor: "bg-accent-soft/20" },
+    { key: "news" as const,         label: "News Articles",  icon: Newspaper,  color: "text-primary",      bgColor: "bg-surface-raised/20" },
+    { key: "notes" as const,        label: "Study Notes",    icon: BookMarked, color: "text-primary",    bgColor: "bg-surface-raised/20" },
+    { key: "library" as const,      label: "Library Files",  icon: BookOpen,   color: "text-primary",    bgColor: "bg-surface-raised/20" },
+    { key: "albums" as const,       label: "Gallery Albums", icon: Image,      color: "text-primary",    bgColor: "bg-accent-soft/20" },
+    { key: "onlineClasses" as const,label: "Online Classes", icon: Video,      color: "text-primary",bgColor: "bg-surface-raised/20" },
+    { key: "achievements" as const, label: "Achievements",   icon: Trophy,     color: "text-primary",bgColor: "bg-accent-soft/20" },
+    { key: "users" as const,        label: "Registered Users",icon: UserCog,   color: "text-primary",    bgColor: "bg-accent-soft/20",
       badge: stats?.pendingUsers ? { text: `${stats.pendingUsers} pending`, urgent: true } : undefined },
   ];
 
@@ -233,57 +233,57 @@ const AdminOverview = () => {
           primary → antique gold, which previously flood-filled this
           card gold. Light = deep emerald, dark = near-black emerald;
           gold is reserved for hairline accents. */}
-      <div className="relative rounded-3xl overflow-hidden p-5 sm:p-6 text-white border border-white/10 shadow-[0_18px_45px_-20px_rgba(0,0,0,0.5)] bg-[linear-gradient(140deg,hsl(160_48%_13%)_0%,hsl(161_42%_17%)_52%,hsl(160_36%_23%)_100%)] dark:bg-[linear-gradient(140deg,hsl(165_32%_8%)_0%,hsl(164_26%_11%)_52%,hsl(162_22%_13%)_100%)]">
+      <div className="relative rounded-3xl overflow-hidden p-5 sm:p-6 text-primary-foreground border border-border/10 shadow-[0_18px_45px_-20px_color-mix(in_srgb,var(--text-primary)_50%,transparent)]" style={{ background: "linear-gradient(140deg, var(--primary-strong), var(--primary))" }}>
         {/* Ambient decor: emerald glow, faint gold bloom, gold hairline, dot texture */}
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-24 -right-14 w-72 h-72 rounded-full" style={{ background: "radial-gradient(circle, hsla(160,55%,38%,0.30), transparent 62%)" }} />
-          <div className="absolute -bottom-24 -left-12 w-60 h-60 rounded-full" style={{ background: "radial-gradient(circle, hsla(43,60%,58%,0.12), transparent 60%)" }} />
-          <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent 5%, hsla(43,70%,70%,0.55) 50%, transparent 95%)" }} />
-          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(hsla(0,0%,100%,0.55) 0.5px, transparent 0.5px)", backgroundSize: "16px 16px", opacity: 0.045 }} />
+          <div className="absolute -top-24 -right-14 w-72 h-72 rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--primary) 30%, transparent), transparent 62%)" }} />
+          <div className="absolute -bottom-24 -left-12 w-60 h-60 rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--accent) 12%, transparent), transparent 60%)" }} />
+          <div className="absolute inset-x-0 top-0 h-px" style={{ background: "var(--gradient-hero)" }} />
+          <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(color-mix(in srgb, var(--primary-foreground) 55%, transparent) 0.5px, transparent 0.5px)", backgroundSize: "16px 16px", opacity: 0.045 }} />
         </div>
 
         <div className="relative z-10">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" style={{ boxShadow: "0 0 8px hsla(43,65%,62%,0.9)" }} />
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gold-soft dark:text-gold">Admin Console</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" style={{ boxShadow: "0 0 8px color-mix(in srgb, var(--accent) 90%, transparent)" }} />
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Admin Console</span>
               </div>
-              <p className="text-white/60 text-[13px] font-medium mt-2.5">{greeting},</p>
+              <p className="text-primary-foreground text-[13px] font-medium mt-2.5">{greeting},</p>
               <h2 className="text-[26px] leading-tight font-extrabold mt-0.5 tracking-tight font-heading">
                 {firstName} <span className="text-xl">👋</span>
               </h2>
-              <p className="text-sm mt-1.5 font-medium text-white/75">
+              <p className="text-sm mt-1.5 font-medium text-primary-foreground">
                 {settings?.school_name || "GMS Taj Muhammad"}
-                <span className="text-white/30 mx-1.5">•</span>
-                <span className="text-white/55">Admin Panel</span>
+                <span className="text-primary-foreground mx-1.5">•</span>
+                <span className="text-primary-foreground">Admin Panel</span>
               </p>
-              <span className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-white/50 font-medium">
-                <Calendar className="w-3 h-3 text-white/40" />
+              <span className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-primary-foreground font-medium">
+                <Calendar className="w-3 h-3 text-primary-foreground" />
                 {now.toLocaleDateString("en-PK", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
               </span>
             </div>
             <div className="flex flex-col items-center gap-2 shrink-0">
               <PassRateRing value={settings?.pass_percentage ?? 98} />
-              <span className="text-[9px] font-bold text-white/50 uppercase tracking-[0.16em]">Pass Rate</span>
+              <span className="text-[9px] font-bold text-primary-foreground uppercase tracking-[0.16em]">Pass Rate</span>
             </div>
           </div>
 
           <div className="mt-5 flex items-center justify-between gap-3">
             {urgentCount > 0 ? (
-              <div className="flex items-center gap-2.5 rounded-xl px-3.5 py-2 bg-white/[0.07] border border-white/10">
+              <div className="flex items-center gap-2.5 rounded-xl px-3.5 py-2 bg-surface/[0.07] border border-border/10">
                 <span className="relative flex w-2 h-2 shrink-0">
-                  <span className="absolute inset-0 rounded-full bg-amber-400/70" />
-                  <span className="relative w-2 h-2 rounded-full bg-amber-400" />
+                  <span className="absolute inset-0 rounded-full bg-accent/70" />
+                  <span className="relative w-2 h-2 rounded-full bg-accent" />
                 </span>
-                <p className="text-white text-xs font-semibold">
+                <p className="text-primary-foreground text-xs font-semibold">
                   {urgentCount} item{urgentCount > 1 ? "s" : ""} need{urgentCount === 1 ? "s" : ""} your attention
                 </p>
               </div>
             ) : (
-              <div className="flex items-center gap-2.5 rounded-xl px-3.5 py-2 bg-white/[0.06] border border-white/10">
-                <CheckCircle className="w-4 h-4 text-emerald-300 shrink-0" />
-                <p className="text-white/85 text-xs font-medium">All caught up — nothing pending</p>
+              <div className="flex items-center gap-2.5 rounded-xl px-3.5 py-2 bg-surface/[0.06] border border-border/10">
+                <CheckCircle className="w-4 h-4 text-primary shrink-0" />
+                <p className="text-primary-foreground text-xs font-medium">All caught up — nothing pending</p>
               </div>
             )}
           </div>
@@ -310,9 +310,9 @@ const AdminOverview = () => {
           {/* Summary strip */}
           <div className="col-span-2 grid grid-cols-3 gap-2">
             {[
-              { label: "Pass Rate", value: `${settings?.pass_percentage ?? 98}%`, icon: TrendingUp, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
-              { label: "Est. Year", value: settings?.established_year ?? 2010, icon: Calendar, color: "text-blue-600 dark:text-blue-400", bg: "bg-blue-50 dark:bg-blue-500/10" },
-              { label: "Content Items", value: isLoading ? "…" : totalContent, icon: FileText, color: "text-violet-600 dark:text-violet-400", bg: "bg-violet-50 dark:bg-violet-500/10" },
+              { label: "Pass Rate", value: `${settings?.pass_percentage ?? 98}%`, icon: TrendingUp, color: "text-primary", bg: "bg-background bg-background/10" },
+              { label: "Est. Year", value: settings?.established_year ?? 2010, icon: Calendar, color: "text-primary", bg: "bg-background bg-background/10" },
+              { label: "Content Items", value: isLoading ? "…" : totalContent, icon: FileText, color: "text-primary", bg: "bg-background bg-background/10" },
             ].map((item) => (
               <div key={item.label} className={`${item.bg} border border-border rounded-xl p-3 flex flex-col gap-1`}>
                 <item.icon className={`w-4 h-4 ${item.color}`} />
@@ -362,27 +362,27 @@ const AdminOverview = () => {
           <SectionHeader icon={AlertCircle} title="Needs Attention" />
           <div className="space-y-2">
             {(stats?.pendingUsers ?? 0) > 0 && (
-              <div className="flex items-center gap-3 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 rounded-xl p-3.5">
-                <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-500/20 flex items-center justify-center shrink-0">
-                  <UserCog className="w-4 h-4 text-red-600 dark:text-red-400" />
+              <div className="flex items-center gap-3 bg-background bg-background/10 border border-border border-border/20 rounded-xl p-3.5">
+                <div className="w-9 h-9 rounded-xl bg-surface-raised/20 flex items-center justify-center shrink-0">
+                  <UserCog className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-red-700 dark:text-red-400">{stats?.pendingUsers} User{(stats?.pendingUsers ?? 0) > 1 ? "s" : ""} Awaiting Approval</p>
-                  <p className="text-xs text-red-600/70 dark:text-red-400/70">Go to Extras → Pending Users</p>
+                  <p className="text-sm font-semibold text-primary">{stats?.pendingUsers} User{(stats?.pendingUsers ?? 0) > 1 ? "s" : ""} Awaiting Approval</p>
+                  <p className="text-xs text-primary">Go to Extras → Pending Users</p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-red-500 shrink-0" />
+                <ArrowUpRight className="w-4 h-4 text-primary shrink-0" />
               </div>
             )}
             {(stats?.pendingAdmissions ?? 0) > 0 && (
-              <div className="flex items-center gap-3 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-xl p-3.5">
-                <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center shrink-0">
-                  <GraduationCap className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <div className="flex items-center gap-3 bg-accent-soft bg-accent-soft/10 border border-border border-border/20 rounded-xl p-3.5">
+                <div className="w-9 h-9 rounded-xl bg-accent-soft/20 flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-4 h-4 text-primary" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-amber-700 dark:text-amber-400">{stats?.pendingAdmissions} Admission{(stats?.pendingAdmissions ?? 0) > 1 ? "s" : ""} Pending Review</p>
-                  <p className="text-xs text-amber-600/70 dark:text-amber-400/70">Go to Admissions tab</p>
+                  <p className="text-sm font-semibold text-primary">{stats?.pendingAdmissions} Admission{(stats?.pendingAdmissions ?? 0) > 1 ? "s" : ""} Pending Review</p>
+                  <p className="text-xs text-primary">Go to Admissions tab</p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-amber-500 shrink-0" />
+                <ArrowUpRight className="w-4 h-4 text-primary shrink-0" />
               </div>
             )}
           </div>
@@ -421,8 +421,8 @@ const AdminOverview = () => {
                     <p className="text-sm font-medium text-foreground truncate">{item.label}</p>
                     {item.status && (
                       <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
-                        item.status === "pending" ? "bg-amber-100 text-amber-600 dark:bg-amber-500/20 dark:text-amber-400" :
-                        item.status === "approved" ? "bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400" :
+                        item.status === "pending" ? "bg-accent-soft text-primary bg-accent-soft/20 text-primary" :
+                        item.status === "approved" ? "bg-surface-raised text-primary bg-background/20 text-primary" :
                         "bg-secondary text-muted-foreground"
                       }`}>{item.status}</span>
                     )}

@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GMS Taj Muhammad — Offline</title>
-  <meta name="theme-color" content="#D2500F">
+  <meta name="theme-color" content="#FAFDF7">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('gms-theme');
+        var dark = saved === 'dark' || saved === 'midnight' || saved === 'lantern' ||
+          (!(saved === 'bright' || saved === 'light') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'bright';
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', dark ? '#0B1F14' : '#FAFDF7');
+      } catch (_) {}
+    })();
+  </script>
   <style>
+    :root {
+      color-scheme: light;
+      --bg: #FAFDF7; --surface: #FFFFFF; --surface-raised: #F0F7F1;
+      --primary: #14532D; --primary-strong: #0E3B20; --accent: #B8860B; --accent-soft: #F5E6C4;
+      --text-primary: #1A2E22; --text-muted: #5B6B5F; --border: #D7E5D9;
+      --primary-foreground: #FFFFFF; --accent-foreground: #0B1F14;
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0B1F14; --surface: #12291B; --surface-raised: #1A3526;
+      --primary: #4ADE80; --primary-strong: #22C55E; --accent: #E9C46A; --accent-soft: #3A2F14;
+      --text-primary: #E8F5EC; --text-muted: #93A89A; --border: #24402E;
+      --primary-foreground: #0B1F14; --accent-foreground: #0B1F14;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
@@ -14,8 +40,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #F8F2E7 0%, #F4EADB 50%, #F0DFC8 100%);
-      color: #29231C;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--surface) 50%, var(--surface-raised) 100%);
+      color: var(--text-primary);
       padding: 20px;
     }
     
@@ -23,20 +49,20 @@
       max-width: 420px;
       width: 100%;
       text-align: center;
-      background: #FDFBF6;
+      background: var(--surface);
       border-radius: 24px;
       padding: 48px 32px;
       box-shadow: 
-        0 4px 6px -1px rgba(41, 35, 28, 0.08),
-        0 2px 4px -2px rgba(41, 35, 28, 0.06),
-        0 0 0 1px rgba(210, 80, 15, 0.10);
+        0 4px 6px -1px color-mix(in srgb, var(--text-primary) 8%, transparent),
+        0 2px 4px -2px color-mix(in srgb, var(--text-primary) 6%, transparent),
+        0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
     }
     
     .icon-wrapper {
       width: 96px;
       height: 96px;
       margin: 0 auto 24px;
-      background: linear-gradient(135deg, #E4650D 0%, #D2500F 100%);
+      background: linear-gradient(135deg, var(--primary-strong), var(--primary));
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -45,40 +71,40 @@
     }
     
     @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(228, 101, 13, 0.35); }
-      50% { transform: scale(1.05); box-shadow: 0 0 0 16px rgba(228, 101, 13, 0); }
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 35%, transparent); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 16px transparent; }
     }
     
     .icon-wrapper svg {
       width: 48px;
       height: 48px;
-      fill: white;
+      fill: var(--primary-foreground);
     }
     
     h1 {
       font-size: 24px;
       font-weight: 700;
       margin-bottom: 12px;
-      color: #29231C;
+      color: var(--text-primary);
       line-height: 1.3;
     }
     
     p {
       font-size: 15px;
       line-height: 1.6;
-      color: #75695C;
+      color: var(--text-muted);
       margin-bottom: 8px;
     }
     
     .school-name {
       font-weight: 600;
-      color: #D2500F;
+      color: var(--primary);
     }
     
     .tips {
       margin-top: 28px;
       padding-top: 24px;
-      border-top: 1px solid #E5DCCB;
+      border-top: 1px solid var(--border);
       text-align: left;
     }
     
@@ -87,7 +113,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      color: #A69681;
+      color: var(--text-muted);
       margin-bottom: 14px;
     }
     
@@ -97,14 +123,14 @@
       gap: 10px;
       margin-bottom: 12px;
       font-size: 14px;
-      color: #5C5142;
+      color: var(--text-primary);
     }
     
     .tip-icon {
       flex-shrink: 0;
       width: 20px;
       height: 20px;
-      background: #FCE8D0;
+      background: var(--accent-soft);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -115,7 +141,7 @@
     .tip-icon svg {
       width: 12px;
       height: 12px;
-      stroke: #D2500F;
+      stroke: var(--accent);
     }
     
     .retry-btn {
@@ -123,18 +149,18 @@
       padding: 14px 32px;
       font-size: 15px;
       font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, #E4650D 0%, #C2410C 100%);
+      color: var(--primary-foreground);
+      background: linear-gradient(135deg, var(--primary-strong), var(--primary));
       border: none;
       border-radius: 12px;
       cursor: pointer;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 14px rgba(210, 80, 15, 0.35);
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--primary) 35%, transparent);
     }
     
     .retry-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(210, 80, 15, 0.45);
+      box-shadow: 0 6px 20px color-mix(in srgb, var(--primary) 45%, transparent);
     }
     
     .retry-btn:active {
@@ -144,7 +170,7 @@
     .footer {
       margin-top: 24px;
       font-size: 12px;
-      color: #A69681;
+      color: var(--text-muted);
     }
     
     @media (max-width: 480px) {

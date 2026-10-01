@@ -5,7 +5,7 @@
  * Features:
  *  • Plan picker — lists all generated/published plans.
  *  • Countdown to paper-start and paper-end (updates every second).
- *  • Live present / absent / late / leave tally as invigilators scan QR 
+ *  • Live present / absent / late / leave tally as invigilators scan QR
  *    codes. Uses Supabase realtime on exam_attendance for instant updates.
  *  • Auto-red-flag when absent count crosses a configurable threshold
  *    (default 20%, adjustable 5–50% via a slider).
@@ -85,13 +85,13 @@ const examTermMatchesConsole = (examType: string, term: string): boolean => {
 // ── Color helper ──
 const colorFor = (cls: string) => {
   const m: Record<string, { bg: string; text: string }> = {
-    "6":  { bg: "bg-blue-100 dark:bg-blue-900/40",       text: "text-blue-700 dark:text-blue-300" },
-    "7":  { bg: "bg-emerald-100 dark:bg-emerald-900/40", text: "text-emerald-700 dark:text-emerald-300" },
-    "8":  { bg: "bg-amber-100 dark:bg-amber-900/40",     text: "text-amber-700 dark:text-amber-300" },
-    "9":  { bg: "bg-rose-100 dark:bg-rose-900/40",       text: "text-rose-700 dark:text-rose-300" },
-    "10": { bg: "bg-violet-100 dark:bg-violet-900/40",   text: "text-violet-700 dark:text-violet-300" },
+    "6":  { bg: "bg-surface-raised bg-primary-strong/40",       text: "text-primary text-primary" },
+    "7":  { bg: "bg-surface-raised bg-primary-strong/40", text: "text-primary text-primary" },
+    "8":  { bg: "bg-accent-soft bg-accent/40",     text: "text-primary text-primary" },
+    "9":  { bg: "bg-accent-soft bg-accent/40",       text: "text-primary text-primary" },
+    "10": { bg: "bg-surface-raised bg-primary-strong/40",   text: "text-primary text-primary" },
   };
-  return m[cls] ?? { bg: "bg-slate-100 dark:bg-slate-900/40", text: "text-slate-700 dark:text-slate-300" };
+  return m[cls] ?? { bg: "bg-surface-raised bg-primary-strong/40", text: "text-primary text-muted" };
 };
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -366,8 +366,8 @@ const PlansPicker = ({ onOpenPlan }: { onOpenPlan: (id: string) => void }) => {
                     <h3 className="font-semibold text-sm text-foreground truncate">{p.title}</h3>
                     <Badge variant="secondary" className={
                       p.status === "published"
-                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 shrink-0"
-                        : "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 shrink-0"
+                        ? "bg-surface-raised text-primary bg-primary-strong/40 text-primary shrink-0"
+                        : "bg-accent-soft text-primary bg-accent/40 text-primary shrink-0"
                     }>
                       {p.status === "published" ? "Published" : "Generated"}
                     </Badge>
@@ -709,10 +709,10 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
         ? `${e.classes.map(c => `Cls ${c}`).join(", ")}${e.subject ? " · " + e.subject : ""}`
         : undefined;
       if (now < e.startMs) {
-        return { phase: "before-start" as const, label: "Paper starts in", sublabel: label, value: formatDuration(e.startMs - now), color: "text-blue-600 dark:text-blue-400" };
+        return { phase: "before-start" as const, label: "Paper starts in", sublabel: label, value: formatDuration(e.startMs - now), color: "text-primary text-primary" };
       }
       if (now <= e.endMs) {
-        return { phase: "during" as const, label: "Paper ends in", sublabel: label, value: formatDuration(e.endMs - now), color: "text-emerald-600 dark:text-emerald-400" };
+        return { phase: "during" as const, label: "Paper ends in", sublabel: label, value: formatDuration(e.endMs - now), color: "text-primary text-primary" };
       }
       // This was the last paper in today's timeline and it just ended —
       // fall through to the next-paper-day / ended logic below.
@@ -720,10 +720,10 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
 
     if (!startTime && !endTime) return { phase: "no-times" as const, label: "No paper times set", sublabel: undefined, value: "", color: "text-muted-foreground" };
     if (startTime && now < startTime) {
-      return { phase: "before-start" as const, label: "Paper starts in", sublabel: undefined, value: formatDuration(startTime - now), color: "text-blue-600 dark:text-blue-400" };
+      return { phase: "before-start" as const, label: "Paper starts in", sublabel: undefined, value: formatDuration(startTime - now), color: "text-primary text-primary" };
     }
     if (endTime && now < endTime) {
-      return { phase: "during" as const, label: "Paper ends in", sublabel: undefined, value: formatDuration(endTime - now), color: "text-emerald-600 dark:text-emerald-400" };
+      return { phase: "during" as const, label: "Paper ends in", sublabel: undefined, value: formatDuration(endTime - now), color: "text-primary text-primary" };
     }
     // ── Paper has ended (now >= endTime) ──
     // For multi-day plans with a next paper day, show "Time remaining to
@@ -731,13 +731,13 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
     // behavior the admin asked for: after today's paper ends, the console
     // resets and counts down to tomorrow's paper.
     if (nextPaperStartTime && now < nextPaperStartTime) {
-      return { phase: "before-next-paper" as const, label: "Time remaining to next paper", sublabel: undefined, value: formatDuration(nextPaperStartTime - now), color: "text-blue-600 dark:text-blue-400" };
+      return { phase: "before-next-paper" as const, label: "Time remaining to next paper", sublabel: undefined, value: formatDuration(nextPaperStartTime - now), color: "text-primary text-primary" };
     }
     if (endTime && now >= endTime) {
       return { phase: "ended" as const, label: "Paper ended", sublabel: undefined, value: formatDuration(now - endTime) + " ago", color: "text-muted-foreground" };
     }
     if (startTime && now >= startTime) {
-      return { phase: "during" as const, label: "Paper in progress", sublabel: undefined, value: "No end time set", color: "text-amber-600 dark:text-amber-400" };
+      return { phase: "during" as const, label: "Paper in progress", sublabel: undefined, value: "No end time set", color: "text-primary text-primary" };
     }
     return { phase: "no-times" as const, label: "No paper times set", sublabel: undefined, value: "", color: "text-muted-foreground" };
   }, [startTime, endTime, now, nextPaperStartTime, paperTimeline, activeTimelineEntry]);
@@ -777,10 +777,10 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
               — only "during" (a paper is actually in its time window right
               now, confirmed against the live Date Sheet) shows LIVE. */}
           {countdown.phase === "during" ? (
-            <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium shrink-0 mt-1">
+            <div className="flex items-center gap-1.5 text-xs text-primary text-primary font-medium shrink-0 mt-1">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-background"></span>
               </span>
               LIVE
             </div>
@@ -843,13 +843,13 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
 
       {/* ── Missing info warning ── */}
       {missingPaperInfo && (
-        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-xl p-4 flex items-start gap-3">
-          <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+        <div className="bg-accent-soft bg-accent/20 border border-border border-accent/50 rounded-xl p-4 flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
+            <p className="text-sm font-semibold text-primary text-primary">
               Exam date is not set on this plan
             </p>
-            <p className="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+            <p className="text-xs text-primary text-primary mt-0.5">
               Live attendance matching requires the exam date. Set it in the Exam Seating tab (edit the plan) or use the Paper Times button above.
             </p>
           </div>
@@ -858,8 +858,8 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
 
       {/* ── Single countdown card ── */}
       <Card className={
-        countdown.phase === "before-start" ? "ring-2 ring-blue-500/50" :
-        countdown.phase === "during" ? "ring-2 ring-emerald-500/50" :
+        countdown.phase === "before-start" ? "ring-2 ring-accent/50" :
+        countdown.phase === "during" ? "ring-2 ring-accent/50" :
         countdown.phase === "ended" ? "ring-2 ring-muted-foreground/30" : ""
       }>
         <CardContent className="p-6">
@@ -988,13 +988,13 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
 
       {/* ── Next-paper reset banner (shown after today's paper ends, for multi-day plans) ── */}
       {countdown.phase === "before-next-paper" && nextPaperDay && (
-        <div className="bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-300 dark:border-blue-700/50 rounded-xl p-4 flex items-start gap-3">
-          <RefreshCw className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+        <div className="bg-background bg-primary-strong/20 border-2 border-border border-border/50 rounded-xl p-4 flex items-start gap-3">
+          <RefreshCw className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
           <div className="flex-1">
-            <p className="text-sm font-bold text-blue-800 dark:text-blue-300">
+            <p className="text-sm font-bold text-primary text-primary">
               Today's paper has ended — console reset for tomorrow
             </p>
-            <p className="text-xs text-blue-700 dark:text-blue-400 mt-0.5">
+            <p className="text-xs text-primary text-primary mt-0.5">
               Today's attendance is saved. The tally below shows today's final numbers for reference.
               When the next paper starts on <strong>{nextPaperDay.toLocaleDateString()}</strong> at{" "}
               <strong>
@@ -1015,13 +1015,13 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
 
       {/* ── Threshold alert ── */}
       {thresholdBreached && countdown.phase !== "before-next-paper" && (
-        <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-700/50 rounded-xl p-4 flex items-center gap-3 animate-pulse">
-          <AlertTriangle className="w-6 h-6 text-red-600 dark:text-red-400 shrink-0" />
+        <div className="bg-background bg-primary-strong/20 border-2 border-border border-border/50 rounded-xl p-4 flex items-center gap-3 animate-pulse">
+          <AlertTriangle className="w-6 h-6 text-primary text-primary shrink-0" />
           <div className="flex-1">
-            <p className="text-sm font-bold text-red-800 dark:text-red-300">
+            <p className="text-sm font-bold text-primary text-primary">
               HIGH ABSENCE ALERT
             </p>
-            <p className="text-xs text-red-700 dark:text-red-400">
+            <p className="text-xs text-primary text-primary">
               {tally.absent} of {tally.total} students absent ({absentPct}%) — threshold is {threshold}%
             </p>
           </div>
@@ -1030,10 +1030,10 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
 
       {/* ── Tally cards ── */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <TallyCard icon={<CheckCircle2 className="w-5 h-5" />} label="Present" value={tally.present} total={tally.total} color="text-emerald-600" bg="bg-emerald-500/10" />
-        <TallyCard icon={<XCircle className="w-5 h-5" />} label="Absent" value={tally.absent} total={tally.total} color="text-red-600" bg="bg-red-500/10" highlight={thresholdBreached} />
-        <TallyCard icon={<Palmtree className="w-5 h-5" />} label="Leave" value={tally.leave} total={tally.total} color="text-blue-600" bg="bg-blue-500/10" />
-        <TallyCard icon={<AlertTriangle className="w-5 h-5" />} label="Not Marked" value={tally.notMarked} total={tally.total} color="text-amber-600" bg="bg-amber-500/10" highlight={tally.notMarked > 0} />
+        <TallyCard icon={<CheckCircle2 className="w-5 h-5" />} label="Present" value={tally.present} total={tally.total} color="text-primary" bg="bg-background/10" />
+        <TallyCard icon={<XCircle className="w-5 h-5" />} label="Absent" value={tally.absent} total={tally.total} color="text-primary" bg="bg-background/10" highlight={thresholdBreached} />
+        <TallyCard icon={<Palmtree className="w-5 h-5" />} label="Leave" value={tally.leave} total={tally.total} color="text-primary" bg="bg-background/10" />
+        <TallyCard icon={<AlertTriangle className="w-5 h-5" />} label="Not Marked" value={tally.notMarked} total={tally.total} color="text-primary" bg="bg-accent-soft/10" highlight={tally.notMarked > 0} />
         <TallyCard icon={<Users className="w-5 h-5" />} label="Total" value={tally.total} total={tally.total} color="text-foreground" bg="bg-secondary" />
       </div>
 
@@ -1085,7 +1085,7 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
                 return (
                   <div
                     key={r.roomId}
-                    className={`rounded-lg border p-3 ${roomBreached ? "border-red-300 dark:border-red-700/50 bg-red-50/50 dark:bg-red-900/10" : "border-border"}`}
+                    className={`rounded-lg border p-3 ${roomBreached ? "border-border border-border/50 bg-background/50 bg-primary-strong/10" : "border-border"}`}
                   >
                     <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
                       <div className="flex items-center gap-2">
@@ -1094,19 +1094,19 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
                         {roomBreached && <Badge variant="destructive" className="text-[10px]">⚠ {roomAbsentPct}% absent</Badge>}
                       </div>
                       <div className="flex items-center gap-2 text-xs flex-wrap">
-                        <span className="text-emerald-600 dark:text-emerald-400 font-semibold">P: {r.present}</span>
-                        <span className="text-red-600 dark:text-red-400 font-semibold">A: {r.absent}</span>
-                        <span className="text-blue-600 dark:text-blue-400 font-semibold">Lv: {r.leave}</span>
-                        <span className="text-amber-600 dark:text-amber-400 font-semibold">NM: {r.notMarked}</span>
+                        <span className="text-primary text-primary font-semibold">P: {r.present}</span>
+                        <span className="text-primary text-primary font-semibold">A: {r.absent}</span>
+                        <span className="text-primary text-primary font-semibold">Lv: {r.leave}</span>
+                        <span className="text-primary text-primary font-semibold">NM: {r.notMarked}</span>
                         <span className="text-muted-foreground font-semibold">T: {r.total}</span>
                       </div>
                     </div>
                     {/* Progress bar */}
                     <div className="w-full h-2 rounded-full bg-secondary overflow-hidden flex">
-                      <div className="bg-emerald-500" style={{ width: `${r.total > 0 ? (r.present / r.total) * 100 : 0}%` }} title={`Present: ${r.present}`} />
-                      <div className="bg-red-500" style={{ width: `${r.total > 0 ? (r.absent / r.total) * 100 : 0}%` }} title={`Absent: ${r.absent}`} />
-                      <div className="bg-blue-500" style={{ width: `${r.total > 0 ? (r.leave / r.total) * 100 : 0}%` }} title={`Leave: ${r.leave}`} />
-                      <div className="bg-amber-500" style={{ width: `${r.total > 0 ? (r.notMarked / r.total) * 100 : 0}%` }} title={`Not Marked: ${r.notMarked}`} />
+                      <div className="bg-background" style={{ width: `${r.total > 0 ? (r.present / r.total) * 100 : 0}%` }} title={`Present: ${r.present}`} />
+                      <div className="bg-background" style={{ width: `${r.total > 0 ? (r.absent / r.total) * 100 : 0}%` }} title={`Absent: ${r.absent}`} />
+                      <div className="bg-background" style={{ width: `${r.total > 0 ? (r.leave / r.total) * 100 : 0}%` }} title={`Leave: ${r.leave}`} />
+                      <div className="bg-accent-soft" style={{ width: `${r.total > 0 ? (r.notMarked / r.total) * 100 : 0}%` }} title={`Not Marked: ${r.notMarked}`} />
                     </div>
                     <p className="text-[10px] text-muted-foreground mt-1">{roomPct}% present</p>
                   </div>
@@ -1143,7 +1143,7 @@ const ConsoleView = ({ planId, onBack }: { planId: string; onBack: () => void })
           }}
           disabled={loadingPlan || loadingAtt}
         >
-          <RefreshCw className={`w-3.5 h-3.5 ${loadingPlan || loadingAtt ? 'animate-spin' : ''}`} /> 
+          <RefreshCw className={`w-3.5 h-3.5 ${loadingPlan || loadingAtt ? 'animate-spin' : ''}`} />
           Refresh
         </Button>
       </div>
@@ -1158,7 +1158,7 @@ const TallyCard = ({ icon, label, value, total, color, bg, highlight }: {
 }) => {
   const pct = total > 0 ? Math.round((value / total) * 100) : 0;
   return (
-    <Card className={highlight ? "ring-2 ring-red-500" : ""}>
+    <Card className={highlight ? "ring-2 ring-accent" : ""}>
       <CardContent className="p-4">
         <div className={`w-9 h-9 rounded-lg ${bg} flex items-center justify-center ${color} mb-2`}>
           {icon}
@@ -1410,10 +1410,10 @@ function McqTimerButton({ timer }: { timer: McqTimerApi }) {
     <div className="inline-flex items-center gap-1 rounded-md border border-border bg-secondary/40 p-0.5">
       <div className={`px-2.5 py-1.5 text-sm font-mono font-bold flex items-center gap-1.5 rounded ${
         isFinished
-          ? "text-red-600 dark:text-red-400 animate-pulse"
+          ? "text-primary text-primary animate-pulse"
           : state.status === "running"
-          ? "text-emerald-600 dark:text-emerald-400"
-          : "text-amber-600 dark:text-amber-400"
+          ? "text-primary text-primary"
+          : "text-primary text-primary"
       }`}>
         <Timer className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">MCQ</span>

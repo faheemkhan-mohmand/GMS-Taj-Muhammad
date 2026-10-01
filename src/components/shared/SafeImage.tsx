@@ -55,16 +55,16 @@ function generateInitials(name?: string): string {
 // Gradient combinations for visual variety based on name
 function getGradientColors(text: string): string {
   const gradients = [
-    "from-blue-500 to-purple-600",
-    "from-teal-500 to-cyan-600",
-    "from-orange-500 to-red-500",
-    "from-pink-500 to-rose-600",
-    "from-indigo-500 to-blue-600",
-    "from-amber-500 to-orange-600",
-    "from-cyan-500 to-blue-500",
-    "from-violet-500 to-purple-600",
+    "from-primary to-primary",
+    "from-primary to-primary",
+    "from-accent to-primary",
+    "from-accent to-accent",
+    "from-primary to-primary",
+    "from-accent to-accent",
+    "from-primary to-primary",
+    "from-primary to-primary",
   ];
-  
+
   // Use the text to pick a consistent gradient
   let hash = 0;
   for (let i = 0; i < text.length; i++) {
@@ -85,7 +85,7 @@ export function SafeImage({
   const [imgError, setImgError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
-  
+
   // Validate and sanitize the URL BEFORE passing it to img tag
   // This prevents broken Cloudinary URLs from ever reaching the browser
   const validatedSrc = safeCloudinaryUrl(src);
@@ -99,7 +99,7 @@ export function SafeImage({
     setIsLoading(true);
     setRetryCount(0);
     setCurrentSrc(newValidatedSrc);
-    
+
     // Log if URL was invalid (helps diagnose Cloudinary issues)
     if (src && !newValidatedSrc) {
       console.warn('[SafeImage] Invalid or broken URL prevented from rendering:', {
@@ -121,7 +121,7 @@ export function SafeImage({
     ${sizeClasses.container}
     ${shapeClasses}
     flex items-center justify-center
-    font-bold text-white
+    font-bold text-primary-foreground
     bg-gradient-to-br ${gradientClass}
     shrink-0
     overflow-hidden
@@ -132,7 +132,7 @@ export function SafeImage({
   // If no valid src or there was an error, show fallback
   // Also show fallback if validation failed (currentSrc is null but original src existed)
   const shouldShowFallback = !currentSrc || imgError || (src && !validatedSrc && retryCount >= 2);
-  
+
   if (shouldShowFallback) {
     return (
       <div
@@ -156,7 +156,7 @@ export function SafeImage({
       {isLoading && (
         <div className="absolute inset-0 bg-muted animate-pulse" />
       )}
-      
+
       {/* Actual image */}
       <img
         src={currentSrc}

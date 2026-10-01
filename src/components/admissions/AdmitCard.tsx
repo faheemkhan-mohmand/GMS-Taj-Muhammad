@@ -268,7 +268,7 @@ export default function AdmitCard({ admission }: { admission: Admission }) {
       <div className="flex items-center gap-2 mb-3">
         <Award className="w-4 h-4 text-primary" />
         <h3 className="font-bold text-foreground text-sm">Admit Card</h3>
-        <span className="ml-auto text-[10px] bg-green-500/15 text-green-600 px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
+        <span className="ml-auto text-[10px] bg-background/15 text-primary px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
           <ShieldCheck className="w-3 h-3" /> Ready
         </span>
       </div>
@@ -317,7 +317,7 @@ export default function AdmitCard({ admission }: { admission: Admission }) {
 
       {/* Card preview (visual representation in the page) */}
       <div className="mt-4 border-2 border-primary/30 rounded-xl overflow-hidden">
-        <div className="bg-primary text-white px-4 py-2 flex items-center justify-between">
+        <div className="bg-primary text-primary-foreground px-4 py-2 flex items-center justify-between">
           <div>
             <p className="font-bold text-sm">{SCHOOL_NAME}</p>
             <p className="text-[10px] opacity-80">{SCHOOL_SUB}</p>
@@ -337,11 +337,11 @@ export default function AdmitCard({ admission }: { admission: Admission }) {
             </div>
           </div>
           <div className="text-right">
-            <div className="inline-block bg-amber-50 dark:bg-amber-950/30 px-2 py-1 rounded">
-              <p className="text-[9px] text-amber-700 dark:text-amber-300 font-semibold">REFERENCE</p>
-              <p className="font-mono font-bold text-xs text-amber-900 dark:text-amber-100">{admission.reference_no}</p>
+            <div className="inline-block bg-accent-soft bg-accent/30 px-2 py-1 rounded">
+              <p className="text-[9px] text-primary text-primary font-semibold">REFERENCE</p>
+              <p className="font-mono font-bold text-xs text-primary text-primary">{admission.reference_no}</p>
             </div>
-            <div className="mt-2 inline-block bg-white p-1.5 rounded border">
+            <div className="mt-2 inline-block bg-surface p-1.5 rounded border">
               <svg viewBox="0 0 100 100" className="w-12 h-12">
                 {/* Faux QR pattern for visual preview */}
                 {Array.from({ length: 100 }).map((_, i) => {

@@ -113,20 +113,20 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
     <svg viewBox="0 0 64 64" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="rslipClockFace" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FFFDF5" />
-          <stop offset="100%" stopColor="#F3E9C7" />
+          <stop offset="0%" stopColor="var(--surface)" />
+          <stop offset="100%" stopColor="var(--accent-soft)" />
         </linearGradient>
         <linearGradient id="rslipClockRim" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#F4C550" />
-          <stop offset="100%" stopColor="#C6912A" />
+          <stop offset="0%" stopColor="var(--accent)" />
+          <stop offset="100%" stopColor="var(--accent)" />
         </linearGradient>
       </defs>
       <circle cx="16" cy="10" r="5.5" fill="url(#rslipClockRim)" />
       <circle cx="48" cy="10" r="5.5" fill="url(#rslipClockRim)" />
-      <rect x="22" y="52" width="4.5" height="8" rx="2" fill="#8A6416" />
-      <rect x="37.5" y="52" width="4.5" height="8" rx="2" fill="#8A6416" />
+      <rect x="22" y="52" width="4.5" height="8" rx="2" fill="var(--primary-strong)" />
+      <rect x="37.5" y="52" width="4.5" height="8" rx="2" fill="var(--primary-strong)" />
       <circle cx="32" cy="34" r="24" fill="url(#rslipClockRim)" />
-      <circle cx="32" cy="34" r="19.5" fill="url(#rslipClockFace)" stroke="#C6912A" strokeWidth="1.5" />
+      <circle cx="32" cy="34" r="19.5" fill="url(#rslipClockFace)" stroke="var(--accent)" strokeWidth="1.5" />
       {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i * 30 * Math.PI) / 180;
         const x1 = 32 + Math.sin(angle) * 16.5;
@@ -134,13 +134,13 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
         const x2 = 32 + Math.sin(angle) * 14;
         const y2 = 34 - Math.cos(angle) * 14;
         return (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#B08628" strokeWidth={i % 3 === 0 ? 1.4 : 0.8} strokeLinecap="round" />
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--accent)" strokeWidth={i % 3 === 0 ? 1.4 : 0.8} strokeLinecap="round" />
         );
       })}
-      <line x1="32" y1="34" x2={hourHand.x2} y2={hourHand.y2} stroke="#3F2E10" strokeWidth="2.2" strokeLinecap="round" />
-      <line x1="32" y1="34" x2={minHand.x2} y2={minHand.y2} stroke="#3F2E10" strokeWidth="2.2" strokeLinecap="round" />
-      <line x1="32" y1="34" x2={secHand.x2} y2={secHand.y2} stroke="#D64545" strokeWidth="1.3" strokeLinecap="round" />
-      <circle cx="32" cy="34" r="2.2" fill="#3F2E10" />
+      <line x1="32" y1="34" x2={hourHand.x2} y2={hourHand.y2} stroke="var(--text-primary)" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={minHand.x2} y2={minHand.y2} stroke="var(--text-primary)" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={secHand.x2} y2={secHand.y2} stroke="var(--primary)" strokeWidth="1.3" strokeLinecap="round" />
+      <circle cx="32" cy="34" r="2.2" fill="var(--text-primary)" />
     </svg>
   );
 }
@@ -168,7 +168,7 @@ function RealisticSlipIcon({ className = "w-16 h-16" }: { className?: string }) 
           </linearGradient>
           <linearGradient id="slipGold" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#F6D365" />
-            <stop offset="100%" stopColor="#C6912A" />
+            <stop offset="100%" stopColor="var(--accent)" />
           </linearGradient>
           <clipPath id="slipClip">
             <rect x="20" y="6" width="56" height="78" rx="7" />
@@ -185,59 +185,59 @@ function RealisticSlipIcon({ className = "w-16 h-16" }: { className?: string }) 
           <g clipPath="url(#slipClip)">
             {/* printed header band + gold hairline */}
             <rect x="20" y="6" width="56" height="20" fill="url(#slipHeader)" />
-            <rect x="20" y="6" width="56" height="1.6" fill="#F4C550" opacity="0.9" />
+            <rect x="20" y="6" width="56" height="1.6" fill="var(--accent)" opacity="0.9" />
 
             {/* school seal + name bars */}
-            <circle cx="28" cy="16" r="4" fill="#F4C550" />
+            <circle cx="28" cy="16" r="4" fill="var(--accent)" />
             <circle cx="28" cy="16" r="2.4" fill="none" stroke="#FFFFFF" strokeWidth="0.7" opacity="0.85" />
             <rect x="36" y="11.5" width="26" height="2.6" rx="1.3" fill="#FFFFFF" opacity="0.95" />
             <rect x="36" y="16.8" width="18" height="2" rx="1" fill="#FFFFFF" opacity="0.55" />
 
             {/* student photo box with silhouette */}
-            <rect x="26" y="32" width="14" height="16" rx="2" fill="url(#slipPhoto)" stroke="#B4C2CC" strokeWidth="0.6" />
-            <circle cx="33" cy="38" r="3" fill="#8FA3B0" />
-            <path d="M27.5 47.5 Q33 40.5 38.5 47.5 Z" fill="#8FA3B0" />
+            <rect x="26" y="32" width="14" height="16" rx="2" fill="url(#slipPhoto)" stroke="var(--border)" strokeWidth="0.6" />
+            <circle cx="33" cy="38" r="3" fill="var(--text-muted)" />
+            <path d="M27.5 47.5 Q33 40.5 38.5 47.5 Z" fill="var(--text-muted)" />
 
             {/* detail lines beside the photo (gold = roll number row) */}
-            <rect x="44" y="33" width="26" height="2.4" rx="1.2" fill="#C9D3DD" />
-            <rect x="44" y="37.5" width="20" height="2.4" rx="1.2" fill="#C9D3DD" />
-            <rect x="44" y="42.5" width="24" height="3" rx="1.5" fill="#E0B64F" />
+            <rect x="44" y="33" width="26" height="2.4" rx="1.2" fill="var(--border)" />
+            <rect x="44" y="37.5" width="20" height="2.4" rx="1.2" fill="var(--border)" />
+            <rect x="44" y="42.5" width="24" height="3" rx="1.5" fill="var(--accent)" />
 
             {/* section divider */}
-            <line x1="26" y1="53" x2="70" y2="53" stroke="#E5DECB" strokeWidth="0.8" />
+            <line x1="26" y1="53" x2="70" y2="53" stroke="var(--border)" strokeWidth="0.8" />
 
             {/* QR code block */}
-            <rect x="26" y="57" width="16" height="16" rx="1.5" fill="#FFFFFF" stroke="#C9C2AD" strokeWidth="0.7" />
-            <rect x="27.8" y="58.8" width="4.6" height="4.6" fill="#2B3440" />
+            <rect x="26" y="57" width="16" height="16" rx="1.5" fill="#FFFFFF" stroke="var(--border)" strokeWidth="0.7" />
+            <rect x="27.8" y="58.8" width="4.6" height="4.6" fill="var(--text-primary)" />
             <rect x="28.9" y="59.9" width="2.4" height="2.4" fill="#FFFFFF" />
-            <rect x="29.5" y="60.5" width="1.2" height="1.2" fill="#2B3440" />
-            <rect x="35.6" y="58.8" width="4.6" height="4.6" fill="#2B3440" />
+            <rect x="29.5" y="60.5" width="1.2" height="1.2" fill="var(--text-primary)" />
+            <rect x="35.6" y="58.8" width="4.6" height="4.6" fill="var(--text-primary)" />
             <rect x="36.7" y="59.9" width="2.4" height="2.4" fill="#FFFFFF" />
-            <rect x="37.3" y="60.5" width="1.2" height="1.2" fill="#2B3440" />
-            <rect x="27.8" y="66.6" width="4.6" height="4.6" fill="#2B3440" />
+            <rect x="37.3" y="60.5" width="1.2" height="1.2" fill="var(--text-primary)" />
+            <rect x="27.8" y="66.6" width="4.6" height="4.6" fill="var(--text-primary)" />
             <rect x="28.9" y="67.7" width="2.4" height="2.4" fill="#FFFFFF" />
-            <rect x="29.5" y="68.3" width="1.2" height="1.2" fill="#2B3440" />
-            <rect x="34" y="64.6" width="1.3" height="1.3" fill="#2B3440" />
-            <rect x="37.4" y="66" width="1.3" height="1.3" fill="#2B3440" />
-            <rect x="34.8" y="68.8" width="1.3" height="1.3" fill="#2B3440" />
-            <rect x="38.6" y="63.2" width="1.3" height="1.3" fill="#2B3440" />
-            <rect x="34.6" y="70.2" width="1.3" height="1.3" fill="#2B3440" />
+            <rect x="29.5" y="68.3" width="1.2" height="1.2" fill="var(--text-primary)" />
+            <rect x="34" y="64.6" width="1.3" height="1.3" fill="var(--text-primary)" />
+            <rect x="37.4" y="66" width="1.3" height="1.3" fill="var(--text-primary)" />
+            <rect x="34.8" y="68.8" width="1.3" height="1.3" fill="var(--text-primary)" />
+            <rect x="38.6" y="63.2" width="1.3" height="1.3" fill="var(--text-primary)" />
+            <rect x="34.6" y="70.2" width="1.3" height="1.3" fill="var(--text-primary)" />
 
             {/* detail lines beside the QR + verified pill */}
             <rect x="46" y="58" width="20" height="2" rx="1" fill="#D4D9E2" />
             <rect x="46" y="62" width="15" height="2" rx="1" fill="#D4D9E2" />
             <rect x="46" y="66" width="18" height="2" rx="1" fill="#D4D9E2" />
-            <rect x="46" y="70" width="14" height="3" rx="1.5" fill="#34D399" opacity="0.85" />
+            <rect x="46" y="70" width="14" height="3" rx="1.5" fill="var(--primary)" opacity="0.85" />
 
             {/* diagonal gloss across the top-left */}
             <path d="M20 36 L60 6 L70 6 L20 46 Z" fill="#FFFFFF" opacity="0.20" />
           </g>
 
           {/* gold wax-seal badge overlapping the bottom-right corner */}
-          <path d="M64.5 80 L66.5 86 L69 83.2 L71.5 86 L73.5 80 Z" fill="#C6912A" />
-          <circle cx="69" cy="76" r="6.5" fill="url(#slipGold)" stroke="#B8860B" strokeWidth="0.6" />
+          <path d="M64.5 80 L66.5 86 L69 83.2 L71.5 86 L73.5 80 Z" fill="var(--accent)" />
+          <circle cx="69" cy="76" r="6.5" fill="url(#slipGold)" stroke="var(--accent)" strokeWidth="0.6" />
           <circle cx="69" cy="76" r="4.4" fill="none" stroke="#FFFFFF" strokeWidth="0.7" opacity="0.75" />
-          <circle cx="69" cy="76" r="1.6" fill="#8A6416" opacity="0.55" />
+          <circle cx="69" cy="76" r="1.6" fill="var(--primary-strong)" opacity="0.55" />
         </g>
       </svg>
     </span>
@@ -248,10 +248,10 @@ function RealisticSlipIcon({ className = "w-16 h-16" }: { className?: string }) 
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex items-baseline gap-0.5">
-      <span className="text-4xl md:text-5xl font-black tabular-nums text-red-600 dark:text-red-400 leading-none">
+      <span className="text-4xl md:text-5xl font-black tabular-nums text-primary text-primary leading-none">
         {String(Math.max(0, value)).padStart(2, "0")}
       </span>
-      <span className="text-base md:text-lg font-bold text-red-600/70 dark:text-red-400/70 lowercase">
+      <span className="text-base md:text-lg font-bold text-primary text-primary lowercase">
         {label}
       </span>
     </div>
@@ -514,7 +514,7 @@ const ExamRollNumbers = () => {
                             : "bg-card text-muted-foreground border-border hover:border-primary/50"
                         }`}
                       >
-                        {sched && <Clock3 className="w-3.5 h-3.5 text-amber-500" />}
+                        {sched && <Clock3 className="w-3.5 h-3.5 text-primary" />}
                         {s.title} — {s.exam_year}
                       </button>
                     );
@@ -545,7 +545,7 @@ const ExamRollNumbers = () => {
                               ticking normally toward the target time — not
                               the remaining countdown duration. */}
                           <span className="w-16 h-16 mx-auto mb-5 flex items-center justify-center"><RealisticClockIcon className="w-14 h-14" hours={new Date(now).getHours()} minutes={new Date(now).getMinutes()} seconds={new Date(now).getSeconds()} /></span>
-                          <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400 mb-2">
+                          <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-primary text-primary mb-2">
                             Time Remaining
                           </p>
                           <div className="flex justify-center items-baseline gap-3 flex-wrap mb-3">
@@ -567,8 +567,8 @@ const ExamRollNumbers = () => {
                     {selectedSession.countdown_label && (
                       <p className="text-xs text-muted-foreground mt-6 italic max-w-md mx-auto">"{selectedSession.countdown_label}"</p>
                     )}
-                    <p className="inline-flex items-center gap-2 mt-6 text-[11px] font-semibold text-orange-600 dark:text-orange-400 bg-orange-500/10 border border-orange-500/20 rounded-full px-4 py-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                    <p className="inline-flex items-center gap-2 mt-6 text-[11px] font-semibold text-primary text-primary bg-accent-soft/10 border border-border/20 rounded-full px-4 py-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent-soft animate-pulse" />
                       Slips open here automatically — no refresh needed
                     </p>
                   </div>
@@ -707,15 +707,15 @@ function SlipFinder({ session, rolls, loading, schedule }: {
           <div className="orb orb-gold w-44 h-44 -top-16 -right-12 opacity-40 pointer-events-none" />
 
           {/* ══ THE SLIP — mirrors the admin PDF artwork 1:1 ══ */}
-          <div className="relative m-2.5 rounded-2xl border border-[#c9c9c9] bg-white text-[#1e1e1e] shadow-inner overflow-hidden">
+          <div className="relative m-2.5 rounded-2xl border border-border bg-surface text-primary shadow-inner overflow-hidden">
             {/* header — same three lines as the printed slip */}
             <div className="text-center px-4 pt-4 pb-2.5">
-              <p className="text-[15px] leading-tight font-black tracking-wide text-[#1e1e1e]">GOVT. MIDDLE SCHOOL TAJ MUHAMMAD</p>
-              <p className="text-[10px] font-bold text-[#464646] mt-0.5 tracking-wide">
+              <p className="text-[15px] leading-tight font-black tracking-wide text-primary">GOVT. MIDDLE SCHOOL TAJ MUHAMMAD</p>
+              <p className="text-[10px] font-bold text-primary mt-0.5 tracking-wide">
                 {examTypeLabel(classExamType).toUpperCase()} {session.exam_year}
               </p>
-              <p className="text-[8px] text-[#787878] mt-0.5 tracking-[0.18em]">EXAM ROLL NUMBER SLIP</p>
-              <div className="mt-2 border-t-2 border-[#5a5a5a]" />
+              <p className="text-[8px] text-primary mt-0.5 tracking-[0.18em]">EXAM ROLL NUMBER SLIP</p>
+              <div className="mt-2 border-t-2 border-border" />
             </div>
 
             <div className="px-4 pb-3">
@@ -729,12 +729,12 @@ function SlipFinder({ session, rolls, loading, schedule }: {
                     { label: "Class:", value: `Class ${r.class}` },
                   ].map(row => (
                     <div key={row.label} className="flex items-baseline text-[11px] leading-snug">
-                      <span className="w-[92px] shrink-0 text-[#6e6e6e]">{row.label}</span>
-                      <span className="font-bold text-[#1e1e1e] break-words">{row.value}</span>
+                      <span className="w-[92px] shrink-0 text-primary">{row.label}</span>
+                      <span className="font-bold text-primary break-words">{row.value}</span>
                     </div>
                   ))}
                 </div>
-                <div className="shrink-0 rounded-lg border border-[#b4b4b4] p-1 bg-white">
+                <div className="shrink-0 rounded-lg border border-border p-1 bg-surface">
                   <img src={activeSlip.qrDataURL} alt="Attendance QR code" className="w-[84px] h-[84px]" />
                 </div>
               </div>
@@ -745,35 +745,35 @@ function SlipFinder({ session, rolls, loading, schedule }: {
                 <div className="mt-3 overflow-x-auto">
                   <table className="w-full border-collapse text-[9.5px]">
                     <thead>
-                      <tr className="bg-[#ebebeb] text-[#282828]">
+                      <tr className="bg-surface text-primary">
                         {["Paper Date", "Day", "Subject", "From", "To"].map(h => (
-                          <th key={h} className="border border-[#b4b4b4] px-1.5 py-1 font-bold text-center whitespace-nowrap">{h}</th>
+                          <th key={h} className="border border-border px-1.5 py-1 font-bold text-center whitespace-nowrap">{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {slipSchedule.map((e, i) => (
-                        <tr key={e.id} className={i % 2 === 1 ? "bg-[#fafafa]" : "bg-white"}>
-                          <td className="border border-[#b4b4b4] px-1.5 py-[3px] text-center whitespace-nowrap">{format(new Date(e.exam_date), "dd-MM-yyyy")}</td>
-                          <td className="border border-[#b4b4b4] px-1.5 py-[3px] text-center whitespace-nowrap">{format(new Date(e.exam_date), "EEEE")}</td>
-                          <td className="border border-[#b4b4b4] px-1.5 py-[3px] text-center">{e.subject}</td>
-                          <td className="border border-[#b4b4b4] px-1.5 py-[3px] text-center whitespace-nowrap">{e.start_time || "—"}</td>
-                          <td className="border border-[#b4b4b4] px-1.5 py-[3px] text-center whitespace-nowrap">{e.end_time || "—"}</td>
+                        <tr key={e.id} className={i % 2 === 1 ? "bg-surface" : "bg-surface"}>
+                          <td className="border border-border px-1.5 py-[3px] text-center whitespace-nowrap">{format(new Date(e.exam_date), "dd-MM-yyyy")}</td>
+                          <td className="border border-border px-1.5 py-[3px] text-center whitespace-nowrap">{format(new Date(e.exam_date), "EEEE")}</td>
+                          <td className="border border-border px-1.5 py-[3px] text-center">{e.subject}</td>
+                          <td className="border border-border px-1.5 py-[3px] text-center whitespace-nowrap">{e.start_time || "—"}</td>
+                          <td className="border border-border px-1.5 py-[3px] text-center whitespace-nowrap">{e.end_time || "—"}</td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
               ) : (
-                <p className="mt-4 mb-1 text-center italic text-[10px] text-[#969696]">Date sheet not yet published for this class.</p>
+                <p className="mt-4 mb-1 text-center italic text-[10px] text-primary">Date sheet not yet published for this class.</p>
               )}
 
               {/* instructions — the exact 9 rules from the printed slip */}
-              <div className="mt-3 border-t border-[#969696] pt-1.5">
-                <p className="text-[9.5px] font-bold text-[#464646]">Instructions:</p>
+              <div className="mt-3 border-t border-border pt-1.5">
+                <p className="text-[9.5px] font-bold text-primary">Instructions:</p>
                 <div className="mt-1 space-y-[3px]">
                   {SLIP_INSTRUCTIONS.map(line => (
-                    <p key={line} className="text-[9px] leading-snug text-[#6e6e6e]">{line}</p>
+                    <p key={line} className="text-[9px] leading-snug text-primary">{line}</p>
                   ))}
                 </div>
               </div>
@@ -781,8 +781,8 @@ function SlipFinder({ session, rolls, loading, schedule }: {
               {/* signature — anchored at the slip bottom like the print */}
               <div className="mt-5 flex justify-end">
                 <div className="w-40 text-center">
-                  <div className="border-t border-[#787878]" />
-                  <p className="text-[9px] font-bold text-[#3c3c3c] mt-1">Deputy Controller of Exams</p>
+                  <div className="border-t border-border" />
+                  <p className="text-[9px] font-bold text-primary mt-1">Deputy Controller of Exams</p>
                 </div>
               </div>
             </div>
@@ -851,7 +851,7 @@ function SlipFinder({ session, rolls, loading, schedule }: {
     return (
       <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-lg mx-auto space-y-3">
         <div className="rounded-2xl border border-border bg-card p-4 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-600 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-accent-soft/15 text-primary flex items-center justify-center shrink-0">
             <User className="w-5 h-5" />
           </div>
           <div>
@@ -890,8 +890,8 @@ function SlipFinder({ session, rolls, loading, schedule }: {
   if (matches && matches.length === 0) {
     return (
       <motion.div variants={fadeUp} initial="hidden" animate="visible" className="max-w-lg mx-auto">
-        <div className="rounded-3xl border-2 border-amber-500/30 bg-amber-500/5 p-8 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-amber-500/15 text-amber-600 flex items-center justify-center mx-auto mb-4">
+        <div className="rounded-3xl border-2 border-border/30 bg-accent-soft/5 p-8 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-accent-soft/15 text-primary flex items-center justify-center mx-auto mb-4">
             <AlertCircle className="w-7 h-7" />
           </div>
           <h3 className="font-heading font-bold text-foreground">No slip found for "{fullName.trim()}"</h3>
@@ -916,7 +916,7 @@ function SlipFinder({ session, rolls, loading, schedule }: {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-6 text-center shadow-elevated mb-6">
         <div className="orb orb-light w-40 h-40 -top-16 -right-10 opacity-70" />
         <div className="relative">
-          <RealisticSlipIcon className="w-[72px] h-[72px] mx-auto mb-3 drop-shadow-[0_10px_18px_rgba(0,0,0,0.35)]" />
+          <RealisticSlipIcon className="w-[72px] h-[72px] mx-auto mb-3 drop-shadow-[0_10px_18px_color-mix(in_srgb,var(--text-primary)_35%,transparent)]" />
           <h2 className="font-heading font-bold text-xl">Find Your Roll No. Slip</h2>
           <p className="text-xs opacity-85 mt-1">{session.title} · {examTypeLabel(session.exam_term)} {session.exam_year}</p>
         </div>
@@ -992,7 +992,7 @@ function SlipFinder({ session, rolls, loading, schedule }: {
             {qrBusy ? "Preparing your slip…" : "Search My Slip"}
           </button>
           <p className="flex items-center justify-center gap-1.5 text-[11px] text-muted-foreground -mt-3">
-            <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+            <CheckCircle2 className="w-3 h-3 text-primary" />
             Your official slip appears instantly — same as the school office copy
           </p>
         </div>

@@ -83,36 +83,36 @@ const SUBJECT_BLOCKS: Record<string, Block[]> = {
   "math":        ["graph", "solver", "numberline", "stats", "conceptmap"],
   "maths":       ["graph", "solver", "numberline", "stats", "conceptmap"],
 
-  
+
   // Computer Science - Enhanced Code Lab
   "computer science": ["code", "conceptmap"],
   "computer":    ["code", "conceptmap"],
   "cs":          ["code", "conceptmap"],
   "programming": ["code", "conceptmap"],
   "ict":         ["code", "conceptmap"],
-  
+
   // Statistics
   "statistics":  ["stats", "graph", "conceptmap"],
-  
+
   // English - Concept Map only (English Lab widget removed)
   "english":     ["conceptmap"],
   "eng":         ["conceptmap"],
-  
+
   // Urdu - Concept Map only (اردو لب widget removed)
   "urdu":        ["conceptmap"],
   "اردو":        ["conceptmap"],
-  
+
   // Pakistan Studies / Social Studies
   "pakistan studies": ["conceptmap"],
   "pakistanstudies": ["conceptmap"],
   "social studies":  ["conceptmap"],
   "sst":             ["conceptmap"],
-  
+
   // Islamiyat
   "islamiyat":   ["conceptmap"],
   "islamiat":    ["conceptmap"],
   "islamic":     ["conceptmap"],
-  
+
   // General / Other
   "general":     ["conceptmap", "code"],
   "other":       ["conceptmap"],
@@ -164,24 +164,24 @@ class BlockErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryStat
   render() {
     if (this.state.hasError) {
       return (
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-          <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-3">
-            <AlertTriangle className="w-6 h-6 text-amber-600" />
+        <div className="rounded-2xl border border-border bg-accent-soft p-6 text-center">
+          <div className="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center mx-auto mb-3">
+            <AlertTriangle className="w-6 h-6 text-primary" />
           </div>
-          <h3 className="text-sm font-bold text-amber-900 mb-1">
+          <h3 className="text-sm font-bold text-primary mb-1">
             {this.props.blockName} couldn't load
           </h3>
-          <p className="text-xs text-amber-700 mb-3 max-w-sm mx-auto">
+          <p className="text-xs text-primary mb-3 max-w-sm mx-auto">
             This interactive block couldn't load. This is usually a temporary network issue.
           </p>
           {this.state.error && (
-            <p className="text-[10px] text-amber-600/80 mb-3 max-w-sm mx-auto font-mono break-all">
+            <p className="text-[10px] text-primary mb-3 max-w-sm mx-auto font-mono break-all">
               {this.state.error.message || String(this.state.error)}
             </p>
           )}
           <button
             onClick={this.manualRetry}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-primary-foreground"
             style={{ backgroundColor: this.props.subjectColor }}
           >
             <RotateCcw className="w-3 h-3" /> Try again
@@ -260,7 +260,7 @@ export default function InteractiveLabs({
                 Live
               </span>
               {blocks.length > 4 && (
-                <span className="text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300 px-2 py-0.5 rounded-full uppercase tracking-wide">
+                <span className="text-[10px] font-bold bg-surface-raised text-primary bg-primary-strong/40 text-primary px-2 py-0.5 rounded-full uppercase tracking-wide">
                   ✨ Enhanced
                 </span>
               )}
@@ -290,7 +290,7 @@ export default function InteractiveLabs({
                     onClick={() => setActive(b)}
                     className={`shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                       isActive
-                        ? "text-white shadow-md scale-105"
+                        ? "text-primary-foreground shadow-md scale-105"
                         : "bg-secondary text-muted-foreground hover:bg-secondary/70 hover:text-foreground"
                     }`}
                     style={isActive ? { backgroundColor: subjectColor } : {}}

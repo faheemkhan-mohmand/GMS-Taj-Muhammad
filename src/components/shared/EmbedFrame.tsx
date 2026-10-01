@@ -69,7 +69,7 @@ const EmbedFrame = ({
   if (media === null) {
     return (
       <div className={className} style={{ border: 0, pointerEvents: "none" }} aria-label="Loading video">
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black text-white/80">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-background text-primary-foreground">
           <Loader2 className="w-6 h-6 animate-spin" />
           <span className="text-[11px] font-medium">Loading video…</span>
         </div>
@@ -84,19 +84,19 @@ const EmbedFrame = ({
         href={media.url}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${className ?? ""} flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-[#1877F2]/95 to-[#0b5fce]/95 text-white text-center p-4 no-underline select-none`}
+        className={`${className ?? ""} flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary to-primary text-primary-foreground text-center p-4 no-underline select-none`}
         style={{ border: 0, pointerEvents: interactive ? "auto" : "none" }}
         aria-label="This video plays on Facebook — tap to watch it there"
       >
-        <span className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+        <span className="w-11 h-11 rounded-full bg-surface/15 flex items-center justify-center shrink-0">
           <VideoOff className="w-5 h-5" />
         </span>
         <span className="text-sm font-semibold leading-tight">Video plays on Facebook</span>
-        <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-white text-[#0b5fce] rounded-full px-3 py-1.5">
+        <span className="inline-flex items-center gap-1.5 text-xs font-bold bg-surface text-primary rounded-full px-3 py-1.5">
           <ExternalLink className="w-3.5 h-3.5" /> Watch there
         </span>
         {showReason && media.reason && (
-          <span className="text-[11px] leading-snug text-white/85 mt-1 max-w-[280px]">
+          <span className="text-[11px] leading-snug text-primary-foreground mt-1 max-w-[280px]">
             {REASON_TEXT[media.reason]}
           </span>
         )}

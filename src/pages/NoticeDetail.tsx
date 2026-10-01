@@ -43,7 +43,7 @@ const NoticeDetail = () => {
           <p className="text-sm text-muted-foreground mb-6">
             The notice may have been removed or the link is incorrect.
           </p>
-          <Link to="/notices" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white font-semibold">
+          <Link to="/notices" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground font-semibold">
             <ArrowLeft className="w-4 h-4" /> Back to Notices
           </Link>
         </div>
@@ -112,19 +112,19 @@ const NoticeDetail = () => {
         {/* Eyebrow — editorial-style tag with diamond + rule, language-aware.
             Replaces the old rounded pill badges. */}
         <div className="flex items-center gap-3 mb-5 flex-wrap">
-          <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.32em] text-[hsl(20_74%_38%)]">
-            <span className="inline-block w-1.5 h-1.5 rotate-45 bg-[hsl(20_74%_38%)]" />
+          <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
+            <span className="inline-block w-1.5 h-1.5 rotate-45 bg-surface" />
             {titleLang === "ur" ? "سرکاری اطلاعات" : "Official Notice"}
           </span>
-          <span className="h-px w-20 bg-gradient-to-r from-[hsl(20_74%_38%)] to-transparent" />
+          <span className="h-px w-20 bg-gradient-to-r from-primary to-transparent" />
           {item.is_pinned && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-gradient-to-r from-[hsl(24_92%_46%)] to-[hsl(30_95%_55%)] text-[hsl(20_75%_20%)] shadow-sm ring-1 ring-[hsl(24_92%_46%)]/40">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-gradient-to-r from-primary to-accent text-primary shadow-sm ring-1 ring-accent">
               <Pin className="w-3 h-3" />
               {titleLang === "ur" ? "پن کردہ" : "Pinned"}
             </span>
           )}
           {item.is_urgent && (
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-[hsl(20_74%_38%)] text-[hsl(40_50%_97%)] shadow-sm ring-1 ring-[hsl(20_74%_38%)]/30">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-surface text-primary shadow-sm ring-1 ring-accent">
               <AlertCircle className="w-3 h-3" />
               {titleLang === "ur" ? "فوری" : "Urgent"}
             </span>
@@ -144,7 +144,7 @@ const NoticeDetail = () => {
         {/* Byline / meta bar */}
         <div className="flex items-center flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground pb-5 mb-6 border-b border-gold/30">
           {dateText && (
-            <span className="inline-flex items-center gap-1.5 font-display italic font-semibold text-[hsl(215_45%_28%)] text-[13px]" style={{ fontFamily: "var(--font-display)" }}>
+            <span className="inline-flex items-center gap-1.5 font-display italic font-semibold text-primary text-[13px]" style={{ fontFamily: "var(--font-display)" }}>
               <Calendar className="w-3.5 h-3.5" /> {dateText}
             </span>
           )}
@@ -184,19 +184,18 @@ const NoticeDetail = () => {
             {/* School seal — hexagonal gold-ringed frame around the actual logo */}
             <div
               className="relative w-20 h-20"
-              style={{ filter: "drop-shadow(0 4px 8px rgba(122,31,43,0.35))" }}
+              style={{ filter: "drop-shadow(0 4px 8px color-mix(in srgb, var(--primary-strong) 35%, transparent))" }}
             >
               <div
                 className="absolute inset-0"
                 style={{
-                  background:
-                    "linear-gradient(135deg, hsl(35 92% 48%) 0%, hsl(40 95% 65%) 50%, hsl(35 92% 48%) 100%)",
+                  background: "var(--gradient-hero)",
                   clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
                   WebkitClipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
                 }}
               >
                 <div
-                  className="absolute inset-[2px] bg-[hsl(38_45%_97%)] overflow-hidden flex items-center justify-center"
+                  className="absolute inset-[2px] bg-accent-soft overflow-hidden flex items-center justify-center"
                   style={{
                     clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
                     WebkitClipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
@@ -230,7 +229,7 @@ const NoticeDetail = () => {
               <span className="inline-block w-1.5 h-1.5 rotate-45 bg-gold/80" />
               <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gold/70" />
             </div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[hsl(20_74%_38%)]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-primary">
               {titleLang === "ur" ? "اطلاعیہ" : "Notice Dispatch"}
             </p>
           </div>
@@ -241,7 +240,7 @@ const NoticeDetail = () => {
             className={`prose prose-sm md:prose-lg max-w-none text-foreground whitespace-pre-wrap leading-relaxed ${
               contentLang === "ur"
                 ? "font-urdu"
-                : "first-letter:text-5xl first-letter:font-display first-letter:font-semibold first-letter:text-[hsl(20_74%_38%)] first-letter:mr-2 first-letter:float-left"
+                : "first-letter:text-5xl first-letter:font-display first-letter:font-semibold first-letter:text-primary first-letter:mr-2 first-letter:float-left"
             }`}
             style={contentLang === "ur" ? undefined : { fontFamily: "var(--font-body)" }}
             dir={contentDir}

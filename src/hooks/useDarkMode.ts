@@ -4,15 +4,15 @@ import { useTheme } from "./useTheme";
 /**
  * Compatibility wrapper around the unified theme system.
  * Default mode is "system" — dashboards follow the OS preference until the
- * user explicitly toggles. The toggle flips between the only two modes the
- * site ships: System (bright/follows device) and Dark.
+ * user explicitly toggles. The toggle flips between Bright and Dark, while
+ * resetToSchedule returns to the system preference.
  */
 export function useDarkMode() {
   const { theme, setTheme } = useTheme();
 
   const computeIsDark = () => {
-    // "lantern" always renders on the dark base, so dashboards treat it as dark.
-    if (theme === "dark" || theme === "lantern") return true;
+    if (theme === "dark") return true;
+    if (theme === "bright") return false;
     if (typeof window === "undefined") return false;
     return window.matchMedia("(prefers-color-scheme: dark)").matches;
   };
@@ -29,7 +29,7 @@ export function useDarkMode() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [theme]);
 
-  const toggle = () => setTheme(isDark ? "system" : "dark");
+  const toggle = () => setTheme(isDark ? "bright" : "dark");
   const resetToSchedule = () => setTheme("system");
 
   return { isDark, toggle, resetToSchedule };

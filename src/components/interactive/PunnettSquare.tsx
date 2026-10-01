@@ -181,7 +181,7 @@ export default function PunnettSquare({
             </div>
           </div>
         ) : (
-          <p className="text-xs text-amber-700 text-center">Enter single-letter alleles for both parents.</p>
+          <p className="text-xs text-primary text-center">Enter single-letter alleles for both parents.</p>
         )}
 
         {/* Results */}

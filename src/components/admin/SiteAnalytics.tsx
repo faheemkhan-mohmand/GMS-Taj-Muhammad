@@ -38,37 +38,31 @@ import {
 
 // ─── Chart color palette ────────────────────────────────────────────────────
 const COLORS = [
-  "hsl(221, 83%, 53%)",   // blue
-  "hsl(142, 71%, 45%)",   // emerald
-  "hsl(262, 83%, 58%)",   // violet
-  "hsl(38, 92%, 50%)",    // amber
-  "hsl(346, 77%, 50%)",   // rose
-  "hsl(199, 89%, 48%)",   // sky
-  "hsl(173, 80%, 40%)",   // teal
-  "hsl(24, 95%, 53%)",    // orange
+  "var(--primary)", "var(--accent)", "var(--primary-strong)", "var(--text-muted)",
+  "var(--primary)", "var(--accent)", "var(--primary-strong)", "var(--text-muted)",
 ];
 
 const DEVICE_COLORS: Record<string, string> = {
-  desktop: "hsl(221, 83%, 53%)",
-  mobile: "hsl(142, 71%, 45%)",
-  tablet: "hsl(262, 83%, 58%)",
-  unknown: "hsl(220, 9%, 46%)",
+  desktop: "var(--primary)",
+  mobile: "var(--accent)",
+  tablet: "var(--primary-strong)",
+  unknown: "var(--text-muted)",
 };
 
 const visitChartConfig: ChartConfig = {
-  visits: { label: "Page Views", color: "hsl(221, 83%, 53%)" },
-  uniqueVisitors: { label: "Unique Visitors", color: "hsl(142, 71%, 45%)" },
+  visits: { label: "Page Views", color: "var(--primary)" },
+  uniqueVisitors: { label: "Unique Visitors", color: "var(--primary)" },
 };
 
 const hourlyChartConfig: ChartConfig = {
-  visits: { label: "Visits", color: "hsl(262, 83%, 58%)" },
+  visits: { label: "Visits", color: "var(--primary)" },
 };
 
 const deviceChartConfig: ChartConfig = {
-  desktop: { label: "Desktop", color: "hsl(221, 83%, 53%)" },
-  mobile: { label: "Mobile", color: "hsl(142, 71%, 45%)" },
-  tablet: { label: "Tablet", color: "hsl(262, 83%, 58%)" },
-  unknown: { label: "Unknown", color: "hsl(220, 9%, 46%)" },
+  desktop: { label: "Desktop", color: "var(--primary)" },
+  mobile: { label: "Mobile", color: "var(--primary)" },
+  tablet: { label: "Tablet", color: "var(--primary)" },
+  unknown: { label: "Unknown", color: "var(--primary)" },
 };
 
 // ─── Period selector ────────────────────────────────────────────────────────
@@ -93,8 +87,8 @@ const ChangeBadge = ({ value, invert = false }: { value: number; invert?: boolea
   return (
     <span className={`inline-flex items-center gap-0.5 text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
       isPositive
-        ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400"
-        : "bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-400"
+        ? "bg-surface-raised text-primary bg-background/20 text-primary"
+        : "bg-surface-raised text-primary bg-background/20 text-primary"
     }`}>
       {isPositive ? <ArrowUpRight className="w-2.5 h-2.5" /> : <ArrowDownRight className="w-2.5 h-2.5" />}
       {Math.abs(value)}%
@@ -198,8 +192,8 @@ const SiteAnalytics = () => {
           </button>
         </div>
         <div className="bg-card border border-border rounded-2xl p-6 text-center">
-          <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
-            <AlertCircle className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+          <div className="w-12 h-12 rounded-full bg-accent-soft bg-accent-soft/20 flex items-center justify-center mx-auto mb-3">
+            <AlertCircle className="w-6 h-6 text-primary text-primary" />
           </div>
           <h4 className="text-sm font-bold text-foreground mb-1">Unable to load analytics</h4>
           <p className="text-xs text-muted-foreground mb-3">
@@ -248,8 +242,8 @@ const SiteAnalytics = () => {
           label="Total Page Views"
           value={data?.summary.totalVisits ?? 0}
           icon={Eye}
-          color="text-blue-600 dark:text-blue-400"
-          bgColor="bg-blue-100 dark:bg-blue-500/20"
+          color="text-primary text-primary"
+          bgColor="bg-surface-raised bg-background/20"
           change={data?.comparison.visitsChange}
           subtitle={`${data?.summary.avgDailyVisits ?? 0} avg/day`}
           isLoading={isLoading}
@@ -258,8 +252,8 @@ const SiteAnalytics = () => {
           label="Unique Visitors"
           value={data?.summary.uniqueVisitors ?? 0}
           icon={Users}
-          color="text-emerald-600 dark:text-emerald-400"
-          bgColor="bg-emerald-100 dark:bg-emerald-500/20"
+          color="text-primary text-primary"
+          bgColor="bg-surface-raised bg-background/20"
           change={data?.comparison.uniqueChange}
           subtitle={`${data?.summary.returningVisitors ?? 0} returning`}
           isLoading={isLoading}
@@ -268,8 +262,8 @@ const SiteAnalytics = () => {
           label="Bounce Rate"
           value={`${data?.summary.bounceRate ?? 0}%`}
           icon={Activity}
-          color="text-amber-600 dark:text-amber-400"
-          bgColor="bg-amber-100 dark:bg-amber-500/20"
+          color="text-primary text-primary"
+          bgColor="bg-accent-soft bg-accent-soft/20"
           change={data?.comparison.bounceChange}
           invertChange
           subtitle="lower is better"
@@ -279,8 +273,8 @@ const SiteAnalytics = () => {
           label="Avg Pages/Session"
           value={data?.summary.avgPagesPerSession ?? 0}
           icon={Layers}
-          color="text-violet-600 dark:text-violet-400"
-          bgColor="bg-violet-100 dark:bg-violet-500/20"
+          color="text-primary text-primary"
+          bgColor="bg-surface-raised bg-background/20"
           subtitle={`${data?.summary.uniqueUsers ?? 0} logged-in users`}
           isLoading={isLoading}
         />

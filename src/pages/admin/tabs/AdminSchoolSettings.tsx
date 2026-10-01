@@ -120,31 +120,31 @@ const ImageUploader = ({
               onClick={handleRemove}
               title={`Remove ${label}`}
               aria-label={`Remove ${label}`}
-              className="absolute top-1.5 right-1.5 bg-black/70 hover:bg-destructive text-white rounded-full p-1 shadow transition-colors"
+              className="absolute top-1.5 right-1.5 bg-background/70 hover:bg-destructive text-primary-foreground rounded-full p-1 shadow transition-colors"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
           {uploading && (
-            <div className="absolute inset-0 bg-black/40 rounded-lg flex flex-col items-center justify-center gap-2">
-              <Loader2 className={`w-6 h-6 text-white ${uploadProgress?.phase === 'processing' ? 'animate-pulse' : 'animate-spin'}`} />
+            <div className="absolute inset-0 bg-background/40 rounded-lg flex flex-col items-center justify-center gap-2">
+              <Loader2 className={`w-6 h-6 text-primary-foreground ${uploadProgress?.phase === 'processing' ? 'animate-pulse' : 'animate-spin'}`} />
               {uploadProgress ? (
                 <div className="w-3/4">
-                  <div className="bg-white/20 rounded-full h-2 overflow-hidden">
+                  <div className="bg-surface/20 rounded-full h-2 overflow-hidden">
                     <div className={`h-full rounded-full transition-all duration-300 ${
-                      uploadProgress.phase === 'processing' 
-                        ? 'bg-yellow-400 animate-pulse w-full' 
-                        : 'bg-white'
+                      uploadProgress.phase === 'processing'
+                        ? 'bg-accent animate-pulse w-full'
+                        : 'bg-surface'
                     }`}
                       style={{ width: `${uploadProgress.phase === 'processing' ? 100 : uploadProgress.percent}%` }} />
                   </div>
-                  <p className="text-white text-xs mt-1 text-center">
+                  <p className="text-primary-foreground text-xs mt-1 text-center">
                     {uploadProgress.phase === 'compressing' && 'Compressing image...'}
                     {uploadProgress.phase === 'uploading' && `${uploadProgress.percent}% • ${(uploadProgress.loaded/1024).toFixed(0)}/${(uploadProgress.total/1024).toFixed(0)} KB`}
                     {uploadProgress.phase === 'processing' && '⏳ Processing on Cloudinary...'}
                   </p>
                 </div>
-              ) : <p className="text-white text-xs">Preparing image...</p>}
+              ) : <p className="text-primary-foreground text-xs">Preparing image...</p>}
             </div>
           )}
         </div>

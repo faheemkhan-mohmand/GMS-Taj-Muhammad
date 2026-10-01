@@ -492,8 +492,8 @@ export default function AdminStudentRecords() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/30">
-            <Users className="w-6 h-6 text-emerald-700 dark:text-emerald-400" />
+          <div className="p-2.5 rounded-xl bg-surface-raised bg-primary-strong/30">
+            <Users className="w-6 h-6 text-primary text-primary" />
           </div>
           <div>
             <h1 className="text-xl font-bold">Student Records</h1>
@@ -522,7 +522,7 @@ export default function AdminStudentRecords() {
           </Button>
           <Button
             variant="outline"
-            className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
+            className="text-primary border-border hover:bg-background hover:text-primary"
             onClick={() => setDeleteAllOpen(true)}
           >
             <ShieldAlert className="w-4 h-4 mr-2" /> Delete All
@@ -595,7 +595,7 @@ export default function AdminStudentRecords() {
                     <td className="py-2.5 pr-3">{r.admitted_class || "—"}</td>
                     <td className="py-2.5 pr-3">{r.left_date || "—"}</td>
                     <td className="py-2.5 pr-3">
-                      <Badge className={r.status === "enrolled" ? "bg-green-100 text-green-800" : "bg-orange-100 text-orange-800"}>
+                      <Badge className={r.status === "enrolled" ? "bg-surface-raised text-primary" : "bg-accent-soft text-primary"}>
                         {r.status === "enrolled" ? "Enrolled" : "Withdrawn"}
                       </Badge>
                     </td>
@@ -604,7 +604,7 @@ export default function AdminStudentRecords() {
                         <Button size="icon" variant="ghost" onClick={() => openEdit(r)}>
                           <Pencil className="w-4 h-4" />
                         </Button>
-                        <Button size="icon" variant="ghost" className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        <Button size="icon" variant="ghost" className="text-primary hover:text-primary hover:bg-background"
                           onClick={() => setDeleteTarget(r)}>
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -718,7 +718,7 @@ export default function AdminStudentRecords() {
       <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2 text-red-600">
+            <AlertDialogTitle className="flex items-center gap-2 text-primary">
               <AlertTriangle className="w-5 h-5" /> Delete this record?
             </AlertDialogTitle>
             <AlertDialogDescription>
@@ -729,7 +729,7 @@ export default function AdminStudentRecords() {
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-red-600 hover:bg-red-700" onClick={handleDelete}>
+            <AlertDialogAction className="bg-primary hover:bg-primary" onClick={handleDelete}>
               Yes, Delete
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -741,7 +741,7 @@ export default function AdminStudentRecords() {
       <AlertDialog open={deleteAllOpen} onOpenChange={(open) => { if (!open) { setDeleteAllOpen(false); setDeleteAllConfirmText(""); } }}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2 text-red-600">
+            <AlertDialogTitle className="flex items-center gap-2 text-primary">
               <ShieldAlert className="w-5 h-5" /> Delete ALL student records?
             </AlertDialogTitle>
             <AlertDialogDescription>
@@ -763,7 +763,7 @@ export default function AdminStudentRecords() {
           <AlertDialogFooter>
             <AlertDialogCancel onClick={() => setDeleteAllConfirmText("")}>Cancel</AlertDialogCancel>
             <AlertDialogAction
-              className="bg-red-600 hover:bg-red-700 disabled:opacity-50"
+              className="bg-primary hover:bg-primary disabled:opacity-50"
               disabled={deleteAllConfirmText !== "DELETE ALL" || deleteAllMutation.isPending}
               onClick={handleDeleteAll}
             >

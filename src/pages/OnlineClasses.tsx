@@ -77,22 +77,22 @@ export default function OnlineClasses() {
       <div className="min-h-screen bg-background">
 
         {/* ── Hero — centered, professional ────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(var(--primary-dark))] via-primary to-[hsl(var(--primary-light))] px-4 pt-10 pb-11">
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary via-primary to-primary px-4 pt-10 pb-11">
           {/* Soft decorative glows */}
-          <div className="absolute -top-20 -left-16 w-52 h-52 rounded-full bg-white/10 blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-12 w-60 h-60 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+          <div className="absolute -top-20 -left-16 w-52 h-52 rounded-full bg-surface/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -right-12 w-60 h-60 rounded-full bg-surface/10 blur-3xl pointer-events-none" />
 
           <div className="relative max-w-2xl mx-auto text-center">
             {/* Badge — centered */}
-            <div className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-white/95 text-xs font-semibold mb-4 border border-white/25 shadow-sm">
+            <div className="inline-flex items-center gap-1.5 bg-surface/15 backdrop-blur-sm px-4 py-1.5 rounded-full text-primary-foreground text-xs font-semibold mb-4 border border-border/25 shadow-sm">
               <Sparkles className="w-3.5 h-3.5" />
               GMS Taj Muhammad · Live Online Classes
             </div>
 
-            <h1 className="font-heading font-extrabold text-white text-3xl sm:text-4xl leading-tight mb-3">
+            <h1 className="font-heading font-extrabold text-primary-foreground text-3xl sm:text-4xl leading-tight mb-3">
               Learn From Anywhere
             </h1>
-            <p className="text-white/80 text-sm leading-relaxed max-w-md mx-auto mb-5">
+            <p className="text-primary-foreground text-sm leading-relaxed max-w-md mx-auto mb-5">
               Join live classes right in your browser — no app install needed. Access recordings, homework, and notes in one place.
             </p>
 
@@ -100,11 +100,11 @@ export default function OnlineClasses() {
             {liveClasses.length > 0 && (
               <button
                 onClick={() => setTab("today")}
-                className="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-red-500/30 transition-colors"
+                className="inline-flex items-center gap-2 bg-background hover:bg-primary text-primary-foreground px-4 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-red-500/30 transition-colors"
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-surface opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-surface" />
                 </span>
                 {liveClasses.length} Class{liveClasses.length > 1 ? "es" : ""} Live Now!
                 <ChevronRight className="w-3.5 h-3.5" />
@@ -117,10 +117,10 @@ export default function OnlineClasses() {
         <section className="bg-background border-b border-border px-4 py-5">
           <div className="max-w-3xl mx-auto grid grid-cols-4 divide-x divide-border rounded-2xl border border-border bg-card shadow-sm overflow-hidden">
             {[
-              { icon: Wifi,       label: "Live",      value: liveClasses.length,      chip: "bg-red-500/10 text-red-500"         },
-              { icon: Calendar,   label: "Today",     value: todayClasses.length,     chip: "bg-blue-500/10 text-blue-500"       },
+              { icon: Wifi,       label: "Live",      value: liveClasses.length,      chip: "bg-background/10 text-primary"         },
+              { icon: Calendar,   label: "Today",     value: todayClasses.length,     chip: "bg-background/10 text-primary"       },
               { icon: Clock,      label: "Upcoming",  value: upcomingClasses.length,  chip: "bg-primary/10 text-primary"         },
-              { icon: TrendingUp, label: "Completed", value: completedClasses.length, chip: "bg-emerald-500/10 text-emerald-500" },
+              { icon: TrendingUp, label: "Completed", value: completedClasses.length, chip: "bg-background/10 text-primary" },
             ].map((s) => (
               <div key={s.label} className="py-4 text-center">
                 <div className={`w-8 h-8 rounded-full mx-auto mb-1.5 flex items-center justify-center ${s.chip}`}>
@@ -181,7 +181,7 @@ export default function OnlineClasses() {
               >
                 {t.label}
                 <span className={`px-1 py-0.5 rounded-full text-[10px] font-bold ${
-                  tab === t.key ? "bg-primary text-white" : "bg-secondary text-muted-foreground"
+                  tab === t.key ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
                 }`}>
                   {t.count}
                 </span>
@@ -231,7 +231,7 @@ export default function OnlineClasses() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
+            className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
             onClick={() => setActiveLiveClass(null)}
           >
             <motion.div
@@ -270,13 +270,13 @@ export default function OnlineClasses() {
                     displayName={profile?.full_name || user?.email || "Guest Student"}
                     isTeacher={profile?.role === "admin"}
                     classId={activeLiveClass.id}
-                    subjectColor="#3b82f6"
+                    subjectColor="var(--primary)"
                   />
                 </Suspense>
 
                 {/* Sign-in prompt for guests */}
                 {!user && (
-                  <div className="mt-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-xl p-3 text-xs text-amber-700 dark:text-amber-300">
+                  <div className="mt-3 bg-accent-soft bg-accent/20 border border-border border-accent rounded-xl p-3 text-xs text-primary text-primary">
                     💡 Sign in to participate in polls, raise your hand, and react. As a guest you can watch only.
                     {/* SPA link (NOT <a href>) — plain anchors reloaded the
                         whole page just to reach the sign-in form. */}

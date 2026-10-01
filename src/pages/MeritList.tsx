@@ -65,11 +65,11 @@ interface PublishedMeritList {
 
 // Visual theme presets — match the admin's publish-time pick
 const ML_THEME_PRESETS: Record<string, { from: string; to: string; softBg: string; accentText: string }> = {
-  gold:    { from: "from-orange-500",  to: "to-amber-600",    softBg: "bg-orange-500/10",  accentText: "text-orange-600 dark:text-orange-300"  },
-  royal:   { from: "from-blue-600",    to: "to-indigo-700",   softBg: "bg-blue-500/10",    accentText: "text-blue-600 dark:text-blue-300"     },
-  emerald: { from: "from-teal-500",    to: "to-teal-700",     softBg: "bg-teal-500/10",    accentText: "text-teal-600 dark:text-teal-300"      },
-  rose:    { from: "from-rose-500",    to: "to-pink-700",     softBg: "bg-rose-500/10",    accentText: "text-rose-600 dark:text-rose-300"     },
-  violet:  { from: "from-violet-500",  to: "to-purple-700",   softBg: "bg-violet-500/10",  accentText: "text-violet-600 dark:text-violet-300" },
+  gold:    { from: "from-accent",  to: "to-accent",    softBg: "bg-accent-soft/10",  accentText: "text-primary text-primary"  },
+  royal:   { from: "from-primary",    to: "to-primary",   softBg: "bg-background/10",    accentText: "text-primary text-primary"     },
+  emerald: { from: "from-primary",    to: "to-primary",     softBg: "bg-background/10",    accentText: "text-primary text-primary"      },
+  rose:    { from: "from-accent",    to: "to-accent",     softBg: "bg-accent-soft/10",    accentText: "text-primary text-primary"     },
+  violet:  { from: "from-primary",  to: "to-primary",   softBg: "bg-background/10",  accentText: "text-primary text-primary" },
 };
 function getMlTheme(id?: string | null) {
   return ML_THEME_PRESETS[id || "gold"] || ML_THEME_PRESETS.gold;
@@ -258,24 +258,24 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
     <svg viewBox="0 0 64 64" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="clockFace" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FFFDF5" />
-          <stop offset="100%" stopColor="#F3E9C7" />
+          <stop offset="0%" stopColor="var(--surface)" />
+          <stop offset="100%" stopColor="var(--accent-soft)" />
         </linearGradient>
         <linearGradient id="clockRim" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#F4C550" />
-          <stop offset="100%" stopColor="#C6912A" />
+          <stop offset="0%" stopColor="var(--accent)" />
+          <stop offset="100%" stopColor="var(--accent)" />
         </linearGradient>
       </defs>
       {/* Bells */}
       <circle cx="16" cy="10" r="5.5" fill="url(#clockRim)" />
       <circle cx="48" cy="10" r="5.5" fill="url(#clockRim)" />
       {/* Legs */}
-      <rect x="22" y="52" width="4.5" height="8" rx="2" fill="#8A6416" />
-      <rect x="37.5" y="52" width="4.5" height="8" rx="2" fill="#8A6416" />
+      <rect x="22" y="52" width="4.5" height="8" rx="2" fill="var(--primary-strong)" />
+      <rect x="37.5" y="52" width="4.5" height="8" rx="2" fill="var(--primary-strong)" />
       {/* Outer rim */}
       <circle cx="32" cy="34" r="24" fill="url(#clockRim)" />
       {/* Face */}
-      <circle cx="32" cy="34" r="19.5" fill="url(#clockFace)" stroke="#C6912A" strokeWidth="1.5" />
+      <circle cx="32" cy="34" r="19.5" fill="url(#clockFace)" stroke="var(--accent)" strokeWidth="1.5" />
       {/* Tick marks */}
       {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i * 30 * Math.PI) / 180;
@@ -284,15 +284,15 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
         const x2 = 32 + Math.sin(angle) * 14;
         const y2 = 34 - Math.cos(angle) * 14;
         return (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#B08628" strokeWidth={i % 3 === 0 ? 1.4 : 0.8} strokeLinecap="round" />
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--accent)" strokeWidth={i % 3 === 0 ? 1.4 : 0.8} strokeLinecap="round" />
         );
       })}
       {/* Hands — rotate live with the actual countdown remaining */}
-      <line x1="32" y1="34" x2={hourHand.x2} y2={hourHand.y2} stroke="#3F2E10" strokeWidth="2.2" strokeLinecap="round" />
-      <line x1="32" y1="34" x2={minHand.x2} y2={minHand.y2} stroke="#3F2E10" strokeWidth="2.2" strokeLinecap="round" />
-      <line x1="32" y1="34" x2={secHand.x2} y2={secHand.y2} stroke="#D64545" strokeWidth="1.3" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={hourHand.x2} y2={hourHand.y2} stroke="var(--text-primary)" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={minHand.x2} y2={minHand.y2} stroke="var(--text-primary)" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={secHand.x2} y2={secHand.y2} stroke="var(--primary)" strokeWidth="1.3" strokeLinecap="round" />
       {/* Center pin */}
-      <circle cx="32" cy="34" r="2.2" fill="#3F2E10" />
+      <circle cx="32" cy="34" r="2.2" fill="var(--text-primary)" />
     </svg>
   );
 }
@@ -301,10 +301,10 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
 function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex items-baseline gap-0.5">
-      <span className="text-4xl md:text-5xl font-black tabular-nums text-red-600 dark:text-red-400 leading-none">
+      <span className="text-4xl md:text-5xl font-black tabular-nums text-primary text-primary leading-none">
         {String(Math.max(0, value)).padStart(2, "0")}
       </span>
-      <span className="text-base md:text-lg font-bold text-red-600/70 dark:text-red-400/70 lowercase">
+      <span className="text-base md:text-lg font-bold text-primary text-primary lowercase">
         {label}
       </span>
     </div>
@@ -334,25 +334,25 @@ function MeritStatCard({ icon: Icon, label, value, sub, tile }: {
 // ─── Top-3 podium — the showpiece ────────────────────────────────────────────
 const PODIUM_STYLES = [
   { // 2nd — silver
-    ring: "from-slate-300 to-slate-500 dark:from-slate-400 dark:to-slate-600",
-    column: "from-slate-300 to-slate-400 dark:from-slate-500 dark:to-slate-700",
+    ring: "from-primary to-primary from-primary to-primary",
+    column: "from-primary to-primary from-primary to-primary",
     nameColor: "text-foreground",
-    pctColor: "text-slate-600 dark:text-slate-300",
-    badge: "bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-100",
+    pctColor: "text-muted text-muted",
+    badge: "bg-surface-raised text-primary bg-primary-strong text-muted",
   },
   { // 1st — gold
-    ring: "from-amber-400 to-yellow-600 dark:from-amber-400 dark:to-yellow-500",
-    column: "from-amber-400 to-yellow-500 dark:from-amber-500 dark:to-yellow-600",
-    nameColor: "text-amber-700 dark:text-amber-300",
-    pctColor: "text-amber-600 dark:text-amber-300",
-    badge: "bg-amber-100 text-amber-800 dark:bg-amber-400/20 dark:text-amber-200",
+    ring: "from-accent to-accent from-accent to-accent",
+    column: "from-accent to-accent from-accent to-accent",
+    nameColor: "text-primary text-primary",
+    pctColor: "text-primary text-primary",
+    badge: "bg-accent-soft text-primary bg-accent/20 text-primary",
   },
   { // 3rd — bronze
-    ring: "from-orange-400 to-amber-700 dark:from-orange-500 dark:to-amber-700",
-    column: "from-orange-400 to-amber-600 dark:from-orange-600 dark:to-amber-800",
+    ring: "from-accent to-accent from-accent to-accent",
+    column: "from-accent to-accent from-accent to-accent",
     nameColor: "text-foreground",
-    pctColor: "text-orange-600 dark:text-orange-300",
-    badge: "bg-orange-100 text-orange-800 dark:bg-orange-500/20 dark:text-orange-200",
+    pctColor: "text-primary text-primary",
+    badge: "bg-accent-soft text-primary bg-accent-soft/20 text-primary",
   },
 ];
 
@@ -376,7 +376,7 @@ function PodiumItem({ entry, rank, style, heightClass, showClass, delay }: {
       {/* Avatar with medal ring */}
       <div className="relative mb-2 sm:mb-3 mt-3 sm:mt-4">
         {isFirst && (
-          <Crown className="absolute -top-4 sm:-top-6 left-1/2 -translate-x-1/2 w-3.5 h-3.5 sm:w-6 sm:h-6 text-gold" fill="currentColor" />
+          <Crown className="absolute -top-4 sm:-top-6 left-1/2 -translate-x-1/2 w-3.5 h-3.5 sm:w-6 sm:h-6 text-primary" fill="currentColor" />
         )}
         <div className={`relative ${isFirst ? "w-14 h-14 sm:w-24 sm:h-24" : "w-11 h-11 sm:w-20 sm:h-20"} rounded-full p-[2px] sm:p-[3px] bg-gradient-to-br ${style.ring} shadow-elevated`}>
           {entry.photo_url && !imgError ? (
@@ -409,7 +409,7 @@ function PodiumItem({ entry, rank, style, heightClass, showClass, delay }: {
 
       {/* Podium column */}
       <div className={`mt-2 sm:mt-3 w-full ${heightClass} rounded-t-2xl bg-gradient-to-b ${style.column} flex items-start justify-center pt-1.5 sm:pt-2 shadow-card`}>
-        <span className="text-white font-black text-base sm:text-3xl leading-none drop-shadow-sm">{rank}</span>
+        <span className="text-primary-foreground font-black text-base sm:text-3xl leading-none drop-shadow-sm">{rank}</span>
       </div>
     </motion.div>
   );
@@ -452,7 +452,7 @@ function Top3Podium({ entries, showClass, onShareTop3, sharingTop3, hiddenState 
             disabled={sharingTop3}
             aria-label="Share the Top 3 Achievers"
             title="Share Top 3 Achievers — beautiful card + website link"
-            className="shrink-0 inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-2.5 sm:px-3.5 py-1.5 text-[10px] sm:text-[12px] font-bold text-amber-700 dark:text-amber-300 hover:bg-gold/20 active:scale-95 transition-all disabled:opacity-60 cursor-pointer"
+            className="shrink-0 inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-2.5 sm:px-3.5 py-1.5 text-[10px] sm:text-[12px] font-bold text-primary text-primary hover:bg-gold/20 active:scale-95 transition-all disabled:opacity-60 cursor-pointer"
           >
             {sharingTop3 ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Share2 className="w-3.5 h-3.5" />}
             <span className="hidden xs:inline sm:inline">Share</span>
@@ -477,7 +477,7 @@ function Top3Podium({ entries, showClass, onShareTop3, sharingTop3, hiddenState 
                 <p className="text-[9.5px] sm:text-sm font-bold text-muted-foreground/70 leading-tight">—</p>
                 <p className="text-[9px] sm:text-[10px] text-muted-foreground/50 font-mono mt-0.5">—</p>
                 <div className={`mt-2 sm:mt-3 w-full ${o.height} rounded-t-2xl bg-gradient-to-b ${PODIUM_STYLES[o.rank - 1].column} opacity-70 flex items-start justify-center pt-1.5 sm:pt-2 shadow-card`}>
-                  <span className="text-white font-black text-base sm:text-3xl leading-none drop-shadow-sm">{o.rank}</span>
+                  <span className="text-primary-foreground font-black text-base sm:text-3xl leading-none drop-shadow-sm">{o.rank}</span>
                 </div>
               </div>
             ))}
@@ -681,7 +681,7 @@ const MeritListPage = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-white/10 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-gold"
+            className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-surface/10 px-3 py-1 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-primary"
           >
             <Trophy className="w-3 h-3" />
             Official Rankings
@@ -693,7 +693,7 @@ const MeritListPage = () => {
             transition={{ delay: 0.1, duration: 0.55 }}
             className="mt-3 text-2xl md:text-4xl font-display font-semibold leading-[1.1] text-on-hero"
           >
-            The <span className="italic text-gold">Merit List.</span>
+            The <span className="italic text-primary">Merit List.</span>
           </motion.h1>
 
           <motion.p
@@ -712,15 +712,15 @@ const MeritListPage = () => {
             transition={{ delay: 0.32, duration: 0.55 }}
             className="mt-4 flex flex-wrap items-center justify-center gap-2"
           >
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
-              <ShieldCheck className="w-3 h-3 text-gold" /> Official Verified
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/10 border border-border/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
+              <ShieldCheck className="w-3 h-3 text-primary" /> Official Verified
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
-              <CalendarDays className="w-3 h-3 text-gold" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/10 border border-border/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
+              <CalendarDays className="w-3 h-3 text-primary" />
               {liveLists.length} live · {scheduledLists.length} upcoming
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 border border-white/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
-              <Award className="w-3 h-3 text-gold" /> Est. 2010
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/10 border border-border/15 px-3 py-1.5 text-[11px] sm:text-xs font-medium text-on-hero">
+              <Award className="w-3 h-3 text-primary" /> Est. 2010
             </span>
           </motion.div>
         </div>
@@ -763,7 +763,7 @@ const MeritListPage = () => {
               {liveLists.length > 1 && (
                 <motion.div variants={fadeUp} initial="hidden" animate="visible" className="space-y-3">
                   <p className="text-xs font-bold text-muted-foreground uppercase tracking-[0.16em] flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> Live Now — choose a list
+                    <CheckCircle2 className="w-3.5 h-3.5 text-primary" /> Live Now — choose a list
                   </p>
                   <div className="flex gap-2.5 overflow-x-auto scrollbar-hide pb-1 -mx-1 px-1">
                     {liveLists.map((ml) => {
@@ -779,7 +779,7 @@ const MeritListPage = () => {
                               : "border-border bg-card hover:border-gold/40"
                           }`}
                         >
-                          <span className={`w-8 h-8 rounded-full bg-gradient-to-br ${mlTheme.from} ${mlTheme.to} text-white flex items-center justify-center shrink-0`}>
+                          <span className={`w-8 h-8 rounded-full bg-gradient-to-br ${mlTheme.from} ${mlTheme.to} text-primary-foreground flex items-center justify-center shrink-0`}>
                             {ml.scope === "school" ? <School className="w-4 h-4" /> : ml.scope === "school-bise" ? <Trophy className="w-4 h-4" /> : <BookOpen className="w-4 h-4" />}
                           </span>
                           <span className="text-xs font-bold text-foreground whitespace-nowrap">
@@ -803,22 +803,22 @@ const MeritListPage = () => {
                       initial={{ opacity: 0, y: 18 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.45 }}
-                      className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${theme.from} ${theme.to} px-4 py-4 sm:px-6 sm:py-7 text-white shadow-elevated`}
+                      className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${theme.from} ${theme.to} px-4 py-4 sm:px-6 sm:py-7 text-primary-foreground shadow-elevated`}
                     >
-                      <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-white/10 -translate-y-14 translate-x-14" />
-                      <div className="absolute bottom-0 left-0 w-28 h-28 rounded-full bg-white/5 translate-y-8 -translate-x-8" />
+                      <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-surface/10 -translate-y-14 translate-x-14" />
+                      <div className="absolute bottom-0 left-0 w-28 h-28 rounded-full bg-surface/5 translate-y-8 -translate-x-8" />
                       <div className="relative flex items-start gap-2.5 sm:gap-4 flex-wrap">
-                        <span className="w-9 h-9 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/20 flex items-center justify-center shrink-0 shadow-card">
+                        <span className="w-9 h-9 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-surface/20 flex items-center justify-center shrink-0 shadow-card">
                           <Trophy className="w-4 h-4 sm:w-7 sm:h-7" />
                         </span>
                         <div className="min-w-0 flex-1">
                           <h2 className="text-sm sm:text-2xl font-heading font-black leading-tight">{listTitle(selectedList)}</h2>
-                          <p className="text-[11px] sm:text-sm text-white/85 mt-0.5 sm:mt-1">
+                          <p className="text-[11px] sm:text-sm text-primary-foreground mt-0.5 sm:mt-1">
                             {listMeta(selectedList)} · {stats.total} students
                           </p>
                         </div>
-                        <span className="inline-flex items-center gap-1.5 text-[9px] sm:text-[11px] font-bold bg-white/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
-                          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" /> LIVE
+                        <span className="inline-flex items-center gap-1.5 text-[9px] sm:text-[11px] font-bold bg-surface/20 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
+                          <span className="w-1.5 h-1.5 rounded-full bg-surface animate-pulse" /> LIVE
                         </span>
                       </div>
                     </motion.div>
@@ -828,14 +828,14 @@ const MeritListPage = () => {
                       <motion.div variants={fadeUp} initial="hidden" animate="visible"
                         className="grid grid-cols-2 lg:grid-cols-4 gap-3">
                         <MeritStatCard icon={Users} label="Total Students" value={stats.total}
-                          tile="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300" />
+                          tile="bg-surface-raised bg-primary-strong/40 text-primary text-primary" />
                         <MeritStatCard icon={CheckCircle2} label="Pass Rate" value={`${stats.passRate}%`}
                           sub={`${stats.passing} passed`}
-                          tile="bg-teal-100 dark:bg-teal-900/40 text-teal-600 dark:text-teal-300" />
+                          tile="bg-surface-raised bg-primary-strong/40 text-primary text-primary" />
                         <MeritStatCard icon={TrendingUp} label="Highest %" value={stats.highest != null ? `${stats.highest.toFixed(1)}%` : "—"}
-                          tile="bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300" />
+                          tile="bg-accent-soft bg-accent/40 text-primary text-primary" />
                         <MeritStatCard icon={Target} label="Average %" value={`${stats.avg}%`}
-                          tile="bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-300" />
+                          tile="bg-surface-raised bg-primary-strong/40 text-primary text-primary" />
                       </motion.div>
                     )}
 
@@ -881,10 +881,10 @@ const MeritListPage = () => {
 
                         {/* Ranked table */}
                         <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-elevated">
-                          <div className={`bg-gradient-to-r ${theme.from} ${theme.to} text-white px-5 py-4 flex items-center justify-between gap-3`}>
+                          <div className={`bg-gradient-to-r ${theme.from} ${theme.to} text-primary-foreground px-5 py-4 flex items-center justify-between gap-3`}>
                             <div className="min-w-0">
                               <h3 className="font-bold text-sm truncate">{listTitle(selectedList)}</h3>
-                              <p className="text-xs text-white/80 mt-0.5">Official rankings · {stats.total} students</p>
+                              <p className="text-xs text-primary-foreground mt-0.5">Official rankings · {stats.total} students</p>
                             </div>
                             <Sparkles className="w-5 h-5 shrink-0" />
                           </div>
@@ -952,9 +952,9 @@ const MeritListPage = () => {
                                       key={`${e.student_id}-${idx}`}
                                       className={`border-b border-border/50 transition-colors ${
                                         isTop3
-                                          ? idx === 0 ? "bg-amber-50/70 dark:bg-amber-500/10"
-                                          : idx === 1 ? "bg-slate-50 dark:bg-slate-500/10"
-                                          : "bg-orange-50/70 dark:bg-orange-500/10"
+                                          ? idx === 0 ? "bg-accent-soft/70 bg-accent-soft/10"
+                                          : idx === 1 ? "bg-background bg-background/10"
+                                          : "bg-accent-soft/70 bg-accent-soft/10"
                                           : "hover:bg-muted/30"
                                       }`}
                                     >
@@ -962,9 +962,9 @@ const MeritListPage = () => {
                                         <span
                                           className={`inline-flex items-center justify-center w-9 h-9 rounded-full text-xs font-black shadow-sm ${
                                             isTop3
-                                              ? idx === 0 ? "bg-gradient-to-br from-amber-400 to-yellow-500 text-white"
-                                              : idx === 1 ? "bg-gradient-to-br from-slate-300 to-slate-500 text-white"
-                                              : "bg-gradient-to-br from-orange-400 to-amber-600 text-white"
+                                              ? idx === 0 ? "bg-gradient-to-br from-accent to-accent text-primary-foreground"
+                                              : idx === 1 ? "bg-gradient-to-br from-primary to-primary text-primary-foreground"
+                                              : "bg-gradient-to-br from-accent to-accent text-primary-foreground"
                                               : "bg-muted text-muted-foreground font-bold"
                                           }`}
                                         >
@@ -1036,7 +1036,7 @@ const MeritListPage = () => {
                                   o'clock"). The digits below still show the
                                   remaining duration. */}
                               <span className="w-16 h-16 mx-auto mb-5 flex items-center justify-center"><RealisticClockIcon className="w-14 h-14" hours={now.getHours()} minutes={now.getMinutes()} seconds={now.getSeconds()} /></span>
-                              <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-orange-600 dark:text-orange-400 mb-2">
+                              <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-primary text-primary mb-2">
                                 Time Remaining
                               </p>
                               <div className="flex justify-center items-baseline gap-3 flex-wrap mb-3">

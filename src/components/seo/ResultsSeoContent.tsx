@@ -206,7 +206,7 @@ const ResultsSeoContent = () => {
             <strong> SSC Result</strong> (9th and 10th class / Matric), the
             <strong> HSSC Result</strong> (11th and 12th class / Intermediate), and both
             <strong> Annual-I and Annual-II</strong> examination sessions. The result is fetched live
-            from the official BISEP portal (<a href={BISEP_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 underline font-medium hover:opacity-80 inline-flex items-center gap-1 align-baseline">cloud.bisep.edu.pk<ExternalLink className="w-3 h-3" /></a>)
+            from the official BISEP portal (<a href={BISEP_PORTAL_URL} target="_blank" rel="noopener noreferrer" className="text-primary text-primary underline font-medium hover:opacity-80 inline-flex items-center gap-1 align-baseline">cloud.bisep.edu.pk<ExternalLink className="w-3 h-3" /></a>)
             through a cached server-side proxy, so it is always accurate, fast and works even when the
             board's own website is overloaded on result day.
           </p>
@@ -229,7 +229,7 @@ const ResultsSeoContent = () => {
             and school-internal annual exams for Classes 6, 7 and 8 at GMS Taj Muhammad — use the same
             search box above with your school exam roll number. You can also download your detailed
             subject-wise result card from the{" "}
-            <Link to="/result-card" className="text-blue-600 dark:text-blue-400 underline font-medium hover:opacity-80">Result Card</Link>{" "}
+            <Link to="/result-card" className="text-primary text-primary underline font-medium hover:opacity-80">Result Card</Link>{" "}
             page once your school result is published by the admin office.
           </p>
         </div>
@@ -237,7 +237,7 @@ const ResultsSeoContent = () => {
         {/* ── Result types covered (also fed into ItemList JSON-LD) ── */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <FileText className="w-5 h-5 text-primary text-primary" />
             <h2 className="text-xl sm:text-2xl font-heading font-bold">
               Result Types Covered — BISE Peshawar (BISEP)
             </h2>
@@ -256,7 +256,7 @@ const ResultsSeoContent = () => {
                 className="bg-card border border-border rounded-2xl p-4 shadow-card hover:shadow-elevated transition-shadow"
               >
                 <div className="flex items-start gap-3">
-                  <span className="shrink-0 inline-flex items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-500/30 px-2 py-1 text-[11px] font-mono font-bold text-blue-700 dark:text-blue-300 tracking-wider">
+                  <span className="shrink-0 inline-flex items-center justify-center rounded-lg bg-background bg-primary-strong/40 border border-border border-border/30 px-2 py-1 text-[11px] font-mono font-bold text-primary text-primary tracking-wider">
                     {rt.code}
                   </span>
                   <div>
@@ -274,7 +274,7 @@ const ResultsSeoContent = () => {
         {/* ── How to check your BISEP result (HowTo) ── */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Search className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <Search className="w-5 h-5 text-primary text-primary" />
             <h2 className="text-xl sm:text-2xl font-heading font-bold">
               How to Check Your BISE Peshawar Result by Roll Number
             </h2>
@@ -292,7 +292,7 @@ const ResultsSeoContent = () => {
               >
                 <span
                   aria-hidden="true"
-                  className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-600 text-white text-xs font-bold font-mono"
+                  className="shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold font-mono"
                 >
                   {i + 1}
                 </span>
@@ -310,7 +310,7 @@ const ResultsSeoContent = () => {
         {/* ── FAQ accordion (also fed into FAQPage JSON-LD) ── */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <GraduationCap className="w-5 h-5 text-primary text-primary" />
             <h2 className="text-xl sm:text-2xl font-heading font-bold">
               BISE Peshawar Result — Frequently Asked Questions
             </h2>
@@ -337,7 +337,7 @@ const ResultsSeoContent = () => {
         {/* ── Internal links (pass PageRank to related pages) ── */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <Trophy className="w-5 h-5 text-primary text-primary" />
             <h2 className="text-xl sm:text-2xl font-heading font-bold">
               Related Resources for GMS Taj Muhammad Students
             </h2>
@@ -352,9 +352,9 @@ const ResultsSeoContent = () => {
               to="/result-card"
               className="group bg-card border border-border rounded-2xl p-4 shadow-card hover:shadow-elevated transition-shadow flex items-start gap-3"
             >
-              <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <FileText className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-heading font-semibold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                <h3 className="font-heading font-semibold text-foreground group-hover:text-primary group-hover:text-primary transition-colors leading-snug">
                   Detailed Result Card (DMC)
                 </h3>
                 <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -367,9 +367,9 @@ const ResultsSeoContent = () => {
               to="/calendar"
               className="group bg-card border border-border rounded-2xl p-4 shadow-card hover:shadow-elevated transition-shadow flex items-start gap-3"
             >
-              <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <GraduationCap className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-heading font-semibold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                <h3 className="font-heading font-semibold text-foreground group-hover:text-primary group-hover:text-primary transition-colors leading-snug">
                   Exam Schedule &amp; Calendar
                 </h3>
                 <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -382,9 +382,9 @@ const ResultsSeoContent = () => {
               to="/notes"
               className="group bg-card border border-border rounded-2xl p-4 shadow-card hover:shadow-elevated transition-shadow flex items-start gap-3"
             >
-              <FileText className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <FileText className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-heading font-semibold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                <h3 className="font-heading font-semibold text-foreground group-hover:text-primary group-hover:text-primary transition-colors leading-snug">
                   Subject-wise Study Notes
                 </h3>
                 <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -397,9 +397,9 @@ const ResultsSeoContent = () => {
               to="/admission"
               className="group bg-card border border-border rounded-2xl p-4 shadow-card hover:shadow-elevated transition-shadow flex items-start gap-3"
             >
-              <GraduationCap className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <GraduationCap className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
               <div>
-                <h3 className="font-heading font-semibold text-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                <h3 className="font-heading font-semibold text-foreground group-hover:text-primary group-hover:text-primary transition-colors leading-snug">
                   Admissions Open — Apply Online
                 </h3>
                 <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
@@ -412,11 +412,11 @@ const ResultsSeoContent = () => {
         </div>
 
         {/* ── Authority statement (signals E-E-A-T to Google) ── */}
-        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-500/30 rounded-2xl p-5">
-          <h2 className="text-base sm:text-lg font-heading font-bold text-blue-900 dark:text-blue-200 mb-2">
+        <div className="bg-background bg-primary-strong/20 border border-border border-border/30 rounded-2xl p-5">
+          <h2 className="text-base sm:text-lg font-heading font-bold text-primary text-primary mb-2">
             About This Result Portal
           </h2>
-          <p className="text-sm text-blue-800 dark:text-blue-300 leading-relaxed">
+          <p className="text-sm text-primary text-primary leading-relaxed">
             This BISE Peshawar Result search portal is maintained by{" "}
             <strong>Government Middle School Taj Muhammad</strong>, District Mohmand, Khyber Pakhtunkhwa,
             Pakistan (founded 2010). It is provided free of charge to students of the Peshawar Board

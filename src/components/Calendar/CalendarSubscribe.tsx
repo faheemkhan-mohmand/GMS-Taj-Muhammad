@@ -28,9 +28,9 @@ function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) 
   return (
     <button
       onClick={copy}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gold/40 bg-white dark:bg-white/10 text-[hsl(var(--gold))] text-xs font-bold hover:bg-gold-soft/40 transition-colors"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gold/40 bg-surface bg-surface/10 text-primary text-xs font-bold hover:bg-gold-soft/40 transition-colors"
     >
-      {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+      {copied ? <Check className="w-3.5 h-3.5 text-primary" /> : <Copy className="w-3.5 h-3.5" />}
       {copied ? "Copied!" : label}
     </button>
   );
@@ -58,7 +58,7 @@ export default function CalendarSubscribe() {
     <div className="bg-card border border-gold/30 rounded-2xl p-5 text-foreground shadow-card">
       <div className="flex items-start gap-3 mb-4">
         <div className="w-10 h-10 rounded-xl bg-gold-soft flex items-center justify-center shrink-0">
-          <CalendarPlus className="w-5 h-5 text-[hsl(var(--gold))]" />
+          <CalendarPlus className="w-5 h-5 text-primary" />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="font-heading font-bold text-base mb-0.5 text-foreground">Sync to Your Calendar</h3>
@@ -75,7 +75,7 @@ export default function CalendarSubscribe() {
             href={googleCalendarUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gold/40 bg-white dark:bg-white/10 text-[hsl(var(--gold))] text-xs font-bold hover:bg-gold-soft/40 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gold/40 bg-surface bg-surface/10 text-primary text-xs font-bold hover:bg-gold-soft/40 transition-colors"
           >
             <Chrome className="w-3.5 h-3.5" /> Add to Google
           </a>

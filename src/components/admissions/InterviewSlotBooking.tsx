@@ -144,15 +144,15 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
 
       {/* Current booking notice */}
       {currentBooking && (
-        <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-xl p-3 mb-4 flex items-start gap-2">
-          <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 shrink-0 mt-0.5" />
+        <div className="bg-background bg-primary-strong/20 border border-border border-border rounded-xl p-3 mb-4 flex items-start gap-2">
+          <CheckCircle2 className="w-4 h-4 text-primary text-primary shrink-0 mt-0.5" />
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-green-700 dark:text-green-400">Interview scheduled</p>
+            <p className="text-xs font-semibold text-primary text-primary">Interview scheduled</p>
             <p className="text-xs text-foreground/80 mt-0.5">{currentBooking}</p>
           </div>
           <button
             onClick={() => setShowCancel(true)}
-            className="text-[11px] text-red-600 hover:underline shrink-0"
+            className="text-[11px] text-primary hover:underline shrink-0"
           >
             Cancel
           </button>
@@ -199,7 +199,7 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
                         currentBooking
                           ? "opacity-50 cursor-not-allowed border-border"
                           : isFull
-                          ? "opacity-60 cursor-not-allowed border-red-200 dark:border-red-900 bg-red-50/30 dark:bg-red-950/10"
+                          ? "opacity-60 cursor-not-allowed border-border border-border bg-background/30 bg-primary-strong/10"
                           : "border-border hover:border-primary hover:bg-primary/5 cursor-pointer"
                       }`}
                     >
@@ -209,7 +209,7 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
                           {formatTime(slot.start_time)}
                         </span>
                         {isFull && (
-                          <span className="text-[10px] font-bold text-red-600">FULL</span>
+                          <span className="text-[10px] font-bold text-primary">FULL</span>
                         )}
                       </div>
                       {slot.location && (
@@ -222,7 +222,7 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
                         <Users className="w-3 h-3 text-muted-foreground" />
                         <div className="flex-1 h-1.5 bg-secondary rounded-full overflow-hidden">
                           <div
-                            className={`h-full rounded-full ${isFull ? "bg-red-500" : fillPct > 70 ? "bg-amber-500" : "bg-green-500"}`}
+                            className={`h-full rounded-full ${isFull ? "bg-background" : fillPct > 70 ? "bg-accent-soft" : "bg-background"}`}
                             style={{ width: `${fillPct}%` }}
                           />
                         </div>
@@ -251,7 +251,7 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-background/50 flex items-center justify-center p-4"
             onClick={() => setConfirmSlot(null)}
           >
             <motion.div
@@ -283,7 +283,7 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
                   </div>
                 )}
                 {confirmSlot.notes && (
-                  <div className="bg-amber-50 dark:bg-amber-950/20 rounded-lg p-2 text-xs text-amber-700 dark:text-amber-300 mt-2">
+                  <div className="bg-accent-soft bg-accent/20 rounded-lg p-2 text-xs text-primary text-primary mt-2">
                     📋 {confirmSlot.notes}
                   </div>
                 )}
@@ -313,7 +313,7 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-background/50 flex items-center justify-center p-4"
             onClick={() => setShowCancel(false)}
           >
             <motion.div
@@ -324,8 +324,8 @@ export default function InterviewSlotBooking({ admissionId, currentBooking, onBo
               className="bg-card rounded-2xl shadow-2xl max-w-sm w-full p-5"
             >
               <div className="flex items-start gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                  <AlertCircle className="w-5 h-5 text-red-500" />
+                <div className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center shrink-0">
+                  <AlertCircle className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground text-sm">Cancel interview?</h4>

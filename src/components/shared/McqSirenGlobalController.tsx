@@ -129,7 +129,7 @@ function ensureOverlayEl(): HTMLDivElement | null {
   flash.setAttribute("style", `
     position: absolute !important;
     inset: 0 !important;
-    background: radial-gradient(ellipse at center, rgba(255,0,0,0.55) 0%, rgba(180,0,0,0.85) 60%, rgba(120,0,0,0.95) 100%) !important;
+    background: radial-gradient(ellipse at center, rgb(var(--accent-rgb) / 0.55) 0%, rgb(var(--accent-rgb) / 0.85) 60%, rgb(var(--accent-rgb) / 0.95) 100%) !important;
     animation: gms-mcq-siren-flash 0.5s steps(2, end) infinite !important;
   `);
 
@@ -140,10 +140,10 @@ function ensureOverlayEl(): HTMLDivElement | null {
     inset: -50% !important;
     background: repeating-linear-gradient(
       45deg,
-      rgba(255,0,0,0.0) 0px,
-      rgba(255,0,0,0.0) 60px,
-      rgba(255,40,40,0.35) 60px,
-      rgba(255,40,40,0.35) 120px
+      rgb(var(--accent-rgb) / 0) 0px,
+      rgb(var(--accent-rgb) / 0) 60px,
+      rgb(var(--accent-rgb) / 0.35) 60px,
+      rgb(var(--accent-rgb) / 0.35) 120px
     ) !important;
     animation: gms-mcq-siren-sweep 1.2s linear infinite !important;
   `);
@@ -153,7 +153,7 @@ function ensureOverlayEl(): HTMLDivElement | null {
   edges.setAttribute("style", `
     position: absolute !important;
     inset: 0 !important;
-    box-shadow: inset 0 0 200px 80px rgba(255,0,0,0.85) !important;
+    box-shadow: inset 0 0 200px 80px rgb(var(--accent-rgb) / 0.85) !important;
     animation: gms-mcq-siren-flash 0.5s steps(2, end) infinite !important;
   `);
 

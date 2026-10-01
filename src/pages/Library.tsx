@@ -106,7 +106,7 @@ const Library = () => {
   };
 
   const getFileIcon = (type: string | null) => {
-    if (type === "LINK") return <ExternalLinkIcon className="w-5 h-5 text-emerald-600" />;
+    if (type === "LINK") return <ExternalLinkIcon className="w-5 h-5 text-primary" />;
     if (type?.toLowerCase().includes("pdf")) return <FileText className="w-5 h-5 text-destructive" />;
     if (type?.toLowerCase().includes("doc") || type?.toLowerCase().includes("word"))
       return <File className="w-5 h-5 text-primary" />;
@@ -126,7 +126,7 @@ const Library = () => {
               onClick={() => { setContentType("videos"); setPage(1); }}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${
                 contentType === "videos"
-                  ? "bg-primary text-white border-primary shadow-sm"
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
                   : "bg-card text-foreground border-border hover:border-primary/40"
               }`}
             >
@@ -137,7 +137,7 @@ const Library = () => {
               onClick={() => { setContentType("files"); setPage(1); }}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${
                 contentType === "files"
-                  ? "bg-primary text-white border-primary shadow-sm"
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
                   : "bg-card text-foreground border-border hover:border-primary/40"
               }`}
             >
@@ -317,16 +317,16 @@ const Library = () => {
                               />
                             ) : (
                               <div className="w-full h-full gradient-hero flex items-center justify-center">
-                                <VideoIcon className="w-8 h-8 text-white/40" />
+                                <VideoIcon className="w-8 h-8 text-primary-foreground" />
                               </div>
                             )}
                             <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/30 transition-colors flex items-center justify-center">
-                              <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity scale-75 group-hover:scale-100 duration-200">
+                              <div className="w-10 h-10 rounded-full bg-surface/90 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity scale-75 group-hover:scale-100 duration-200">
                                 <Play className="w-4 h-4 text-primary fill-primary ml-0.5" />
                               </div>
                             </div>
                             {ytId && (
-                              <div className="absolute top-1.5 left-1.5 flex items-center gap-1 bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                              <div className="absolute top-1.5 left-1.5 flex items-center gap-1 bg-primary text-primary-foreground text-[9px] font-bold px-1.5 py-0.5 rounded-full">
                                 <Youtube className="w-2.5 h-2.5" /> YouTube
                               </div>
                             )}
@@ -388,7 +388,7 @@ const Library = () => {
                 </button>
               </div>
 
-              <div className="aspect-video bg-black">
+              <div className="aspect-video bg-background">
                 {getYouTubeId(playingVideo.video_url) ? (
                   <iframe
                     src={`https://www.youtube.com/embed/${getYouTubeId(playingVideo.video_url)}?autoplay=1&rel=0&modestbranding=1`}

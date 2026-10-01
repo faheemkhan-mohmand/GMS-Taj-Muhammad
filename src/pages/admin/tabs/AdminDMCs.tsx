@@ -108,15 +108,15 @@ const gradeFromPct = (pct: number) => {
 // dark navy, no rainbow grade colours — restraint IS the style. Red appears
 // ONLY on a genuine FAIL so it keeps its meaning.
 
-const INK: [number, number, number] = [29, 27, 22];           // #1D1B16 — headings, heavy rules
-const BODY: [number, number, number] = [58, 54, 46];          // #3A362E — values
-const MUTED: [number, number, number] = [111, 106, 97];       // #6F6A61 — labels
-const GREEN: [number, number, number] = [15, 92, 70];         // #0F5C46 — academic green accent
-const GREEN_TINT: [number, number, number] = [237, 242, 239]; // #EDF2EF — light green fill
-const HAIR: [number, number, number] = [231, 226, 213];       // #E7E2D5 — light hairline
-const HAIR2: [number, number, number] = [216, 210, 196];      // #D8D2C4 — stronger hairline
-const FAIL_RED: [number, number, number] = [155, 44, 44];     // #9B2C2C — FAIL only
-const FAIL_TINT: [number, number, number] = [247, 236, 236];  // #F7ECEC — FAIL band fill
+const INK: [number, number, number] = [29, 27, 22];           // #1A2E22 — headings, heavy rules
+const BODY: [number, number, number] = [58, 54, 46];          // #1A2E22 — values
+const MUTED: [number, number, number] = [111, 106, 97];       // #5B6B5F — labels
+const GREEN: [number, number, number] = [15, 92, 70];         // #14532D — academic green accent
+const GREEN_TINT: [number, number, number] = [237, 242, 239]; // #F0F7F1 — light green fill
+const HAIR: [number, number, number] = [231, 226, 213];       // #D7E5D9 — light hairline
+const HAIR2: [number, number, number] = [216, 210, 196];      // #D7E5D9 — stronger hairline
+const FAIL_RED: [number, number, number] = [155, 44, 44];     // #0E3B20 — FAIL only
+const FAIL_TINT: [number, number, number] = [247, 236, 236];  // #F5E6C4 — FAIL band fill
 
 const gradeLetter = (g: string | null): string =>
   !g ? "—" : g === "Fail" || g === "F" ? "F" : g;
@@ -1098,7 +1098,7 @@ function AdminDMCs({ cls, examType, year }: AdminDMCsProps) {
               </p>
             )}
             {scope === "school" && classesMissing.length > 0 && (
-              <p className="text-[11px] text-orange-600 dark:text-orange-400 mt-1 font-medium">
+              <p className="text-[11px] text-primary text-primary mt-1 font-medium">
                 No results found yet for Class {classesMissing.join(", ")} — those classes won't have DMCs until results are added in Manage Results.
               </p>
             )}
@@ -1201,8 +1201,8 @@ function AdminDMCs({ cls, examType, year }: AdminDMCsProps) {
             <div className="max-h-80 overflow-y-auto">
               {rankedResults.map((r, idx) => {
                 const gradeColor = r.is_pass
-                  ? "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400"
-                  : "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
+                  ? "bg-surface-raised text-primary bg-primary-strong/30 text-primary"
+                  : "bg-surface-raised text-primary bg-primary-strong/30 text-primary";
                 return (
                   <div
                     key={r.id}

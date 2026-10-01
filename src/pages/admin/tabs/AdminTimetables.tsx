@@ -44,14 +44,14 @@ const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
 const periods = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const subjectColors: Record<string, string> = {
-  math: "bg-blue-100 border-blue-300 dark:bg-blue-900/30 dark:border-blue-700",
-  english: "bg-emerald-100 border-emerald-300 dark:bg-emerald-900/30 dark:border-emerald-700",
-  urdu: "bg-sky-100 border-sky-300 dark:bg-sky-900/30 dark:border-sky-700",
-  science: "bg-purple-100 border-purple-300 dark:bg-purple-900/30 dark:border-purple-700",
-  islamiat: "bg-green-100 border-green-300 dark:bg-green-900/30 dark:border-green-700",
-  "social studies": "bg-orange-100 border-orange-300 dark:bg-orange-900/30 dark:border-orange-700",
-  pst: "bg-cyan-100 border-cyan-300 dark:bg-cyan-900/30 dark:border-cyan-700",
-  computer: "bg-indigo-100 border-indigo-300 dark:bg-indigo-900/30 dark:border-indigo-700",
+  math: "bg-surface-raised border-border bg-primary-strong/30 border-border",
+  english: "bg-surface-raised border-border bg-primary-strong/30 border-border",
+  urdu: "bg-surface-raised border-border bg-primary-strong/30 border-border",
+  science: "bg-surface-raised border-border bg-primary-strong/30 border-border",
+  islamiat: "bg-surface-raised border-border bg-primary-strong/30 border-border",
+  "social studies": "bg-accent-soft border-accent bg-accent/30 border-accent",
+  pst: "bg-surface-raised border-border bg-primary-strong/30 border-border",
+  computer: "bg-surface-raised border-border bg-primary-strong/30 border-border",
 };
 
 const getSubjectColor = (subject: string) => {
@@ -378,33 +378,33 @@ function exportTimetableImage(
   ctx.imageSmoothingQuality = "high";
 
   // Background
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0, 0, totalW, totalH);
 
   // Title
-  ctx.fillStyle = "#1a1a2e";
+  ctx.fillStyle = "#1A2E22";
   ctx.font = "bold 20px sans-serif";
   ctx.textAlign = "center";
   ctx.fillText("GMS Taj Muhammad", totalW / 2, 28);
   ctx.font = "14px sans-serif";
-  ctx.fillStyle = "#555";
+  ctx.fillStyle = "#5B6B5F";
   ctx.fillText(`Class ${classLevel} Timetable — ${new Date().getFullYear()}`, totalW / 2, 48);
 
   let y = padding + 60;
 
   // Header row
-  ctx.fillStyle = "#1a1a2e";
+  ctx.fillStyle = "#1A2E22";
   ctx.fillRect(padding, y, labelW, headerH);
-  ctx.fillStyle = "#fff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "bold 13px sans-serif";
   ctx.textAlign = "center";
   ctx.fillText("Period", padding + labelW / 2, y + 25);
 
   days.forEach((d, i) => {
     const x = padding + labelW + i * cellW;
-    ctx.fillStyle = "#1a1a2e";
+    ctx.fillStyle = "#1A2E22";
     ctx.fillRect(x, y, cellW, headerH);
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#FFFFFF";
     ctx.font = "bold 12px sans-serif";
     ctx.fillText(d, x + cellW / 2, y + 25);
   });
@@ -417,49 +417,49 @@ function exportTimetableImage(
     const pName = periodNames[p] || `Period ${p}`;
 
     // Period label
-    ctx.fillStyle = isAlt ? "#f0f0f5" : "#f8f8fc";
+    ctx.fillStyle = isAlt ? "#F0F7F1" : "#FAFDF7";
     ctx.fillRect(padding, y, labelW, cellH);
-    ctx.fillStyle = "#1a1a2e";
+    ctx.fillStyle = "#1A2E22";
     ctx.font = "bold 12px sans-serif";
     ctx.textAlign = "center";
     ctx.fillText(pName, padding + labelW / 2, y + cellH / 2 + 4);
 
     days.forEach((d, di) => {
       const x = padding + labelW + di * cellW;
-      ctx.fillStyle = isAlt ? "#f0f0f5" : "#f8f8fc";
+      ctx.fillStyle = isAlt ? "#F0F7F1" : "#FAFDF7";
       ctx.fillRect(x, y, cellW, cellH);
 
       const cell = grid[`${p}-${d}`];
       if (cell?.subject) {
         ctx.textAlign = "center";
-        ctx.fillStyle = "#1a1a2e";
+        ctx.fillStyle = "#1A2E22";
         ctx.font = "bold 11px sans-serif";
         ctx.fillText(cell.subject, x + cellW / 2, y + 20);
         if (cell.teacher) {
-          ctx.fillStyle = "#555";
+          ctx.fillStyle = "#5B6B5F";
           ctx.font = "10px sans-serif";
           ctx.fillText(cell.teacher, x + cellW / 2, y + 35);
         }
         if (cell.start_time && cell.end_time) {
-          ctx.fillStyle = "#888";
+          ctx.fillStyle = "#5B6B5F";
           ctx.font = "9px sans-serif";
           ctx.fillText(`${cell.start_time}-${cell.end_time}`, x + cellW / 2, y + 48);
         }
         if (cell.room) {
-          ctx.fillStyle = "#888";
+          ctx.fillStyle = "#5B6B5F";
           ctx.font = "9px sans-serif";
           ctx.fillText(`Room: ${cell.room}`, x + cellW / 2, y + 60);
         }
       }
 
       // Grid lines
-      ctx.strokeStyle = "#ddd";
+      ctx.strokeStyle = "#D7E5D9";
       ctx.lineWidth = 1;
       ctx.strokeRect(x, y, cellW, cellH);
     });
 
     // Grid line for period label
-    ctx.strokeStyle = "#ddd";
+    ctx.strokeStyle = "#D7E5D9";
     ctx.strokeRect(padding, y, labelW, cellH);
 
     y += cellH;
@@ -467,7 +467,7 @@ function exportTimetableImage(
 
   // Footer
   y += 10;
-  ctx.fillStyle = "#999";
+  ctx.fillStyle = "#5B6B5F";
   ctx.font = "9px sans-serif";
   ctx.textAlign = "center";
   ctx.fillText("GMS Taj Muhammad — Generated: " + new Date().toLocaleDateString("en-GB"), totalW / 2, y + 10);
@@ -526,7 +526,7 @@ function exportSubstitutionImage(
   ctx.imageSmoothingQuality = "high";
 
   // ── Background ──
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.fillRect(0, 0, W, totalH);
 
   // ── Header banner (deep blue) ──
@@ -537,11 +537,11 @@ function exportSubstitutionImage(
   ctx.fillRect(0, 0, W, headerH);
 
   // Teal accent stripe
-  ctx.fillStyle = "#0d9488";
+  ctx.fillStyle = "#14532D";
   ctx.fillRect(0, headerH - 4, W, 4);
 
   // School name
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.font = "bold 22px sans-serif";
   ctx.textAlign = "center";
   ctx.fillText("Government Middle School Taj Muhammad", W / 2, 32);
@@ -552,7 +552,7 @@ function exportSubstitutionImage(
 
   // Title
   ctx.font = "bold 18px sans-serif";
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#FFFFFF";
   ctx.fillText("TODAY'S SUBSTITUTE ASSIGNMENTS", W / 2, 78);
 
   // Date + absent teachers
@@ -563,7 +563,7 @@ function exportSubstitutionImage(
   ctx.fillStyle = "rgba(255,255,255,0.95)";
   ctx.fillText(`${todayStr}`, W / 2, 98);
   ctx.font = "bold 12px sans-serif";
-  ctx.fillStyle = "#fde68a";
+  ctx.fillStyle = "#F5E6C4";
   // Show all absent teachers (one or many).
   const absentLabel =
     absentTeachers.length === 0
@@ -577,7 +577,7 @@ function exportSubstitutionImage(
     // Re-render split into two lines for readability
     ctx.fillStyle = "#0f4c81"; // banner color for clearRect trick
     ctx.fillRect(0, 110, W, 16);
-    ctx.fillStyle = "#fde68a";
+    ctx.fillStyle = "#F5E6C4";
     ctx.font = "bold 11px sans-serif";
     const half = Math.ceil(absentTeachers.length / 2);
     const line1 = absentTeachers.slice(0, half).join(", ");
@@ -590,7 +590,7 @@ function exportSubstitutionImage(
   let y = headerH + 20;
 
   if (cardsCount === 0) {
-    ctx.fillStyle = "#6b7280";
+    ctx.fillStyle = "#5B6B5F";
     ctx.font = "italic 14px sans-serif";
     ctx.textAlign = "center";
     ctx.fillText("No substitute assignments were created.", W / 2, y + 30);
@@ -600,15 +600,15 @@ function exportSubstitutionImage(
       const cardW = W - padding * 2;
 
       // Card background (subtle grey, rounded)
-      ctx.fillStyle = i % 2 === 0 ? "#f8fafc" : "#f1f5f9";
+      ctx.fillStyle = i % 2 === 0 ? "#FAFDF7" : "#F0F7F1";
       roundRect(ctx, x, y, cardW, cardH, 8, true, false);
       // Border
-      ctx.strokeStyle = "#cbd5e1";
+      ctx.strokeStyle = "#D7E5D9";
       ctx.lineWidth = 1;
       roundRect(ctx, x, y, cardW, cardH, 8, false, true);
 
       // Accent left bar (color by reason)
-      const accentColor = a.reason === "subject-match" ? "#0d9488" : "#f59e0b";
+      const accentColor = a.reason === "subject-match" ? "#14532D" : "#B8860B";
       ctx.fillStyle = accentColor;
       ctx.fillRect(x, y, 4, cardH);
 
@@ -619,29 +619,29 @@ function exportSubstitutionImage(
       ctx.fillText(`Class ${a.class} · Period ${a.period_number}`, x + 16, y + 24);
 
       // Subject (top-right)
-      ctx.fillStyle = "#475569";
+      ctx.fillStyle = "#5B6B5F";
       ctx.font = "12px sans-serif";
       ctx.textAlign = "right";
       ctx.fillText(`Subject: ${a.subject}`, x + cardW - 16, y + 24);
 
       // Original → Substitute (center, the main info)
       ctx.textAlign = "left";
-      ctx.fillStyle = "#64748b";
+      ctx.fillStyle = "#5B6B5F";
       ctx.font = "11px sans-serif";
       ctx.fillText("Original:", x + 16, y + 46);
-      ctx.fillStyle = "#1e293b";
+      ctx.fillStyle = "#1A2E22";
       ctx.font = "bold 13px sans-serif";
       const origText = a.original_teacher || "—";
       ctx.fillText(origText, x + 70, y + 46);
 
       // Arrow
-      ctx.fillStyle = "#0d9488";
+      ctx.fillStyle = "#14532D";
       ctx.font = "bold 14px sans-serif";
       const arrowX = x + 70 + ctx.measureText(origText).width + 10;
       ctx.fillText("→", arrowX, y + 46);
 
       // Substitute
-      ctx.fillStyle = "#64748b";
+      ctx.fillStyle = "#5B6B5F";
       ctx.font = "11px sans-serif";
       ctx.fillText("Substitute:", arrowX + 25, y + 46);
       ctx.fillStyle = "#0f4c81";
@@ -650,8 +650,8 @@ function exportSubstitutionImage(
 
       // Reason badge (bottom-left)
       const reasonLabel = a.reason === "subject-match" ? "✓ Subject Match" : "● Free Period";
-      const reasonColor = a.reason === "subject-match" ? "#0d9488" : "#f59e0b";
-      const reasonBg = a.reason === "subject-match" ? "#ccfbf1" : "#fef3c7";
+      const reasonColor = a.reason === "subject-match" ? "#14532D" : "#B8860B";
+      const reasonBg = a.reason === "subject-match" ? "#F0F7F1" : "#F5E6C4";
       ctx.fillStyle = reasonBg;
       const reasonW = ctx.measureText(reasonLabel).width + 16;
       roundRect(ctx, x + 16, y + 60, reasonW, 20, 10, true, false);
@@ -662,7 +662,7 @@ function exportSubstitutionImage(
 
       // Assignment number (bottom-right)
       ctx.textAlign = "right";
-      ctx.fillStyle = "#94a3b8";
+      ctx.fillStyle = "#5B6B5F";
       ctx.font = "10px sans-serif";
       ctx.fillText(`#${i + 1}`, x + cardW - 16, y + 74);
 
@@ -673,17 +673,17 @@ function exportSubstitutionImage(
   // ── Uncovered section (if any) ──
   if (result.uncovered.length > 0) {
     y += 10;
-    ctx.fillStyle = "#fef2f2";
+    ctx.fillStyle = "#F5E6C4";
     roundRect(ctx, padding, y, W - padding * 2, 30 + result.uncovered.length * 22, 8, true, false);
-    ctx.strokeStyle = "#fca5a5";
+    ctx.strokeStyle = "#F5E6C4";
     ctx.lineWidth = 1;
     roundRect(ctx, padding, y, W - padding * 2, 30 + result.uncovered.length * 22, 8, false, true);
-    ctx.fillStyle = "#dc2626";
+    ctx.fillStyle = "#0E3B20";
     ctx.font = "bold 12px sans-serif";
     ctx.textAlign = "left";
     ctx.fillText(`⚠ ${result.uncovered.length} period(s) could not be covered:`, padding + 12, y + 20);
     result.uncovered.forEach((u, i) => {
-      ctx.fillStyle = "#7f1d1d";
+      ctx.fillStyle = "#0E3B20";
       ctx.font = "11px sans-serif";
       ctx.fillText(`• Class ${u.class} P${u.period_number} (${u.subject}) — ${u.reason}`, padding + 12, y + 40 + i * 22);
     });
@@ -692,7 +692,7 @@ function exportSubstitutionImage(
 
   // ── Footer ──
   y += 15;
-  ctx.fillStyle = "#9ca3af";
+  ctx.fillStyle = "#5B6B5F";
   ctx.font = "10px sans-serif";
   ctx.textAlign = "center";
   ctx.fillText(
@@ -827,7 +827,7 @@ function SubstituteTeacherDialog({
       <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <UserX className="w-5 h-5 text-amber-500" /> Substitute Teacher — Today Only
+            <UserX className="w-5 h-5 text-primary" /> Substitute Teacher — Today Only
           </DialogTitle>
           <DialogDescription>
             Pick one or more absent teachers. Free teachers will be auto-assigned to cover their classes <strong>today only</strong> ({todayName}, {todayDateStr}). Each absent teacher's periods will be covered by <strong>different</strong> free teachers so nobody is double-booked at the same period. A shareable image is generated for the teachers' WhatsApp group.
@@ -948,7 +948,7 @@ function SubstituteTeacherDialog({
               <Button
                 onClick={handleDownloadImage}
                 variant="outline"
-                className="gap-1.5 w-full bg-emerald-50 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-950/50"
+                className="gap-1.5 w-full bg-background bg-primary-strong/30 border-border border-border text-primary text-primary hover:bg-surface-raised hover:bg-primary-strong/50"
               >
                 <ImageIcon className="w-4 h-4" /> Download WhatsApp Image (PNG)
               </Button>
@@ -976,12 +976,12 @@ function SubstituteTeacherDialog({
                   Summary ({selectedTeachers.length} absent teacher{selectedTeachers.length === 1 ? "" : "s"})
                 </p>
                 <div className="grid grid-cols-2 gap-2 text-center">
-                  <div className="rounded-md bg-emerald-50 dark:bg-emerald-950/30 p-2">
-                    <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{result.assigned.length}</p>
+                  <div className="rounded-md bg-background bg-primary-strong/30 p-2">
+                    <p className="text-lg font-bold text-primary text-primary">{result.assigned.length}</p>
                     <p className="text-[10px] text-muted-foreground">Covered</p>
                   </div>
-                  <div className="rounded-md bg-red-50 dark:bg-red-950/30 p-2">
-                    <p className="text-lg font-bold text-red-600 dark:text-red-400">{result.uncovered.length}</p>
+                  <div className="rounded-md bg-background bg-primary-strong/30 p-2">
+                    <p className="text-lg font-bold text-primary text-primary">{result.uncovered.length}</p>
                     <p className="text-[10px] text-muted-foreground">Uncovered</p>
                   </div>
                 </div>
@@ -992,7 +992,7 @@ function SubstituteTeacherDialog({
                 <div key={owner} className="rounded-lg border border-border bg-card p-2.5">
                   <p className="text-xs font-bold text-foreground mb-1.5 flex items-center justify-between">
                     <span className="flex items-center gap-1.5">
-                      <UserX className="w-3.5 h-3.5 text-amber-500" />
+                      <UserX className="w-3.5 h-3.5 text-primary" />
                       {owner}
                     </span>
                     <span className="text-[10px] font-normal text-muted-foreground">
@@ -1011,13 +1011,13 @@ function SubstituteTeacherDialog({
                             <span className="text-[10px] text-muted-foreground">{a.subject}</span>
                           </div>
                           <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                            <span className="text-emerald-600 dark:text-emerald-400 font-bold">→ {a.substitute_teacher}</span>
+                            <span className="text-primary text-primary font-bold">→ {a.substitute_teacher}</span>
                             <Badge
                               variant="outline"
                               className={`text-[9px] h-4 px-1 ${
                                 a.reason === "subject-match"
-                                  ? "bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-700"
-                                  : "bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 border-amber-300 dark:border-amber-700"
+                                  ? "bg-background bg-primary-strong/30 text-primary text-primary border-border border-border"
+                                  : "bg-accent-soft bg-accent/30 text-primary text-primary border-accent border-accent"
                               }`}
                             >
                               {a.reason === "subject-match" ? "Subject Match" : "Free Period"}
@@ -1031,12 +1031,12 @@ function SubstituteTeacherDialog({
                   )}
 
                   {bucket.uncovered.length > 0 && (
-                    <div className="rounded-md border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-950/20 p-2 mt-1.5">
-                      <p className="text-[11px] font-semibold text-red-700 dark:text-red-400 mb-1">
+                    <div className="rounded-md border border-border border-border/50 bg-background bg-primary-strong/20 p-2 mt-1.5">
+                      <p className="text-[11px] font-semibold text-primary text-primary mb-1">
                         ⚠ Could not cover:
                       </p>
                       {bucket.uncovered.map((u, i) => (
-                        <p key={i} className="text-[11px] text-red-600 dark:text-red-500">
+                        <p key={i} className="text-[11px] text-primary text-primary">
                           • Class {u.class} P{u.period_number} ({u.subject}) — {u.reason}
                         </p>
                       ))}
@@ -1049,13 +1049,13 @@ function SubstituteTeacherDialog({
 
           {/* ── Today's existing overrides (if any) ── */}
           {!result && todayOverrides.length > 0 && (
-            <div className="rounded-md border border-blue-200 dark:border-blue-900/50 bg-blue-50 dark:bg-blue-950/20 p-2">
-              <p className="text-xs font-semibold text-blue-700 dark:text-blue-400 mb-1">
+            <div className="rounded-md border border-border border-border/50 bg-background bg-primary-strong/20 p-2">
+              <p className="text-xs font-semibold text-primary text-primary mb-1">
                 ℹ {todayOverrides.length} substitute assignment(s) already active for today:
               </p>
               <div className="space-y-0.5 max-h-32 overflow-y-auto">
                 {todayOverrides.slice(0, 8).map((o) => (
-                  <p key={o.id} className="text-[10px] text-blue-600 dark:text-blue-500">
+                  <p key={o.id} className="text-[10px] text-primary text-primary">
                     • Class {o.class} P{o.period_number} ({o.subject}): {o.substitute_teacher}
                   </p>
                 ))}
@@ -1428,7 +1428,7 @@ const AdminTimetables = () => {
           variant="outline"
           size="sm"
           onClick={() => setShowSubstituteDialog(true)}
-          className="gap-1.5 bg-amber-50 dark:bg-amber-950/30 border-amber-300 dark:border-amber-700 text-amber-700 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-950/50"
+          className="gap-1.5 bg-surface-raised border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground"
         >
           <UserX className="w-4 h-4" /> Substitute
         </Button>
@@ -1485,7 +1485,7 @@ const AdminTimetables = () => {
                           key={key}
                           className={`border border-border p-1 cursor-pointer transition-colors ${
                             hasConflict
-                              ? "bg-red-50 dark:bg-red-900/20 border-red-300 dark:border-red-700"
+                              ? "bg-background bg-primary-strong/20 border-border border-border"
                               : cell.subject
                               ? getSubjectColor(cell.subject)
                               : "hover:bg-secondary/30"

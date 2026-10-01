@@ -241,9 +241,9 @@ function TickerStrip({ items, contentKey }: { items: HeadlineItem[]; contentKey:
         <Link
           key={`${item.id}-${copyIndex}-${idx}`}
           to={item.to}
-          className="text-xs sm:text-sm font-medium inline-flex items-center gap-2 text-white/95 hover:text-white underline-offset-2 hover:underline cursor-pointer transition-colors"
+          className="text-xs sm:text-sm font-medium inline-flex items-center gap-2 text-primary-foreground hover:text-primary-foreground underline-offset-2 hover:underline cursor-pointer transition-colors"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-white/70 inline-block shrink-0" aria-hidden="true" />
+          <span className="w-1.5 h-1.5 rounded-full bg-surface/70 inline-block shrink-0" aria-hidden="true" />
           {item.text}
         </Link>
       ))}

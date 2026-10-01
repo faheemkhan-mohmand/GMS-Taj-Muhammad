@@ -38,7 +38,7 @@ const Field = ({ label, icon: Icon, error, children }: {
       {label}
     </label>
     {children}
-    {error && <p className="text-xs text-red-500">{error}</p>}
+    {error && <p className="text-xs text-primary">{error}</p>}
   </div>
 );
 
@@ -133,7 +133,7 @@ export default function ClassFormModal({
   };
 
   const inputCls = (err?: string) =>
-    `w-full px-3 py-2.5 rounded-xl bg-secondary/50 border text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:ring-2 focus:ring-primary/30 focus:border-primary ${err ? "border-red-400" : "border-border"}`;
+    `w-full px-3 py-2.5 rounded-xl bg-secondary/50 border text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:ring-2 focus:ring-primary/30 focus:border-primary ${err ? "border-border" : "border-border"}`;
 
   if (!open) return null;
 
@@ -153,7 +153,7 @@ export default function ClassFormModal({
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0,0,0,0.5)",
+          background: "var(--primary)",
           backdropFilter: "blur(2px)",
         }}
       />
@@ -167,10 +167,10 @@ export default function ClassFormModal({
           width: "100%",
           maxWidth: "600px",
           margin: "0 auto",
-          background: "hsl(var(--card))",
+          background: "var(--surface)",
           borderRadius: "20px 20px 0 0",
-          boxShadow: "0 -8px 40px rgba(0,0,0,0.18)",
-          border: "1px solid hsl(var(--border))",
+          boxShadow: "0 -8px 40px rgb(var(--text-primary-rgb) / 0.18)",
+          border: "1px solid var(--border)",
           display: "flex",
           flexDirection: "column",
           maxHeight: "92dvh",
@@ -185,7 +185,7 @@ export default function ClassFormModal({
             alignItems: "center",
             justifyContent: "space-between",
             padding: "16px 20px",
-            borderBottom: "1px solid hsl(var(--border))",
+            borderBottom: "1px solid var(--border)",
             flexShrink: 0,
           }}
         >
@@ -305,7 +305,7 @@ export default function ClassFormModal({
             </Field>
 
             {/* Notes & Homework (post-class) */}
-            <div style={{ borderTop: "1px solid hsl(var(--border))", paddingTop: "16px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "16px", display: "flex", flexDirection: "column", gap: "16px" }}>
               <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                 Post-Class Content (fill after class)
               </p>

@@ -46,17 +46,17 @@ const MIGRATION_STEPS = [
 ];
 
 const statusConfig: Record<string, { label: string; color: string }> = {
-  pending:           { label: "Pending",           color: "bg-blue-100 text-blue-800" },
-  under_review:      { label: "Under Review",      color: "bg-purple-100 text-purple-800" },
-  approved:          { label: "Approved ✅",        color: "bg-green-100 text-green-800" },
-  rejected:          { label: "Rejected",           color: "bg-red-100 text-red-800" },
-  documents_missing: { label: "Documents Missing", color: "bg-orange-100 text-orange-800" },
-  documents_verified:{ label: "Documents Verified", color: "bg-emerald-100 text-emerald-800" },
-  interview_scheduled:{ label: "Interview Scheduled", color: "bg-cyan-100 text-cyan-800" },
-  interview_completed:{ label: "Interview Completed", color: "bg-teal-100 text-teal-800" },
-  waitlisted:        { label: "Waitlisted",         color: "bg-amber-100 text-amber-800" },
-  admitted:          { label: "Admitted ✅",        color: "bg-green-100 text-green-800" },
-  admit_card_issued: { label: "Admit Card Issued",  color: "bg-green-100 text-green-800" },
+  pending:           { label: "Pending",           color: "bg-surface-raised text-primary" },
+  under_review:      { label: "Under Review",      color: "bg-surface-raised text-primary" },
+  approved:          { label: "Approved ✅",        color: "bg-surface-raised text-primary" },
+  rejected:          { label: "Rejected",           color: "bg-surface-raised text-primary" },
+  documents_missing: { label: "Documents Missing", color: "bg-accent-soft text-primary" },
+  documents_verified:{ label: "Documents Verified", color: "bg-surface-raised text-primary" },
+  interview_scheduled:{ label: "Interview Scheduled", color: "bg-surface-raised text-primary" },
+  interview_completed:{ label: "Interview Completed", color: "bg-surface-raised text-primary" },
+  waitlisted:        { label: "Waitlisted",         color: "bg-accent-soft text-primary" },
+  admitted:          { label: "Admitted ✅",        color: "bg-surface-raised text-primary" },
+  admit_card_issued: { label: "Admit Card Issued",  color: "bg-surface-raised text-primary" },
 };
 
 // ── Downloadable documents with colored icons & file size hints ─────────
@@ -65,7 +65,7 @@ const DOWNLOAD_ITEMS = [
     key: "prospectus",
     title: "Admission Prospectus",
     icon: "📖",
-    iconBg: "bg-blue-500",
+    iconBg: "bg-background",
     desc: "Complete guide to admissions, programs & requirements",
     fileSize: "PDF, ~2 MB",
     pdfTitle: "Admission Prospectus",
@@ -82,7 +82,7 @@ const DOWNLOAD_ITEMS = [
     key: "fee_structure",
     title: "Fee Structure",
     icon: "💰",
-    iconBg: "bg-green-500",
+    iconBg: "bg-background",
     desc: "Tuition fees, BISE charges & payment details",
     fileSize: "PDF, ~1 MB",
     pdfTitle: "Fee Structure",
@@ -97,7 +97,7 @@ const DOWNLOAD_ITEMS = [
     key: "migration_template",
     title: "School-to-School Transfer Reference Letter",
     icon: "✉️",
-    iconBg: "bg-amber-500",
+    iconBg: "bg-accent-soft",
     desc: "Reference letter template to request transfer records from your current school",
     fileSize: "PDF, ~1 MB",
     pdfTitle: "School-to-School Transfer Reference Letter",
@@ -110,7 +110,7 @@ const DOWNLOAD_ITEMS = [
     key: "rules",
     title: "Admission Rules",
     icon: "📏",
-    iconBg: "bg-red-500",
+    iconBg: "bg-background",
     desc: "Admission policies, eligibility & procedures",
     fileSize: "PDF, ~1 MB",
     pdfTitle: "Admission Rules & Regulations",
@@ -170,20 +170,20 @@ function PrintableFormIcon({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={className} xmlns="http://www.w3.org/2000/svg">
       {/* Paper sheet - white with subtle shadow */}
-      <path d="M6 2H14.5L19 6.5V20.5C19 21.05 18.55 21.5 18 21.5H6C5.45 21.5 5 21.05 5 20.5V3C5 2.95 5.45 2.5 6 2Z" 
-        fill="white" stroke="#DC2626" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M6 2H14.5L19 6.5V20.5C19 21.05 18.55 21.5 18 21.5H6C5.45 21.5 5 21.05 5 20.5V3C5 2.95 5.45 2.5 6 2Z"
+        fill="var(--surface)" stroke="var(--primary)" strokeWidth="1.5" strokeLinejoin="round"/>
       {/* Folded corner - red accent */}
-      <path d="M14.5 2V6.5H19" fill="#FEE2E2" stroke="#DC2626" strokeWidth="1.5" strokeLinejoin="round"/>
+      <path d="M14.5 2V6.5H19" fill="var(--surface-raised)" stroke="var(--primary)" strokeWidth="1.5" strokeLinejoin="round"/>
       {/* Header bar on paper - red */}
-      <rect x="7" y="4.5" width="10" height="1.5" rx="0.4" fill="#DC2626"/>
+      <rect x="7" y="4.5" width="10" height="1.5" rx="0.4" fill="var(--primary)"/>
       {/* Form lines - realistic text lines */}
-      <rect x="7" y="8" width="10" height="1" rx="0.3" fill="#374151" opacity="0.7"/>
-      <rect x="7" y="10.5" width="8" height="0.9" rx="0.3" fill="#374151" opacity="0.4"/>
-      <rect x="7" y="12.8" width="9" height="0.9" rx="0.3" fill="#374151" opacity="0.4"/>
-      <rect x="7" y="15.1" width="6" height="0.9" rx="0.3" fill="#374151" opacity="0.4"/>
+      <rect x="7" y="8" width="10" height="1" rx="0.3" fill="var(--text-primary)" opacity="0.7"/>
+      <rect x="7" y="10.5" width="8" height="0.9" rx="0.3" fill="var(--text-primary)" opacity="0.4"/>
+      <rect x="7" y="12.8" width="9" height="0.9" rx="0.3" fill="var(--text-primary)" opacity="0.4"/>
+      <rect x="7" y="15.1" width="6" height="0.9" rx="0.3" fill="var(--text-primary)" opacity="0.4"/>
       {/* Download arrow circle - green accent */}
-      <circle cx="16.5" cy="17.5" r="4" fill="#10B981" stroke="#059669" strokeWidth="1"/>
-      <path d="M16.5 15V19M14.5 17L16.5 19L18.5 17" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="16.5" cy="17.5" r="4" fill="var(--primary)" stroke="var(--primary-strong)" strokeWidth="1"/>
+      <path d="M16.5 15V19M14.5 17L16.5 19L18.5 17" stroke="var(--primary-foreground)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   );
 }
@@ -231,11 +231,11 @@ function AnimatedCounter({ end, label, icon: Icon }: { end: number; label: strin
 
   return (
     <div ref={ref} className="text-center">
-      <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center mx-auto mb-2">
-        <Icon className="w-5 h-5 text-white" />
+      <div className="w-10 h-10 rounded-xl bg-surface/20 flex items-center justify-center mx-auto mb-2">
+        <Icon className="w-5 h-5 text-primary-foreground" />
       </div>
-      <p className="text-2xl sm:text-3xl font-bold text-white">{count.toLocaleString()}+</p>
-      <p className="text-xs text-white/70 mt-1">{label}</p>
+      <p className="text-2xl sm:text-3xl font-bold text-primary-foreground">{count.toLocaleString()}+</p>
+      <p className="text-xs text-primary-foreground mt-1">{label}</p>
     </div>
   );
 }
@@ -280,9 +280,9 @@ function EligibilityChecker({ onApply }: { onApply: (cls: string, type: Admissio
   return (
     <div className="bg-card border border-border rounded-xl shadow-card p-3">
       <div className="flex items-center gap-1.5 mb-2">
-        <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+        <Sparkles className="w-3.5 h-3.5 text-primary" />
         <h3 className="font-bold text-foreground text-xs">Preliminary Eligibility Check</h3>
-        <span className="text-[9px] bg-amber-500/15 text-amber-700 dark:text-amber-300 px-1.5 py-0.5 rounded-full font-bold ml-auto">Quick Check</span>
+        <span className="text-[9px] bg-accent-soft/15 text-primary text-primary px-1.5 py-0.5 rounded-full font-bold ml-auto">Quick Check</span>
       </div>
       <p className="text-[10px] text-muted-foreground mb-2.5">
         Final eligibility always depends on document verification by the school office.
@@ -321,16 +321,16 @@ function EligibilityChecker({ onApply }: { onApply: (cls: string, type: Admissio
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
           className={`mt-3 rounded-xl p-3 border ${
             result.eligible
-              ? "bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900"
-              : "bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-900"
+              ? "bg-background border-border bg-primary-strong/20 border-border"
+              : "bg-background border-border bg-primary-strong/20 border-border"
           }`}>
           {result.eligible ? (
             <>
               <div className="flex items-center gap-2 mb-2">
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
-                <p className="font-bold text-sm text-green-700 dark:text-green-400">Likely eligible — preliminary result</p>
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+                <p className="font-bold text-sm text-primary text-primary">Likely eligible — preliminary result</p>
               </div>
-              <p className="text-xs text-green-700 dark:text-green-400 mb-3">
+              <p className="text-xs text-primary text-primary mb-3">
                 Based on the information provided, there's no obvious issue for Class {cls} ({admissionType} admission). This is not final — the school office will confirm eligibility after reviewing your documents. Apply now to get started!
               </p>
               <Button onClick={() => onApply(cls, admissionType)} className="w-full gap-2 rounded-xl h-9 text-xs">
@@ -340,17 +340,17 @@ function EligibilityChecker({ onApply }: { onApply: (cls: string, type: Admissio
           ) : (
             <>
               <div className="flex items-center gap-2 mb-2">
-                <XCircle className="w-5 h-5 text-red-600" />
-                <p className="font-bold text-sm text-red-700 dark:text-red-400">Possible issue found</p>
+                <XCircle className="w-5 h-5 text-primary" />
+                <p className="font-bold text-sm text-primary text-primary">Possible issue found</p>
               </div>
               <ul className="space-y-1">
                 {result.reasons.map((r, i) => (
-                  <li key={i} className="text-xs text-red-700 dark:text-red-400 flex items-start gap-1.5">
+                  <li key={i} className="text-xs text-primary text-primary flex items-start gap-1.5">
                     <span className="mt-0.5">•</span> {r}
                   </li>
                 ))}
               </ul>
-              <p className="text-[10px] text-red-600/80 dark:text-red-400/70 mt-2">
+              <p className="text-[10px] text-primary text-primary mt-2">
                 You may still contact the school office directly, as exceptional or hardship cases are handled case-by-case per current policy.
               </p>
             </>
@@ -376,20 +376,20 @@ function StepStepper({ step, totalSteps }: { step: number; totalSteps: number })
               animate={isActive ? { scale: [1, 1.08, 1] } : {}}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                isActive ? "bg-primary text-white shadow-lg shadow-primary/30" :
-                isDone  ? "bg-green-500 text-white" :
+                isActive ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30" :
+                isDone  ? "bg-background text-primary-foreground" :
                 "bg-muted text-muted-foreground"
               }`}
             >
               <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                isDone ? "bg-white text-green-600" : isActive ? "bg-white/30 text-white" : "bg-muted-foreground/20"
+                isDone ? "bg-surface text-primary" : isActive ? "bg-surface/30 text-primary-foreground" : "bg-muted-foreground/20"
               }`}>
                 {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : stepNum}
               </div>
               <span className="hidden sm:inline">{s}</span>
             </motion.div>
             {i < totalSteps - 1 && (
-              <div className={`h-0.5 w-4 sm:w-8 mx-1 rounded transition-colors ${isDone ? "bg-green-400" : "bg-muted"}`} />
+              <div className={`h-0.5 w-4 sm:w-8 mx-1 rounded transition-colors ${isDone ? "bg-primary" : "bg-muted"}`} />
             )}
           </div>
         );
@@ -428,7 +428,7 @@ function formatSlotTime(time: string): string {
 }
 
 function TrackResult({ result }: { result: any }) {
-  const cfg = statusConfig[result.status] ?? { label: result.status, color: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200" };
+  const cfg = statusConfig[result.status] ?? { label: result.status, color: "bg-surface-raised text-primary bg-primary-strong text-muted" };
   const isMigration = result.admission_type === "migration";
   const currentStep = result.migration_step ?? 0;
   const status = result.status;
@@ -496,20 +496,20 @@ function TrackResult({ result }: { result: any }) {
             <div><p className="text-xs text-muted-foreground">Applied On</p><p className="font-semibold">{new Date(result.created_at).toLocaleDateString("en-PK")}</p></div>
           </div>
           {result.admin_note && (
-            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-sm text-blue-800">
+            <div className="bg-background border border-border rounded-xl p-3 text-sm text-primary">
               <p className="font-semibold mb-1">Message from Admin:</p>
               <p>{result.admin_note}</p>
             </div>
           )}
           {result.rejection_reason && (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-3 text-sm text-red-800">
+            <div className="bg-background border border-border rounded-xl p-3 text-sm text-primary">
               <p className="font-semibold mb-1">Rejection Reason:</p>
               <p>{result.rejection_reason}</p>
             </div>
           )}
           {/* If approved, show next steps reminder */}
           {["approved", "admitted"].includes(status) && (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-3 text-sm text-green-800">
+            <div className="bg-background border border-border rounded-xl p-3 text-sm text-primary">
               <p className="font-semibold mb-1">🎉 Great news! You're approved!</p>
               <p>Download the admission forms, fill them, attach your documents, and submit at the school office to complete your enrollment.</p>
             </div>
@@ -543,13 +543,13 @@ function TrackResult({ result }: { result: any }) {
                   return (
                     <div key={i} className="flex-1 text-center">
                       <div className={`w-7 h-7 rounded-full mx-auto flex items-center justify-center text-[10px] font-bold transition-all ${
-                        done ? "bg-green-500 text-white" :
-                        current ? "bg-primary text-white animate-pulse shadow-lg shadow-primary/30" :
+                        done ? "bg-background text-primary-foreground" :
+                        current ? "bg-primary text-primary-foreground animate-pulse shadow-lg shadow-primary/30" :
                         "bg-muted text-muted-foreground"
                       }`}>
                         {done ? "✓" : i + 1}
                       </div>
-                      <p className={`text-[10px] mt-1.5 leading-tight ${current ? "font-bold text-primary" : done ? "text-green-600" : "text-muted-foreground"}`}>
+                      <p className={`text-[10px] mt-1.5 leading-tight ${current ? "font-bold text-primary" : done ? "text-primary" : "text-muted-foreground"}`}>
                         {s.label}
                       </p>
                       <p className="text-[9px] text-muted-foreground/70 mt-0.5">{s.time}</p>
@@ -575,8 +575,8 @@ function TrackResult({ result }: { result: any }) {
       )}
 
       {status === "waitlisted" && (
-        <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-2xl p-4 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+        <div className="bg-accent-soft bg-accent/20 border border-border border-accent rounded-2xl p-4 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
           <div>
             <p className="font-semibold text-foreground text-sm">You're on the waitlist</p>
             <p className="text-xs text-muted-foreground mt-1">All interview slots are currently full. We'll promote you automatically when a seat opens up.</p>
@@ -769,42 +769,42 @@ const Admission = () => {
       // Transfer template, red = Rules) so each PDF feels purpose-built
       // rather than a single generic template reused four times.
       const ACCENTS: Record<string, { main: string; dark: string; soft: string; text: string }> = {
-        prospectus:         { main: "#3b82f6", dark: "#1d4ed8", soft: "#eff6ff", text: "#1e40af" },
-        fee_structure:       { main: "#EA580C", dark: "#C2410C", soft: "#FFF7ED", text: "#9A3412" },
-        migration_template:  { main: "#f59e0b", dark: "#b45309", soft: "#fffbeb", text: "#92400e" },
-        rules:               { main: "#ef4444", dark: "#b91c1c", soft: "#fef2f2", text: "#991b1b" },
+        prospectus:         { main: "#14532D", dark: "#14532D", soft: "#F0F7F1", text: "#14532D" },
+        fee_structure:       { main: "#14532D", dark: "#0E3B20", soft: "#F5E6C4", text: "#0E3B20" },
+        migration_template:  { main: "#B8860B", dark: "#0E3B20", soft: "#F5E6C4", text: "#14532D" },
+        rules:               { main: "#14532D", dark: "#0E3B20", soft: "#F5E6C4", text: "#0E3B20" },
       };
-      const accent = ACCENTS[item.key] || { main: "#C2410C", dark: "#7C2D12", soft: "#FEF2E8", text: "#7C2D12" };
+      const accent = ACCENTS[item.key] || { main: "#0E3B20", dark: "#14532D", soft: "#F5E6C4", text: "#14532D" };
 
       const sectionsHtml = item.pdfSections.map((s, i) => `
         <div style="margin-bottom:18px;page-break-inside:avoid;">
           <div style="display:flex;align-items:center;gap:9px;margin-bottom:9px;">
-            <span style="flex-shrink:0;width:22px;height:22px;border-radius:7px;background:${accent.main};color:#fff;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;">${i + 1}</span>
+            <span style="flex-shrink:0;width:22px;height:22px;border-radius:7px;background:${accent.main};color:#FFFFFF;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;">${i + 1}</span>
             <h3 style="font-size:14.5px;font-weight:800;color:${accent.text};margin:0;letter-spacing:0.2px;">${s.heading}</h3>
           </div>
-          <p style="font-size:12px;line-height:1.75;color:#334155;white-space:pre-wrap;margin:0 0 0 31px;padding:10px 14px;background:${accent.soft};border-left:3px solid ${accent.main};border-radius:0 8px 8px 0;">${s.body}</p>
+          <p style="font-size:12px;line-height:1.75;color:#1A2E22;white-space:pre-wrap;margin:0 0 0 31px;padding:10px 14px;background:${accent.soft};border-left:3px solid ${accent.main};border-radius:0 8px 8px 0;">${s.body}</p>
         </div>`).join("");
 
       const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>${item.pdfTitle}</title>
         <style>
           @page { margin: 18mm 16mm; size: A4; }
           * { box-sizing: border-box; margin: 0; padding: 0; }
-          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b; line-height: 1.6; }
+          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1A2E22; line-height: 1.6; }
 
-          .topband { height: 7px; background: linear-gradient(90deg, ${accent.dark} 0%, ${accent.main} 55%, #f0a55f 100%); border-radius: 0 0 4px 4px; margin-bottom: 16px; }
+          .topband { height: 7px; background: linear-gradient(90deg, ${accent.dark} 0%, ${accent.main} 55%, #B8860B 100%); border-radius: 0 0 4px 4px; margin-bottom: 16px; }
 
           .header { display: flex; align-items: center; gap: 13px; border-bottom: 3px solid ${accent.main}; padding-bottom: 13px; margin-bottom: 18px; }
           .logo-wrap { width: 54px; height: 54px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
           .logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
           .header-text { flex: 1; }
-          .school-name { font-size: 20px; font-weight: 800; color: #7C2D12; letter-spacing: 0.3px; font-family: Georgia, 'Times New Roman', serif; }
+          .school-name { font-size: 20px; font-weight: 800; color: #14532D; letter-spacing: 0.3px; font-family: Georgia, 'Times New Roman', serif; }
           .tagline { font-size: 10.5px; color: ${accent.text}; font-weight: 600; margin-top: 2px; letter-spacing: 0.4px; }
-          .address { font-size: 9.5px; color: #94a3b8; margin-top: 3px; }
+          .address { font-size: 9.5px; color: #5B6B5F; margin-top: 3px; }
 
           .doc-title-wrap { text-align: center; margin: 6px 0 20px; }
-          .doc-title { display: inline-block; font-size: 16.5px; font-weight: 800; color: #ffffff; padding: 9px 26px; background: linear-gradient(135deg, ${accent.dark}, ${accent.main}); border-radius: 999px; letter-spacing: 0.3px; }
+          .doc-title { display: inline-block; font-size: 16.5px; font-weight: 800; color: #FFFFFF; padding: 9px 26px; background: linear-gradient(135deg, ${accent.dark}, ${accent.main}); border-radius: 999px; letter-spacing: 0.3px; }
 
-          .footer { text-align: center; border-top: 2px solid #e2e8f0; padding-top: 10px; margin-top: 26px; font-size: 8.5px; color: #94a3b8; }
+          .footer { text-align: center; border-top: 2px solid #D7E5D9; padding-top: 10px; margin-top: 26px; font-size: 8.5px; color: #5B6B5F; }
           .footer span { color: ${accent.text}; font-weight: 700; }
         </style></head><body>
 
@@ -859,16 +859,16 @@ const Admission = () => {
       // double-paint nested table rows — label sits above the underline.
       const line = (labelText: string, value: string, _widthPct?: number, required = false) =>
         `<div style="margin-bottom:10px;">
-          <div style="font-size:9.5px;font-weight:600;color:#7C2D12;text-transform:uppercase;letter-spacing:0.2px;margin-bottom:3px;">${labelText}${required ? ' <span style="color:#E4650D;">*</span>' : ''}</div>
-          <div style="font-size:11px;font-weight:600;color:#1e293b;border-bottom:1.5px solid #94a3b8;padding-bottom:3px;min-height:15px;">${esc(value) || "&nbsp;"}</div>
+          <div style="font-size:9.5px;font-weight:600;color:#14532D;text-transform:uppercase;letter-spacing:0.2px;margin-bottom:3px;">${labelText}${required ? ' <span style="color:#14532D;">*</span>' : ''}</div>
+          <div style="font-size:11px;font-weight:600;color:#1A2E22;border-bottom:1.5px solid #5B6B5F;padding-bottom:3px;min-height:15px;">${esc(value) || "&nbsp;"}</div>
         </div>`;
 
       const lineRow = (fields: string[]) =>
         `<div style="display:flex;gap:16px;">${fields.map(f => `<div style="flex:1;min-width:0;">${f}</div>`).join("")}</div>`;
       // Checkbox that renders filled/checked when it matches the applicant's selection
       const checkbox = (labelText: string, checked = false) => `
-        <span style="display:inline-flex;align-items:center;gap:7px;margin:0 20px 10px 0;font-size:12px;color:#1e293b;font-weight:500;">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border:1.6px solid #7C2D12;border-radius:4px;flex-shrink:0;background:${checked ? "#7C2D12" : "transparent"};color:#fff;font-size:11px;font-weight:800;line-height:1;">${checked ? "✓" : ""}</span>${labelText}
+        <span style="display:inline-flex;align-items:center;gap:7px;margin:0 20px 10px 0;font-size:12px;color:#1A2E22;font-weight:500;">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;border:1.6px solid #14532D;border-radius:4px;flex-shrink:0;background:${checked ? "#14532D" : "transparent"};color:#FFFFFF;font-size:11px;font-weight:800;line-height:1;">${checked ? "✓" : ""}</span>${labelText}
         </span>`;
 
       const docChecklist = [
@@ -884,45 +884,45 @@ const Admission = () => {
         <style>
           @page { margin: 14mm 16mm; size: A4; }
           * { box-sizing: border-box; margin: 0; padding: 0; }
-          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1e293b; line-height: 1.5; }
+          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1A2E22; line-height: 1.5; }
 
           /* ── Decorative top band ── */
-          .topband { height: 8px; background: linear-gradient(90deg, #7C2D12 0%, #9A3412 45%, #E4650D 100%); border-radius: 0 0 4px 4px; margin-bottom: 16px; }
+          .topband { height: 8px; background: linear-gradient(90deg, #14532D 0%, #0E3B20 45%, #14532D 100%); border-radius: 0 0 4px 4px; margin-bottom: 16px; }
 
           /* ── Header ── */
-          .header { display: flex; align-items: center; gap: 14px; border-bottom: 3px solid #7C2D12; padding-bottom: 14px; margin-bottom: 18px; }
+          .header { display: flex; align-items: center; gap: 14px; border-bottom: 3px solid #14532D; padding-bottom: 14px; margin-bottom: 18px; }
           .logo-wrap { width: 58px; height: 58px; border-radius: 50%; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
           .logo-wrap img { width: 100%; height: 100%; object-fit: cover; }
           .header-text { flex: 1; }
-          .school-name { font-size: 22px; font-weight: 800; color: #7C2D12; letter-spacing: 0.3px; font-family: Georgia, 'Times New Roman', serif; }
-          .tagline { font-size: 11px; color: #E4650D; font-weight: 600; margin-top: 2px; letter-spacing: 0.5px; }
-          .address { font-size: 9.5px; color: #94a3b8; margin-top: 3px; }
-          .header-badge { text-align: right; font-size: 9px; color: #64748b; }
-          .header-badge .yr { font-size: 13px; font-weight: 800; color: #7C2D12; }
+          .school-name { font-size: 22px; font-weight: 800; color: #14532D; letter-spacing: 0.3px; font-family: Georgia, 'Times New Roman', serif; }
+          .tagline { font-size: 11px; color: #14532D; font-weight: 600; margin-top: 2px; letter-spacing: 0.5px; }
+          .address { font-size: 9.5px; color: #5B6B5F; margin-top: 3px; }
+          .header-badge { text-align: right; font-size: 9px; color: #5B6B5F; }
+          .header-badge .yr { font-size: 13px; font-weight: 800; color: #14532D; }
 
           .doc-title-wrap { text-align: center; margin: 4px 0 8px; }
-          .doc-title { display: inline-block; font-size: 17px; font-weight: 800; color: #ffffff; padding: 9px 28px; background: linear-gradient(135deg, #7C2D12, #9A3412); border-radius: 999px; letter-spacing: 0.4px; }
-          .doc-sub { font-size: 10.5px; color: #64748b; text-align: center; margin: 8px 0 18px; font-style: italic; }
+          .doc-title { display: inline-block; font-size: 17px; font-weight: 800; color: #FFFFFF; padding: 9px 28px; background: linear-gradient(135deg, #14532D, #0E3B20); border-radius: 999px; letter-spacing: 0.4px; }
+          .doc-sub { font-size: 10.5px; color: #5B6B5F; text-align: center; margin: 8px 0 18px; font-style: italic; }
           .intro-row { display: flex; align-items: flex-start; justify-content: center; gap: 18px; margin: 8px 0 20px; flex-wrap: wrap; }
           .intro-text { flex: 1; min-width: 200px; max-width: 420px; }
 
-          .section-title { font-size: 12.5px; font-weight: 800; color: #7C2D12; margin: 20px 0 10px; padding: 6px 12px; background: #fef2e8; border-left: 4px solid #E4650D; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
+          .section-title { font-size: 12.5px; font-weight: 800; color: #14532D; margin: 20px 0 10px; padding: 6px 12px; background: #F5E6C4; border-left: 4px solid #14532D; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.4px; }
 
-          .note { font-size: 10px; color: #475569; background: #fff9f0; border: 1px dashed #f0a55f; border-radius: 6px; padding: 9px 12px; margin-top: 6px; }
+          .note { font-size: 10px; color: #5B6B5F; background: #F5E6C4; border: 1px dashed #B8860B; border-radius: 6px; padding: 9px 12px; margin-top: 6px; }
 
-          .photo-box { flex-shrink: 0; width: 92px; height: 110px; border: 1.6px dashed #94a3b8; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #94a3b8; text-align: center; padding: 6px; }
+          .photo-box { flex-shrink: 0; width: 92px; height: 110px; border: 1.6px dashed #5B6B5F; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #5B6B5F; text-align: center; padding: 6px; }
 
-          .footer { text-align: center; border-top: 2px solid #e2e8f0; padding-top: 10px; margin-top: 24px; font-size: 8.5px; color: #94a3b8; }
-          .footer span { color: #7C2D12; font-weight: 700; }
+          .footer { text-align: center; border-top: 2px solid #D7E5D9; padding-top: 10px; margin-top: 24px; font-size: 8.5px; color: #5B6B5F; }
+          .footer span { color: #14532D; font-weight: 700; }
 
-          .officebox { border: 1.6px dashed #E4650D; border-radius: 8px; padding: 12px 14px; margin-top: 16px; background: #fff9f0; }
-          .officebox .t { font-size: 10.5px; font-weight: 800; color: #E4650D; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.4px; }
+          .officebox { border: 1.6px dashed #14532D; border-radius: 8px; padding: 12px 14px; margin-top: 16px; background: #F5E6C4; }
+          .officebox .t { font-size: 10.5px; font-weight: 800; color: #14532D; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.4px; }
 
-          .declaration { font-size: 10px; color: #475569; border: 1px solid #e5d9c6; border-radius: 6px; padding: 10px 12px; margin-top: 16px; background: #fbf6ec; }
+          .declaration { font-size: 10px; color: #5B6B5F; border: 1px solid #D7E5D9; border-radius: 6px; padding: 10px 12px; margin-top: 16px; background: #F5E6C4; }
 
           .signrow { display: flex; justify-content: space-between; margin-top: 30px; }
           .signrow .sig { width: 46%; text-align: center; }
-          .signrow .sig .l { border-top: 1.4px solid #64748b; padding-top: 5px; font-size: 9.5px; color: #64748b; }
+          .signrow .sig .l { border-top: 1.4px solid #5B6B5F; padding-top: 5px; font-size: 9.5px; color: #5B6B5F; }
         </style></head><body>
 
         <div class="topband"></div>
@@ -952,18 +952,18 @@ const Admission = () => {
         ${line("Father's CNIC", form.father_cnic, undefined, true)}
         ${line("Occupation", form.occupation)}
         ${line("Date of Birth", form.date_of_birth)}
-        <div style="margin:6px 0 16px;clear:both;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#7C2D12;margin-bottom:8px;text-transform:uppercase;">Gender <span style="color:#E4650D;">*</span></div>${checkbox("Male", form.gender === "male")}${checkbox("Female", form.gender === "female")}</div>
+        <div style="margin:6px 0 16px;clear:both;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#14532D;margin-bottom:8px;text-transform:uppercase;">Gender <span style="color:#14532D;">*</span></div>${checkbox("Male", form.gender === "male")}${checkbox("Female", form.gender === "female")}</div>
 
         <div class="section-title">2&nbsp; &nbsp;Academic Information</div>
-        <div style="margin:6px 0 14px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#7C2D12;margin-bottom:8px;text-transform:uppercase;">Applying for Class <span style="color:#E4650D;">*</span></div>${["6", "7", "8"].map(c => checkbox(`Class ${c}`, form.applying_class === c)).join("")}</div>
-        <div style="margin:6px 0 16px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#7C2D12;margin-bottom:8px;text-transform:uppercase;">Admission Type <span style="color:#E4650D;">*</span></div>${checkbox("Fresh Admission", form.admission_type === "fresh")}</div>
+        <div style="margin:6px 0 14px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#14532D;margin-bottom:8px;text-transform:uppercase;">Applying for Class <span style="color:#14532D;">*</span></div>${["6", "7", "8"].map(c => checkbox(`Class ${c}`, form.applying_class === c)).join("")}</div>
+        <div style="margin:6px 0 16px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#14532D;margin-bottom:8px;text-transform:uppercase;">Admission Type <span style="color:#14532D;">*</span></div>${checkbox("Fresh Admission", form.admission_type === "fresh")}</div>
         <div class="note" style="margin-bottom:14px;">Important: At GMS Taj Muhammad, School Leaving Certificate (SLC) AND previous-school information are required for BOTH Fresh Admission and Migration/Transfer. All four fields below are required for all applicants.</div>
         ${line("Previous School Name", form.previous_school)}
         ${lineRow([line("Previous Class", form.previous_class), line("Previous Marks / Grade (%)", form.previous_marks)])}
         ${line("Year of Passing", form.year_of_passing)}
 
         <div class="section-title">3&nbsp; &nbsp;Documents to Attach</div>
-        <ul style="font-size:11.5px;color:#334155;padding-left:20px;line-height:1.6;">${docChecklist}</ul>
+        <ul style="font-size:11.5px;color:#1A2E22;padding-left:20px;line-height:1.6;">${docChecklist}</ul>
         <div class="note">📎 Attach photocopies of the above documents with this form. Originals may be asked for verification at the office.</div>
 
         <div class="declaration">
@@ -1016,15 +1016,15 @@ const Admission = () => {
       // the print/PDF renderer can't double-paint nested rows.
       const line = (label: string, value?: string | null, _w?: number, req = false) =>
         `<div style="margin-bottom:10px;">
-          <div style="font-size:9px;font-weight:600;color:#7C2D12;text-transform:uppercase;letter-spacing:0.2px;margin-bottom:3px;">${esc(label)}${req ? ' <span style="color:#E4650D;">*</span>' : ''}</div>
-          <div style="font-size:10.5px;color:#1e293b;border-bottom:1px solid #94a3b8;padding-bottom:3px;min-height:14px;">${esc(value) || "&nbsp;"}</div>
+          <div style="font-size:9px;font-weight:600;color:#14532D;text-transform:uppercase;letter-spacing:0.2px;margin-bottom:3px;">${esc(label)}${req ? ' <span style="color:#14532D;">*</span>' : ''}</div>
+          <div style="font-size:10.5px;color:#1A2E22;border-bottom:1px solid #5B6B5F;padding-bottom:3px;min-height:14px;">${esc(value) || "&nbsp;"}</div>
         </div>`;
 
       const lineRow = (fields: string[]) =>
         `<div style="display:flex;gap:16px;">${fields.map(f => `<div style="flex:1;min-width:0;">${f}</div>`).join("")}</div>`;
-      
+
       const checkbox = (label: string, checked: boolean) =>
-        `<span style="display:inline-flex;align-items:center;margin-right:14px;font-size:10.5px;color:#334155;"><span style="width:13px;height:13px;border:2px solid #94a3b8;border-radius:3px;margin-right:5px;display:inline-flex;align-items:center;justify-content:center;background:${checked ? '#10B981' : 'transparent'};border-color:${checked ? '#059669' : '#94a3b8'};">${checked ? '<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>' : ''}</span>${esc(label)}</span>`;
+        `<span style="display:inline-flex;align-items:center;margin-right:14px;font-size:10.5px;color:#1A2E22;"><span style="width:13px;height:13px;border:2px solid #5B6B5F;border-radius:3px;margin-right:5px;display:inline-flex;align-items:center;justify-content:center;background:${checked ? '#14532D' : 'transparent'};border-color:${checked ? '#0E3B20' : '#5B6B5F'};">${checked ? '<svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--primary-foreground)" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg>' : ''}</span>${esc(label)}</span>`;
 
       const docChecklist = [
         "B-Form (NADRA) — Original + 2 photocopies",
@@ -1040,33 +1040,33 @@ const Admission = () => {
         <title>Admission Application Form - ${esc(schoolName)}</title>
         <style>
           * { margin:0;padding:0;box-sizing:border-box; }
-          body { font-family:'Segoe UI',Arial,sans-serif; background:#fff; color:#1e293b; padding:20px; line-height:1.5; }
-          .page { max-width:210mm; margin:0 auto; border:1px solid #e2e8f0; padding:25mm 18mm 20mm; box-shadow:0 2px 8px rgba(0,0,0,0.08); }
-          .topband { height:6px; background:linear-gradient(90deg,#7C2D12,#10B981); margin:-25mm -18mm 20px; }
+          body { font-family:'Segoe UI',Arial,sans-serif; background:#FFFFFF; color:#1A2E22; padding:20px; line-height:1.5; }
+          .page { max-width:210mm; margin:0 auto; border:1px solid #D7E5D9; padding:25mm 18mm 20mm; box-shadow:0 2px 8px rgba(26,46,34,0.08); }
+          .topband { height:6px; background:linear-gradient(90deg,#14532D,#14532D); margin:-25mm -18mm 20px; }
           .header { display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;gap:16px;flex-wrap:wrap; }
           .logo-wrap { width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center; }
           .logo-wrap img { width:100%;height:100%;object-fit:cover; }
           .header-text { flex:1;min-width:200px; }
-          .school-name { font-size:18px;font-weight:700;color:#7C2D12;line-height:1.2; }
-          .tagline { font-size:11px;color:#64748b;margin-top:2px; }
-          .address { font-size:10px;color:#94a3b8;margin-top:3px; }
-          .header-badge { background:#fef3c7;border:2px solid #f59e0b;border-radius:8px;padding:8px 12px;text-align:center; }
-          .header-badge .t { font-size:9px;font-weight:700;color:#92400E;text-transform:uppercase;letter-spacing:1px; }
-          .header-badge .yr { font-size:18px;font-weight:800;color:#B45309;display:block;margin-top:2px; }
+          .school-name { font-size:18px;font-weight:700;color:#14532D;line-height:1.2; }
+          .tagline { font-size:11px;color:#5B6B5F;margin-top:2px; }
+          .address { font-size:10px;color:#5B6B5F;margin-top:3px; }
+          .header-badge { background:#F5E6C4;border:2px solid #B8860B;border-radius:8px;padding:8px 12px;text-align:center; }
+          .header-badge .t { font-size:9px;font-weight:700;color:#14532D;text-transform:uppercase;letter-spacing:1px; }
+          .header-badge .yr { font-size:18px;font-weight:800;color:#0E3B20;display:block;margin-top:2px; }
           .doc-title-wrap { text-align:center;margin:18px 0 12px; }
-          .doc-title { display:inline-block;font-size:15px;font-weight:800;color:#fff;background:linear-gradient(135deg,#7C2D12,#059669);padding:10px 28px;border-radius:8px;letter-spacing:0.5px; }
-          .doc-sub { text-align:center;font-size:11px;color:#64748b;margin-top:8px;font-style:italic; }
+          .doc-title { display:inline-block;font-size:15px;font-weight:800;color:#FFFFFF;background:linear-gradient(135deg,#14532D,#0E3B20);padding:10px 28px;border-radius:8px;letter-spacing:0.5px; }
+          .doc-sub { text-align:center;font-size:11px;color:#5B6B5F;margin-top:8px;font-style:italic; }
           .intro-row { display:flex;align-items:flex-start;justify-content:center;gap:18px;margin:14px 0 20px;flex-wrap:wrap; }
           .intro-text { flex:1;min-width:200px;max-width:420px; }
-          .photo-box { flex-shrink:0;width:80px;height:100px;border:2px dashed #94a3b8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:9px;color:#94a3b8;padding:6px;line-height:1.3; }
-          .section-title { font-size:12px;font-weight:700;color:#fff;background:linear-gradient(90deg,#7C2D12,#10B981);padding:7px 14px;border-radius:6px;margin:18px 0 10px;letter-spacing:0.3px; }
-          .note { font-size:10px;color:#B45309;background:#FEF3C7;padding:8px 12px;border-radius:6px;border-left:3px solid #F59E0B;margin:8px 0;line-height:1.5; }
-          .declaration { font-size:11px;color:#334155;background:#f8fafc;border:1px solid #e2e8f0;padding:12px 16px;border-radius:8px;margin-top:20px;line-height:1.6; }
-          .signrow { display:flex;gap:40px;margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0; }
-          .sig { flex:1; } .sig .l { font-size:10px;color:#64748b;border-top:1px solid #334155;padding-top:6px;height:30px; }
-          .officebox { background:#fefce8;border:2px solid #eab308;border-radius:8px;padding:16px;margin-top:20px; }
-          .officebox .t { font-size:12px;font-weight:700;color:#854d0e;text-align:center;margin-bottom:12px; }
-          .footer { text-align:center;font-size:9px;color:#94a3b8;margin-top:24px;padding-top:12px;border-top:1px solid #e2e8f0; }
+          .photo-box { flex-shrink:0;width:80px;height:100px;border:2px dashed #5B6B5F;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:9px;color:#5B6B5F;padding:6px;line-height:1.3; }
+          .section-title { font-size:12px;font-weight:700;color:#FFFFFF;background:linear-gradient(90deg,#14532D,#14532D);padding:7px 14px;border-radius:6px;margin:18px 0 10px;letter-spacing:0.3px; }
+          .note { font-size:10px;color:#0E3B20;background:#F5E6C4;padding:8px 12px;border-radius:6px;border-left:3px solid #B8860B;margin:8px 0;line-height:1.5; }
+          .declaration { font-size:11px;color:#1A2E22;background:#FAFDF7;border:1px solid #D7E5D9;padding:12px 16px;border-radius:8px;margin-top:20px;line-height:1.6; }
+          .signrow { display:flex;gap:40px;margin-top:24px;padding-top:16px;border-top:1px solid #D7E5D9; }
+          .sig { flex:1; } .sig .l { font-size:10px;color:#5B6B5F;border-top:1px solid #1A2E22;padding-top:6px;height:30px; }
+          .officebox { background:#F5E6C4;border:2px solid #B8860B;border-radius:8px;padding:16px;margin-top:20px; }
+          .officebox .t { font-size:12px;font-weight:700;color:#0E3B20;text-align:center;margin-bottom:12px; }
+          .footer { text-align:center;font-size:9px;color:#5B6B5F;margin-top:24px;padding-top:12px;border-top:1px solid #D7E5D9; }
           @media print { body { padding:0; } .page { box-shadow:none;border:none;max-width:none; } .topband { -print-color-adjust:exact;-webkit-print-color-adjust:exact; } }
         </style>
       </head><body><div class="page">
@@ -1096,18 +1096,18 @@ const Admission = () => {
         ${line("Home Address (Village / Mohalla)", "")}
         ${lineRow([line("Father's CNIC Number", "", undefined, true), line("Occupation", "")])}
         ${line("Date of Birth", "")}
-        <div style="margin:6px 0 16px;clear:both;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#7C2D12;margin-bottom:8px;text-transform:uppercase;">Gender <span style="color:#E4650D;">*</span></div>${checkbox("Male", false)}${checkbox("Female", false)}</div>
+        <div style="margin:6px 0 16px;clear:both;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#14532D;margin-bottom:8px;text-transform:uppercase;">Gender <span style="color:#14532D;">*</span></div>${checkbox("Male", false)}${checkbox("Female", false)}</div>
 
         <div class="section-title">2&nbsp; &nbsp;Academic Information</div>
-        <div style="margin:6px 0 14px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#7C2D12;margin-bottom:8px;text-transform:uppercase;">Applying for Class <span style="color:#E4650D;">*</span></div>${["6", "7", "8"].map(c => checkbox(`Class ${c}`, false)).join("")}</div>
-        <div style="margin:6px 0 16px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#7C2D12;margin-bottom:8px;text-transform:uppercase;">Admission Type <span style="color:#E4650D;">*</span></div>${checkbox("Fresh Admission", false)}</div>
+        <div style="margin:6px 0 14px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#14532D;margin-bottom:8px;text-transform:uppercase;">Applying for Class <span style="color:#14532D;">*</span></div>${["6", "7", "8"].map(c => checkbox(`Class ${c}`, false)).join("")}</div>
+        <div style="margin:6px 0 16px;"><div style="font-size:10px;font-weight:600;letter-spacing:0.3px;color:#14532D;margin-bottom:8px;text-transform:uppercase;">Admission Type <span style="color:#14532D;">*</span></div>${checkbox("Fresh Admission", false)}</div>
         <div class="note" style="margin-bottom:14px;">Important: At GMS Taj Muhammad, School Leaving Certificate (SLC) AND previous-school information are required for BOTH Fresh Admission and Migration/Transfer.</div>
         ${line("Previous School Name", "", undefined, true)}
         ${lineRow([line("Previous Class", "", undefined, true), line("Previous Marks / Grade", "", undefined, true)])}
         ${line("Year of Passing", "", undefined, true)}
 
         <div class="section-title">3&nbsp; &nbsp;Documents to Attach</div>
-        <ul style="font-size:11.5px;color:#334155;padding-left:20px;line-height:1.6;">${docChecklist}</ul>
+        <ul style="font-size:11.5px;color:#1A2E22;padding-left:20px;line-height:1.6;">${docChecklist}</ul>
         <div class="note">📎 Attach photocopies of the above documents with this form. Originals may be asked for verification at the office.</div>
 
         <div class="declaration">
@@ -1372,33 +1372,33 @@ const Admission = () => {
             {/* ── EDITORIAL HERO BANNER ── */}
             <motion.div
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
-              className="relative rounded-2xl overflow-hidden mb-6 -mx-4 sm:-mx-8 px-4 sm:px-8 py-8 sm:py-10 border border-[#D4A574]/40"
+              className="relative rounded-2xl overflow-hidden mb-6 -mx-4 sm:-mx-8 px-4 sm:px-8 py-8 sm:py-10 border border-accent"
               style={{
-                background: "linear-gradient(160deg, #faf6f1 0%, #f5ebe0 25%, #fef3e8 50%, #fdf8f3 75%, #f9f1e8 100%)",
+                background: "var(--gradient-hero)",
               }}
             >
               {/* Animated ambient background — slow drifting warm glows for a
                   premium, alive feel instead of a static gradient panel. */}
               <motion.div
                 aria-hidden
-                className="absolute -top-16 -right-10 w-72 h-72 rounded-full bg-[#D4A574]/12 blur-3xl"
+                className="absolute -top-16 -right-10 w-72 h-72 rounded-full bg-accent-soft blur-3xl"
                 animate={motionOk ? { x: [0, 20, 0], y: [0, 15, 0], scale: [1, 1.08, 1] } : {}}
                 transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
               />
               <motion.div
                 aria-hidden
-                className="absolute -bottom-14 -left-10 w-60 h-60 rounded-full bg-[#C96B3B]/10 blur-3xl"
+                className="absolute -bottom-14 -left-10 w-60 h-60 rounded-full bg-surface blur-3xl"
                 animate={motionOk ? { x: [0, -15, 0], y: [0, -10, 0], scale: [1, 1.1, 1] } : {}}
                 transition={{ repeat: Infinity, duration: 12, ease: "easeInOut", delay: 1 }}
               />
               <motion.div
                 aria-hidden
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[300px] bg-gradient-to-r from-[#E8D5C4]/25 to-transparent rounded-full blur-3xl"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] h-[300px] bg-gradient-to-r from-accent to-transparent rounded-full blur-3xl"
                 animate={motionOk ? { opacity: [0.5, 0.9, 0.5] } : {}}
                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
               />
               {/* Subtle editorial line accent */}
-              <div className="absolute top-6 left-1/2 -translate-x-1/2 w-16 h-[2px] bg-gradient-to-r from-transparent via-[#C96B3B]/40 to-transparent" />
+              <div className="absolute top-6 left-1/2 -translate-x-1/2 w-16 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent" />
 
               <div className="relative text-center">
                 {/* Animated pulsing badge */}
@@ -1408,27 +1408,27 @@ const Admission = () => {
                   className="inline-flex items-center gap-2 mb-4"
                 >
                   {isEffectivelyOpen ? (
-                    <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#f8f4f0] via-white to-[#fef7f2] text-[#8B4513] border border-[#D4A574]/50 text-sm font-semibold tracking-wide px-5 py-2.5 rounded-full shadow-sm backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-accent via-accent-soft to-accent text-primary border border-accent text-sm font-semibold tracking-wide px-5 py-2.5 rounded-full shadow-sm backdrop-blur-sm">
                       <span className="relative flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C96B3B] opacity-60"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#C96B3B]"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-surface opacity-60"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-surface"></span>
                       </span>
                       <span style={{ fontFamily: "'Cormorant Garamond', 'Playfair Display', serif" }} className="text-base italic normal-case">Admissions Open</span>
-                      <span className="text-[#A0522D]/70 font-light">— Session {displaySessionYear}</span>
+                      <span className="text-primary font-light">— Session {displaySessionYear}</span>
                     </div>
                   ) : (
-                    <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#fef2f2] via-white to-[#fff5f5] text-[#991B1B] border border-[#FCA5A5]/50 text-sm font-semibold tracking-wide px-5 py-2.5 rounded-full shadow-sm">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#DC2626]" />
+                    <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary via-surface-raised to-primary text-primary border border-border text-sm font-semibold tracking-wide px-5 py-2.5 rounded-full shadow-sm">
+                      <span className="w-2.5 h-2.5 rounded-full bg-surface" />
                       <span style={{ fontFamily: "'Cormorant Garamond', 'Playfair Display', serif" }} className="text-base italic normal-case">Admissions Closed</span>
-                      <span className="text-[#991B1B]/70 font-light">— Session {displaySessionYear}</span>
+                      <span className="text-primary font-light">— Session {displaySessionYear}</span>
                     </div>
                   )}
                 </motion.div>
 
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight" style={{ fontFamily: "'Cormorant Garamond', 'Playfair Display', serif", color: '#4A3728' }}>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight" style={{ fontFamily: "'Cormorant Garamond', 'Playfair Display', serif", color: 'var(--primary)' }}>
                   Admission Portal
                 </h1>
-                <p className="text-sm sm:text-base max-w-lg mx-auto mb-6 leading-relaxed" style={{ color: '#6B5344' }}>
+                <p className="text-sm sm:text-base max-w-lg mx-auto mb-6 leading-relaxed" style={{ color: 'var(--primary)' }}>
                   Apply online to check your eligibility. If approved, download forms and visit the school office to complete admission.
                 </p>
 
@@ -1436,8 +1436,8 @@ const Admission = () => {
                   <motion.button
                     whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                     onClick={() => startApply()}
-                    className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-full border border-[#C96B3B] bg-transparent hover:bg-[#C96B3B]/10 transition-all text-sm"
-                    style={{ color: '#C96B3B' }}
+                    className="inline-flex items-center gap-2 font-bold px-8 py-3 rounded-full border border-border bg-transparent hover:bg-surface transition-all text-sm"
+                    style={{ color: 'var(--primary)' }}
                   >
                     <ApplyNowIcon className="w-5 h-5" /> Apply Now
                     <ArrowRight className="w-4 h-4" />
@@ -1445,12 +1445,12 @@ const Admission = () => {
                 )}
 
                 {settings?.last_date && isEffectivelyOpen && (
-                  <p className="text-xs mt-4" style={{ color: '#8B7355' }}>
-                    Last Date: <span className="font-bold" style={{ color: '#5D4037' }}>{new Date(settings.last_date).toLocaleDateString("en-PK", { day: "numeric", month: "long", year: "numeric" })}</span>
+                  <p className="text-xs mt-4" style={{ color: 'var(--primary)' }}>
+                    Last Date: <span className="font-bold" style={{ color: 'var(--primary)' }}>{new Date(settings.last_date).toLocaleDateString("en-PK", { day: "numeric", month: "long", year: "numeric" })}</span>
                   </p>
                 )}
                 {settings?.banner_message && isEffectivelyOpen && (
-                  <p className="text-xs mt-1 italic" style={{ color: '#9C8575', fontFamily: "'Cormorant Garamond', serif" }}>"{settings.banner_message}"</p>
+                  <p className="text-xs mt-1 italic" style={{ color: 'var(--primary)', fontFamily: "'Cormorant Garamond', serif" }}>"{settings.banner_message}"</p>
                 )}
               </div>
 
@@ -1461,12 +1461,12 @@ const Admission = () => {
             {!isEffectivelyOpen && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0, transition: { delay: 0.1 } }}
-                className="mb-6 p-5 rounded-2xl border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/20 flex items-start gap-3"
+                className="mb-6 p-5 rounded-2xl border border-border border-border bg-background bg-primary-strong/20 flex items-start gap-3"
               >
-                <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-bold text-sm text-red-700 dark:text-red-400">Admissions are currently closed</p>
-                  <p className="text-xs text-red-700/80 dark:text-red-400/80 mt-1">
+                  <p className="font-bold text-sm text-primary text-primary">Admissions are currently closed</p>
+                  <p className="text-xs text-primary text-primary mt-1">
                     {nextOpeningNote} Online application, tracking, eligibility check, and downloads will be available again once admissions reopen.
                   </p>
                 </div>
@@ -1508,16 +1508,16 @@ const Admission = () => {
                     }
                     card.action();
                   }}
-                  className={`relative text-left p-5 rounded-2xl border border-[#C96B3B] bg-transparent transition-all group ${
-                    isEffectivelyOpen ? "hover:bg-[#C96B3B]/10" : "opacity-60 cursor-not-allowed grayscale"
+                  className={`relative text-left p-5 rounded-2xl border border-border bg-transparent transition-all group ${
+                    isEffectivelyOpen ? "hover:bg-surface" : "opacity-60 cursor-not-allowed grayscale"
                   }`}
                 >
                   {!isEffectivelyOpen && (
-                    <div className="absolute top-3 right-3 bg-red-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <div className="absolute top-3 right-3 bg-background text-primary-foreground text-[9px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
                       <LockIcon className="w-2.5 h-2.5" /> Locked
                     </div>
                   )}
-                  <div className={`w-11 h-11 rounded-xl bg-transparent border border-[#C96B3B] flex items-center justify-center mb-3 ${isEffectivelyOpen ? "group-hover:scale-110" : ""} transition-transform`}>
+                  <div className={`w-11 h-11 rounded-xl bg-transparent border border-border flex items-center justify-center mb-3 ${isEffectivelyOpen ? "group-hover:scale-110" : ""} transition-transform`}>
                     <card.icon className="w-5 h-5" />
                   </div>
                   <p className="font-bold text-sm text-foreground">{card.title}</p>
@@ -1548,7 +1548,7 @@ const Admission = () => {
                     <FileDown className="w-3.5 h-3.5" /> Download All
                   </Button>
                 ) : (
-                  <span className="text-[10px] text-red-500 font-bold flex items-center gap-1">
+                  <span className="text-[10px] text-primary font-bold flex items-center gap-1">
                     <LockIcon className="w-3 h-3" /> Locked
                   </span>
                 )}
@@ -1558,24 +1558,24 @@ const Admission = () => {
                 <button
                   onClick={() => isEffectivelyOpen && !downloading && generateEmptyForm()}
                   disabled={!!downloading || !isEffectivelyOpen}
-                  className="text-left p-3 rounded-xl border border-[#C96B3B] bg-transparent hover:bg-[#C96B3B]/10 transition-all group relative overflow-hidden disabled:opacity-60 sm:col-span-2"
+                  className="text-left p-3 rounded-xl border border-border bg-transparent hover:bg-surface transition-all group relative overflow-hidden disabled:opacity-60 sm:col-span-2"
                 >
                   {downloading === "empty_form" && (
-                    <div className="absolute inset-0 bg-[#C96B3B]/10 flex items-center justify-center rounded-xl">
-                      <Loader2 className="w-5 h-5 animate-spin text-[#C96B3B]" />
+                    <div className="absolute inset-0 bg-surface flex items-center justify-center rounded-xl">
+                      <Loader2 className="w-5 h-5 animate-spin text-primary" />
                     </div>
                   )}
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-transparent border border-[#3B82F6] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                      <Download className="w-5 h-5 text-[#3B82F6]" />
+                    <div className="w-10 h-10 rounded-lg bg-transparent border border-border flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      <Download className="w-5 h-5 text-primary" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="font-bold text-sm text-[#3B82F6] flex items-center gap-1.5">
+                      <p className="font-bold text-sm text-primary flex items-center gap-1.5">
                         <span>Download Admission Form</span>
                       </p>
                       <p className="text-xs text-muted-foreground mt-1 leading-tight">Blank form — print, fill by hand & submit at school office</p>
                       <p className="text-[9px] text-muted-foreground font-medium mt-1 flex items-center gap-1">
-                        <FileDown className="w-3 h-3 text-[#3B82F6]" /> No pre-filling required
+                        <FileDown className="w-3 h-3 text-primary" /> No pre-filling required
                       </p>
                     </div>
                   </div>
@@ -1604,7 +1604,7 @@ const Admission = () => {
                           <p className="text-[10px] text-muted-foreground mt-0.5 leading-tight line-clamp-1">{d.desc}</p>
                           <p className="text-[9px] text-muted-foreground/60 mt-0.5 flex items-center gap-1">
                             {d.fileSize}
-                            {hasFile ? <FileDown className="w-2.5 h-2.5 text-green-600" /> : <FileText className="w-2.5 h-2.5 text-blue-500" />}
+                            {hasFile ? <FileDown className="w-2.5 h-2.5 text-primary" /> : <FileText className="w-2.5 h-2.5 text-primary" />}
                           </p>
                         </div>
                       </div>
@@ -1677,11 +1677,11 @@ const Admission = () => {
 
             {/* Draft restore banner */}
             {hasDraft && step === 1 && (
-              <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-xl p-3 mb-4 flex items-center gap-2 text-xs">
-                <Save className="w-4 h-4 text-blue-500 shrink-0" />
-                <span className="text-blue-700 dark:text-blue-300 flex-1">You have a saved draft from a previous session.</span>
+              <div className="bg-background bg-primary-strong/20 border border-border border-border rounded-xl p-3 mb-4 flex items-center gap-2 text-xs">
+                <Save className="w-4 h-4 text-primary shrink-0" />
+                <span className="text-primary text-primary flex-1">You have a saved draft from a previous session.</span>
                 <button onClick={() => { clearDraft(); setForm(defaultForm); setHasDraft(false); }}
-                  className="text-red-600 hover:underline shrink-0 flex items-center gap-1">
+                  className="text-primary hover:underline shrink-0 flex items-center gap-1">
                   <Trash2 className="w-3 h-3" /> Discard
                 </button>
               </div>
@@ -1716,7 +1716,7 @@ const Admission = () => {
                           ].map(f => (
                             <div key={f.id}>
                               <Label className="text-xs font-semibold mb-1 flex items-center">
-                                {f.label} {f.req && <span className="text-red-500 ml-0.5">*</span>}
+                                {f.label} {f.req && <span className="text-primary ml-0.5">*</span>}
                                 <FieldTooltip text={f.tip} />
                               </Label>
                               <div className="relative">
@@ -1724,10 +1724,10 @@ const Admission = () => {
                                 <Input value={(form as any)[f.id]} onChange={set(f.id)} onBlur={validateField(f.id)}
                                   placeholder={f.placeholder}
                                   aria-invalid={!!fieldErrors[f.id]}
-                                  className={`text-sm h-10 pl-9 ${fieldErrors[f.id] ? "border-red-500 focus-visible:ring-red-400" : ""}`} />
+                                  className={`text-sm h-10 pl-9 ${fieldErrors[f.id] ? "border-border focus-visible:ring-accent" : ""}`} />
                               </div>
                               {fieldErrors[f.id] && (
-                                <p className="text-[10px] text-red-600 mt-1 flex items-center gap-1">
+                                <p className="text-[10px] text-primary mt-1 flex items-center gap-1">
                                   <XCircle className="w-2.5 h-2.5 shrink-0" /> {fieldErrors[f.id]}
                                 </p>
                               )}
@@ -1743,17 +1743,17 @@ const Admission = () => {
                           </div>
                           <div>
                             <Label className="text-xs font-semibold mb-1 block">
-                              Gender <span className="text-red-500">*</span>
+                              Gender <span className="text-primary">*</span>
                             </Label>
                             <Select value={form.gender} onValueChange={v => { setForm(f => ({ ...f, gender: v })); if (fieldErrors.gender) setFieldErrors(errs => { const n = { ...errs }; delete n.gender; return n; }); }}>
-                              <SelectTrigger className={`h-10 text-sm ${fieldErrors.gender ? "border-red-500" : ""}`}><SelectValue placeholder="Select gender" /></SelectTrigger>
+                              <SelectTrigger className={`h-10 text-sm ${fieldErrors.gender ? "border-border" : ""}`}><SelectValue placeholder="Select gender" /></SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="male">Male</SelectItem>
                                 <SelectItem value="female">Female</SelectItem>
                               </SelectContent>
                             </Select>
                             {fieldErrors.gender && (
-                              <p className="text-[10px] text-red-600 mt-1 flex items-center gap-1">
+                              <p className="text-[10px] text-primary mt-1 flex items-center gap-1">
                                 <XCircle className="w-2.5 h-2.5 shrink-0" /> {fieldErrors.gender}
                               </p>
                             )}
@@ -1771,28 +1771,28 @@ const Admission = () => {
                         <div className="space-y-3">
                           <div>
                             <Label className="text-xs font-semibold mb-1 flex items-center">
-                              Applying for Class <span className="text-red-500 ml-0.5">*</span>
+                              Applying for Class <span className="text-primary ml-0.5">*</span>
                               <FieldTooltip text="Select the class you want admission in" />
                             </Label>
                             <Select value={form.applying_class} onValueChange={v => { setForm(f => ({ ...f, applying_class: v })); if (fieldErrors.applying_class) setFieldErrors(errs => { const n = { ...errs }; delete n.applying_class; return n; }); }}>
-                              <SelectTrigger className={`h-10 text-sm ${fieldErrors.applying_class ? "border-red-500" : ""}`}><SelectValue placeholder="Select class" /></SelectTrigger>
+                              <SelectTrigger className={`h-10 text-sm ${fieldErrors.applying_class ? "border-border" : ""}`}><SelectValue placeholder="Select class" /></SelectTrigger>
                               <SelectContent>
                                 {["6", "7", "8"].map(c => <SelectItem key={c} value={c}>Class {c}</SelectItem>)}
                               </SelectContent>
                             </Select>
                             {fieldErrors.applying_class && (
-                              <p className="text-[10px] text-red-600 mt-1 flex items-center gap-1">
+                              <p className="text-[10px] text-primary mt-1 flex items-center gap-1">
                                 <XCircle className="w-2.5 h-2.5 shrink-0" /> {fieldErrors.applying_class}
                               </p>
                             )}
                           </div>
                           <div>
                             <Label className="text-xs font-semibold mb-1 flex items-center">
-                              Admission Type <span className="text-red-500 ml-0.5">*</span>
+                              Admission Type <span className="text-primary ml-0.5">*</span>
                               <FieldTooltip text="Fresh = new student, Migration = transfer from another school" />
                             </Label>
                             <Select value={form.admission_type} onValueChange={v => { setForm(f => ({ ...f, admission_type: v as AdmissionType })); if (fieldErrors.admission_type) setFieldErrors(errs => { const n = { ...errs }; delete n.admission_type; return n; }); }}>
-                              <SelectTrigger className={`h-10 text-sm ${fieldErrors.admission_type ? "border-red-500" : ""}`}><SelectValue /></SelectTrigger>
+                              <SelectTrigger className={`h-10 text-sm ${fieldErrors.admission_type ? "border-border" : ""}`}><SelectValue /></SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="fresh">Fresh Admission</SelectItem>
                                 {[].includes(form.applying_class) && <SelectItem value="migration">Migration / Transfer</SelectItem>}
@@ -1824,7 +1824,7 @@ const Admission = () => {
                           ].map(f => (
                             <div key={f.id}>
                               <Label className="text-xs font-semibold mb-1 flex items-center">
-                                {f.label} {f.req && <span className="text-red-500 ml-0.5">*</span>}
+                                {f.label} {f.req && <span className="text-primary ml-0.5">*</span>}
                                 <FieldTooltip text={f.tip} />
                               </Label>
                               <div className="relative">
@@ -1832,10 +1832,10 @@ const Admission = () => {
                                 <Input value={(form as any)[f.id]} onChange={set(f.id)} onBlur={validateField(f.id)}
                                   placeholder={f.placeholder}
                                   aria-invalid={!!fieldErrors[f.id]}
-                                  className={`text-sm h-10 pl-9 ${fieldErrors[f.id] ? "border-red-500 focus-visible:ring-red-400" : ""}`} />
+                                  className={`text-sm h-10 pl-9 ${fieldErrors[f.id] ? "border-border focus-visible:ring-accent" : ""}`} />
                               </div>
                               {fieldErrors[f.id] && (
-                                <p className="text-[10px] text-red-600 mt-1 flex items-center gap-1">
+                                <p className="text-[10px] text-primary mt-1 flex items-center gap-1">
                                   <XCircle className="w-2.5 h-2.5 shrink-0" /> {fieldErrors[f.id]}
                                 </p>
                               )}
@@ -1899,7 +1899,7 @@ const Admission = () => {
                             </div>
                           </div>
 
-                          <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-xl p-3 text-xs text-blue-700 dark:text-blue-300 flex gap-2">
+                          <div className="bg-background bg-primary-strong/20 border border-border border-border rounded-xl p-3 text-xs text-primary text-primary flex gap-2">
                             <Info className="w-4 h-4 shrink-0 mt-0.5" />
                             <span>Documents are not uploaded online. If your eligibility is approved, you'll need to bring the original documents listed in the Admission Application Form (downloadable below) to the school office (Mon–Sat, 8AM–12PM).</span>
                           </div>
@@ -1923,14 +1923,14 @@ const Admission = () => {
 
                         {/* Styled CAPTCHA */}
                         <div className={`mt-4 border-2 rounded-xl p-4 space-y-3 ${
-                          captchaError ? "border-red-400 bg-red-50/50" : "border-primary/20 bg-primary/5"
+                          captchaError ? "border-border bg-background/50" : "border-primary/20 bg-primary/5"
                         }`}>
                           <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
                             <Shield className="w-4 h-4 text-primary" />
                             Security Verification
                           </div>
                           <div className="flex items-center gap-3">
-                            <div className="bg-white dark:bg-card rounded-lg px-4 py-2 border border-border shadow-sm">
+                            <div className="bg-surface bg-card rounded-lg px-4 py-2 border border-border shadow-sm">
                               <span className="text-lg font-bold text-foreground">{captchaQ.a}</span>
                               <span className="text-lg font-bold text-primary mx-2">{captchaQ.op}</span>
                               <span className="text-lg font-bold text-foreground">{captchaQ.b}</span>
@@ -1942,7 +1942,7 @@ const Admission = () => {
                               value={captchaInput}
                               onChange={e => { setCaptchaInput(e.target.value); setCaptchaError(false); }}
                               placeholder="?"
-                              className={`h-11 w-20 text-center text-xl font-bold rounded-lg ${captchaError ? "border-red-400" : ""}`}
+                              className={`h-11 w-20 text-center text-xl font-bold rounded-lg ${captchaError ? "border-border" : ""}`}
                             />
                             <button type="button" onClick={newCaptcha}
                               className="text-xs text-muted-foreground underline hover:text-primary shrink-0">
@@ -1950,7 +1950,7 @@ const Admission = () => {
                             </button>
                           </div>
                           {captchaError && (
-                            <p className="text-xs text-red-600 font-medium flex items-center gap-1">
+                            <p className="text-xs text-primary font-medium flex items-center gap-1">
                               <XCircle className="w-3 h-3" /> Wrong answer — try again
                             </p>
                           )}
@@ -2004,8 +2004,8 @@ const Admission = () => {
         {view === "success" && (
           <div className="container mx-auto px-4 pt-10 max-w-md text-center">
             <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-surface-raised rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-8 h-8 text-primary" />
               </div>
               <h2 className="text-xl font-bold mb-2">Application Submitted!</h2>
               <p className="text-muted-foreground text-sm mb-6">
@@ -2045,8 +2045,8 @@ const Admission = () => {
               <ChevronLeft className="w-4 h-4" /> Back
             </button>
             <div className="text-center mb-6">
-              <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                <Search className="w-6 h-6 text-blue-500" />
+              <div className="w-12 h-12 bg-background/10 rounded-2xl flex items-center justify-center mx-auto mb-3">
+                <Search className="w-6 h-6 text-primary" />
               </div>
               <h2 className="text-xl font-bold">Track Application</h2>
               <p className="text-sm text-muted-foreground mt-1">

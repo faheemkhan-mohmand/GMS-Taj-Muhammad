@@ -16,10 +16,10 @@ const currentYear = new Date().getFullYear();
 
 function SubjectBadge({ subject }: { subject: string }) {
   const colors: Record<string, string> = {
-    English: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-    Urdu: "bg-blue-100 text-blue-800 dark:bg-blue-950/30 dark:text-blue-400",
-    Maths: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
-    Mathematics: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+    English: "bg-surface-raised text-primary bg-primary-strong/30 text-primary",
+    Urdu: "bg-surface-raised text-primary bg-primary-strong/30 text-primary",
+    Maths: "bg-surface-raised text-primary bg-primary-strong/30 text-primary",
+    Mathematics: "bg-surface-raised text-primary bg-primary-strong/30 text-primary",
   };
   return <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${colors[subject] || "bg-secondary text-secondary-foreground"}`}>{subject}</span>;
 }
@@ -97,11 +97,11 @@ const ExamScheduleTab = () => {
             const diff = differenceInDays(date, new Date());
             return (
               <div key={entry.id} className={`bg-card rounded-xl border p-4 flex items-center gap-4 shadow-sm transition-all ${
-                today ? "border-blue-400 bg-blue-50/50 dark:bg-blue-950/10" :
+                today ? "border-border bg-background/50 bg-primary-strong/10" :
                 past ? "opacity-60 border-border" : "border-border hover:border-primary/30"
               }`}>
                 <div className={`w-14 h-14 rounded-xl flex flex-col items-center justify-center shrink-0 ${
-                  today ? "bg-blue-500 text-white" :
+                  today ? "bg-background text-primary-foreground" :
                   past ? "bg-secondary text-muted-foreground" :
                   "bg-primary text-primary-foreground"
                 }`}>
@@ -111,8 +111,8 @@ const ExamScheduleTab = () => {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <SubjectBadge subject={entry.subject} />
-                    {today && <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">TODAY</span>}
-                    {!past && !today && diff <= 3 && <span className="text-[10px] font-bold text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full">{diff}d left</span>}
+                    {today && <span className="text-[10px] font-bold text-primary bg-surface-raised px-2 py-0.5 rounded-full">TODAY</span>}
+                    {!past && !today && diff <= 3 && <span className="text-[10px] font-bold text-primary bg-accent-soft px-2 py-0.5 rounded-full">{diff}d left</span>}
                   </div>
                   <p className="text-sm font-semibold text-foreground mt-0.5">{entry.subject}</p>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">

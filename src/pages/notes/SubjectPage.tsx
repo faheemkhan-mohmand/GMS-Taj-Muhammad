@@ -8,9 +8,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getSubjectGradient, getSubjectTint, getSubjectTintDeep } from "@/lib/subjectTheme";
 
 const DIFFICULTY_COLOR = {
-  easy: "text-emerald-700 bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-900/40",
-  medium: "text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/40",
-  hard: "text-red-600 bg-red-100 dark:text-red-300 dark:bg-red-900/40",
+  easy: "text-primary bg-surface-raised text-primary bg-primary-strong/40",
+  medium: "text-primary bg-surface-raised text-primary bg-primary-strong/40",
+  hard: "text-primary bg-surface-raised text-primary bg-primary-strong/40",
 };
 const DIFFICULTY_LABEL = { easy: "Easy", medium: "Medium", hard: "Hard" };
 
@@ -28,8 +28,8 @@ const SubjectPage = () => {
   if (subjectsError && !subjects.length) return (
     <PageLayout>
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
-        <div className="w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
-          <WifiOff className="w-8 h-8 text-orange-500" />
+        <div className="w-16 h-16 rounded-full bg-accent-soft bg-accent/30 flex items-center justify-center mx-auto mb-4">
+          <WifiOff className="w-8 h-8 text-primary" />
         </div>
         <p className="font-semibold text-foreground text-lg">Can't load subject</p>
         <p className="text-sm text-muted-foreground mt-1 mb-4">You appear to be offline. Please check your connection.</p>
@@ -57,20 +57,20 @@ const SubjectPage = () => {
         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.09) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
 
         <div className="relative max-w-4xl mx-auto">
-          <Link to="/notes" className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/75 hover:text-white transition-colors mb-4">
+          <Link to="/notes" className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-foreground hover:text-primary-foreground transition-colors mb-4">
             <ArrowLeft className="w-3.5 h-3.5" /> Back to All Subjects
           </Link>
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shrink-0 bg-white/15"
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shrink-0 bg-surface/15"
               style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.25)" }}>
               {subject.emoji}
             </div>
             <div className="min-w-0">
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-heading font-black leading-tight text-white">{subject.name}</h1>
-              <p className="text-xs sm:text-sm mt-1 line-clamp-1 text-white/75">{subject.description}</p>
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-heading font-black leading-tight text-primary-foreground">{subject.name}</h1>
+              <p className="text-xs sm:text-sm mt-1 line-clamp-1 text-primary-foreground">{subject.description}</p>
               <div className="flex items-center gap-2 mt-2">
-                <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-white/15 text-white" style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.2)" }}>Class {subject.class_level}</span>
-                <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-white/15 text-white" style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.2)" }}>{chapters.length} Chapters</span>
+                <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-surface/15 text-primary-foreground" style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.2)" }}>Class {subject.class_level}</span>
+                <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-surface/15 text-primary-foreground" style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.2)" }}>{chapters.length} Chapters</span>
               </div>
             </div>
           </div>
@@ -78,13 +78,13 @@ const SubjectPage = () => {
           {/* Progress bar */}
           {user && chapters.length > 0 && (
             <div className="mt-5">
-              <div className="flex justify-between text-[11px] mb-1.5 text-white/80">
+              <div className="flex justify-between text-[11px] mb-1.5 text-primary-foreground">
                 <span>{completedCount} of {chapters.length} chapters completed</span>
-                <span className="font-bold text-white">{progressPct}%</span>
+                <span className="font-bold text-primary-foreground">{progressPct}%</span>
               </div>
-              <div className="h-2 rounded-full overflow-hidden bg-white/20">
+              <div className="h-2 rounded-full overflow-hidden bg-surface/20">
                 <motion.div initial={{ width: 0 }} animate={{ width: `${progressPct}%` }} transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="h-full rounded-full bg-white" />
+                  className="h-full rounded-full bg-surface" />
               </div>
             </div>
           )}
@@ -98,8 +98,8 @@ const SubjectPage = () => {
           <div className="space-y-3">{[...Array(5)].map((_, i) => <Skeleton key={i} className="h-20 rounded-2xl" />)}</div>
         ) : chaptersError && !chapters.length ? (
           <div className="text-center py-20">
-            <div className="w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
-              <WifiOff className="w-8 h-8 text-orange-500" />
+            <div className="w-16 h-16 rounded-full bg-accent-soft bg-accent/30 flex items-center justify-center mx-auto mb-4">
+              <WifiOff className="w-8 h-8 text-primary" />
             </div>
             <p className="font-semibold text-foreground text-lg">Can't load chapters</p>
             <p className="text-sm text-muted-foreground mt-1 mb-4">You appear to be offline. Chapters you've visited before will load from cache.</p>
@@ -122,7 +122,7 @@ const SubjectPage = () => {
               return (
                 <motion.div key={ch.id} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
                   <Link to={`/notes/${slug}/${ch.slug}`}>
-                    <div className={`group relative bg-card border rounded-2xl p-3.5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${done ? "border-emerald-300/60 dark:border-emerald-800/50" : "border-border hover:border-[color:var(--sc-soft)]"}`}
+                    <div className={`group relative bg-card border rounded-2xl p-3.5 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${done ? "border-border/60 border-border/50" : "border-border hover:border-border"}`}
                       style={{ "--sc-soft": getSubjectTintDeep(subject.color, 0.45) } as React.CSSProperties}>
                       {/* Left color stripe */}
                       <div className="absolute left-0 top-4 bottom-4 w-1 rounded-full" style={{ background: getSubjectGradient(subject.color) }} />
@@ -133,7 +133,7 @@ const SubjectPage = () => {
                             chapter labels widen instead of overflowing. */}
                         <div className={`min-w-11 max-w-28 h-11 px-2 rounded-xl flex items-center justify-center shrink-0 font-heading font-black text-sm leading-tight text-center ${
                           done
-                            ? "bg-emerald-500 text-white shadow-sm"
+                            ? "bg-background text-primary-foreground shadow-sm"
                             : "text-foreground"
                         }`}
                           style={done ? undefined : { backgroundColor: getSubjectTint(subject.color, 0.14), boxShadow: `inset 0 0 0 1px ${getSubjectTintDeep(subject.color, 0.28)}` }}>
@@ -146,17 +146,17 @@ const SubjectPage = () => {
                             <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${DIFFICULTY_COLOR[ch.difficulty]}`}>
                               {DIFFICULTY_LABEL[ch.difficulty]}
                             </span>
-                            {done && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full text-emerald-700 bg-emerald-100 dark:text-emerald-300 dark:bg-emerald-900/40">✓ Done</span>}
+                            {done && <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full text-primary bg-surface-raised text-primary bg-primary-strong/40">✓ Done</span>}
                           </div>
                           {ch.description && <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{ch.description}</p>}
                           <div className="flex items-center gap-2.5 mt-1.5 text-[10px] text-muted-foreground">
                             <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {ch.read_time_mins} min read</span>
-                            {ch.animation_code && <span className="flex items-center gap-1 text-violet-600 dark:text-violet-400 font-medium"><Zap className="w-3 h-3" /> Interactive</span>}
-                            {ch.pdf_url && <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400 font-medium"><Download className="w-3 h-3" /> PDF</span>}
+                            {ch.animation_code && <span className="flex items-center gap-1 text-primary text-primary font-medium"><Zap className="w-3 h-3" /> Interactive</span>}
+                            {ch.pdf_url && <span className="flex items-center gap-1 text-primary text-primary font-medium"><Download className="w-3 h-3" /> PDF</span>}
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-1.5 text-xs font-bold text-white px-3.5 py-2 rounded-xl shrink-0 shadow-sm group-hover:shadow-md transition-shadow"
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-primary-foreground px-3.5 py-2 rounded-xl shrink-0 shadow-sm group-hover:shadow-md transition-shadow"
                           style={{ background: done ? "linear-gradient(135deg, #10b981, #047857)" : getSubjectGradient(subject.color) }}>
                           <PlayCircle className="w-4 h-4" />
                           {done ? "Review" : "Read"}

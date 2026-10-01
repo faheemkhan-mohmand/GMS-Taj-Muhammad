@@ -125,13 +125,13 @@ export function HtmlPasteEditor({ value, onChange, placeholder, minHeight = 380 
           type="button"
           onClick={handleClear}
           disabled={!draft}
-          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-red-600 hover:border-red-300 disabled:opacity-40 active:scale-95 transition-transform"
+          className="flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-card border border-border text-muted-foreground hover:text-primary hover:border-border disabled:opacity-40 active:scale-95 transition-transform"
         >
           <Trash2 className="w-3.5 h-3.5" /> Clear
         </button>
         <div className="ml-auto flex items-center gap-1.5 text-[11px] font-semibold">
           {applied ? (
-            <span className="flex items-center gap-1 text-green-600"><Check className="w-3.5 h-3.5" /> Applied</span>
+            <span className="flex items-center gap-1 text-primary"><Check className="w-3.5 h-3.5" /> Applied</span>
           ) : (
             <span className="text-muted-foreground">Applying…</span>
           )}

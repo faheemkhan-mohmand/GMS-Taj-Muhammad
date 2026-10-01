@@ -60,10 +60,10 @@ const statusConfig: Record<Status, {
 }> = {
   present: {
     icon: <Check className="w-3.5 h-3.5" />, label: "Present", short: "P",
-    badge: "bg-[hsl(var(--success))] text-white hover:bg-[hsl(var(--success))]",
-    ring:  "ring-2 ring-[hsl(var(--success))] bg-[hsl(var(--success))] text-white",
-    soft:  "bg-muted text-muted-foreground hover:bg-[hsl(var(--success))]/15",
-    text:  "text-[hsl(var(--success))]",
+    badge: "bg-primary-strong text-primary-foreground hover:bg-primary-strong",
+    ring:  "ring-2 ring-accent bg-primary-strong text-primary-foreground",
+    soft:  "bg-muted text-muted-foreground hover:bg-primary-strong",
+    text:  "text-primary",
   },
   absent: {
     icon: <X className="w-3.5 h-3.5" />, label: "Absent", short: "A",
@@ -74,10 +74,10 @@ const statusConfig: Record<Status, {
   },
   late: {
     icon: <Clock className="w-3.5 h-3.5" />, label: "Late", short: "L",
-    badge: "bg-[hsl(var(--warning))] text-white hover:bg-[hsl(var(--warning))]",
-    ring:  "ring-2 ring-[hsl(var(--warning))] bg-[hsl(var(--warning))] text-white",
-    soft:  "bg-muted text-muted-foreground hover:bg-[hsl(var(--warning))]/15",
-    text:  "text-[hsl(var(--warning))]",
+    badge: "bg-primary-strong text-primary-foreground hover:bg-primary-strong",
+    ring:  "ring-2 ring-accent bg-primary-strong text-primary-foreground",
+    soft:  "bg-muted text-muted-foreground hover:bg-primary-strong",
+    text:  "text-primary",
   },
   leave: {
     icon: <Palmtree className="w-3.5 h-3.5" />, label: "Leave", short: "V",
@@ -88,10 +88,10 @@ const statusConfig: Record<Status, {
   },
   halfday: {
     icon: <Sunrise className="w-3.5 h-3.5" />, label: "Half-Day", short: "HD",
-    badge: "bg-purple-500 text-white hover:bg-purple-600",
-    ring:  "ring-2 ring-purple-500 bg-purple-500 text-white",
-    soft:  "bg-muted text-muted-foreground hover:bg-purple-500/15",
-    text:  "text-purple-500",
+    badge: "bg-background text-primary-foreground hover:bg-primary",
+    ring:  "ring-2 ring-accent bg-background text-primary-foreground",
+    soft:  "bg-muted text-muted-foreground hover:bg-background/15",
+    text:  "text-primary",
   },
 };
 
@@ -413,20 +413,20 @@ const AdminAttendance = () => {
         <Tabs value={tab} onValueChange={handleTabChange} className="flex-1 min-w-[18rem]">
           <TabsList className="w-full sm:w-auto">
             <TabsTrigger value="mark" className="flex-1 sm:flex-none gap-1.5">
-              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-emerald-100 dark:bg-emerald-900/40 shrink-0">
-                <Check className="w-3 h-3 text-emerald-500" />
+              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                <Check className="w-3 h-3 text-primary" />
               </span>
               <span className="hidden xs:inline">Mark</span>
             </TabsTrigger>
             <TabsTrigger value="report" className="flex-1 sm:flex-none gap-1.5">
-              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-blue-100 dark:bg-blue-900/40 shrink-0">
-                <BarChart3 className="w-3 h-3 text-blue-500" />
+              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                <BarChart3 className="w-3 h-3 text-primary" />
               </span>
               <span className="hidden xs:inline">Report</span>
             </TabsTrigger>
             <TabsTrigger value="analytics" className="flex-1 sm:flex-none gap-1.5">
-              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-purple-100 dark:bg-purple-900/40 shrink-0">
-                <TrendingUp className="w-3 h-3 text-purple-500" />
+              <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                <TrendingUp className="w-3 h-3 text-primary" />
               </span>
               <span className="hidden xs:inline">Analytics</span>
             </TabsTrigger>
@@ -636,7 +636,7 @@ const AdminAttendance = () => {
             <div className="flex items-center justify-between gap-2 max-w-screen-xl mx-auto">
               <div className="text-xs text-muted-foreground hidden sm:block">
                 {isDirty ? (
-                  <span className="text-[hsl(var(--warning))] font-medium">Unsaved changes</span>
+                  <span className="text-primary font-medium">Unsaved changes</span>
                 ) : alreadySaved ? (
                   <span>All changes saved</span>
                 ) : (
@@ -661,7 +661,7 @@ const AdminAttendance = () => {
       {tab === "report" && (
         <div className="space-y-4 print:space-y-2">
           <div className="flex flex-wrap items-center gap-2 print:hidden">
-            <div className="flex items-center rounded-md border border-slate-300 bg-card overflow-hidden shrink-0">
+            <div className="flex items-center rounded-md border border-border bg-card overflow-hidden shrink-0">
               <Button
                 variant="ghost" size="icon" className="h-9 w-9 rounded-none shrink-0"
                 onClick={() => setReportMonth((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))}
@@ -684,16 +684,16 @@ const AdminAttendance = () => {
               variant={thresholdOnly ? "default" : "outline"}
               size="sm"
               onClick={() => setThresholdOnly((v) => !v)}
-              className={`gap-1.5 h-9 shrink-0 ${thresholdOnly ? "" : "border-slate-300 text-slate-700 hover:bg-slate-50"}`}
+              className={`gap-1.5 h-9 shrink-0 ${thresholdOnly ? "" : "border-border text-primary hover:bg-background"}`}
             >
               <AlertTriangle className="w-4 h-4" /> Below 75%
             </Button>
 
             <div className="flex flex-wrap gap-2 sm:ml-auto">
-              <Button variant="outline" size="sm" onClick={exportExcel} className="gap-1.5 h-9 shrink-0 border-slate-300 text-slate-700 hover:bg-slate-50">
+              <Button variant="outline" size="sm" onClick={exportExcel} className="gap-1.5 h-9 shrink-0 border-border text-primary hover:bg-background">
                 <Download className="w-4 h-4" /> Excel
               </Button>
-              <Button variant="outline" size="sm" onClick={printReport} className="gap-1.5 h-9 shrink-0 border-slate-300 text-slate-700 hover:bg-slate-50">
+              <Button variant="outline" size="sm" onClick={printReport} className="gap-1.5 h-9 shrink-0 border-border text-primary hover:bg-background">
                 <Printer className="w-4 h-4" /> Print
               </Button>
             </div>
@@ -747,7 +747,7 @@ const AdminAttendance = () => {
                   <TableHead className="text-center">A</TableHead>
                   <TableHead className="text-center">L</TableHead>
                   <TableHead className="text-center">V</TableHead>
-                  <TableHead className="text-center text-purple-600">HD</TableHead>
+                  <TableHead className="text-center text-primary">HD</TableHead>
                   <TableHead className="text-center hidden sm:table-cell">Days</TableHead>
                   <TableHead onClick={() => toggleSort("pct")} className="cursor-pointer select-none text-center">
                     <span className="inline-flex items-center gap-1">% <ArrowUpDown className="w-3 h-3" /></span>
@@ -772,21 +772,21 @@ const AdminAttendance = () => {
                     <TableRow key={r.id}>
                       <TableCell>{r.roll_number}</TableCell>
                       <TableCell className="font-medium">{r.full_name}</TableCell>
-                      <TableCell className="text-center text-[hsl(var(--success))] font-semibold">{r.present}</TableCell>
+                      <TableCell className="text-center text-primary font-semibold">{r.present}</TableCell>
                       <TableCell className="text-center text-destructive font-semibold">{r.absent}</TableCell>
-                      <TableCell className="text-center text-[hsl(var(--warning))] font-semibold">{r.late}</TableCell>
+                      <TableCell className="text-center text-primary font-semibold">{r.late}</TableCell>
                       <TableCell className="text-center text-primary font-semibold">{r.leave}</TableCell>
-                      <TableCell className="text-center text-purple-500 font-semibold">{r.halfday}</TableCell>
+                      <TableCell className="text-center text-primary font-semibold">{r.halfday}</TableCell>
                       <TableCell className="text-center hidden sm:table-cell">{r.total}</TableCell>
                       <TableCell className="text-center">
                         <Badge
                           className={
-                            r.pct >= 90 ? "bg-[hsl(var(--success))] hover:bg-[hsl(var(--success))]"
+                            r.pct >= 90 ? "bg-primary-strong hover:bg-primary-strong"
                             : r.pct >= 75 ? "bg-primary hover:bg-primary"
-                            : r.pct >= 50 ? "bg-[hsl(var(--warning))] hover:bg-[hsl(var(--warning))]"
+                            : r.pct >= 50 ? "bg-primary-strong hover:bg-primary-strong"
                             : "bg-destructive hover:bg-destructive"
                           }
-                          style={{ color: "#ffffff" }}
+                          style={{ color: "var(--primary-foreground)" }}
                         >
                           {r.pct}%
                         </Badge>
@@ -811,10 +811,10 @@ const AdminAttendance = () => {
 /* ─────────────── tiny summary card ─────────────── */
 const toneMap: Record<string, string> = {
   primary:     "border-primary/30 bg-primary/5 text-primary",
-  success:     "border-[hsl(var(--success))]/30 bg-[hsl(var(--success))]/10 text-[hsl(var(--success))]",
+  success:     "border-border bg-primary-strong text-primary",
   destructive: "border-destructive/30 bg-destructive/10 text-destructive",
   muted:       "border-border bg-muted text-muted-foreground",
-  purple:      "border-purple-300 bg-purple-50 text-purple-600 dark:border-purple-700 dark:bg-purple-900/20 dark:text-purple-400",
+  purple:      "border-border bg-background text-primary border-border bg-primary-strong/20 text-primary",
 };
 const SummaryStat = ({
   icon, label, value, tone,

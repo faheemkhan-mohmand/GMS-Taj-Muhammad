@@ -10,7 +10,7 @@
  *     desk order.
  *  4. View per-room desk-layout grid (color-coded by class).
  *  5. Print desk-layout map (PDF) per room — for pasting on the hall wall.
- *  6. Print/export "Roll No → Seat → Room" lookup (PDF + CSV). 
+ *  6. Print/export "Roll No → Seat → Room" lookup (PDF + CSV).
  *  7. Print per-desk QR sticker sheet (PDF) — one sticker per desk so
  *     invigilators can scan to mark attendance against that exact seat.
  *  8. Publish the plan so students can look up their own seat.
@@ -57,14 +57,14 @@ import {
 
 // Distinct, accessible colors for up to 8 classes. Beyond 8, fall back to a hash.
 const CLASS_COLORS: Record<string, { bg: string; text: string; pdfRgb: [number, number, number] }> = {
-  "6":  { bg: "bg-blue-100 dark:bg-blue-900/40",       text: "text-blue-700 dark:text-blue-300",       pdfRgb: [219, 234, 254] },
-  "7":  { bg: "bg-emerald-100 dark:bg-emerald-900/40", text: "text-emerald-700 dark:text-emerald-300", pdfRgb: [209, 250, 229] },
-  "8":  { bg: "bg-amber-100 dark:bg-amber-900/40",     text: "text-amber-700 dark:text-amber-300",     pdfRgb: [254, 243, 199] },
-  "9":  { bg: "bg-rose-100 dark:bg-rose-900/40",       text: "text-rose-700 dark:text-rose-300",       pdfRgb: [254, 205, 211] },
-  "10": { bg: "bg-violet-100 dark:bg-violet-900/40",   text: "text-violet-700 dark:text-violet-300",   pdfRgb: [237, 233, 254] },
+  "6":  { bg: "bg-surface-raised bg-primary-strong/40",       text: "text-primary text-primary",       pdfRgb: [219, 234, 254] },
+  "7":  { bg: "bg-surface-raised bg-primary-strong/40", text: "text-primary text-primary", pdfRgb: [209, 250, 229] },
+  "8":  { bg: "bg-accent-soft bg-accent/40",     text: "text-primary text-primary",     pdfRgb: [254, 243, 199] },
+  "9":  { bg: "bg-accent-soft bg-accent/40",       text: "text-primary text-primary",       pdfRgb: [254, 205, 211] },
+  "10": { bg: "bg-surface-raised bg-primary-strong/40",   text: "text-primary text-primary",   pdfRgb: [237, 233, 254] },
 };
 const colorFor = (cls: string) =>
-  CLASS_COLORS[cls] ?? { bg: "bg-slate-100 dark:bg-slate-900/40", text: "text-slate-700 dark:text-slate-300", pdfRgb: [226, 232, 240] };
+  CLASS_COLORS[cls] ?? { bg: "bg-surface-raised bg-primary-strong/40", text: "text-primary text-muted", pdfRgb: [226, 232, 240] };
 
 // ────────────────────────────────────────────────────────────────────────────
 // MAIN COMPONENT
@@ -186,11 +186,11 @@ const PlansList = ({
                     <div className="flex items-start justify-between gap-2 mb-1.5">
                       <p className="font-semibold text-sm text-foreground truncate flex-1">{p.title}</p>
                       {p.is_recurring ? (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300 shrink-0">
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-surface-raised text-primary bg-primary-strong/40 text-primary shrink-0">
                           ALL PAPERS
                         </span>
                       ) : (
-                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 shrink-0">
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-surface-raised text-primary bg-primary-strong/40 text-primary shrink-0">
                           SINGLE DAY
                         </span>
                       )}
@@ -208,7 +208,7 @@ const PlansList = ({
                       {(p as any).exam_date_from && (p as any).exam_date_to && (
                         <>
                           <span>·</span>
-                          <span className="text-violet-600 dark:text-violet-400 font-medium">
+                          <span className="text-primary text-primary font-medium">
                             {(p as any).exam_date_from} → {(p as any).exam_date_to}
                           </span>
                         </>
@@ -245,16 +245,16 @@ const PlansList = ({
                         </TableCell>
                         <TableCell>
                           {p.is_recurring ? (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-surface-raised text-primary bg-primary-strong/40 text-primary">
                               All Papers
                             </span>
                           ) : (
-                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+                            <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-surface-raised text-primary bg-primary-strong/40 text-primary">
                               Single Day
                             </span>
                           )}
                           {(p as any).exam_date_from && (p as any).exam_date_to && (
-                            <div className="text-[10px] text-violet-600 dark:text-violet-400 mt-0.5">
+                            <div className="text-[10px] text-primary text-primary mt-0.5">
                               {(p as any).exam_date_from} → {(p as any).exam_date_to}
                             </div>
                           )}
@@ -295,10 +295,10 @@ const PlansList = ({
 
 const StatusBadge = ({ status }: { status: string }) => {
   const map: Record<string, { label: string; cls: string }> = {
-    draft:     { label: "Draft",     cls: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300" },
-    generated: { label: "Generated", cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300" },
-    published: { label: "Published", cls: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300" },
-    archived:  { label: "Archived",  cls: "bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400" },
+    draft:     { label: "Draft",     cls: "bg-surface-raised text-primary bg-primary-strong text-muted" },
+    generated: { label: "Generated", cls: "bg-accent-soft text-primary bg-accent/40 text-primary" },
+    published: { label: "Published", cls: "bg-surface-raised text-primary bg-primary-strong/40 text-primary" },
+    archived:  { label: "Archived",  cls: "bg-surface-raised text-muted bg-primary-strong text-muted" },
   };
   const v = map[status] ?? map.draft;
   return <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${v.cls}`}>{v.label}</span>;
@@ -532,7 +532,7 @@ const CreatePlanForm = ({ sessionId, onCreated }: { sessionId: string; onCreated
       {selectedClasses.length > 0 && (
         <div className="space-y-2">
           <p className={`text-xs font-semibold flex items-center gap-1.5 ${
-            mode === "single" ? "text-blue-700 dark:text-blue-400" : "text-violet-700 dark:text-violet-400"
+            mode === "single" ? "text-primary text-primary" : "text-primary text-primary"
           }`}>
             {mode === "single" ? <CalendarDays className="w-3.5 h-3.5" /> : <RefreshCw className="w-3.5 h-3.5" />}
             Auto-detected from Exam Date Sheet
@@ -550,23 +550,23 @@ const CreatePlanForm = ({ sessionId, onCreated }: { sessionId: string; onCreated
                     key={cls}
                     className={`rounded-lg border p-2.5 flex items-center gap-2 text-xs ${
                       entry?.start_time && entry?.end_time
-                        ? "border-emerald-200 dark:border-emerald-800/50 bg-emerald-50 dark:bg-emerald-900/20"
-                        : "border-red-200 dark:border-red-800/50 bg-red-50 dark:bg-red-900/20"
+                        ? "border-border border-border/50 bg-background bg-primary-strong/20"
+                        : "border-border border-border/50 bg-background bg-primary-strong/20"
                     }`}
                   >
                     <span className={`font-bold px-2 py-0.5 rounded-full shrink-0 ${colorFor(cls).bg} ${colorFor(cls).text}`}>
                       Class {cls}
                     </span>
                     {entry?.start_time && entry?.end_time ? (
-                      <span className="text-emerald-700 dark:text-emerald-400">
+                      <span className="text-primary text-primary">
                         ✓ {entry.subject} — {entry.exam_date}, {entry.start_time}–{entry.end_time}
                       </span>
                     ) : entry ? (
-                      <span className="text-red-600 dark:text-red-400">
+                      <span className="text-primary text-primary">
                         ⚠ {entry.subject} on {entry.exam_date} has no start/end time set in the Date Sheet
                       </span>
                     ) : (
-                      <span className="text-red-600 dark:text-red-400">⚠ No matching paper found in the Exam Date Sheet</span>
+                      <span className="text-primary text-primary">⚠ No matching paper found in the Exam Date Sheet</span>
                     )}
                   </div>
                 );
@@ -577,19 +577,19 @@ const CreatePlanForm = ({ sessionId, onCreated }: { sessionId: string; onCreated
                   key={cls}
                   className={`rounded-lg border p-2.5 flex items-center gap-2 text-xs ${
                     entries.length > 0
-                      ? "border-emerald-200 dark:border-emerald-800/50 bg-emerald-50 dark:bg-emerald-900/20"
-                      : "border-red-200 dark:border-red-800/50 bg-red-50 dark:bg-red-900/20"
+                      ? "border-border border-border/50 bg-background bg-primary-strong/20"
+                      : "border-border border-border/50 bg-background bg-primary-strong/20"
                   }`}
                 >
                   <span className={`font-bold px-2 py-0.5 rounded-full shrink-0 ${colorFor(cls).bg} ${colorFor(cls).text}`}>
                     Class {cls}
                   </span>
                   {entries.length > 0 ? (
-                    <span className="text-emerald-700 dark:text-emerald-400">
+                    <span className="text-primary text-primary">
                       ✓ {entries.length} paper(s) found — {entries[0].exam_date} to {entries[entries.length - 1].exam_date}
                     </span>
                   ) : (
-                    <span className="text-red-600 dark:text-red-400">⚠ No papers found in the Exam Date Sheet</span>
+                    <span className="text-primary text-primary">⚠ No papers found in the Exam Date Sheet</span>
                   )}
                 </div>
               );
@@ -645,12 +645,12 @@ const PlanEditor = ({ planId, onBack }: { planId: string; onBack: () => void }) 
           </p>
           <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
             {plan.is_recurring && (
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-surface-raised text-primary bg-primary-strong/40 text-primary">
                 All Papers
               </span>
             )}
             {(plan as any).exam_date_from && (plan as any).exam_date_to && (
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-surface-raised text-primary bg-primary-strong/40 text-primary">
                 {(plan as any).exam_date_from} → {(plan as any).exam_date_to}
               </span>
             )}
@@ -1120,7 +1120,7 @@ const RoomDeskMap = ({ room, plan }: { room: RoomWithAssignments; plan: SeatingP
                     <div
                       key={idx}
                       onClick={() => toggleBlocked(r, c)}
-                      className={`aspect-[4/3] rounded-md bg-foreground/10 dark:bg-foreground/20 flex items-center justify-center text-[10px] text-muted-foreground cursor-pointer border border-dashed border-border ${bandClass}`}
+                      className={`aspect-[4/3] rounded-md bg-foreground/10 bg-foreground/20 flex items-center justify-center text-[10px] text-muted-foreground cursor-pointer border border-dashed border-border ${bandClass}`}
                       title="Blocked — click to unblock"
                     >
                       ✕
@@ -1401,7 +1401,7 @@ const PublishButton = ({ plan }: { plan: SeatingPlanFull }) => {
     const remaining = new Date(plan.publish_at).getTime() - Date.now();
     return (
       <div className="flex items-center gap-2">
-        <Badge variant="outline" className="bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border-amber-300">
+        <Badge variant="outline" className="bg-accent-soft bg-accent/30 text-primary text-primary border-accent">
           Scheduled · {remaining > 0
             ? `publishes in ${Math.ceil(remaining / 60000)} min`
             : "publishing…"}

@@ -25,34 +25,34 @@ const NotesPage = () => {
       {/* ─── Hero — Solar Cream: warm cream + tangerine & honey ─── */}
       <section className="relative overflow-hidden px-4 py-10 sm:py-14" style={{ background: "var(--gradient-hero)" }}>
         {/* Ambient glows */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 85% 12%, hsl(30 95% 55% / 0.18), transparent 52%)" }} />
-        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 8% 95%, hsl(20 45% 25% / 0.4), transparent 55%)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 85% 12%, rgb(var(--accent-rgb) / 0.18), transparent 52%)" }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(circle at 8% 95%, rgb(var(--primary-strong-rgb) / 0.4), transparent 55%)" }} />
         {/* Fine dot texture */}
-        <div className="absolute inset-0 opacity-[0.35]" style={{ backgroundImage: "radial-gradient(hsl(45 40% 97% / 0.07) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+        <div className="absolute inset-0 opacity-[0.35]" style={{ backgroundImage: "radial-gradient(rgb(var(--primary-foreground-rgb) / 0.07) 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
 
         <div className="relative max-w-4xl mx-auto text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="inline-flex items-center gap-1.5 bg-gold/10 border border-gold/25 text-gold-soft px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4">
+            <div className="inline-flex items-center gap-1.5 bg-gold/10 border border-gold/25 text-primary px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4">
               <Sparkles className="w-3.5 h-3.5" /> Interactive Study Notes
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black text-white mb-3 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-black text-primary-foreground mb-3 leading-tight tracking-tight">
               Study Smarter,{" "}
-              <span className="bg-gradient-to-r from-gold to-[hsl(45_75%_74%)] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-gold to-accent bg-clip-text text-transparent">
                 Not Harder
               </span>
             </h1>
-            <p className="text-sm sm:text-base text-white/70 mb-6 max-w-lg mx-auto">
+            <p className="text-sm sm:text-base text-primary-foreground mb-6 max-w-lg mx-auto">
               Beautiful notes, interactive animations, quizzes and graphs — all for free, for GMS Taj Muhammad students.
             </p>
 
             {/* Search */}
             <div className="relative max-w-sm mx-auto">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="Search subjects..."
-                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-gold/60 text-sm shadow-xl transition-shadow"
+                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-surface text-primary placeholder:text-muted outline-none focus:ring-2 focus:ring-gold/60 text-sm shadow-xl transition-shadow"
               />
             </div>
           </motion.div>
@@ -98,8 +98,8 @@ const NotesPage = () => {
           </div>
         ) : isError ? (
           <div className="text-center py-20">
-            <div className="w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
-              <WifiOff className="w-8 h-8 text-orange-500" />
+            <div className="w-16 h-16 rounded-full bg-accent-soft bg-accent/30 flex items-center justify-center mx-auto mb-4">
+              <WifiOff className="w-8 h-8 text-primary" />
             </div>
             <p className="font-semibold text-foreground text-lg">Can't load subjects</p>
             <p className="text-sm text-muted-foreground mt-1 mb-4">You appear to be offline. Subjects you've visited before will load from cache.</p>
@@ -130,7 +130,7 @@ const NotesPage = () => {
                 className="group"
                 style={{ "--sc": solid, "--sc-soft": getSubjectTintDeep(subject.color, 0.45) } as React.CSSProperties}>
                 <Link to={`/notes/${subject.slug}`} className="block h-full">
-                  <div className="relative h-44 overflow-hidden rounded-3xl bg-card border border-border shadow-sm transition-all duration-300 group-hover:shadow-[0_22px_44px_-18px_var(--sc)] group-hover:border-[color:var(--sc-soft)] group-hover:ring-1 group-hover:ring-[color:var(--sc-soft)]">
+                  <div className="relative h-44 overflow-hidden rounded-3xl bg-card border border-border shadow-sm transition-all duration-300 group-hover:shadow-[0_22px_44px_-18px_var(--sc)] group-hover:border-border group-hover:ring-1 group-hover:ring-accent">
 
                     {/* Signature color strip */}
                     <div className="absolute inset-x-0 top-0 h-1.5" style={{ background: getSubjectGradient(subject.color) }} />
@@ -153,7 +153,7 @@ const NotesPage = () => {
                         <span className="text-[10px] px-2.5 py-1 rounded-full font-semibold bg-secondary text-secondary-foreground">
                           Class {subject.class_level}
                         </span>
-                        <div className="flex items-center gap-1 text-xs font-bold text-white pl-3 pr-2.5 py-2 rounded-xl shadow-sm transition-all duration-300 group-hover:gap-2 group-hover:shadow-md"
+                        <div className="flex items-center gap-1 text-xs font-bold text-primary-foreground pl-3 pr-2.5 py-2 rounded-xl shadow-sm transition-all duration-300 group-hover:gap-2 group-hover:shadow-md"
                           style={{ background: getSubjectGradient(subject.color) }}>
                           Start Learning <ChevronRight className="w-3.5 h-3.5" />
                         </div>

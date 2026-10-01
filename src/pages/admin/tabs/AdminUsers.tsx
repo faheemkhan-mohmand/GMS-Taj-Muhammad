@@ -20,7 +20,7 @@ function UserAvatar({ imgUrl, fullName }: { imgUrl: string | null; fullName: str
   return imgUrl && !imgError ? (
     <img src={imgUrl} alt={`${fullName}'s avatar`} className="w-8 h-8 rounded-full object-cover shrink-0" onError={() => setImgError(true)} loading="lazy" decoding="async" />
   ) : (
-    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center text-primary-foreground text-xs font-bold shrink-0">
       {fullName.charAt(0).toUpperCase()}
     </div>
   );
@@ -203,7 +203,7 @@ const AdminUsers = () => {
                         </p>
                       </div>
                     </TableCell>
-                    <TableCell><Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">Admin</Badge></TableCell>
+                    <TableCell><Badge className="bg-surface-raised text-primary hover:bg-surface-raised">Admin</Badge></TableCell>
                     <TableCell className="text-sm text-muted-foreground">{admin.phone || "—"}</TableCell>
                     <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
                       {Number.isNaN(createdAt.getTime()) ? "—" : format(createdAt, "dd MMM yyyy")}

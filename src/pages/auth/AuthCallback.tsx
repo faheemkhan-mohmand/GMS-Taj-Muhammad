@@ -107,10 +107,10 @@ const AuthCallback = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background p-4">
         <div className="max-w-md w-full bg-card rounded-2xl shadow-elevated p-8 text-center">
-          <Clock className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+          <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
           <h1 className="text-xl font-heading font-bold text-foreground">Account Under Review</h1>
           <p className="text-sm text-muted-foreground mt-2">
-            Your Google account has been registered and is <strong className="text-blue-700">pending admin approval</strong>.
+            Your Google account has been registered and is <strong className="text-primary">pending admin approval</strong>.
             You'll be able to sign in once an administrator approves your account.
           </p>
           <Link to="/" className="inline-block mt-6 text-sm font-medium text-primary hover:underline">

@@ -6,7 +6,7 @@
     <meta name="google-site-verification" content="oxtaDh5_WKTGGtiPsV1j8KLLqg8b64a8r2F825a7JPQ" />
     <link rel="canonical" href="https://gmstajmuhamad.vercel.app/" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
-    
+
     <!-- SEO meta tags are injected by React Helmet via SEO.tsx + SiteSchema.tsx + RouteSEOInjector.tsx -->
     <title>GMS Taj Muhammad — Government Middle School, District Mohmand KPK</title>
 
@@ -91,8 +91,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2EBDD" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1D1A16" />
+    <meta name="theme-color" content="#FAFDF7" />
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="/manifest.json" />
@@ -144,32 +143,33 @@
 
     <!-- Fonts are loaded via @import in src/index.css with display=swap -->
 
-    <!-- Inline critical CSS -->
+    <!-- Inline critical colors keep the first paint aligned with the stored/system theme. -->
     <style>
+      :root { --bg: #FAFDF7; --text-primary: #1A2E22; }
+      :root[data-theme="dark"] { --bg: #0B1F14; --text-primary: #E8F5EC; }
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         margin: 0;
-        background: hsl(38, 44%, 94%);
+        background: var(--bg, #FAFDF7);
+        color: var(--text-primary, #1A2E22);
       }
       #root { min-height: 100vh; }
     </style>
 
-    <!-- Theme bootstrap — prevents flash of wrong theme.
-         The site ships TWO appearances: System (follows device) and Dark.
-         Legacy saved values (light / midnight / forest / violet) resolve to
-         System, except midnight which was dark and stays dark. -->
+    <!-- Theme bootstrap runs before paint: saved bright/dark overrides system preference. -->
     <script>
       (function () {
         try {
           var t = localStorage.getItem('gms-theme');
           var root = document.documentElement;
-          root.classList.remove('dark','theme-midnight','theme-forest','theme-violet');
-          if (t === 'dark' || t === 'midnight') {
-            root.classList.add('dark');
-          } else {
-            var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (isDark) root.classList.add('dark');
-          }
+          var isDark = t === 'dark' || t === 'midnight' || t === 'lantern' ||
+            (!(t === 'bright' || t === 'light') && window.matchMedia &&
+             window.matchMedia('(prefers-color-scheme: dark)').matches);
+          root.dataset.theme = isDark ? 'dark' : 'bright';
+          root.classList.toggle('dark', isDark);
+          var themeColor = document.querySelector('meta[name="theme-color"]');
+          if (themeColor) themeColor.setAttribute('content', isDark ? '#0B1F14' : '#FAFDF7');
+          root.classList.remove('theme-midnight','theme-forest','theme-violet','theme-lantern');
         } catch (e) {}
       })();
     </script>

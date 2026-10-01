@@ -632,12 +632,12 @@ const P5Playground = ({
     <Card>
       <CardContent className="pt-5 space-y-4">
         {/* Header */}
-        <div className="bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-900/20 dark:to-indigo-900/20 border border-violet-200 dark:border-violet-700/30 rounded-2xl p-4">
-          <p className="text-sm font-bold text-violet-700 dark:text-violet-300 mb-1 flex items-center gap-2">
+        <div className="bg-gradient-to-r from-primary to-primary from-primary-strong/20 to-primary-strong/20 border border-border border-border/30 rounded-2xl p-4">
+          <p className="text-sm font-bold text-primary text-primary mb-1 flex items-center gap-2">
             <Zap className="w-4 h-4" /> 3D Interactive Animation — Three.js
           </p>
-          <p className="text-xs text-violet-600 dark:text-violet-400 leading-relaxed">
-            Paste <strong>Three.js 3D</strong> code (uses <code className="bg-violet-100 dark:bg-violet-900/40 px-1 rounded">THREE</code> global, r128) <strong>or any 2D Canvas / JavaScript animation</strong>.
+          <p className="text-xs text-primary text-primary leading-relaxed">
+            Paste <strong>Three.js 3D</strong> code (uses <code className="bg-surface-raised bg-primary-strong/40 px-1 rounded">THREE</code> global, r128) <strong>or any 2D Canvas / JavaScript animation</strong>.
             The system auto-detects 3D vs 2D. No character limit. Students see it live below the chapter notes.
           </p>
         </div>
@@ -648,7 +648,7 @@ const P5Playground = ({
           <div className="flex flex-wrap gap-2">
             {Object.entries(THREE_TEMPLATES).map(([key, t]) => (
               <button key={"3-"+key} onClick={() => (applyTemplate as any)(key, "three")}
-                className="px-3 py-1.5 bg-violet-100 dark:bg-violet-900/30 hover:bg-primary hover:text-primary-foreground border border-violet-300 dark:border-violet-700 rounded-xl text-xs font-semibold transition-all text-violet-700 dark:text-violet-300">
+                className="px-3 py-1.5 bg-surface-raised bg-primary-strong/30 hover:bg-primary hover:text-primary-foreground border border-border border-border rounded-xl text-xs font-semibold transition-all text-primary text-primary">
                 {t.emoji} {t.label}
               </button>
             ))}
@@ -681,7 +681,7 @@ const P5Playground = ({
               <p className="text-[10px] text-muted-foreground mt-1.5 flex flex-wrap items-center gap-2">
                 <span>{code.length.toLocaleString()} chars</span>
                 <span>•</span>
-                <span className="text-green-600 dark:text-green-400 font-semibold">No character limit</span>
+                <span className="text-primary text-primary font-semibold">No character limit</span>
                 <span>•</span>
                 <span>Three.js 3D + Canvas 2D — auto-detected</span>
                 <span>•</span>
@@ -699,7 +699,7 @@ const P5Playground = ({
                     <RotateCcw className="w-3 h-3" /> Reload
                   </button>
                 </div>
-                <div className="rounded-2xl overflow-hidden border-2 border-violet-200 dark:border-violet-700/40 shadow-lg relative" style={{ height: "440px" }}>
+                <div className="rounded-2xl overflow-hidden border-2 border-border border-border/40 shadow-lg relative" style={{ height: "440px" }}>
                   {blobUrl ? (
                     <>
                       <iframe
@@ -713,15 +713,15 @@ const P5Playground = ({
                         onLoad={() => setIframeError(false)}
                       />
                       {iframeError && (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-red-50 dark:bg-red-950/20 border-2 border-red-200 dark:border-red-800 rounded-2xl">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-background bg-primary-strong/20 border-2 border-border border-border rounded-2xl">
                           <div className="text-4xl mb-3">⚠️</div>
-                          <p className="text-sm font-semibold text-red-700 dark:text-red-300 mb-2">Preview failed to load</p>
-                          <p className="text-xs text-red-500 dark:text-red-400 text-center px-4 max-w-xs">
+                          <p className="text-sm font-semibold text-primary text-primary mb-2">Preview failed to load</p>
+                          <p className="text-xs text-primary text-primary text-center px-4 max-w-xs">
                             The animation code may contain errors or use unsupported features.
                           </p>
-                          <button 
+                          <button
                             onClick={() => { setIframeError(false); setPreviewKey(k => k + 1); }}
-                            className="mt-3 px-4 py-2 bg-red-600 text-white rounded-lg text-xs font-semibold hover:bg-red-700"
+                            className="mt-3 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-xs font-semibold hover:bg-primary"
                           >
                             🔄 Retry Preview
                           </button>
@@ -969,7 +969,7 @@ const QuizManager = ({ chapterId, onBack }: { chapterId: string; onBack: ()=>voi
     <div className="space-y-4">
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="sm" onClick={onBack} className="gap-1 shrink-0"><ArrowLeft className="w-4 h-4" /> Back</Button>
-        <h2 className="text-lg font-bold flex items-center gap-2"><HelpCircle className="w-5 h-5 text-violet-500" /> Quiz Manager</h2>
+        <h2 className="text-lg font-bold flex items-center gap-2"><HelpCircle className="w-5 h-5 text-primary" /> Quiz Manager</h2>
       </div>
 
       {!quiz ? (
@@ -1035,7 +1035,7 @@ const QuizManager = ({ chapterId, onBack }: { chapterId: string; onBack: ()=>voi
                   <p className="font-semibold text-sm mb-1.5">{q.question}</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                     {(["a","b","c","d"] as const).map(opt=>(
-                      <p key={opt} className={`text-xs px-2 py-1 rounded-lg ${q.correct===opt?"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 font-bold":"text-muted-foreground"}`}>
+                      <p key={opt} className={`text-xs px-2 py-1 rounded-lg ${q.correct===opt?"bg-surface-raised text-primary bg-primary-strong/30 text-primary font-bold":"text-muted-foreground"}`}>
                         {opt.toUpperCase()}. {(q as any)[`option_${opt}`]} {q.correct===opt?"✓":""}
                       </p>
                     ))}
@@ -1079,7 +1079,7 @@ const FlashcardManager = ({ chapterId, onBack }: { chapterId: string; onBack: ()
       </div>
 
       {editF && (
-        <Card className="border-emerald-300 dark:border-emerald-700">
+        <Card className="border-border border-border">
           <CardHeader><CardTitle className="text-base">{editF.id?"Edit Card":"New Flashcard"}</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             <div>
@@ -1107,7 +1107,7 @@ const FlashcardManager = ({ chapterId, onBack }: { chapterId: string; onBack: ()
       ) : cards.map((c,i)=>(
         <Card key={c.id}>
           <CardContent className="p-4 flex items-start gap-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 font-black flex items-center justify-center shrink-0 text-sm">{i+1}</div>
+            <div className="w-8 h-8 rounded-full bg-surface-raised bg-primary-strong/30 text-primary font-black flex items-center justify-center shrink-0 text-sm">{i+1}</div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-sm text-foreground">{c.front}</p>
               <p className="text-xs text-muted-foreground mt-1 border-t border-border pt-1">{c.back}</p>
@@ -1211,7 +1211,7 @@ const AdminNotes = () => {
       </div>
 
       {!loadingChapters && chapters.length > 0 && chapters.some(ch => !ch.is_published) && (
-        <div className="rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-800/40 px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
+        <div className="rounded-xl border border-accent bg-accent-soft bg-accent/20 border-accent/40 px-4 py-3 text-sm text-primary text-primary">
           ⚠️ {chapters.filter(ch => !ch.is_published).length} of {chapters.length} chapter{chapters.length===1?"":"s"} in this subject {chapters.filter(ch => !ch.is_published).length===1?"is":"are"} still a <strong>Draft</strong> — drafts are hidden from students on the public site. Open a chapter and toggle "Published" in Settings to make it visible.
         </div>
       )}
@@ -1228,15 +1228,15 @@ const AdminNotes = () => {
                 {/* Adaptive badge: numbers keep the compact square, but free-text
                     chapter labels ("1-12", "All chapters") widen instead of
                     overflowing the fixed 40px box. */}
-                <div className="min-w-10 max-w-32 h-10 px-2 rounded-xl flex items-center justify-center text-white font-black shrink-0 text-sm leading-tight text-center whitespace-nowrap overflow-hidden"
+                <div className="min-w-10 max-w-32 h-10 px-2 rounded-xl flex items-center justify-center text-primary-foreground font-black shrink-0 text-sm leading-tight text-center whitespace-nowrap overflow-hidden"
                   style={{backgroundColor:selectedSubject.color}}>{ch.chapter_number}</div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="font-semibold text-foreground truncate">{ch.title}</h3>
-                    <Badge className={ch.is_published?"bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400":"bg-muted text-muted-foreground"}>
+                    <Badge className={ch.is_published?"bg-surface-raised text-primary bg-primary-strong/30 text-primary":"bg-muted text-muted-foreground"}>
                       {ch.is_published?"Published":"Draft"}
                     </Badge>
-                    {ch.animation_code&&<Badge className="bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400"><Zap className="w-3 h-3 mr-1" />Interactive</Badge>}
+                    {ch.animation_code&&<Badge className="bg-surface-raised text-primary bg-primary-strong/30 text-primary"><Zap className="w-3 h-3 mr-1" />Interactive</Badge>}
                   </div>
                   <p className="text-xs text-muted-foreground mt-0.5">{ch.read_time_mins} min · {ch.difficulty} · {ch.view_count} views</p>
                 </div>

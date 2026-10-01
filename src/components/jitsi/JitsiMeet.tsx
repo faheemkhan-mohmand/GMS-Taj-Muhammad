@@ -8,7 +8,7 @@
  *  - "I'm confused" button (anonymous heatmap to teacher)
  *  - Auto-recording note (teacher can paste recording link afterwards)
  *
- * Realtime sync uses Supabase Realtime channels — no extra backend needed.   
+ * Realtime sync uses Supabase Realtime channels — no extra backend needed.
  *
  * Usage:
  *   <JitsiMeet
@@ -228,7 +228,7 @@ export default function JitsiMeet({
   const confusionAverage = Object.values(confusionStats).length > 0
     ? Object.values(confusionStats).reduce((a, b) => a + b, 0) / Object.values(confusionStats).length
     : 0;
-  const confusionColor = confusionAverage < 0.5 ? "bg-green-500" : confusionAverage < 1.5 ? "bg-amber-500" : "bg-red-500";
+  const confusionColor = confusionAverage < 0.5 ? "bg-background" : confusionAverage < 1.5 ? "bg-accent-soft" : "bg-background";
 
   const jitsiUrl = `https://meet.jit.si/${roomName}` +
     `?config.prejoinPageEnabled=false` +
@@ -241,23 +241,23 @@ export default function JitsiMeet({
   if (!joined) {
     return (
       <div className="rounded-2xl border border-border bg-card overflow-hidden">
-        <div className="relative bg-gradient-to-br from-slate-900 to-slate-800 p-8 text-center">
-          <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-4">
-            <Video className="w-8 h-8 text-white" />
+        <div className="relative bg-gradient-to-br from-primary-strong to-primary-strong p-8 text-center">
+          <div className="w-16 h-16 rounded-2xl bg-surface/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-4">
+            <Video className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h3 className="text-white font-bold text-lg mb-1">Ready to join?</h3>
-          <p className="text-white/70 text-xs mb-6 max-w-sm mx-auto">
+          <h3 className="text-primary-foreground font-bold text-lg mb-1">Ready to join?</h3>
+          <p className="text-primary-foreground text-xs mb-6 max-w-sm mx-auto">
             You'll join via Jitsi Meet (free, no app install). Allow camera & microphone access when prompted.
           </p>
           <button
             onClick={join}
             disabled={loading}
-            className="inline-flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-xl font-bold text-sm hover:bg-white/90 transition-colors disabled:opacity-50"
+            className="inline-flex items-center gap-2 bg-surface text-primary px-6 py-3 rounded-xl font-bold text-sm hover:bg-surface/90 transition-colors disabled:opacity-50"
           >
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Video className="w-4 h-4" />}
             {loading ? "Joining…" : "Join Class"}
           </button>
-          <p className="text-white/50 text-[10px] mt-4">
+          <p className="text-primary-foreground text-[10px] mt-4">
             Display name: <span className="font-semibold">{displayName}</span> · Room: <span className="font-mono">{roomName.slice(0, 24)}…</span>
           </p>
         </div>
@@ -272,7 +272,7 @@ export default function JitsiMeet({
   return (
     <div className="rounded-2xl border border-border bg-card overflow-hidden">
       {/* Jitsi iframe */}
-      <div className="relative bg-black" style={{ aspectRatio: "16 / 9" }}>
+      <div className="relative bg-background" style={{ aspectRatio: "16 / 9" }}>
         <iframe
           src={jitsiUrl}
           allow="camera; microphone; fullscreen; display-capture; autoplay; encrypted-media; picture-in-picture"
@@ -300,19 +300,19 @@ export default function JitsiMeet({
         </div>
 
         {/* Live status badges */}
-        <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-red-600 text-white px-2 py-1 rounded-md text-[10px] font-bold shadow-lg">
-          <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" /> LIVE
+        <div className="absolute top-2 left-2 flex items-center gap-1.5 bg-primary text-primary-foreground px-2 py-1 rounded-md text-[10px] font-bold shadow-lg">
+          <span className="w-1.5 h-1.5 bg-surface rounded-full animate-pulse" /> LIVE
         </div>
-        <div className="absolute top-2 right-2 flex items-center gap-1.5 bg-black/60 text-white px-2 py-1 rounded-md text-[10px] font-semibold">
+        <div className="absolute top-2 right-2 flex items-center gap-1.5 bg-background/60 text-primary-foreground px-2 py-1 rounded-md text-[10px] font-semibold">
           <Users className="w-3 h-3" /> {participantCount}
         </div>
 
         {/* Confusion heatmap indicator (teacher view) */}
         {isTeacher && (
-          <div className={`absolute bottom-2 left-2 ${confusionColor} text-white px-2 py-1 rounded-md text-[10px] font-bold shadow-lg flex items-center gap-1.5`}>
+          <div className={`absolute bottom-2 left-2 ${confusionColor} text-primary-foreground px-2 py-1 rounded-md text-[10px] font-bold shadow-lg flex items-center gap-1.5`}>
             <HelpCircle className="w-3 h-3" />
             Confusion: {(confusionAverage * 33).toFixed(0)}%
-            <span className="text-white/70 ml-1">({Object.keys(confusionStats).length} responses)</span>
+            <span className="text-primary-foreground ml-1">({Object.keys(confusionStats).length} responses)</span>
           </div>
         )}
       </div>
@@ -338,13 +338,13 @@ export default function JitsiMeet({
           <button
             onClick={toggleHand}
             className={`shrink-0 h-9 px-3 rounded-lg flex items-center gap-1.5 text-xs font-semibold transition-colors ${
-              myHandRaised ? "bg-amber-500 text-white" : "bg-secondary hover:bg-secondary/70 text-foreground"
+              myHandRaised ? "bg-accent-soft text-primary" : "bg-secondary hover:bg-secondary/70 text-foreground"
             }`}
           >
             <Hand className="w-3.5 h-3.5" />
             {myHandRaised ? "Lower" : "Raise Hand"}
             {hands.length > 0 && (
-              <span className="bg-white/30 px-1.5 rounded-full text-[10px]">{hands.length}</span>
+              <span className="bg-surface/30 px-1.5 rounded-full text-[10px]">{hands.length}</span>
             )}
           </button>
 
@@ -357,10 +357,10 @@ export default function JitsiMeet({
                   onClick={() => updateConfusion(lvl as ConfusionLevel)}
                   className={`w-7 h-7 rounded-md text-[10px] font-bold transition-colors ${
                     confusion === lvl
-                      ? lvl === 0 ? "bg-green-500 text-white"
-                        : lvl === 1 ? "bg-lime-500 text-white"
-                        : lvl === 2 ? "bg-amber-500 text-white"
-                        : "bg-red-500 text-white"
+                      ? lvl === 0 ? "bg-background text-primary-foreground"
+                        : lvl === 1 ? "bg-background text-primary-foreground"
+                        : lvl === 2 ? "bg-accent-soft text-primary-foreground"
+                        : "bg-background text-primary-foreground"
                       : "hover:bg-secondary/70 text-muted-foreground"
                   }`}
                   title={["Got it", "Mostly clear", "A bit confused", "Very confused"][lvl]}
@@ -386,7 +386,7 @@ export default function JitsiMeet({
           {/* Leave */}
           <button
             onClick={leave}
-            className="shrink-0 h-9 px-3 rounded-lg bg-red-600 hover:bg-red-700 text-white text-xs font-bold flex items-center gap-1.5"
+            className="shrink-0 h-9 px-3 rounded-lg bg-primary hover:bg-primary text-primary-foreground text-xs font-bold flex items-center gap-1.5"
           >
             <Square className="w-3 h-3 fill-current" /> Leave
           </button>
@@ -395,12 +395,12 @@ export default function JitsiMeet({
 
       {/* Hand raise queue (visible to teacher) */}
       {isTeacher && hands.length > 0 && (
-        <div className="border-t border-border p-2 bg-amber-50 dark:bg-amber-950/20">
-          <p className="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase mb-1">Hand Queue</p>
+        <div className="border-t border-border p-2 bg-accent-soft bg-accent/20">
+          <p className="text-[10px] font-bold text-primary text-primary uppercase mb-1">Hand Queue</p>
           <div className="flex flex-wrap gap-1.5">
             {hands.sort((a, b) => a.raised_at.localeCompare(b.raised_at)).map((h, i) => (
-              <div key={h.id} className="flex items-center gap-1.5 bg-white dark:bg-card rounded-lg px-2 py-1 text-xs">
-                <span className="w-4 h-4 rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center">{i + 1}</span>
+              <div key={h.id} className="flex items-center gap-1.5 bg-surface bg-card rounded-lg px-2 py-1 text-xs">
+                <span className="w-4 h-4 rounded-full bg-accent-soft text-primary text-[10px] font-bold flex items-center justify-center">{i + 1}</span>
                 <span className="font-medium text-foreground">{h.name}</span>
               </div>
             ))}
@@ -418,7 +418,7 @@ export default function JitsiMeet({
             className="absolute top-12 left-1/2 -translate-x-1/2 z-20 w-[min(90%,400px)]"
           >
             <div className="bg-card border-2 border-primary rounded-xl shadow-2xl overflow-hidden">
-              <div className="bg-primary text-white px-3 py-2 flex items-center justify-between">
+              <div className="bg-primary text-primary-foreground px-3 py-2 flex items-center justify-between">
                 <div className="flex items-center gap-1.5 text-xs font-bold">
                   <BarChart3 className="w-3.5 h-3.5" /> Live Poll
                 </div>
@@ -461,10 +461,10 @@ export default function JitsiMeet({
                 <div className="flex items-center justify-between mt-2 text-[10px] text-muted-foreground">
                   <span>{pollVotes.length} vote{pollVotes.length !== 1 ? "s" : ""}</span>
                   {isTeacher && (
-                    <button onClick={endPoll} className="text-red-500 hover:underline font-semibold">End now</button>
+                    <button onClick={endPoll} className="text-primary hover:underline font-semibold">End now</button>
                   )}
                   {!isTeacher && !myVote && <span>Tap to vote</span>}
-                  {!isTeacher && myVote && <span className="text-green-600">✓ Voted</span>}
+                  {!isTeacher && myVote && <span className="text-primary">✓ Voted</span>}
                 </div>
               </div>
             </div>
@@ -520,7 +520,7 @@ function PollCreator({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-background/50 flex items-center justify-center p-4"
       onClick={onClose}
     >
       <motion.div
@@ -560,7 +560,7 @@ function PollCreator({
                 className="flex-1 px-3 py-1.5 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
               {options.length > 2 && (
-                <button onClick={() => removeOption(i)} className="w-8 h-8 rounded-lg hover:bg-red-500/10 text-muted-foreground hover:text-red-500 flex items-center justify-center">
+                <button onClick={() => removeOption(i)} className="w-8 h-8 rounded-lg hover:bg-background/10 text-muted-foreground hover:text-primary flex items-center justify-center">
                   <X className="w-3.5 h-3.5" />
                 </button>
               )}
@@ -577,7 +577,7 @@ function PollCreator({
           <button
             onClick={() => canCreate && onCreate(question.trim(), options.filter(o => o.trim()))}
             disabled={!canCreate}
-            className="flex-1 py-2 rounded-lg text-white text-sm font-semibold disabled:opacity-50 flex items-center justify-center gap-1.5"
+            className="flex-1 py-2 rounded-lg text-primary-foreground text-sm font-semibold disabled:opacity-50 flex items-center justify-center gap-1.5"
             style={{ backgroundColor: subjectColor }}
           >
             <Send className="w-3.5 h-3.5" /> Launch (30s)

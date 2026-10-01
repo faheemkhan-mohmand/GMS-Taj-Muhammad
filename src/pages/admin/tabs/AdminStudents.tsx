@@ -28,7 +28,7 @@ function StudentAvatar({ photoUrl, fullName, size = "sm" }: { photoUrl: string |
   return photoUrl && !imgError ? (
     <img src={photoUrl} alt={`${fullName}'s photo`} className={`${dim} rounded-full object-cover shrink-0 ${border}`} loading="lazy" decoding="async" onError={() => setImgError(true)} />
   ) : (
-    <div className={`${dim} rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white ${textSize} font-bold shrink-0 ${border}`}>
+    <div className={`${dim} rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center text-primary-foreground ${textSize} font-bold shrink-0 ${border}`}>
       {fullName.charAt(0)}
     </div>
   );
@@ -401,17 +401,17 @@ const AdminStudents = () => {
         </div>
         {/* Action buttons — stack on mobile, row on desktop */}
         <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs border-slate-300 text-slate-700 hover:bg-slate-50" onClick={downloadCSVTemplate}>
+          <Button variant="outline" size="sm" className="gap-1.5 text-xs border-border text-primary hover:bg-background" onClick={downloadCSVTemplate}>
             <Download className="w-3.5 h-3.5" /> CSV Template
           </Button>
           <label className="inline-flex">
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs border-slate-300 text-slate-700 hover:bg-slate-50" disabled={importing} asChild>
+            <Button variant="outline" size="sm" className="gap-1.5 text-xs border-border text-primary hover:bg-background" disabled={importing} asChild>
               <span><FileUp className="w-3.5 h-3.5" /> Import CSV
                 <input type="file" accept=".csv,text/csv,application/vnd.ms-excel,text/plain,application/octet-stream" className="hidden" onChange={handleCSVImport} />
               </span>
             </Button>
           </label>
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs text-blue-700 border-blue-400 hover:bg-blue-50" onClick={() => setPromotionOpen(true)}>
+          <Button variant="outline" size="sm" className="gap-1.5 text-xs text-primary border-border hover:bg-background" onClick={() => setPromotionOpen(true)}>
             <GraduationCap className="w-3.5 h-3.5" /> Promote
           </Button>
           <Button size="sm" className="gap-1.5 text-xs" onClick={openAdd}><Plus className="w-3.5 h-3.5" /> Add Student</Button>
@@ -459,7 +459,7 @@ const AdminStudents = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2">
                         <p className="font-semibold text-sm truncate">{s.full_name}</p>
-                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${s.is_active ? "bg-green-100 text-green-700" : "bg-muted text-muted-foreground"}`}>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ${s.is_active ? "bg-surface-raised text-primary" : "bg-muted text-muted-foreground"}`}>
                           {s.is_active ? "Active" : "Inactive"}
                         </span>
                       </div>
@@ -525,38 +525,38 @@ const AdminStudents = () => {
               <div className="overflow-x-auto">
                 <table className="w-full border-collapse">
                   <thead>
-                    <tr className="bg-slate-100">
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Photo</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Roll No</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Name</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Class</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Father</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Father CNIC</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Contact</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Status</th>
-                      <th className="text-center text-xs font-semibold text-slate-600 uppercase tracking-wide px-4 py-3 border border-slate-200">Actions</th>
+                    <tr className="bg-surface-raised">
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Photo</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Roll No</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Name</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Class</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Father</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Father CNIC</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Contact</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Status</th>
+                      <th className="text-center text-xs font-semibold text-muted uppercase tracking-wide px-4 py-3 border border-border">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     {students.map((s, i) => (
-                      <tr key={s.id} className={`hover:bg-blue-50/40 transition-colors ${i % 2 === 1 ? "bg-slate-50/60" : "bg-white"}`}>
-                        <td className="px-4 py-2.5 border border-slate-200 text-center">
+                      <tr key={s.id} className={`hover:bg-background/40 transition-colors ${i % 2 === 1 ? "bg-background/60" : "bg-surface"}`}>
+                        <td className="px-4 py-2.5 border border-border text-center">
                           <div className="flex justify-center"><StudentAvatar photoUrl={s.photo_url} fullName={s.full_name} size="sm" /></div>
                         </td>
-                        <td className="px-4 py-2.5 border border-slate-200 font-mono text-sm text-center">{s.roll_number}</td>
-                        <td className="px-4 py-2.5 border border-slate-200 font-medium text-sm text-center">{s.full_name}</td>
-                        <td className="px-4 py-2.5 border border-slate-200 text-center">
+                        <td className="px-4 py-2.5 border border-border font-mono text-sm text-center">{s.roll_number}</td>
+                        <td className="px-4 py-2.5 border border-border font-medium text-sm text-center">{s.full_name}</td>
+                        <td className="px-4 py-2.5 border border-border text-center">
                           <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-0.5 rounded-full">Class {s.class}</span>
                         </td>
-                        <td className="px-4 py-2.5 border border-slate-200 text-sm text-muted-foreground text-center">{s.father_name || "—"}</td>
-                        <td className="px-4 py-2.5 border border-slate-200 text-sm text-muted-foreground font-mono text-center">{s.father_cnic || "—"}</td>
-                        <td className="px-4 py-2.5 border border-slate-200 text-sm text-muted-foreground text-center">{s.contact_number || "—"}</td>
-                        <td className="px-4 py-2.5 border border-slate-200 text-center">
-                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${s.is_active ? "bg-green-100 text-green-700" : "bg-muted text-muted-foreground"}`}>
+                        <td className="px-4 py-2.5 border border-border text-sm text-muted-foreground text-center">{s.father_name || "—"}</td>
+                        <td className="px-4 py-2.5 border border-border text-sm text-muted-foreground font-mono text-center">{s.father_cnic || "—"}</td>
+                        <td className="px-4 py-2.5 border border-border text-sm text-muted-foreground text-center">{s.contact_number || "—"}</td>
+                        <td className="px-4 py-2.5 border border-border text-center">
+                          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${s.is_active ? "bg-surface-raised text-primary" : "bg-muted text-muted-foreground"}`}>
                             {s.is_active ? "Active" : "Inactive"}
                           </span>
                         </td>
-                        <td className="px-4 py-2.5 border border-slate-200 text-center">
+                        <td className="px-4 py-2.5 border border-border text-center">
                           <div className="flex items-center justify-center gap-1">
                             <Button size="icon" variant="ghost" className="h-8 w-8" title="View profile" onClick={() => openProfile(s)}><Eye className="w-3.5 h-3.5" /></Button>
                             <Button size="icon" variant="ghost" className="h-8 w-8" onClick={() => openEdit(s)}><Pencil className="w-3.5 h-3.5" /></Button>
@@ -653,11 +653,11 @@ const AdminStudents = () => {
               <Label>Photo</Label>
               <div className="flex items-center gap-3 mt-1">
                 {(form.photo_url || photoFile) && (
-                  <img 
-                    src={photoFile ? URL.createObjectURL(photoFile) : form.photo_url!} 
-                    alt="Student photo preview" 
-                    className="w-10 h-10 rounded-full object-cover" 
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }} 
+                  <img
+                    src={photoFile ? URL.createObjectURL(photoFile) : form.photo_url!}
+                    alt="Student photo preview"
+                    className="w-10 h-10 rounded-full object-cover"
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
                   />
                 )}
                 <label className="flex items-center gap-1.5 text-sm text-primary cursor-pointer hover:underline">
@@ -681,7 +681,7 @@ const AdminStudents = () => {
         <DialogContent className="max-w-lg w-full max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <GraduationCap className="w-5 h-5 text-blue-500" /> Promote Students
+              <GraduationCap className="w-5 h-5 text-primary" /> Promote Students
             </DialogTitle>
           </DialogHeader>
 
@@ -751,7 +751,7 @@ const AdminStudents = () => {
 
             {/* Info: no results for selected class */}
             {!loadingYears && availableYears.length === 0 && (
-              <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-3 text-xs text-yellow-800">
+              <div className="bg-accent-soft border border-border rounded-xl p-3 text-xs text-primary">
                 ⚠️ No exam results found for Class {promotionFrom}. Please enter results first before promoting students.
               </div>
             )}
@@ -760,7 +760,7 @@ const AdminStudents = () => {
             {!promotionPreview && availableYears.length > 0 && (
               <Button
                 variant="outline"
-                className="w-full gap-2 border-blue-300 text-blue-700 hover:bg-blue-50"
+                className="w-full gap-2 border-border text-primary hover:bg-background"
                 onClick={loadPromotionPreview}
                 disabled={loadingPreview || promotionFrom === promotionTo}
               >
@@ -775,25 +775,25 @@ const AdminStudents = () => {
               <div className="space-y-3">
                 {/* Summary badges */}
                 <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="bg-green-50 border border-green-200 rounded-xl p-2.5">
-                    <p className="text-2xl font-bold text-green-700">{promotionPreview.pass.length}</p>
-                    <p className="text-[10px] font-semibold text-green-600 uppercase tracking-wide mt-0.5">✅ Will Promote</p>
+                  <div className="bg-background border border-border rounded-xl p-2.5">
+                    <p className="text-2xl font-bold text-primary">{promotionPreview.pass.length}</p>
+                    <p className="text-[10px] font-semibold text-primary uppercase tracking-wide mt-0.5">✅ Will Promote</p>
                   </div>
-                  <div className="bg-red-50 border border-red-200 rounded-xl p-2.5">
-                    <p className="text-2xl font-bold text-red-700">{promotionPreview.fail.length}</p>
-                    <p className="text-[10px] font-semibold text-red-600 uppercase tracking-wide mt-0.5">❌ Will Stay (Fail)</p>
+                  <div className="bg-background border border-border rounded-xl p-2.5">
+                    <p className="text-2xl font-bold text-primary">{promotionPreview.fail.length}</p>
+                    <p className="text-[10px] font-semibold text-primary uppercase tracking-wide mt-0.5">❌ Will Stay (Fail)</p>
                   </div>
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-2.5">
-                    <p className="text-2xl font-bold text-yellow-700">{promotionPreview.noResult.length}</p>
-                    <p className="text-[10px] font-semibold text-yellow-600 uppercase tracking-wide mt-0.5">⚠ No Result</p>
+                  <div className="bg-accent-soft border border-border rounded-xl p-2.5">
+                    <p className="text-2xl font-bold text-primary">{promotionPreview.noResult.length}</p>
+                    <p className="text-[10px] font-semibold text-primary uppercase tracking-wide mt-0.5">⚠ No Result</p>
                   </div>
                 </div>
 
                 {/* Passing list */}
                 {promotionPreview.pass.length > 0 && (
                   <div>
-                    <p className="text-xs font-semibold text-green-700 mb-1.5">✅ Passing — will move to Class {promotionTo}</p>
-                    <div className="bg-green-50 border border-green-200 rounded-xl max-h-32 overflow-y-auto p-2 space-y-1">
+                    <p className="text-xs font-semibold text-primary mb-1.5">✅ Passing — will move to Class {promotionTo}</p>
+                    <div className="bg-background border border-border rounded-xl max-h-32 overflow-y-auto p-2 space-y-1">
                       {promotionPreview.pass.map(s => (
                         <div key={s.id} className="flex items-center gap-2 text-xs">
                           <span className="font-mono text-muted-foreground w-10 shrink-0">#{s.roll_number}</span>
@@ -807,8 +807,8 @@ const AdminStudents = () => {
                 {/* Failing list */}
                 {promotionPreview.fail.length > 0 && (
                   <div>
-                    <p className="text-xs font-semibold text-red-700 mb-1.5">❌ Failing — will remain in Class {promotionFrom}</p>
-                    <div className="bg-red-50 border border-red-200 rounded-xl max-h-28 overflow-y-auto p-2 space-y-1">
+                    <p className="text-xs font-semibold text-primary mb-1.5">❌ Failing — will remain in Class {promotionFrom}</p>
+                    <div className="bg-background border border-border rounded-xl max-h-28 overflow-y-auto p-2 space-y-1">
                       {promotionPreview.fail.map(s => (
                         <div key={s.id} className="flex items-center gap-2 text-xs">
                           <span className="font-mono text-muted-foreground w-10 shrink-0">#{s.roll_number}</span>
@@ -821,9 +821,9 @@ const AdminStudents = () => {
 
                 {/* No result list */}
                 {promotionPreview.noResult.length > 0 && (
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-3 text-xs text-yellow-800">
+                  <div className="bg-accent-soft border border-border rounded-xl p-3 text-xs text-primary">
                     <p className="font-semibold mb-1">⚠️ {promotionPreview.noResult.length} student(s) have no result for {examTypeLabel(promotionExamType)} {promotionYear} — they will NOT be promoted.</p>
-                    <p className="text-yellow-700">Enter their results first if needed, then re-run the preview.</p>
+                    <p className="text-primary">Enter their results first if needed, then re-run the preview.</p>
                   </div>
                 )}
 
@@ -850,7 +850,7 @@ const AdminStudents = () => {
             <Button
               onClick={handlePromotion}
               disabled={promoting || !promotionPreview || promotionPreview.pass.length === 0}
-              className="gap-1.5 bg-blue-500 hover:bg-blue-600 text-white"
+              className="gap-1.5 bg-background hover:bg-primary text-primary-foreground"
             >
               {promoting && <Loader2 className="w-4 h-4 animate-spin" />}
               {promoting

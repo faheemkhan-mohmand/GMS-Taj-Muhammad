@@ -32,7 +32,7 @@ import AiSparkleIcon from "@/components/shared/AiSparkleIcon";
 import InteractiveLabs from "@/components/interactive/InteractiveLabs";
 import NotesLeaderboard from "@/components/notes/NotesLeaderboard";
 import { getSubjectGradient, getSubjectSolid, getSubjectTint } from "@/lib/subjectTheme";
- 
+
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // READ ALOUD — Completely rewritten using chunked approach
 // The previous approach failed because:
@@ -41,7 +41,7 @@ import { getSubjectGradient, getSubjectSolid, getSubjectTint } from "@/lib/subje
 // 3. HTML content wasn't properly stripped
 // FIX: Split text into sentence chunks, speak one at a time with queue
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- 
+
 function htmlToText(html: string): string {
   // Use DOMParser — most reliable for HTML stripping
   const doc = new DOMParser().parseFromString(html, "text/html");
@@ -426,7 +426,7 @@ const AudioPlayer = ({ content, onClose }: { content: string; onClose: () => voi
           </button>
         ) : (
           <button onClick={handlePause}
-            className="flex-1 flex items-center justify-center gap-1.5 bg-blue-500 text-white py-2.5 rounded-xl text-sm font-semibold hover:opacity-90">
+            className="flex-1 flex items-center justify-center gap-1.5 bg-background text-primary-foreground py-2.5 rounded-xl text-sm font-semibold hover:opacity-90">
             <Pause className="w-4 h-4" /> Pause
           </button>
         )}
@@ -508,7 +508,7 @@ function buildSrcDoc(code: string): string {
     // (we'll handle OrbitControls separately below)
     out = out.replace(/^\s*import\s+[\s\S]*?from\s+['"][^'"]*three[^'"]*['"]\s*;?\s*$/gm, '// [addon import skipped]');
 
-    // 2. Replace document.body.appendChild(renderer.domElement) 
+    // 2. Replace document.body.appendChild(renderer.domElement)
     //    → document.getElementById("c").appendChild(renderer.domElement)
     out = out.replace(
       /document\.body\.appendChild\s*\(\s*renderer\.domElement\s*\)/g,
@@ -748,7 +748,7 @@ const InteractiveIframe = ({ code, subjectColor }: { code: string; subjectColor:
     border: "none",
     display: "block",
     borderRadius: "16px",
-    background: "#f8f9ff",
+    background: "var(--surface)",
   };
 
   const fsFrameStyle: React.CSSProperties = {
@@ -762,18 +762,18 @@ const InteractiveIframe = ({ code, subjectColor }: { code: string; subjectColor:
     <>
       {/* Fullscreen overlay */}
       {fullscreen && (
-        <div className="fixed inset-0 z-[9999] bg-black flex flex-col">
-          <div className="flex items-center justify-between px-4 py-2 bg-gray-900 shrink-0">
-            <span className="text-white font-semibold text-sm flex items-center gap-2">
-              <Zap className="w-4 h-4 text-violet-400" /> Interactive Demo
+        <div className="fixed inset-0 z-[9999] bg-background flex flex-col">
+          <div className="flex items-center justify-between px-4 py-2 bg-primary-strong shrink-0">
+            <span className="text-primary-foreground font-semibold text-sm flex items-center gap-2">
+              <Zap className="w-4 h-4 text-primary" /> Interactive Demo
             </span>
             <div className="flex items-center gap-2">
               <button onClick={restart}
-                className="text-xs text-gray-300 hover:text-white px-3 py-1.5 rounded-lg bg-gray-700 hover:bg-gray-600 flex items-center gap-1.5">
+                className="text-xs text-muted hover:text-primary-foreground px-3 py-1.5 rounded-lg bg-primary-strong hover:bg-primary-strong flex items-center gap-1.5">
                 <RotateCcw className="w-3.5 h-3.5" /> Restart
               </button>
               <button onClick={() => setFullscreen(false)}
-                className="text-xs text-gray-300 hover:text-white px-3 py-1.5 rounded-lg bg-gray-700 hover:bg-gray-600">
+                className="text-xs text-muted hover:text-primary-foreground px-3 py-1.5 rounded-lg bg-primary-strong hover:bg-primary-strong">
                 ✕ Close
               </button>
             </div>
@@ -790,15 +790,15 @@ const InteractiveIframe = ({ code, subjectColor }: { code: string; subjectColor:
               onLoad={() => setIframeError(false)}
             />
             {iframeError && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 rounded-xl">
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-accent to-primary from-accent/20 to-primary-strong/20 rounded-xl">
                 <div className="text-5xl mb-4">🎮</div>
-                <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">Animation Unavailable</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 text-center px-6 max-w-md mb-4">
+                <h3 className="text-lg font-bold text-primary text-muted mb-2">Animation Unavailable</h3>
+                <p className="text-sm text-muted text-muted text-center px-6 max-w-md mb-4">
                   This interactive animation couldn't load. This might be due to network issues or the animation using features not supported here.
                 </p>
                 <button
                   onClick={() => { setIframeError(false); setFrameKey(k => k + 1); }}
-                  className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 shadow-lg transition-all"
+                  className="px-6 py-3 bg-gradient-to-r from-primary to-primary text-primary-foreground rounded-xl font-semibold hover:from-primary hover:to-primary shadow-lg transition-all"
                 >
                   🔄 Try Again
                 </button>
@@ -824,7 +824,7 @@ const InteractiveIframe = ({ code, subjectColor }: { code: string; subjectColor:
               <RotateCcw className="w-3 h-3" /> Restart
             </button>
             <button onClick={() => setFullscreen(true)}
-              className="flex items-center gap-1.5 text-xs font-semibold text-white px-3 py-1.5 rounded-xl hover:opacity-90 transition-opacity"
+              className="flex items-center gap-1.5 text-xs font-semibold text-primary-foreground px-3 py-1.5 rounded-xl hover:opacity-90 transition-opacity"
               style={{ backgroundColor: subjectColor }}>
               ⛶ Fullscreen
             </button>
@@ -852,15 +852,15 @@ const InteractiveIframe = ({ code, subjectColor }: { code: string; subjectColor:
             onLoad={() => setIframeError(false)}
           />
           {iframeError && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 rounded-xl">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-accent to-primary from-accent/20 to-primary-strong/20 rounded-xl">
               <div className="text-5xl mb-4">🎮</div>
-              <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-2">Animation Unavailable</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center px-6 max-w-md mb-4">
+              <h3 className="text-lg font-bold text-primary text-muted mb-2">Animation Unavailable</h3>
+              <p className="text-sm text-muted text-muted text-center px-6 max-w-md mb-4">
                 This interactive animation couldn't load. This might be due to network issues or the animation using features not supported here.
               </p>
               <button
                 onClick={() => { setIframeError(false); setFrameKey(k => k + 1); }}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 shadow-lg transition-all"
+                className="px-6 py-3 bg-gradient-to-r from-primary to-primary text-primary-foreground rounded-xl font-semibold hover:from-primary hover:to-primary shadow-lg transition-all"
               >
                 🔄 Try Again
               </button>
@@ -946,7 +946,7 @@ const PomodoroTimer = ({ onClose }: { onClose: () => void }) => {
       <div className="text-3xl font-black text-center font-mono mb-3 text-primary">{fmt(secs)}</div>
       <div className="flex gap-2">
         <button onClick={() => setRunning(r=>!r)}
-          className={`flex-1 py-2 rounded-xl text-white text-sm font-semibold ${running?"bg-blue-500":"bg-primary"}`}>
+          className={`flex-1 py-2 rounded-xl text-primary-foreground text-sm font-semibold ${running?"bg-background":"bg-primary"}`}>
           {running?"Pause":"Start"}
         </button>
         <button onClick={() => { setRunning(false); setSecs(0); }}
@@ -966,7 +966,7 @@ const CompletionStamp = ({ subjectColor, show }: { subjectColor: string; show: b
   return (
     <motion.div initial={{ scale: 0, rotate: -20, opacity: 0 }} animate={{ scale: 1, rotate: -8, opacity: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 15 }}
-      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-white text-xs font-black shadow-lg"
+      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-primary-foreground text-xs font-black shadow-lg"
       style={{ background: getSubjectGradient(subjectColor), boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.35)" }}>
       <Award className="w-3.5 h-3.5" /> COMPLETED ✓
     </motion.div>
@@ -998,15 +998,15 @@ const RevisionReminder = ({ chapterId, chapterTitle, userId }: { chapterId: stri
   };
   return (
     <motion.div initial={{ opacity:0, y:-10 }} animate={{ opacity:1, y:0 }}
-      className="bg-blue-50 dark:bg-blue-950/20 border border-blue-300 dark:border-blue-800 rounded-2xl p-4 mb-4 flex items-start gap-3">
+      className="bg-background bg-primary-strong/20 border border-border border-border rounded-2xl p-4 mb-4 flex items-start gap-3">
       <span className="text-2xl">🔔</span>
       <div className="flex-1">
-        <p className="text-sm font-bold text-blue-900 dark:text-blue-300">Time to Revise!</p>
-        <p className="text-xs text-blue-800 dark:text-blue-400 mt-0.5">
+        <p className="text-sm font-bold text-primary text-primary">Time to Revise!</p>
+        <p className="text-xs text-primary text-primary mt-0.5">
           You completed "{chapterTitle}" earlier. A quick revision now will help you remember it much longer.
         </p>
       </div>
-      <button onClick={dismiss} className="text-xs font-semibold text-blue-800 dark:text-blue-400 hover:underline shrink-0">Dismiss</button>
+      <button onClick={dismiss} className="text-xs font-semibold text-primary text-primary hover:underline shrink-0">Dismiss</button>
     </motion.div>
   );
 };
@@ -1025,8 +1025,8 @@ const GamificationBar = ({ userId }: { userId: string }) => {
   ];
   return (
     <div className="flex items-center gap-3 flex-wrap mb-4">
-      <span className="text-sm font-bold text-blue-700">⭐ {g.total_points} pts</span>
-      <span className="text-sm font-bold text-orange-500">🔥 {g.streak_days} day streak</span>
+      <span className="text-sm font-bold text-primary">⭐ {g.total_points} pts</span>
+      <span className="text-sm font-bold text-primary">🔥 {g.streak_days} day streak</span>
       {(g.badges||[]).slice(0,4).map((b:string) => {
         const badge = allBadges.find(x=>x.id===b);
         return badge ? <span key={b} className="text-lg" title={b}>{badge.emoji}</span> : null;
@@ -1122,19 +1122,19 @@ const AdaptiveQuiz = ({ quizId, chapterId, userId }: { quizId: string; chapterId
 
   const optStyle = (opt: string) => {
     if (!revealed) return "bg-card border-border hover:border-primary hover:bg-primary/5 cursor-pointer";
-    if (opt===q.correct) return "bg-green-50 border-green-500 dark:bg-green-900/20";
-    if (opt===selected && opt!==q.correct) return "bg-red-50 border-red-400 dark:bg-red-900/20";
+    if (opt===q.correct) return "bg-background border-border bg-primary-strong/20";
+    if (opt===selected && opt!==q.correct) return "bg-background border-border bg-primary-strong/20";
     return "bg-card border-border opacity-50";
   };
 
-  const diffClr = adaptiveDiff==="hard"?"text-red-500 bg-red-50 dark:bg-red-900/20":adaptiveDiff==="medium"?"text-blue-500 bg-blue-50 dark:bg-blue-950/20":"text-green-500 bg-green-50 dark:bg-green-900/20";
+  const diffClr = adaptiveDiff==="hard"?"text-primary bg-background bg-primary-strong/20":adaptiveDiff==="medium"?"text-primary bg-background bg-primary-strong/20":"text-primary bg-background bg-primary-strong/20";
 
   if (step==="cooldown") return (
-    <div className="mt-10 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-3xl p-8 text-center">
+    <div className="mt-10 bg-background bg-primary-strong/20 border border-border border-border rounded-3xl p-8 text-center">
       <p className="text-4xl mb-3">⏳</p>
       <h3 className="text-xl font-black text-foreground mb-2">Quiz Cooldown</h3>
       <p className="text-muted-foreground mb-1">You need to wait before retrying this quiz.</p>
-      <p className="text-3xl font-black font-mono text-blue-700 my-4">
+      <p className="text-3xl font-black font-mono text-primary my-4">
         {String(Math.floor(cooldownLeft/60)).padStart(2,"0")}:{String(cooldownLeft%60).padStart(2,"0")}
       </p>
       <p className="text-sm text-muted-foreground">Use this time to re-read the chapter!</p>
@@ -1142,13 +1142,13 @@ const AdaptiveQuiz = ({ quizId, chapterId, userId }: { quizId: string; chapterId
   );
 
   if (step==="start") return (
-    <div className="bg-gradient-to-br from-violet-50 to-indigo-50 dark:from-violet-900/20 dark:to-indigo-900/20 border border-violet-200 dark:border-violet-700/30 rounded-3xl p-6 md:p-8 text-center mt-10">
+    <div className="bg-gradient-to-br from-primary to-primary from-primary-strong/20 to-primary-strong/20 border border-border border-border/30 rounded-3xl p-6 md:p-8 text-center mt-10">
       <p className="text-5xl mb-3">🧠</p>
       <h3 className="text-2xl font-black text-foreground mb-2">Chapter Quiz</h3>
       <p className="text-muted-foreground mb-1">{totalQ} questions • Pass: {quiz?.pass_score||60}%</p>
       <p className="text-sm text-muted-foreground mb-4">🎯 Adaptive difficulty • 5min cooldown if failed</p>
       <button onClick={()=>setStep("quiz")}
-        className="bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold px-8 py-3 rounded-2xl hover:opacity-90 transition-opacity">
+        className="bg-gradient-to-r from-primary to-primary text-primary-foreground font-bold px-8 py-3 rounded-2xl hover:opacity-90 transition-opacity">
         Start Quiz 🚀
       </button>
     </div>
@@ -1157,17 +1157,17 @@ const AdaptiveQuiz = ({ quizId, chapterId, userId }: { quizId: string; chapterId
   if (step==="quiz") return (
     <div className="mt-10 bg-card border border-border rounded-3xl overflow-hidden shadow-lg">
       <div className="h-1.5 bg-muted">
-        <div className="h-full bg-gradient-to-r from-violet-500 to-indigo-600 transition-all duration-500" style={{width:`${(current/totalQ)*100}%`}} />
+        <div className="h-full bg-gradient-to-r from-primary to-primary transition-all duration-500" style={{width:`${(current/totalQ)*100}%`}} />
       </div>
       <div className="p-5 md:p-8">
         <div className="flex justify-between items-center mb-5 flex-wrap gap-2">
           <span className="text-sm font-semibold text-muted-foreground">Q {current+1}/{totalQ}</span>
           <div className="flex items-center gap-2">
             <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${diffClr}`}>{adaptiveDiff}</span>
-            <span className="text-sm bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full">⭐ {pts}pts</span>
+            <span className="text-sm bg-surface-raised text-primary font-bold px-3 py-1 rounded-full">⭐ {pts}pts</span>
           </div>
         </div>
-        {diffMsg && <p className="text-sm font-semibold text-center mb-4 text-violet-600 bg-violet-50 dark:bg-violet-900/20 py-2 rounded-xl">{diffMsg}</p>}
+        {diffMsg && <p className="text-sm font-semibold text-center mb-4 text-primary bg-background bg-primary-strong/20 py-2 rounded-xl">{diffMsg}</p>}
         <AnimatePresence mode="wait">
           <motion.div key={current} initial={{opacity:0,x:20}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-20}}>
             <h4 className="text-lg md:text-xl font-bold text-foreground mb-5 leading-relaxed">{q.question}</h4>
@@ -1185,16 +1185,16 @@ const AdaptiveQuiz = ({ quizId, chapterId, userId }: { quizId: string; chapterId
             {revealed && (
               <motion.div initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} className="mt-4 space-y-3">
                 {selected!==q.correct && q.explanation && (
-                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 rounded-xl p-4 text-sm text-blue-800 dark:text-blue-300">
+                  <div className="bg-background bg-primary-strong/20 border border-border rounded-xl p-4 text-sm text-primary text-primary">
                     <p className="font-bold mb-1">📖 Explanation:</p><p>{q.explanation}</p>
                   </div>
                 )}
                 {selected!==q.correct && (
-                  <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 rounded-xl p-3 text-sm text-green-700 dark:text-green-400">
+                  <div className="bg-background bg-primary-strong/20 border border-border rounded-xl p-3 text-sm text-primary text-primary">
                     ✅ Correct: <strong>{q.correct.toUpperCase()}. {q[`option_${q.correct}` as keyof NoteQuestion] as string}</strong>
                   </div>
                 )}
-                <button onClick={next} className="w-full bg-gradient-to-r from-violet-500 to-indigo-600 text-white font-bold py-3.5 rounded-2xl hover:opacity-90">
+                <button onClick={next} className="w-full bg-gradient-to-r from-primary to-primary text-primary-foreground font-bold py-3.5 rounded-2xl hover:opacity-90">
                   {current<totalQ-1?"Next Question →":"See Results 🏆"}
                 </button>
               </motion.div>
@@ -1215,11 +1215,11 @@ const AdaptiveQuiz = ({ quizId, chapterId, userId }: { quizId: string; chapterId
         <h3 className="text-2xl font-black text-foreground mb-1">{msg}</h3>
         <p className="text-5xl font-black text-primary my-3">{score}/{totalQ}</p>
         <div className="w-full bg-muted rounded-full h-3 mb-1">
-          <div className="h-full rounded-full bg-gradient-to-r from-violet-500 to-indigo-600" style={{width:`${pct}%`}} />
+          <div className="h-full rounded-full bg-gradient-to-r from-primary to-primary" style={{width:`${pct}%`}} />
         </div>
         <p className="text-muted-foreground text-sm mb-2">{pct}%</p>
-        <p className="text-blue-700 font-bold text-sm mb-6">⭐ +{pts} points earned!</p>
-        {pct < 60 && <p className="text-blue-700 text-xs mb-3">You can retry in 5 minutes</p>}
+        <p className="text-primary font-bold text-sm mb-6">⭐ +{pts} points earned!</p>
+        {pct < 60 && <p className="text-primary text-xs mb-3">You can retry in 5 minutes</p>}
         <button onClick={()=>{setCurrent(0);setAnswers({});setSelected(null);setRevealed(false);setPts(0);setStreak(0);setAdaptiveDiff("medium");
           const key=`quiz_last_fail_${quizId}`;const lf=localStorage.getItem(key);
           if(lf){const el=(Date.now()-parseInt(lf))/1000;if(el<300){setCooldownLeft(Math.ceil(300-el));setStep("cooldown");return;}}
@@ -1243,7 +1243,7 @@ const FlashcardMode = ({ chapterId, onClose }: { chapterId: string; onClose: () 
   const [known, setKnown] = useState<Set<string>>(new Set());
   const [done, setDone] = useState(false);
   if (!cards.length) return (
-    <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-background/70 flex items-center justify-center p-4">
       <div className="bg-card rounded-3xl p-8 text-center max-w-sm w-full">
         <p className="text-4xl mb-3">📇</p><p className="font-bold text-foreground">No flashcards yet</p>
         <button onClick={onClose} className="mt-4 px-6 py-2 rounded-xl bg-primary text-primary-foreground font-semibold">Close</button>
@@ -1260,12 +1260,12 @@ const FlashcardMode = ({ chapterId, onClose }: { chapterId: string; onClose: () 
   };
   const markReview = () => { setFlipped(false); setIdx(i => (i+1) % Math.max(remaining.length,1)); };
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-background/80 flex items-center justify-center p-4">
       <div className="bg-card rounded-3xl w-full max-w-lg overflow-hidden">
         <div className="flex items-center justify-between p-5 border-b border-border">
           <div><h3 className="font-bold text-foreground">📇 Flashcards</h3><p className="text-xs text-muted-foreground">{known.size}/{cards.length} mastered</p></div>
           <div className="flex items-center gap-3">
-            <div className="w-24 bg-muted rounded-full h-2"><div className="h-full bg-green-500 rounded-full" style={{width:`${progress}%`}} /></div>
+            <div className="w-24 bg-muted rounded-full h-2"><div className="h-full bg-background rounded-full" style={{width:`${progress}%`}} /></div>
             <button onClick={onClose} className="p-2 rounded-xl hover:bg-secondary"><X className="w-5 h-5" /></button>
           </div>
         </div>
@@ -1283,18 +1283,18 @@ const FlashcardMode = ({ chapterId, onClose }: { chapterId: string; onClose: () 
             <p className="text-xs text-center text-muted-foreground mb-4">Tap the card to flip</p>
             <div className="cursor-pointer mb-6" onClick={()=>setFlipped(f=>!f)} style={{perspective:"1000px"}}>
               <motion.div animate={{rotateY:flipped?180:0}} transition={{duration:0.5}} style={{transformStyle:"preserve-3d",position:"relative",height:"200px"}}>
-                <div style={{backfaceVisibility:"hidden",WebkitBackfaceVisibility:"hidden"}} className="absolute inset-0 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-2xl flex items-center justify-center p-6">
-                  <p className="text-white text-lg font-bold text-center leading-relaxed">{card?.front}</p>
+                <div style={{backfaceVisibility:"hidden",WebkitBackfaceVisibility:"hidden"}} className="absolute inset-0 bg-gradient-to-br from-primary to-primary rounded-2xl flex items-center justify-center p-6">
+                  <p className="text-primary-foreground text-lg font-bold text-center leading-relaxed">{card?.front}</p>
                 </div>
-                <div style={{backfaceVisibility:"hidden",WebkitBackfaceVisibility:"hidden",transform:"rotateY(180deg)"}} className="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center p-6">
-                  <p className="text-white text-base text-center leading-relaxed">{card?.back}</p>
+                <div style={{backfaceVisibility:"hidden",WebkitBackfaceVisibility:"hidden",transform:"rotateY(180deg)"}} className="absolute inset-0 bg-gradient-to-br from-primary to-primary rounded-2xl flex items-center justify-center p-6">
+                  <p className="text-primary-foreground text-base text-center leading-relaxed">{card?.back}</p>
                 </div>
               </motion.div>
             </div>
             {flipped ? (
               <motion.div initial={{opacity:0,y:10}} animate={{opacity:1,y:0}} className="flex gap-3">
-                <button onClick={markReview} className="flex-1 py-3 rounded-2xl border-2 border-blue-400 bg-blue-50 dark:bg-blue-950/20 text-blue-800 font-bold text-sm">🔄 Review Again</button>
-                <button onClick={markKnown} className="flex-1 py-3 rounded-2xl border-2 border-green-400 bg-green-50 dark:bg-green-900/20 text-green-700 font-bold text-sm">✅ Got It!</button>
+                <button onClick={markReview} className="flex-1 py-3 rounded-2xl border-2 border-border bg-background bg-primary-strong/20 text-primary font-bold text-sm">🔄 Review Again</button>
+                <button onClick={markKnown} className="flex-1 py-3 rounded-2xl border-2 border-border bg-background bg-primary-strong/20 text-primary font-bold text-sm">✅ Got It!</button>
               </motion.div>
             ) : <p className="text-center text-sm text-muted-foreground mt-2">👆 Tap to see answer</p>}
           </div>
@@ -1317,16 +1317,16 @@ const PrintOptimized = ({ chapter, subject, schoolName, onClose }: any) => {
   const printContent = chapter.content || "";
   const printScopeClass = contentScopeClass(printContent);
   return (
-    <div className="fixed inset-0 z-50 bg-white" id="print-view">
+    <div className="fixed inset-0 z-50 bg-surface" id="print-view">
       <style>{`@media print { body > *:not(#print-view) { display:none!important; } #print-view { position:static!important; } }`}</style>
       <div className="max-w-3xl mx-auto p-8">
         <div className="flex justify-between items-start mb-6">
-          <div><h1 className="text-2xl font-black text-gray-900">{chapter.title}</h1><p className="text-gray-500">{subject.emoji} {subject.name} — Chapter {chapter.chapter_number}</p></div>
-          <button onClick={onClose} className="print:hidden px-4 py-2 border rounded-xl text-sm hover:bg-gray-50"><X className="w-4 h-4" /></button>
+          <div><h1 className="text-2xl font-black text-primary">{chapter.title}</h1><p className="text-muted">{subject.emoji} {subject.name} — Chapter {chapter.chapter_number}</p></div>
+          <button onClick={onClose} className="print:hidden px-4 py-2 border rounded-xl text-sm hover:bg-background"><X className="w-4 h-4" /></button>
         </div>
         <div className={`prose prose-sm max-w-none ${printScopeClass}`} dangerouslySetInnerHTML={{__html: buildScopedContentHTML(printContent, printScopeClass)}} />
         {/* Print view keeps the scoped pasted CSS (colors/spacing preserved) */}
-        <div className="mt-8 pt-4 border-t border-gray-200 text-xs text-gray-400 flex justify-between">
+        <div className="mt-8 pt-4 border-t border-border text-xs text-muted flex justify-between">
           <span>{schoolName}</span><span>{chapter.title}</span>
         </div>
       </div>
@@ -1479,8 +1479,8 @@ const ChapterPage = () => {
   if (isOfflineError) return (
     <PageLayout>
       <div className="max-w-4xl mx-auto px-4 py-20 text-center">
-        <div className="w-20 h-20 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-6">
-          <WifiOff className="w-10 h-10 text-orange-500" />
+        <div className="w-20 h-20 rounded-full bg-accent-soft bg-accent/30 flex items-center justify-center mx-auto mb-6">
+          <WifiOff className="w-10 h-10 text-primary" />
         </div>
         <h2 className="text-2xl font-black text-foreground mb-3">You're Offline</h2>
         <p className="text-muted-foreground mb-2">
@@ -1571,7 +1571,7 @@ const ChapterPage = () => {
       }`}>
         <button onClick={() => setShowAiAssistant(true)} aria-label="AI Study Buddy"
           className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 relative">
-          <AiSparkleIcon size={20} className="text-orange-600" />
+          <AiSparkleIcon size={20} className="text-primary" />
         </button>
 
         <button onClick={()=>setShowPomodoro(v=>!v)} aria-label="Study Timer"
@@ -1599,7 +1599,7 @@ const ChapterPage = () => {
           chapter.audio_enabled !== false && (
             <button onClick={()=>setShowAudio(v=>!v)} aria-label="Read Aloud"
               className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2">
-              <Volume2 className={`w-5 h-5 ${showAudio ? "text-blue-700" : "text-blue-600"}`} />
+              <Volume2 className={`w-5 h-5 ${showAudio ? "text-primary" : "text-primary"}`} />
             </button>
           )
         )}
@@ -1614,7 +1614,7 @@ const ChapterPage = () => {
         {user && (
           <button onClick={() => setShowAnnotationPanel(v => !v)} aria-label="View annotations"
             className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2">
-            <MessageSquare className={`w-5 h-5 ${showAnnotationPanel ? "text-indigo-700" : "text-indigo-500"}`} />
+            <MessageSquare className={`w-5 h-5 ${showAnnotationPanel ? "text-primary" : "text-primary"}`} />
           </button>
         )}
 
@@ -1622,7 +1622,7 @@ const ChapterPage = () => {
         {user && (
           <button onClick={() => setShowLeaderboard(true)} aria-label="Leaderboard"
             className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2">
-            <Trophy className="w-5 h-5 text-yellow-500" />
+            <Trophy className="w-5 h-5 text-primary" />
           </button>
         )}
       </div>
@@ -1635,10 +1635,10 @@ const ChapterPage = () => {
         <button onClick={() => setShowAiAssistant(true)} title="AI Study Buddy"
           className="group flex items-center gap-2"
           aria-label="AI Study Buddy">
-          <span className="hidden sm:inline-block bg-orange-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+          <span className="hidden sm:inline-block bg-accent text-accent-foreground text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
             AI Assistant
           </span>
-          <span className="w-12 h-12 flex items-center justify-center text-orange-600">
+          <span className="w-12 h-12 flex items-center justify-center text-primary">
             <AiSparkleIcon size={30} />
           </span>
         </button>
@@ -1647,8 +1647,8 @@ const ChapterPage = () => {
         <button onClick={()=>setShowPomodoro(v=>!v)} title="Study Timer"
           className="group flex items-center gap-2"
           aria-label="Study Timer">
-          <span className="hidden sm:inline-block bg-red-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Study Timer</span>
-          <span className="w-12 h-12 rounded-full bg-red-500 text-white shadow-lg hover:bg-red-600 flex items-center justify-center text-xl transition-colors">🍅</span>
+          <span className="hidden sm:inline-block bg-background text-primary-foreground text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Study Timer</span>
+          <span className="w-12 h-12 rounded-full bg-background text-primary-foreground shadow-lg hover:bg-primary flex items-center justify-center text-xl transition-colors">🍅</span>
         </button>
 
         {/* Audio: pre-recorded OR TTS fallback */}
@@ -1670,8 +1670,8 @@ const ChapterPage = () => {
             <button onClick={()=>setShowAudio(v=>!v)} title="Read Aloud (TTS)"
               className="group flex items-center gap-2"
               aria-label="Read Aloud">
-              <span className="hidden sm:inline-block bg-blue-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Read Aloud</span>
-              <span className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-colors ${showAudio?"bg-blue-700":"bg-blue-600"} text-white hover:bg-blue-700`}>
+              <span className="hidden sm:inline-block bg-primary text-primary-foreground text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Read Aloud</span>
+              <span className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-colors ${showAudio?"bg-primary":"bg-primary"} text-primary-foreground hover:bg-primary`}>
                 <Volume2 className="w-5 h-5" />
               </span>
             </button>
@@ -1683,8 +1683,8 @@ const ChapterPage = () => {
           <button onClick={()=>setShowFlashcards(true)} title="Flashcards"
             className="group flex items-center gap-2"
             aria-label="Flashcards">
-            <span className="hidden sm:inline-block bg-emerald-600 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Flashcards ({flashcards.length})</span>
-            <span className="w-12 h-12 rounded-full bg-emerald-600 text-white shadow-lg hover:bg-emerald-700 flex items-center justify-center text-xl transition-colors">📇</span>
+            <span className="hidden sm:inline-block bg-primary text-primary-foreground text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Flashcards ({flashcards.length})</span>
+            <span className="w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary flex items-center justify-center text-xl transition-colors">📇</span>
           </button>
         )}
 
@@ -1693,8 +1693,8 @@ const ChapterPage = () => {
           <button onClick={() => setShowAnnotationPanel(v => !v)} title="Annotations"
             className="group flex items-center gap-2"
             aria-label="View annotations">
-            <span className="hidden sm:inline-block bg-indigo-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Annotations</span>
-            <span className={`relative w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-colors text-white ${showAnnotationPanel ? "bg-indigo-700" : "bg-indigo-500 hover:bg-indigo-600"}`}>
+            <span className="hidden sm:inline-block bg-background text-primary-foreground text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Annotations</span>
+            <span className={`relative w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-colors text-primary-foreground ${showAnnotationPanel ? "bg-primary" : "bg-background hover:bg-primary"}`}>
               <MessageSquare className="w-5 h-5" />
             </span>
           </button>
@@ -1705,8 +1705,8 @@ const ChapterPage = () => {
           <button onClick={() => setShowLeaderboard(true)} title="Leaderboard & Achievements"
             className="group flex items-center gap-2"
             aria-label="Leaderboard">
-            <span className="hidden sm:inline-block bg-yellow-500 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Leaderboard</span>
-            <span className="w-12 h-12 rounded-full bg-yellow-500 text-white shadow-lg hover:bg-yellow-600 flex items-center justify-center transition-colors">
+            <span className="hidden sm:inline-block bg-accent-soft text-primary text-[11px] font-bold px-2.5 py-1 rounded-lg shadow opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">Leaderboard</span>
+            <span className="w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary-strong flex items-center justify-center transition-colors">
               <Trophy className="w-5 h-5" />
             </span>
           </button>
@@ -1719,7 +1719,7 @@ const ChapterPage = () => {
         {/* Desktop sidebar */}
         <aside className="hidden lg:block w-60 shrink-0">
           <div className="sticky top-8 bg-card border border-border rounded-2xl overflow-hidden">
-            <div className="p-4 font-bold text-sm text-white" style={{background:getSubjectGradient(subject.color)}}>{subject.emoji} {subject.name}</div>
+            <div className="p-4 font-bold text-sm text-primary-foreground" style={{background:getSubjectGradient(subject.color)}}>{subject.emoji} {subject.name}</div>
             <div className="p-2 max-h-[70vh] overflow-y-auto">
               {chapters.map((ch,i) => {
                 const chProgress = progress.find(p=>p.chapter_id===ch.id);
@@ -1734,7 +1734,7 @@ const ChapterPage = () => {
                       <span className="w-5 h-5 rounded-full bg-current/20 flex items-center justify-center text-[10px] font-black shrink-0">{i+1}</span>
                       <span className="truncate flex-1">{ch.title}</span>
                       {!chUnlocked && <Lock className="w-3 h-3 shrink-0" />}
-                      {chProgress?.completed && chUnlocked && <CheckCircle className="w-3.5 h-3.5 text-green-500 shrink-0" />}
+                      {chProgress?.completed && chUnlocked && <CheckCircle className="w-3.5 h-3.5 text-primary shrink-0" />}
                     </div>
                   </Link>
                 );
@@ -1746,9 +1746,9 @@ const ChapterPage = () => {
         {/* Mobile sidebar */}
         {sidebarOpen && (
           <div className="lg:hidden fixed inset-0 z-50 flex">
-            <div className="absolute inset-0 bg-black/50" onClick={()=>setSidebarOpen(false)} />
+            <div className="absolute inset-0 bg-background/50" onClick={()=>setSidebarOpen(false)} />
             <div className="relative w-72 bg-card h-full flex flex-col">
-              <div className="p-4 font-bold flex justify-between text-white" style={{background:getSubjectGradient(subject.color)}}>
+              <div className="p-4 font-bold flex justify-between text-primary-foreground" style={{background:getSubjectGradient(subject.color)}}>
                 <span>{subject.emoji} {subject.name}</span>
                 <button onClick={()=>setSidebarOpen(false)}><X className="w-5 h-5" /></button>
               </div>
@@ -1765,7 +1765,7 @@ const ChapterPage = () => {
                         <span className="w-5 h-5 rounded-full bg-muted flex items-center justify-center text-[10px] shrink-0">{i+1}</span>
                         <span className="flex-1 truncate">{ch.title}</span>
                         {!chUnlocked && <Lock className="w-3 h-3 shrink-0" />}
-                        {progress.find(p=>p.chapter_id===ch.id&&p.completed)&&chUnlocked&&<CheckCircle className="w-3.5 h-3.5 text-green-500 shrink-0" />}
+                        {progress.find(p=>p.chapter_id===ch.id&&p.completed)&&chUnlocked&&<CheckCircle className="w-3.5 h-3.5 text-primary shrink-0" />}
                       </div>
                     </Link>
                   );
@@ -1803,7 +1803,7 @@ const ChapterPage = () => {
                 {/* Header */}
                 <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
                   <h2 className="text-lg font-bold flex items-center gap-2">
-                    <Trophy className="w-5 h-5 text-yellow-500" />
+                    <Trophy className="w-5 h-5 text-primary" />
                     Leaderboard & Achievements
                   </h2>
                   <button
@@ -1822,7 +1822,7 @@ const ChapterPage = () => {
           </AnimatePresence>
 
           {/* Chapter header — refined gradient, always readable (no muddy overlay) */}
-          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-8 mb-4 md:mb-8 text-white"
+          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-8 mb-4 md:mb-8 text-primary-foreground"
             style={{background:getSubjectGradient(subject.color)}}>
             {/* Ambient glow + fine texture */}
             <div className="absolute inset-0 pointer-events-none" style={{background:"radial-gradient(circle at 88% 8%, rgba(255,255,255,0.16), transparent 50%)"}} />
@@ -1830,42 +1830,42 @@ const ChapterPage = () => {
             <div className="absolute top-0 right-0 text-5xl sm:text-7xl md:text-8xl opacity-10 select-none">{subject.emoji}</div>
             <div className="relative">
               <div className="flex items-center gap-1.5 mb-2 md:mb-3 flex-wrap">
-                <span className="bg-white/15 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>Chapter {chapter.chapter_number}</span>
-                <span className="bg-white/15 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold capitalize" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>{chapter.difficulty}</span>
+                <span className="bg-surface/15 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>Chapter {chapter.chapter_number}</span>
+                <span className="bg-surface/15 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold capitalize" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>{chapter.difficulty}</span>
                 {(chapter as any).bise_important && (
-                  <span className="bg-red-500/90 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold shadow-sm">🎯 BISE Topic — {(chapter as any).bise_years} past papers</span>
+                  <span className="bg-background/90 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[10px] md:text-xs font-bold shadow-sm">🎯 BISE Topic — {(chapter as any).bise_years} past papers</span>
                 )}
                 <CompletionStamp subjectColor={subject.color} show={completed} />
               </div>
               <h1 className="text-base sm:text-xl md:text-3xl font-heading font-black leading-tight mb-1.5 md:mb-3">{chapter.title}</h1>
-              {chapter.description && <p className="text-white/80 text-xs sm:text-sm">{chapter.description}</p>}
+              {chapter.description && <p className="text-primary-foreground text-xs sm:text-sm">{chapter.description}</p>}
               <div className="flex flex-wrap items-center gap-1.5 md:gap-4 mt-2.5 md:mt-4">
-                <div className="flex items-center gap-1 text-[11px] sm:text-sm text-white/85"><Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {chapter.read_time_mins} min</div>
-                {chapter.animation_code && <div className="flex items-center gap-1 text-[11px] sm:text-sm text-white/85"><Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Interactive</div>}
-                {(chapter as any).audio_url && <div className="flex items-center gap-1 text-[11px] sm:text-sm text-white/85"><Headphones className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Audio Notes</div>}
-                {flashcards.length>0 && <div className="flex items-center gap-1 text-[11px] sm:text-sm text-white/85"><Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {flashcards.length} cards</div>}
+                <div className="flex items-center gap-1 text-[11px] sm:text-sm text-primary-foreground"><Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {chapter.read_time_mins} min</div>
+                {chapter.animation_code && <div className="flex items-center gap-1 text-[11px] sm:text-sm text-primary-foreground"><Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Interactive</div>}
+                {(chapter as any).audio_url && <div className="flex items-center gap-1 text-[11px] sm:text-sm text-primary-foreground"><Headphones className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Audio Notes</div>}
+                {flashcards.length>0 && <div className="flex items-center gap-1 text-[11px] sm:text-sm text-primary-foreground"><Layers className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> {flashcards.length} cards</div>}
                 <div className="ml-auto flex flex-wrap items-center gap-1.5 md:gap-2">
                   <button onClick={toggleBookmark}
-                    className="flex items-center gap-1 bg-white/15 hover:bg-white/25 text-white px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
+                    className="flex items-center gap-1 bg-surface/15 hover:bg-surface/25 text-primary-foreground px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
                     {bookmarked?<BookmarkCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4"/>:<Bookmark className="w-3.5 h-3.5 sm:w-4 sm:h-4"/>}
                     <span className="hidden sm:inline">{bookmarked?"Saved":"Save"}</span>
                   </button>
                   <button onClick={()=>setShowPrint(true)}
-                    className="flex items-center gap-1 bg-white/15 hover:bg-white/25 text-white px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
+                    className="flex items-center gap-1 bg-surface/15 hover:bg-surface/25 text-primary-foreground px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
                     <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" /><span className="hidden sm:inline">Print</span>
                   </button>
                   {chapter.pdf_url && (
                     <a href={chapter.pdf_url} target="_blank" rel="noreferrer"
-                      className="flex items-center gap-1 bg-white/15 hover:bg-white/25 text-white px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
+                      className="flex items-center gap-1 bg-surface/15 hover:bg-surface/25 text-primary-foreground px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
                       <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" /><span className="hidden sm:inline">PDF</span>
                     </a>
                   )}
                   <button onClick={()=>{ const next=!liteMode; setLiteMode(next); toast.success(next?"Lite Mode on — images, animations & charts hidden for faster loading":"Lite Mode off — full content restored", { icon: next?"📡":"🔆", duration: 2500 }); }} title={liteMode?"Disable Lite Mode":"Lite Mode (hides images/animations for faster loading)"}
-                    className={`flex items-center gap-1 px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors ${liteMode?"bg-white/30":"bg-white/15 hover:bg-white/25"} text-white`}>
+                    className={`flex items-center gap-1 px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors ${liteMode?"bg-surface/30":"bg-surface/15 hover:bg-surface/25"} text-primary-foreground`}>
                     {liteMode?"🔆":"📡"}
                   </button>
                   <button onClick={()=>setSidebarOpen(true)}
-                    className="lg:hidden flex items-center gap-1 bg-white/15 hover:bg-white/25 text-white px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
+                    className="lg:hidden flex items-center gap-1 bg-surface/15 hover:bg-surface/25 text-primary-foreground px-2 py-1 md:px-3 md:py-1.5 rounded-lg md:rounded-xl text-[11px] sm:text-sm font-medium transition-colors" style={{boxShadow:"inset 0 0 0 1px rgba(255,255,255,0.22)"}}>
                     <Menu className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </button>
                 </div>
@@ -1877,7 +1877,7 @@ const ChapterPage = () => {
           <div ref={contentRef}
             style={{fontSize:"17px",lineHeight:"1.85","--sc":getSubjectSolid(subject.color)} as React.CSSProperties}
             className={`notes-content prose prose-base md:prose-lg max-w-none dark:prose-invert
-              prose-h2:text-[color:var(--sc)] dark:prose-h2:text-gold-soft prose-h2:font-black prose-h2:tracking-tight
+              prose-h2:text-primary dark:prose-h2:text-primary prose-h2:font-black prose-h2:tracking-tight
               prose-h3:text-foreground prose-h3:font-bold
               prose-strong:text-foreground
               prose-code:bg-primary/10 prose-code:text-primary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
@@ -1914,7 +1914,7 @@ const ChapterPage = () => {
           {/* Flashcards */}
           {flashcards.length > 0 && (
             <button onClick={()=>setShowFlashcards(true)}
-              className="mt-6 w-full flex items-center justify-center gap-2 py-4 rounded-2xl border-2 border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 font-bold hover:bg-emerald-100 transition-colors">
+              className="mt-6 w-full flex items-center justify-center gap-2 py-4 rounded-2xl border-2 border-border border-border bg-background bg-primary-strong/20 text-primary text-primary font-bold hover:bg-surface-raised transition-colors">
               📇 Study {flashcards.length} Flashcards
             </button>
           )}

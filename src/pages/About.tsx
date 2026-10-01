@@ -35,12 +35,12 @@ const BandStat = ({ value, label, suffix = "" }: { value: number; label: string;
   return (
     <div
       ref={ref}
-      className="rounded-2xl bg-white/10 border border-white/15 px-4 py-6 text-center shadow-sm"
+      className="rounded-2xl bg-surface/10 border border-border/15 px-4 py-6 text-center shadow-sm"
     >
       <div className="text-3xl md:text-4xl font-heading font-bold text-gradient-gold">
         {count}{suffix}
       </div>
-      <div className="text-xs md:text-sm font-medium text-white/75 mt-1.5 uppercase tracking-[0.14em]">
+      <div className="text-xs md:text-sm font-medium text-primary-foreground mt-1.5 uppercase tracking-[0.14em]">
         {label}
       </div>
     </div>
@@ -114,9 +114,9 @@ const About = () => {
             ].map(({ icon: Icon, label }) => (
               <span
                 key={label}
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero"
+                className="inline-flex items-center gap-2 rounded-full bg-surface/10 border border-border/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero"
               >
-                <Icon className="w-3.5 h-3.5 text-gold" />
+                <Icon className="w-3.5 h-3.5 text-primary" />
                 {label}
               </span>
             ))}
@@ -243,7 +243,7 @@ const About = () => {
             viewport={{ once: true, amount: 0.3 }}
             className="text-center mb-9"
           >
-            <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <span className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               By the numbers
             </span>
             <h2 className="mt-2 text-2xl md:text-3xl font-heading font-bold text-on-hero">
@@ -254,9 +254,9 @@ const About = () => {
           {isLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="rounded-2xl bg-white/10 border border-white/15 p-6 text-center">
-                  <Skeleton className="h-9 w-20 mx-auto mb-2 bg-white/20" />
-                  <Skeleton className="h-4 w-16 mx-auto bg-white/20" />
+                <div key={i} className="rounded-2xl bg-surface/10 border border-border/15 p-6 text-center">
+                  <Skeleton className="h-9 w-20 mx-auto mb-2 bg-surface/20" />
+                  <Skeleton className="h-4 w-16 mx-auto bg-surface/20" />
                 </div>
               ))}
             </div>
@@ -318,14 +318,14 @@ const About = () => {
                     )}
                   </div>
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold mt-0.5 text-center md:text-left">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary mt-0.5 text-center md:text-left">
                   Principal
                 </p>
               </div>
 
               {/* Quote body */}
               <div className="relative">
-                <Quote className="absolute -top-1 -left-1 w-10 h-10 text-gold/25 rotate-180" />
+                <Quote className="absolute -top-1 -left-1 w-10 h-10 text-primary rotate-180" />
                 <p className="relative pl-8 text-muted-foreground leading-relaxed whitespace-pre-line">
                   {settings?.principal_message}
                 </p>
@@ -467,7 +467,7 @@ const About = () => {
             <div className="relative z-10">
               <h2 className="text-2xl md:text-4xl font-display font-semibold text-on-hero leading-tight">
                 Ready to become part of<br className="hidden sm:block" />
-                <span className="italic text-gold"> our story?</span>
+                <span className="italic text-primary"> our story?</span>
               </h2>
               <p className="mt-4 text-on-hero-soft text-sm md:text-base max-w-xl mx-auto leading-relaxed">
                 Whether you are a parent exploring admission or a visitor with a
@@ -478,7 +478,7 @@ const About = () => {
                   <motion.span
                     whileHover={{ y: -2 }}
                     whileTap={{ y: 0 }}
-                    className="sheen inline-flex items-center gap-2 rounded-xl bg-accent text-accent-foreground font-semibold px-7 py-3.5 shadow-elevated cursor-pointer"
+                    className="sheen inline-flex items-center gap-2 rounded-xl bg-primary text-primary-foreground font-semibold px-7 py-3.5 shadow-elevated cursor-pointer"
                   >
                     Apply for Admission <ArrowRight className="w-4 h-4" />
                   </motion.span>
@@ -487,7 +487,7 @@ const About = () => {
                   <motion.span
                     whileHover={{ y: -2 }}
                     whileTap={{ y: 0 }}
-                    className="inline-flex items-center gap-2 rounded-xl border border-gold/50 bg-white/10 text-on-hero font-semibold px-7 py-3.5 hover:bg-white/15 transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-gold/50 bg-surface/10 text-on-hero font-semibold px-7 py-3.5 hover:bg-surface/15 transition-colors cursor-pointer"
                   >
                     Contact Us
                   </motion.span>

@@ -269,7 +269,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-white/10 px-4 py-1.5 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-gold"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-surface/10 px-4 py-1.5 text-xs sm:text-sm font-semibold uppercase tracking-[0.18em] text-primary"
           >
             <Sparkles className="w-3.5 h-3.5" />
             Get in touch
@@ -282,7 +282,7 @@ const Contact = () => {
             className="mt-6 text-4xl md:text-6xl font-display font-semibold leading-[1.08] text-on-hero"
           >
             Let's start a<br className="hidden sm:block" />
-            <span className="italic text-gold"> conversation.</span>
+            <span className="italic text-primary"> conversation.</span>
           </motion.h1>
 
           <motion.p
@@ -304,20 +304,20 @@ const Contact = () => {
           >
             <a
               href={`mailto:${displayEmail}`}
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero hover:bg-white/15 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-surface/10 border border-border/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero hover:bg-surface/15 transition-colors"
             >
-              <Mail className="w-3.5 h-3.5 text-gold" /> {displayEmail}
+              <Mail className="w-3.5 h-3.5 text-primary" /> {displayEmail}
             </a>
             {displayPhone && (
               <a
                 href={`tel:${displayPhone.replace(/\s/g, "")}`}
-                className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero hover:bg-white/15 transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-surface/10 border border-border/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero hover:bg-surface/15 transition-colors"
               >
-                <Phone className="w-3.5 h-3.5 text-gold" /> {displayPhone}
+                <Phone className="w-3.5 h-3.5 text-primary" /> {displayPhone}
               </a>
             )}
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero">
-              <Clock className="w-3.5 h-3.5 text-gold" /> Mon – Sat, 8 AM – 2 PM
+            <span className="inline-flex items-center gap-2 rounded-full bg-surface/10 border border-border/15 px-4 py-2 text-xs sm:text-sm font-medium text-on-hero">
+              <Clock className="w-3.5 h-3.5 text-primary" /> Mon – Sat, 8 AM – 2 PM
             </span>
           </motion.div>
         </div>
@@ -344,7 +344,7 @@ const Contact = () => {
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="relative">
-                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold mb-0.5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary mb-0.5">
                     {label}
                   </p>
                   <p className="text-sm text-foreground leading-snug">{value}</p>
@@ -383,7 +383,7 @@ const Contact = () => {
                 </div>
                 <h2 className="text-xl font-heading font-bold text-foreground">Send a Message</h2>
                 <span title="Secure form with validation" className="inline-flex">
-                  <Shield className="w-5 h-5 text-green-600" />
+                  <Shield className="w-5 h-5 text-primary" />
                 </span>
               </div>
               <p className="text-sm text-muted-foreground mb-6">
@@ -392,10 +392,10 @@ const Contact = () => {
               </p>
 
               {/* Security notice — restyled, same trust message */}
-              <div className="mb-6 p-3 rounded-xl bg-green-500/10 border border-green-500/25">
+              <div className="mb-6 p-3 rounded-xl bg-background/10 border border-border/25">
                 <div className="flex items-start gap-2">
-                  <Shield className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
-                  <p className="text-xs text-green-800 dark:text-green-400 leading-relaxed">
+                  <Shield className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                  <p className="text-xs text-primary text-primary leading-relaxed">
                     Protected with input validation, XSS protection and rate
                     limiting — your message travels safely.
                   </p>
@@ -410,8 +410,8 @@ const Contact = () => {
                   className="flex flex-col items-center justify-center gap-3 py-12 text-center"
                 >
                   <div className="relative">
-                    <div className="absolute -inset-2 rounded-full bg-green-500/15" />
-                    <CheckCircle2 className="relative w-14 h-14 text-green-500" />
+                    <div className="absolute -inset-2 rounded-full bg-background/15" />
+                    <CheckCircle2 className="relative w-14 h-14 text-primary" />
                   </div>
                   <p className="font-heading font-bold text-lg text-foreground">Message ready to send!</p>
                   <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
@@ -544,7 +544,7 @@ const Contact = () => {
 
                   {/* General Error Message */}
                   {error && (
-                    <div className="p-3 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20">
+                    <div className="p-3 rounded-xl bg-background bg-background/10 border border-border border-border/20">
                       <p className="text-sm text-destructive flex items-center gap-2">
                         <AlertTriangle className="w-4 h-4" />{error}
                       </p>
@@ -554,7 +554,7 @@ const Contact = () => {
                   <Button
                     onClick={handleSubmit}
                     disabled={sending}
-                    className="sheen w-full sm:w-auto h-12 px-8 rounded-xl font-semibold text-primary-foreground border-none bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--primary-glow)))] shadow-elevated hover:opacity-95 transition-opacity"
+                    className="sheen w-full sm:w-auto h-12 px-8 rounded-xl font-semibold text-primary-foreground border-none bg-[linear-gradient(135deg,var(--primary),var(--primary))] shadow-elevated hover:opacity-95 transition-opacity"
                     type="button"
                   >
                     {sending ? (
@@ -588,32 +588,32 @@ const Contact = () => {
                     href={`https://wa.me/${SCHOOL_PROFILE.phoneE164.replace(/^\+/, "")}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 w-full rounded-2xl border border-[#25D366]/25 bg-[#25D366]/10 hover:bg-[#25D366]/20 hover:border-[#25D366]/50 px-4 py-3 transition-all card-lift"
+                    className="group flex items-center gap-3 w-full rounded-2xl border border-border bg-surface hover:bg-surface hover:border-border px-4 py-3 transition-all card-lift"
                   >
-                    <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#25D366] to-[#128C7E] flex items-center justify-center shrink-0 shadow-md">
-                      <MessageCircle className="w-5 h-5 text-white fill-white" />
+                    <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary flex items-center justify-center shrink-0 shadow-md">
+                      <MessageCircle className="w-5 h-5 text-primary-foreground fill-white" />
                     </span>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-foreground">WhatsApp</p>
                       <p className="text-xs text-muted-foreground">Quick reply, usually within hours</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-[#25D366] group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                   </a>
 
                   <a
                     href="https://www.facebook.com/share/1EERTSk1W7/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 w-full rounded-2xl border border-[#1877F2]/25 bg-[#1877F2]/10 hover:bg-[#1877F2]/20 hover:border-[#1877F2]/50 px-4 py-3 transition-all card-lift"
+                    className="group flex items-center gap-3 w-full rounded-2xl border border-border bg-surface hover:bg-surface hover:border-border px-4 py-3 transition-all card-lift"
                   >
-                    <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1877F2] to-[#0C4A9E] flex items-center justify-center shrink-0 shadow-md">
-                      <Facebook className="w-5 h-5 text-white" />
+                    <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary flex items-center justify-center shrink-0 shadow-md">
+                      <Facebook className="w-5 h-5 text-primary-foreground" />
                     </span>
                     <div className="min-w-0">
                       <p className="text-sm font-semibold text-foreground">Facebook</p>
                       <p className="text-xs text-muted-foreground">Follow for news &amp; updates</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-[#1877F2] group-hover:translate-x-0.5 transition-all" />
+                    <ArrowRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
                   </a>
 
                   {displayPhone && (
@@ -638,7 +638,7 @@ const Contact = () => {
               <div className="relative border-gradient-gold rounded-3xl p-5 overflow-hidden">
                 <div className="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
                 <div className="flex items-center gap-2 mb-3">
-                  <GraduationCap className="w-4 h-4 text-gold" />
+                  <GraduationCap className="w-4 h-4 text-primary" />
                   <p className="text-sm font-heading font-bold text-foreground">Looking for something specific?</p>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">

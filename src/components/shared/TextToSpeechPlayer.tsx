@@ -310,9 +310,9 @@ const TextToSpeechPlayer = ({ text, title, onClose, autoPlay = true }: TTSPlayer
         transition={{ type: "spring", damping: 24, stiffness: 280 }}
         className="fixed bottom-0 left-0 right-0 z-50 shadow-elevated"
         style={{
-          background: "linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--card) / 0.99) 100%)",
-          borderTop: "1px solid hsl(var(--gold) / 0.5)",
-          boxShadow: "0 -10px 30px -10px rgba(0,0,0,0.25)",
+          background: "var(--gradient-hero)",
+          borderTop: "1px solid rgb(var(--accent-rgb) / 0.5)",
+          boxShadow: "0 -10px 30px -10px rgb(var(--text-primary-rgb) / 0.25)",
         }}
       >
         {/* Top hairline accent — subtle gold/crimson dual-rule */}
@@ -324,15 +324,15 @@ const TextToSpeechPlayer = ({ text, title, onClose, autoPlay = true }: TTSPlayer
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-md"
               style={{
-                background: "linear-gradient(135deg, hsl(20 74% 38%) 0%, hsl(20 70% 30%) 100%)",
+                background: "var(--gradient-hero)",
               }}
             >
               {playing && !paused ? (
-                <Volume2 className="w-4 h-4 text-[hsl(40_50%_97%)]" style={{ animation: "none" }} />
+                <Volume2 className="w-4 h-4 text-primary" style={{ animation: "none" }} />
               ) : !voicesReady && !autoPlayAttempted ? (
-                <Loader2 className="w-4 h-4 text-[hsl(40_50%_97%)] animate-spin" />
+                <Loader2 className="w-4 h-4 text-primary animate-spin" />
               ) : (
-                <Volume2 className="w-4 h-4 text-[hsl(40_50%_97%)]" />
+                <Volume2 className="w-4 h-4 text-primary" />
               )}
             </div>
 
@@ -349,7 +349,7 @@ const TextToSpeechPlayer = ({ text, title, onClose, autoPlay = true }: TTSPlayer
                 <span className="inline-flex items-center gap-1 text-[9px] uppercase tracking-[0.22em] text-muted-foreground/80">
                   <span
                     className="inline-block w-1.5 h-1.5 rounded-full"
-                    style={{ background: "hsl(20 74% 38%)" }}
+                    style={{ background: "var(--primary)" }}
                   />
                   {detectedLang === "ur" ? "Urdu narration" : "English narration"}
                 </span>
@@ -363,7 +363,7 @@ const TextToSpeechPlayer = ({ text, title, onClose, autoPlay = true }: TTSPlayer
                     className="h-1 rounded-full transition-all duration-300"
                     style={{
                       width: `${progress}%`,
-                      background: "linear-gradient(90deg, hsl(20 74% 38%) 0%, hsl(35 92% 50%) 100%)",
+                      background: "var(--gradient-hero)",
                     }}
                   />
                 </div>
@@ -377,7 +377,7 @@ const TextToSpeechPlayer = ({ text, title, onClose, autoPlay = true }: TTSPlayer
             {!playing ? (
               <button
                 onClick={play}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[hsl(20_74%_38%)] hover:bg-secondary transition-colors"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-primary hover:bg-secondary transition-colors"
                 aria-label="Play"
               >
                 <Play className="w-4 h-4" />
@@ -385,7 +385,7 @@ const TextToSpeechPlayer = ({ text, title, onClose, autoPlay = true }: TTSPlayer
             ) : (
               <button
                 onClick={togglePause}
-                className="w-9 h-9 rounded-full flex items-center justify-center text-[hsl(20_74%_38%)] hover:bg-secondary transition-colors"
+                className="w-9 h-9 rounded-full flex items-center justify-center text-primary hover:bg-secondary transition-colors"
                 aria-label="Pause/Resume"
               >
                 {paused ? <Play className="w-4 h-4" /> : <Pause className="w-4 h-4" />}
@@ -431,9 +431,9 @@ export const ListenButton = ({ onClick }: { onClick: (e: React.MouseEvent) => vo
   <button
     onClick={onClick}
     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
-               bg-gradient-to-r from-[hsl(20_74%_38%)] to-[hsl(20_70%_30%)] text-[hsl(40_50%_97%)]
+               bg-gradient-to-r from-primary to-primary text-primary
                hover:brightness-110 active:scale-95 transition-all shadow-sm
-               ring-1 ring-[hsl(20_74%_38%)]/30"
+               ring-1 ring-accent"
   >
     <Volume2 className="w-3.5 h-3.5" /> Listen
   </button>

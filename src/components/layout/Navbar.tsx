@@ -54,12 +54,12 @@ const NAV_SECTIONS: NavSection[] = [
     label: "Our School",
     icon: Landmark,
     tagline: "Who we are & how to reach us",
-    tint: "bg-indigo-100 text-indigo-700 dark:bg-indigo-400/15 dark:text-indigo-300",
+    tint: "bg-surface-raised text-primary bg-primary/15 text-primary",
     links: [
-      { to: "/about",   label: "About",   icon: Landmark,   desc: "History, mission & facilities",      tint: "bg-sky-100 text-sky-700 dark:bg-sky-400/15 dark:text-sky-300" },
-      { to: "/gallery", label: "Gallery", icon: Images,     desc: "Photos & videos of school life",     tint: "bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-300" },
-      { to: "/contact", label: "Contact", icon: Mail,       desc: "Address, phone & location map",      tint: "bg-teal-100 text-teal-700 dark:bg-teal-400/15 dark:text-teal-300" },
-      { to: "/faq",     label: "FAQs",    icon: HelpCircle, desc: "Answers to common questions",        tint: "bg-amber-100 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300" },
+      { to: "/about",   label: "About",   icon: Landmark,   desc: "History, mission & facilities",      tint: "bg-surface-raised text-primary bg-primary/15 text-primary" },
+      { to: "/gallery", label: "Gallery", icon: Images,     desc: "Photos & videos of school life",     tint: "bg-surface-raised text-primary bg-primary/15 text-primary" },
+      { to: "/contact", label: "Contact", icon: Mail,       desc: "Address, phone & location map",      tint: "bg-surface-raised text-primary bg-primary/15 text-primary" },
+      { to: "/faq",     label: "FAQs",    icon: HelpCircle, desc: "Answers to common questions",        tint: "bg-accent-soft text-primary bg-accent/15 text-primary" },
     ],
   },
   {
@@ -67,11 +67,11 @@ const NAV_SECTIONS: NavSection[] = [
     label: "News & Events",
     icon: Newspaper,
     tagline: "Latest updates & important dates",
-    tint: "bg-rose-100 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300",
+    tint: "bg-accent-soft text-primary bg-accent/15 text-primary",
     links: [
-      { to: "/news",     label: "News",     icon: Newspaper,   desc: "Stories & latest updates",     tint: "bg-rose-100 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300" },
-      { to: "/notices",  label: "Notices",  icon: Megaphone,   desc: "Official announcements",       tint: "bg-rose-100 text-rose-700 dark:bg-rose-400/15 dark:text-rose-300" },
-      { to: "/calendar", label: "Calendar", icon: CalendarDays, desc: "Events & academic dates",     tint: "bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-300" },
+      { to: "/news",     label: "News",     icon: Newspaper,   desc: "Stories & latest updates",     tint: "bg-accent-soft text-primary bg-accent/15 text-primary" },
+      { to: "/notices",  label: "Notices",  icon: Megaphone,   desc: "Official announcements",       tint: "bg-accent-soft text-primary bg-accent/15 text-primary" },
+      { to: "/calendar", label: "Calendar", icon: CalendarDays, desc: "Events & academic dates",     tint: "bg-surface-raised text-primary bg-primary/15 text-primary" },
     ],
   },
   {
@@ -79,10 +79,10 @@ const NAV_SECTIONS: NavSection[] = [
     label: "Results",
     icon: Trophy,
     tagline: "Exam outcomes, toppers & slips",
-    tint: "bg-amber-100 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300",
+    tint: "bg-accent-soft text-primary bg-accent/15 text-primary",
     links: [
-      { to: "/results",   label: "Results",   icon: Trophy, desc: "Exam results & DMCs",           tint: "bg-orange-100 text-orange-700 dark:bg-orange-400/15 dark:text-orange-300" },
-      { to: "/merit-list", label: "Merit List", icon: Medal, desc: "Toppers & position holders",   tint: "bg-orange-100 text-orange-700 dark:bg-orange-400/15 dark:text-orange-300" },
+      { to: "/results",   label: "Results",   icon: Trophy, desc: "Exam results & DMCs",           tint: "bg-accent-soft text-primary bg-accent/15 text-primary" },
+      { to: "/merit-list", label: "Merit List", icon: Medal, desc: "Toppers & position holders",   tint: "bg-accent-soft text-primary bg-accent/15 text-primary" },
     ],
   },
   {
@@ -90,11 +90,11 @@ const NAV_SECTIONS: NavSection[] = [
     label: "Academics",
     icon: BookOpen,
     tagline: "Learn anywhere, anytime",
-    tint: "bg-teal-100 text-teal-700 dark:bg-teal-400/15 dark:text-teal-300",
+    tint: "bg-surface-raised text-primary bg-primary/15 text-primary",
     links: [
-      { to: "/online-classes", label: "Online Classes", icon: Video,   desc: "Live & recorded lectures",         tint: "bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-400/15 dark:text-fuchsia-300" },
-      { to: "/notes",          label: "Notes",          icon: BookOpen, desc: "Study notes by class & subject",   tint: "bg-teal-100 text-teal-700 dark:bg-teal-400/15 dark:text-teal-300" },
-      { to: "/library",        label: "Library",        icon: Library,  desc: "Books & reading resources",        tint: "bg-violet-100 text-violet-700 dark:bg-violet-400/15 dark:text-violet-300" },
+      { to: "/online-classes", label: "Online Classes", icon: Video,   desc: "Live & recorded lectures",         tint: "bg-accent-soft text-primary bg-accent/15 text-primary" },
+      { to: "/notes",          label: "Notes",          icon: BookOpen, desc: "Study notes by class & subject",   tint: "bg-surface-raised text-primary bg-primary/15 text-primary" },
+      { to: "/library",        label: "Library",        icon: Library,  desc: "Books & reading resources",        tint: "bg-surface-raised text-primary bg-primary/15 text-primary" },
     ],
   },
 ];
@@ -103,7 +103,7 @@ const NAV_SECTIONS: NavSection[] = [
 // panel (with the live countdown badge) instead of a plain row.
 const rollSlipItem: NavLinkItem = {
   to: "/roll-no-slip", label: "Roll No. Slip", icon: Hash,
-  desc: "Find, download & share your slip", tint: "bg-orange-100 text-orange-700 dark:bg-orange-400/15 dark:text-orange-300",
+  desc: "Find, download & share your slip", tint: "bg-accent-soft text-primary bg-accent/15 text-primary",
 };
 
 /* ── Roll No. Slip live countdown ────────────────────────────────────────────
@@ -141,9 +141,9 @@ function RollSlipCountdown({ variant }: { variant: "chip" | "strip" | "menu-badg
         aria-label="Roll No. Slip countdown — tap to open"
         className={`hidden lg:inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all shadow-sm no-underline ${
           live
-            ? "bg-orange-600 text-white hover:bg-orange-700 shadow-orange-600/30"
+            ? "bg-primary text-primary-foreground hover:bg-primary-strong shadow-[0_0_12px_color-mix(in_srgb,var(--accent)_30%,transparent)]"
             : "bg-azure/10 border border-azure/40 text-foreground hover:bg-azure/15"
-        }`}        
+        }`}
       >
         <Timer className={`w-4 h-4 ${live ? "" : "text-azure"}`} />
         <span className="leading-none">
@@ -165,19 +165,19 @@ function RollSlipCountdown({ variant }: { variant: "chip" | "strip" | "menu-badg
         aria-label="Roll No. Slip countdown — tap to open"
         className={`lg:hidden flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold no-underline transition-colors ${
           live
-            ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white"
-            : "bg-red-50 text-red-600 border-b border-red-200"
+            ? "bg-gradient-to-r from-accent to-accent text-primary-foreground"
+            : "bg-background text-primary border-b border-border"
         }`}
       >
-        <Timer className={`w-3.5 h-3.5 shrink-0 ${live ? "" : "text-red-600"}`} />
+        <Timer className={`w-3.5 h-3.5 shrink-0 ${live ? "" : "text-primary"}`} />
         <span className="truncate">
           {live ? (
             <>Roll No. Slips are <span className="underline underline-offset-2">LIVE</span> — tap to view</>
           ) : (
-            <>Roll No. Slip in <span className="font-mono tabular-nums font-bold text-red-600">{compactCountdown(diff)}</span></>
+            <>Roll No. Slip in <span className="font-mono tabular-nums font-bold text-primary">{compactCountdown(diff)}</span></>
           )}
         </span>
-        <span className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${live ? "bg-white" : "bg-red-500"}`} aria-hidden="true" />
+        <span className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${live ? "bg-surface" : "bg-background"}`} aria-hidden="true" />
       </Link>
     );
   }
@@ -187,8 +187,8 @@ function RollSlipCountdown({ variant }: { variant: "chip" | "strip" | "menu-badg
     <span
       className={`ml-auto shrink-0 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ${
         live
-          ? "bg-azure text-white"
-          : "bg-secondary text-azure-strong dark:text-azure border border-border/60"
+          ? "bg-azure text-primary-foreground"
+          : "bg-secondary text-azure-strong text-azure border border-border/60"
       }`}    >
       {live ? "LIVE" : <span className="font-mono tabular-nums">{compactCountdown(diff)}</span>}
     </span>
@@ -220,19 +220,19 @@ function ResultsCountdown() {
       aria-label="Results countdown — tap to open"
       className={`lg:hidden flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold no-underline transition-colors ${
         live
-          ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white"
-          : "bg-red-50 text-red-600 border-b border-red-200"
+          ? "bg-gradient-to-r from-accent to-accent text-primary-foreground"
+          : "bg-background text-primary border-b border-border"
       }`}
     >
-      <Timer className={`w-3.5 h-3.5 shrink-0 ${live ? "" : "text-red-600"}`} />
+      <Timer className={`w-3.5 h-3.5 shrink-0 ${live ? "" : "text-primary"}`} />
       <span className="truncate">
         {live ? (
           <>Results are <span className="underline underline-offset-2">LIVE</span> — tap to view</>
         ) : (
-          <>Results in <span className="font-mono tabular-nums font-bold text-red-600">{compactResultsCountdown(diff)}</span></>
+          <>Results in <span className="font-mono tabular-nums font-bold text-primary">{compactResultsCountdown(diff)}</span></>
         )}
       </span>
-      <span className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${live ? "bg-white" : "bg-red-500"}`} aria-hidden="true" />
+      <span className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${live ? "bg-surface" : "bg-background"}`} aria-hidden="true" />
     </Link>
   );
 }
@@ -271,19 +271,19 @@ function BisepResultsCountdown() {
       aria-label="BISE Peshawar results countdown — tap to open"
       className={`lg:hidden flex items-center justify-center gap-2 px-4 py-2 text-xs font-bold no-underline transition-colors ${
         live
-          ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white"
-          : "bg-red-50 text-red-600 border-b border-red-200"
+          ? "bg-gradient-to-r from-accent to-accent text-primary-foreground"
+          : "bg-background text-primary border-b border-border"
       }`}
     >
-      <Timer className={`w-3.5 h-3.5 shrink-0 ${live ? "" : "text-red-600"}`} />
+      <Timer className={`w-3.5 h-3.5 shrink-0 ${live ? "" : "text-primary"}`} />
       <span className="truncate">
         {live ? (
           <>Results are <span className="underline underline-offset-2">LIVE</span> — tap to view</>
         ) : (
-          <>Results in <span className="font-mono tabular-nums font-bold text-red-600">{compactResultsCountdown(diff)}</span></>
+          <>Results in <span className="font-mono tabular-nums font-bold text-primary">{compactResultsCountdown(diff)}</span></>
         )}
       </span>
-      <span className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${live ? "bg-white" : "bg-red-500"}`} aria-hidden="true" />
+      <span className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${live ? "bg-surface" : "bg-background"}`} aria-hidden="true" />
     </Link>
   );
 }
@@ -330,7 +330,7 @@ function MegaRow({ link, index, active, onNavigate }: {
           <Icon className="w-4 h-4" />
         </span>
         <span className="flex-1 min-w-0">
-          <span className={`block text-[13px] font-semibold leading-tight ${active ? "text-azure-strong dark:text-azure" : "text-foreground"}`}>
+          <span className={`block text-[13px] font-semibold leading-tight ${active ? "text-azure-strong text-azure" : "text-foreground"}`}>
             {link.label}
           </span>
           <span className="block text-[10.5px] text-muted-foreground leading-tight mt-px truncate">
@@ -373,7 +373,7 @@ const MobileLinkRow = memo(function MobileLinkRow({ link, active, onNavigate }: 
         <Icon className="w-3.5 h-3.5" />
       </span>
       <span className="flex-1 min-w-0">
-        <span className={`block text-[12.5px] font-semibold leading-tight ${active ? "text-azure-strong dark:text-azure" : "text-foreground"}`}>
+        <span className={`block text-[12.5px] font-semibold leading-tight ${active ? "text-azure-strong text-azure" : "text-foreground"}`}>
           {link.label}
         </span>
         <span className="block text-[10px] text-muted-foreground leading-tight mt-px truncate">
@@ -401,7 +401,7 @@ const MobileDirectRow = memo(function MobileDirectRow({ to, label, icon: Icon, t
       to={to}
       onClick={onNavigate}
       className={`relative flex items-center gap-3 px-3 py-2.5 rounded-2xl border bg-secondary/40 text-sm font-bold no-underline transition-colors duration-150 ${
-        active ? "border-azure/35 bg-azure/[0.06] text-azure-strong dark:text-azure" : "border-border/50 text-foreground active:bg-secondary/70"
+        active ? "border-azure/35 bg-azure/[0.06] text-azure-strong text-azure" : "border-border/50 text-foreground active:bg-secondary/70"
       }`}
     >
       {active && (
@@ -497,7 +497,7 @@ const MobileAccordionSection = memo(function MobileAccordionSection({
           <SectionIcon className="w-[18px] h-[18px]" />
         </span>
         <span className="flex-1 min-w-0">
-          <span className={`block text-[13.5px] font-bold leading-tight ${sectionActive ? "text-azure-strong dark:text-azure" : "text-foreground"}`}>
+          <span className={`block text-[13.5px] font-bold leading-tight ${sectionActive ? "text-azure-strong text-azure" : "text-foreground"}`}>
             {section.label}
           </span>
           <span className="block text-[10.5px] text-muted-foreground leading-tight mt-px truncate">
@@ -584,7 +584,7 @@ const MobileAccordionSection = memo(function MobileAccordionSection({
                         <Hash className="w-3.5 h-3.5" />
                       </span>
                       <span className="flex-1 min-w-0">
-                        <span className={`block text-[12.5px] font-semibold leading-tight ${pathname === rollSlipItem.to ? "text-azure-strong dark:text-azure" : "text-foreground"}`}>
+                        <span className={`block text-[12.5px] font-semibold leading-tight ${pathname === rollSlipItem.to ? "text-azure-strong text-azure" : "text-foreground"}`}>
                           {rollSlipItem.label}
                         </span>
                         <span className="block text-[10px] text-muted-foreground leading-tight mt-px truncate">
@@ -798,7 +798,7 @@ const Navbar = () => {
      All defined once in src/index.css, driven by data-active. */
   const desktopLinkClass = (active: boolean) =>
     `nav-link px-3.5 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors duration-200 ${
-      active ? "text-azure-strong dark:text-azure" : "text-muted-foreground hover:text-foreground"
+      active ? "text-azure-strong text-azure" : "text-muted-foreground hover:text-foreground"
     }`;
 
   const closeAllMenus = useCallback(() => {
@@ -857,7 +857,7 @@ const Navbar = () => {
                 onError={() => setLogoFailed(true)}
               />
             ) : (
-              <GraduationCap className="w-4 h-4 text-white" />
+              <GraduationCap className="w-4 h-4 text-primary-foreground" />
             )}
           </HexagonLogoFrame>
           <div>
@@ -932,7 +932,7 @@ const Navbar = () => {
                         <div className="relative rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-elevated overflow-hidden">
                           {/* thin azure hairline accent */}
                           <div className="absolute top-0 inset-x-5 h-px bg-gradient-to-r from-transparent via-azure/50 to-transparent" aria-hidden="true" />
-                          
+
                           {/* micro eyebrow — small azure icon + tagline, one whisper line */}
                           <div className="relative flex items-center gap-2 px-4 pt-3 pb-1">
                             <SectionIcon className="w-3 h-3 text-azure shrink-0" aria-hidden="true" />
@@ -1220,7 +1220,7 @@ const Navbar = () => {
                 to="/"
                 label="Home"
                 icon={Home}
-                tint="bg-emerald-100 text-emerald-700 dark:bg-emerald-400/15 dark:text-emerald-300"
+                tint="bg-surface-raised text-primary bg-primary/15 text-primary"
                 active={location.pathname === "/"}
                 onNavigate={closeAllMenus}
               />
@@ -1249,7 +1249,7 @@ const Navbar = () => {
                 to="/admission"
                 label="Admission"
                 icon={ClipboardList}
-                tint="bg-amber-100 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300"
+                tint="bg-accent-soft text-primary bg-accent/15 text-primary"
                 active={location.pathname === "/admission"}
                 onNavigate={closeAllMenus}
               />
@@ -1270,7 +1270,7 @@ const Navbar = () => {
                         onClick={closeAllMenus}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-background/70 border border-border/60 text-foreground font-semibold text-sm no-underline transition-colors duration-150 active:bg-secondary/70"
                       >
-                        <span className="w-10 h-10 rounded-[13px] bg-gradient-to-br from-sky-600 to-indigo-700 text-white flex items-center justify-center shrink-0 shadow-sm ring-1 ring-inset ring-white/25" aria-hidden="true">
+                        <span className="w-10 h-10 rounded-[13px] bg-gradient-to-br from-primary to-primary text-primary-foreground flex items-center justify-center shrink-0 shadow-sm ring-1 ring-inset ring-white/25" aria-hidden="true">
                           <Shield className="w-[18px] h-[18px]" />
                         </span>
                         <span className="flex-1">Admin Panel</span>
@@ -1337,7 +1337,7 @@ const Navbar = () => {
               data-active={location.pathname === "/" || undefined}
               onClick={closeAllMenus}
               className={`flex-1 flex flex-col items-center justify-center py-3.5 ${
-                location.pathname === "/" ? "text-black dark:text-white" : "text-muted-foreground"
+                location.pathname === "/" ? "text-primary text-primary-foreground" : "text-muted-foreground"
               }`}
             >
               <Home className="w-6 h-6" fill={location.pathname === "/" ? "currentColor" : "none"} />
@@ -1362,7 +1362,7 @@ const Navbar = () => {
               data-active={location.pathname === "/results" || undefined}
               onClick={closeAllMenus}
               className={`flex-1 flex flex-col items-center justify-center py-3.5 ${
-                location.pathname === "/results" ? "text-black dark:text-white" : "text-muted-foreground"
+                location.pathname === "/results" ? "text-primary text-primary-foreground" : "text-muted-foreground"
               }`}
             >
               <Trophy className="w-6 h-6" fill={location.pathname === "/results" ? "currentColor" : "none"} />
@@ -1378,7 +1378,7 @@ const Navbar = () => {
               data-active={location.pathname === "/admission" || undefined}
               onClick={closeAllMenus}
               className={`flex-1 flex flex-col items-center justify-center py-3.5 ${
-                location.pathname === "/admission" ? "text-black dark:text-white" : "text-muted-foreground"
+                location.pathname === "/admission" ? "text-primary text-primary-foreground" : "text-muted-foreground"
               }`}
             >
               <FileSignature className="w-6 h-6" fill={location.pathname === "/admission" ? "currentColor" : "none"} />

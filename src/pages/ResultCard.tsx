@@ -56,12 +56,12 @@ const gradeFromPct = (pct: number) => {
 
 const gradeHex = (g: string | null) => {
   switch (g) {
-    case "A+": return "#0369A1";
-    case "A":  return "#0EA5E9";
-    case "B":  return "#0D9488";
-    case "C":  return "#1e3a8a";
-    case "D":  return "#EA580C";
-    default:   return "#DC2626";
+    case "A+": return "#14532D";
+    case "A":  return "#B8860B";
+    case "B":  return "#14532D";
+    case "C":  return "#0E3B20";
+    case "D":  return "#14532D";
+    default:   return "#0E3B20";
   }
 };
 
@@ -85,13 +85,13 @@ const buildDMC = (r: ResultRecord, school: SchoolInfo): string => {
     const grade = gradeFromPct(pct);
     const pass  = pct >= 33;
     return `
-      <tr style="background:${idx % 2 === 0 ? "#F8FAFF" : "#fff"}">
-        <td style="padding:6px 10px;border:1px solid #CBD5E1;font-size:12px;font-weight:500">${name}</td>
-        <td style="padding:6px 10px;border:1px solid #CBD5E1;font-size:12px;text-align:center">${m.total}</td>
-        <td style="padding:6px 10px;border:1px solid #CBD5E1;font-size:12px;text-align:center;font-weight:700;color:#0369A1">${m.obtained}</td>
-        <td style="padding:6px 10px;border:1px solid #CBD5E1;font-size:12px;text-align:center">${pct}%</td>
-        <td style="padding:6px 10px;border:1px solid #CBD5E1;font-size:12px;text-align:center;font-weight:700;color:${gradeHex(grade)}">${grade}</td>
-        <td style="padding:6px 10px;border:1px solid #CBD5E1;font-size:12px;text-align:center;font-weight:600;color:${pass ? "#16A34A" : "#DC2626"}">${pass ? "Pass" : "Fail"}</td>
+      <tr style="background:${idx % 2 === 0 ? "#FAFDF7" : "#FFFFFF"}">
+        <td style="padding:6px 10px;border:1px solid #D7E5D9;font-size:12px;font-weight:500">${name}</td>
+        <td style="padding:6px 10px;border:1px solid #D7E5D9;font-size:12px;text-align:center">${m.total}</td>
+        <td style="padding:6px 10px;border:1px solid #D7E5D9;font-size:12px;text-align:center;font-weight:700;color:#14532D">${m.obtained}</td>
+        <td style="padding:6px 10px;border:1px solid #D7E5D9;font-size:12px;text-align:center">${pct}%</td>
+        <td style="padding:6px 10px;border:1px solid #D7E5D9;font-size:12px;text-align:center;font-weight:700;color:${gradeHex(grade)}">${grade}</td>
+        <td style="padding:6px 10px;border:1px solid #D7E5D9;font-size:12px;text-align:center;font-weight:600;color:${pass ? "#14532D" : "#0E3B20"}">${pass ? "Pass" : "Fail"}</td>
       </tr>`;
   }).join("");
 
@@ -107,62 +107,62 @@ const buildDMC = (r: ResultRecord, school: SchoolInfo): string => {
 <style>
   @page { size:A4 portrait; margin:10mm; }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#fff;color:#1E293B;font-size:13px}
-  .dmc{max-width:760px;margin:0 auto;border:2.5px solid #0EA5E9;border-radius:8px;overflow:hidden}
+  body{font-family:'Segoe UI',Calibri,Arial,sans-serif;background:#FFFFFF;color:#1A2E22;font-size:13px}
+  .dmc{max-width:760px;margin:0 auto;border:2.5px solid #B8860B;border-radius:8px;overflow:hidden}
 
-  .header{background:linear-gradient(135deg,#0C4A6E,#0369A1 45%,#0EA5E9);padding:16px 20px 14px;display:flex;align-items:center;gap:14px}
+  .header{background:linear-gradient(135deg,#0E3B20,#14532D 45%,#B8860B);padding:16px 20px 14px;display:flex;align-items:center;gap:14px}
   .logo-wrap{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
   .logo-wrap img{width:100%;height:100%;object-fit:contain;padding:4px}
-  .logo-txt{font-size:20px;font-weight:900;color:#0369A1}
-  .school-center{flex:1;text-align:center;color:#fff}
+  .logo-txt{font-size:20px;font-weight:900;color:#14532D}
+  .school-center{flex:1;text-align:center;color:#FFFFFF}
   .school-name{font-size:19px;font-weight:800;letter-spacing:0.4px}
   .school-addr{font-size:10.5px;opacity:.85;margin-top:2px}
   .dmc-badge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:3px 14px;font-size:12px;font-weight:700;letter-spacing:1.5px;margin-top:6px}
   .emis-line{font-size:9.5px;opacity:.7;margin-top:3px}
   .photo-wrap{width:70px;height:88px;border-radius:4px;border:2.5px solid rgba(255,255,255,0.5);overflow:hidden;background:rgba(255,255,255,0.15);flex-shrink:0;display:flex;align-items:center;justify-content:center}
   .photo-wrap img{width:100%;height:100%;object-fit:cover}
-  .photo-init{font-size:28px;font-weight:900;color:#fff}
+  .photo-init{font-size:28px;font-weight:900;color:#FFFFFF}
   .photo-spacer{width:70px;flex-shrink:0}
 
-  .exam-bar{background:#0EA5E9;color:#fff;display:flex;justify-content:space-around;padding:7px 16px}
+  .exam-bar{background:#B8860B;color:#FFFFFF;display:flex;justify-content:space-around;padding:7px 16px}
   .ei{text-align:center}
   .ei-label{font-size:9px;opacity:.8;text-transform:uppercase;letter-spacing:.7px}
   .ei-val{font-size:13px;font-weight:800;margin-top:1px}
 
-  .stu-grid{padding:12px 18px;display:grid;grid-template-columns:1fr 1fr;gap:7px;background:#F8FAFF;border-bottom:2px solid #E0F2FE}
+  .stu-grid{padding:12px 18px;display:grid;grid-template-columns:1fr 1fr;gap:7px;background:#FAFDF7;border-bottom:2px solid #F0F7F1}
   .ir{display:flex;gap:8px;align-items:baseline}
-  .il{font-size:9.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;min-width:80px}
-  .iv{font-size:13px;font-weight:600;color:#0F172A}
+  .il{font-size:9.5px;font-weight:700;color:#5B6B5F;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;min-width:80px}
+  .iv{font-size:13px;font-weight:600;color:#1A2E22}
 
   .tbl-wrap{padding:12px 18px}
-  .sec-title{font-size:10px;font-weight:700;color:#0369A1;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+  .sec-title{font-size:10px;font-weight:700;color:#14532D;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
   table{width:100%;border-collapse:collapse}
-  thead tr{background:linear-gradient(90deg,#0369A1,#0EA5E9)}
-  thead th{padding:7px 10px;font-size:10.5px;font-weight:700;color:#fff;text-align:center;border:1px solid #0369A1;text-transform:uppercase;letter-spacing:.4px}
+  thead tr{background:linear-gradient(90deg,#14532D,#B8860B)}
+  thead th{padding:7px 10px;font-size:10.5px;font-weight:700;color:#FFFFFF;text-align:center;border:1px solid #14532D;text-transform:uppercase;letter-spacing:.4px}
   thead th:first-child{text-align:left}
-  .tfoot-row td{background:#EFF6FF;font-weight:800;font-size:13px;color:#0369A1;border:1px solid #93C5FD;padding:7px 10px;text-align:center}
+  .tfoot-row td{background:#F0F7F1;font-weight:800;font-size:13px;color:#14532D;border:1px solid #F5E6C4;padding:7px 10px;text-align:center}
   .tfoot-row td:first-child{text-align:left}
 
   .summary{margin:12px 18px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-  .sbox{border:1px solid #E0F2FE;border-radius:7px;padding:9px;text-align:center;background:#F8FAFF}
-  .sl{font-size:9px;color:#64748B;text-transform:uppercase;letter-spacing:.4px;font-weight:700}
+  .sbox{border:1px solid #F0F7F1;border-radius:7px;padding:9px;text-align:center;background:#FAFDF7}
+  .sl{font-size:9px;color:#5B6B5F;text-transform:uppercase;letter-spacing:.4px;font-weight:700}
   .sv{font-size:20px;font-weight:900;margin-top:2px}
 
   .status-bar{margin:0 18px 10px;text-align:center;padding:9px;border-radius:7px}
 
-  .pos-badge{text-align:center;padding:6px;margin:0 18px 9px;background:#EFF6FF;border:1px solid #bfdbfe;border-radius:7px;font-size:12.5px;font-weight:700;color:#1e3a8a}
-  .remarks-box{margin:0 18px 12px;background:#EFF6FF;border:1px solid #bfdbfe;border-radius:5px;padding:7px 11px;font-size:11.5px;color:#172554}
+  .pos-badge{text-align:center;padding:6px;margin:0 18px 9px;background:#F0F7F1;border:1px solid #D7E5D9;border-radius:7px;font-size:12.5px;font-weight:700;color:#0E3B20}
+  .remarks-box{margin:0 18px 12px;background:#F0F7F1;border:1px solid #D7E5D9;border-radius:5px;padding:7px 11px;font-size:11.5px;color:#0E3B20}
 
-  .sig-section{margin:8px 18px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding-top:8px;border-top:1px solid #E2E8F0}
+  .sig-section{margin:8px 18px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding-top:8px;border-top:1px solid #D7E5D9}
   .sig-box{text-align:center}
-  .sig-line{height:1px;background:#475569;margin:30px 6px 4px}
-  .sig-lbl{font-size:9.5px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.4px}
+  .sig-line{height:1px;background:#5B6B5F;margin:30px 6px 4px}
+  .sig-lbl{font-size:9.5px;font-weight:700;color:#5B6B5F;text-transform:uppercase;letter-spacing:.4px}
 
-  .footer{background:#F1F5F9;padding:7px 18px;display:flex;justify-content:space-between;align-items:center;margin-top:12px;border-top:1px solid #CBD5E1}
-  .fl{font-size:9.5px;color:#64748B}
-  .fr{font-size:9.5px;color:#0369A1;font-weight:600}
+  .footer{background:#F0F7F1;padding:7px 18px;display:flex;justify-content:space-between;align-items:center;margin-top:12px;border-top:1px solid #D7E5D9}
+  .fl{font-size:9.5px;color:#5B6B5F}
+  .fr{font-size:9.5px;color:#14532D;font-weight:600}
 
-  @media print{body{background:#fff}.dmc{border:2.5px solid #0EA5E9;box-shadow:none}@page{margin:8mm}}
+  @media print{body{background:#FFFFFF}.dmc{border:2.5px solid #B8860B;box-shadow:none}@page{margin:8mm}}
 </style>
 </head>
 <body>
@@ -199,7 +199,7 @@ const buildDMC = (r: ResultRecord, school: SchoolInfo): string => {
   <div class="tbl-wrap">
     <div class="sec-title">Subject-wise Marks</div>
     ${subjects.length === 0 ? `
-      <div style="text-align:center;padding:16px;color:#64748B;font-size:12px;border:1px solid #E0F2FE;border-radius:6px;background:#F8FAFF">
+      <div style="text-align:center;padding:16px;color:#5B6B5F;font-size:12px;border:1px solid #F0F7F1;border-radius:6px;background:#FAFDF7">
         Subject-wise marks not entered. See summary below.
       </div>
     ` : `
@@ -220,20 +220,20 @@ const buildDMC = (r: ResultRecord, school: SchoolInfo): string => {
   </div>
 
   <div class="summary">
-    <div class="sbox"><div class="sl">Total Marks</div><div class="sv" style="color:#0369A1">${r.total_marks}</div></div>
-    <div class="sbox"><div class="sl">Obtained</div><div class="sv" style="color:#0EA5E9">${r.obtained_marks}</div></div>
-    <div class="sbox"><div class="sl">Percentage</div><div class="sv" style="color:#0369A1">${r.percentage}%</div></div>
-    <div class="sbox" style="border-color:${r.is_pass?"#BBF7D0":"#FECACA"};background:${r.is_pass?"#F0FDF4":"#FEF2F2"}">
+    <div class="sbox"><div class="sl">Total Marks</div><div class="sv" style="color:#14532D">${r.total_marks}</div></div>
+    <div class="sbox"><div class="sl">Obtained</div><div class="sv" style="color:#B8860B">${r.obtained_marks}</div></div>
+    <div class="sbox"><div class="sl">Percentage</div><div class="sv" style="color:#14532D">${r.percentage}%</div></div>
+    <div class="sbox" style="border-color:${r.is_pass?"#D7E5D9":"#F5E6C4"};background:${r.is_pass?"#F0F7F1":"#F5E6C4"}">
       <div class="sl">Grade</div>
-      <div class="sv" style="color:${r.is_pass?"#16A34A":"#DC2626"}">${r.grade || "—"}</div>
+      <div class="sv" style="color:${r.is_pass?"#14532D":"#0E3B20"}">${r.grade || "—"}</div>
     </div>
   </div>
 
-  <div class="status-bar" style="border:2px solid ${r.is_pass?"#BBF7D0":"#FECACA"};background:${r.is_pass?"#F0FDF4":"#FEF2F2"}">
-    <span style="font-size:18px;font-weight:900;color:${r.is_pass?"#16A34A":"#DC2626"};letter-spacing:2px">
+  <div class="status-bar" style="border:2px solid ${r.is_pass?"#D7E5D9":"#F5E6C4"};background:${r.is_pass?"#F0F7F1":"#F5E6C4"}">
+    <span style="font-size:18px;font-weight:900;color:${r.is_pass?"#14532D":"#0E3B20"};letter-spacing:2px">
       ${r.is_pass ? "✓  PASS" : "✗  FAIL"}
     </span>
-    ${r.position ? `<span style="font-size:12px;color:#64748B;margin-left:18px">Position: <strong style="color:#0369A1">#${r.position}</strong> in Class</span>` : ""}
+    ${r.position ? `<span style="font-size:12px;color:#5B6B5F;margin-left:18px">Position: <strong style="color:#14532D">#${r.position}</strong> in Class</span>` : ""}
   </div>
 
   ${posBadge ? `<div class="pos-badge">${posBadge}</div>` : ""}
@@ -439,8 +439,8 @@ const ResultCard = () => {
                           <div className="flex items-center justify-between gap-4">
                             <div className="flex items-center gap-4">
                               {r.students?.photo_url
-                                ? <img src={r.students.photo_url} alt="" className="w-14 h-14 rounded-full object-cover border-2 border-white/40" />
-                                : <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold border-2 border-white/30">{(r.students?.full_name||"S").charAt(0)}</div>
+                                ? <img src={r.students.photo_url} alt="" className="w-14 h-14 rounded-full object-cover border-2 border-border/40" />
+                                : <div className="w-14 h-14 rounded-full bg-surface/20 flex items-center justify-center text-2xl font-bold border-2 border-border/30">{(r.students?.full_name||"S").charAt(0)}</div>
                               }
                               <div>
                                 <p className="text-xs opacity-75">{r.exam_type} {r.year} — Class {r.class}</p>
@@ -497,11 +497,11 @@ const ResultCard = () => {
                         {/* Status */}
                         <div className="px-5 py-3 flex items-center gap-3 flex-wrap border-b border-border">
                           <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl text-sm font-bold"
-                            style={{ background:r.is_pass?"#F0FDF4":"#FEF2F2", color:r.is_pass?"#16A34A":"#DC2626", border:`1px solid ${r.is_pass?"#BBF7D0":"#FECACA"}` }}>
+                            style={{ background:r.is_pass?"#F0F7F1":"#F5E6C4", color:r.is_pass?"#14532D":"#0E3B20", border:`1px solid ${r.is_pass?"#D7E5D9":"#F5E6C4"}` }}>
                             {r.is_pass ? "✓ PASS" : "✗ FAIL"}
                           </span>
                           {r.position && r.position <= 10 && (
-                            <span className="inline-flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-900 px-3 py-1.5 rounded-xl text-sm font-semibold">
+                            <span className="inline-flex items-center gap-1.5 bg-background border border-border text-primary px-3 py-1.5 rounded-xl text-sm font-semibold">
                               <Trophy className="w-4 h-4" />
                               {r.position === 1?"🥇 1st":r.position===2?"🥈 2nd":r.position===3?"🥉 3rd":`#${r.position}`} in Class
                             </span>

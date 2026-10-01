@@ -194,7 +194,7 @@ const AdminGallery = () => {
         <div className="rounded-xl border border-border bg-card p-4 sm:p-5 shadow-card">
           <div className="flex items-start gap-3">
             <div className="w-9 h-9 rounded-lg gradient-accent flex items-center justify-center shrink-0">
-              <Link2 className="w-5 h-5 text-white" />
+              <Link2 className="w-5 h-5 text-primary-foreground" />
             </div>
             <div className="min-w-0">
               <p className="font-heading font-semibold text-foreground text-sm sm:text-base">Add Facebook post or video link</p>
@@ -231,10 +231,10 @@ const AdminGallery = () => {
                   <Film className="w-3 h-3" />{linkInfo.label}
                 </Badge>
                 <span className="text-xs text-muted-foreground">detected — will embed automatically</span>
-                {linkDuplicate && <Badge className="bg-amber-500/90 text-white">Already in this album</Badge>}
+                {linkDuplicate && <Badge className="bg-accent-soft/90 text-primary">Already in this album</Badge>}
               </div>
               <div
-                className="mt-2.5 w-full max-w-[300px] rounded-lg overflow-hidden border border-border bg-black relative"
+                className="mt-2.5 w-full max-w-[300px] rounded-lg overflow-hidden border border-border bg-background relative"
                 style={{ aspectRatio: String(linkInfo.aspect) }}
               >
                 <EmbedFrame url={normalizedLink} interactive showReason title="Embed preview" className="absolute inset-0 w-full h-full" />
@@ -264,8 +264,8 @@ const AdminGallery = () => {
                       <>
                         <img src={ytThumb} alt={p.caption || embed.label} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                          <div className="w-10 h-10 rounded-full bg-black/50 border border-white/30 flex items-center justify-center">
-                            <Play className="w-5 h-5 text-white ml-0.5" />
+                          <div className="w-10 h-10 rounded-full bg-background/50 border border-border/30 flex items-center justify-center">
+                            <Play className="w-5 h-5 text-primary-foreground ml-0.5" />
                           </div>
                         </div>
                       </>
@@ -276,8 +276,8 @@ const AdminGallery = () => {
                     <>
                       <video src={p.photo_url} preload="metadata" className="w-full h-full object-cover" />
                       <div className="absolute inset-0 flex items-center justify-center bg-foreground/10 pointer-events-none">
-                        <div className="w-10 h-10 rounded-full bg-black/50 border border-white/30 flex items-center justify-center">
-                          <Play className="w-5 h-5 text-white ml-0.5" />
+                        <div className="w-10 h-10 rounded-full bg-background/50 border border-border/30 flex items-center justify-center">
+                          <Play className="w-5 h-5 text-primary-foreground ml-0.5" />
                         </div>
                       </div>
                     </>
@@ -286,7 +286,7 @@ const AdminGallery = () => {
                   )}
                   {(isVideo || embed) && (
                     <div className="absolute top-2 left-2 z-10">
-                      <Badge className="bg-foreground/70 text-white text-[10px] gap-1"><Play className="w-3 h-3" />{embed ? embed.badge : "VIDEO"}</Badge>
+                      <Badge className="bg-foreground/70 text-primary-foreground text-[10px] gap-1"><Play className="w-3 h-3" />{embed ? embed.badge : "VIDEO"}</Badge>
                     </div>
                   )}
                   <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/40 transition-colors flex items-center justify-center">
@@ -385,4 +385,4 @@ const AdminGallery = () => {
 
 export default AdminGallery;
 
-        
+

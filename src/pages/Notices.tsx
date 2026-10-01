@@ -74,13 +74,13 @@ const Notices = () => {
                 onClick={() => { setActiveTab(tab); setPage(1); }}
                 className={`px-4 py-2 rounded-md text-xs font-bold uppercase tracking-[0.18em] transition-all border ${
                   activeTab === tab
-                    ? "bg-[hsl(348_55%_28%)] text-[hsl(45_40%_95%)] border-[hsl(348_55%_28%)] shadow-sm"
+                    ? "bg-surface text-primary border-border shadow-sm"
                     : "bg-card text-muted-foreground border-border hover:border-gold/60 hover:text-foreground"
                 }`}
               >
                 {tab}
                 {tab === "Urgent" && (
-                  <span className="ml-1.5 w-1.5 h-1.5 rounded-full bg-[hsl(348_55%_28%)] inline-block animate-pulse" />
+                  <span className="ml-1.5 w-1.5 h-1.5 rounded-full bg-surface inline-block animate-pulse" />
                 )}
               </button>
             ))}
@@ -122,7 +122,7 @@ const Notices = () => {
                   onClick={() => setPage(i + 1)}
                   className={`w-9 h-9 rounded-md text-sm font-medium transition-colors border ${
                     page === i + 1
-                      ? "bg-[hsl(348_55%_28%)] text-[hsl(45_40%_95%)] border-[hsl(348_55%_28%)]"
+                      ? "bg-surface text-primary border-border"
                       : "bg-card text-muted-foreground border-border hover:border-gold/60 hover:text-foreground"
                   }`}
                 >

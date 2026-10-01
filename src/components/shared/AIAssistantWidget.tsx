@@ -89,7 +89,7 @@ const STARTER_SUGGESTIONS = [
 const AnimatedSparkle = ({
   size = 20,
   active = true,
-  className = "text-orange-500",
+  className = "text-primary",
 }: {
   size?: number;
   active?: boolean;
@@ -115,7 +115,7 @@ const AnimatedSparkle = ({
     >
       <AiSparkleIcon
         size={size}
-        className={`${className} [filter:drop-shadow(0_0_4px_rgba(249,115,22,0.55))]`}
+        className={`${className} [filter:drop-shadow(0_0_4px_rgb(var(--accent-rgb) / 0.55))]`}
       />
     </m.span>
   </m.span>
@@ -660,7 +660,7 @@ const AIAssistantWidget = () => {
         transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.94 }}
-        className="fixed right-5 sm:right-6 z-[60] w-[48px] h-[48px] flex items-center justify-center text-orange-600 bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] lg:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
+        className="fixed right-5 sm:right-6 z-[60] w-[48px] h-[48px] flex items-center justify-center text-primary bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] lg:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
       >
         <AnimatePresence mode="wait" initial={false}>
           {open ? (
@@ -689,7 +689,7 @@ const AIAssistantWidget = () => {
           )}
         </AnimatePresence>
         {!open && (
-          <span className="absolute inset-0 rounded-full animate-ping [animation-duration:2.5s] opacity-20 bg-orange-500/30" />
+          <span className="absolute inset-0 rounded-full animate-ping [animation-duration:2.5s] opacity-20 bg-accent-soft/30" />
         )}
       </m.button>
 
@@ -701,19 +701,19 @@ const AIAssistantWidget = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed right-3 sm:right-6 z-[60] w-[calc(100vw-1.5rem)] max-w-md h-[34rem] max-h-[78vh] bg-[#FAFAF8] dark:bg-[#1A1918] border border-black/[0.08] dark:border-white/[0.08] rounded-2xl shadow-2xl flex flex-col overflow-hidden bottom-[calc(7.75rem+env(safe-area-inset-bottom,0px))] lg:bottom-24"
+            className="fixed right-3 sm:right-6 z-[60] w-[calc(100vw-1.5rem)] max-w-md h-[34rem] max-h-[78vh] bg-surface bg-primary-strong border border-border/[0.08] border-border/[0.08] rounded-2xl shadow-2xl flex flex-col overflow-hidden bottom-[calc(7.75rem+env(safe-area-inset-bottom,0px))] lg:bottom-24"
           >
             {/* Header — neutral paper tone. The sparkle avatar now comes
                 alive (rotate + pulse + glow) while the assistant is busy. */}
-            <div className="flex items-center gap-2.5 px-4 py-3.5 bg-[#FAFAF8] dark:bg-[#1A1918] border-b border-black/[0.06] dark:border-white/[0.06] shrink-0">
+            <div className="flex items-center gap-2.5 px-4 py-3.5 bg-surface bg-primary-strong border-b border-border/[0.06] border-border/[0.06] shrink-0">
               <span className="shrink-0 inline-flex">
-                <AnimatedSparkle size={22} active={busy} className="text-orange-600" />
+                <AnimatedSparkle size={22} active={busy} className="text-primary" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold leading-tight truncate text-[#1F1E1D] dark:text-[#F2F1EE]">
+                <p className="text-sm font-semibold leading-tight truncate text-primary text-primary-foreground">
                   AI Assistant
                 </p>
-                <p className="text-[11px] text-[#6B6963] dark:text-[#A8A69F] leading-tight">
+                <p className="text-[11px] text-primary text-primary leading-tight">
                   {waitingFirstToken
                     ? "Thinking…"
                     : loading
@@ -726,17 +726,17 @@ const AIAssistantWidget = () => {
             {/* Messages */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto px-3.5 py-3 space-y-3 bg-[#FAFAF8] dark:bg-[#1A1918]"
+              className="flex-1 overflow-y-auto px-3.5 py-3 space-y-3 bg-surface bg-primary-strong"
             >
               {messages.length === 0 && (
                 <div className="space-y-3">
-                  <p className="text-xs text-[#6B6963] dark:text-[#A8A69F] px-1 leading-relaxed">
-                    Hi! I can answer questions about <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">results</strong>,{" "}
-                    <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">admissions</strong>,{" "}
-                    <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">notices</strong>,{" "}
-                    <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">news</strong>, the{" "}
-                    <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">student portal</strong>, and{" "}
-                    <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">navigating the site</strong>.
+                  <p className="text-xs text-primary text-primary px-1 leading-relaxed">
+                    Hi! I can answer questions about <strong className="text-primary text-primary-foreground font-semibold">results</strong>,{" "}
+                    <strong className="text-primary text-primary-foreground font-semibold">admissions</strong>,{" "}
+                    <strong className="text-primary text-primary-foreground font-semibold">notices</strong>,{" "}
+                    <strong className="text-primary text-primary-foreground font-semibold">news</strong>, the{" "}
+                    <strong className="text-primary text-primary-foreground font-semibold">student portal</strong>, and{" "}
+                    <strong className="text-primary text-primary-foreground font-semibold">navigating the site</strong>.
                     Try one of these:
                   </p>
                   <div className="grid grid-cols-1 gap-1.5">
@@ -745,7 +745,7 @@ const AIAssistantWidget = () => {
                         key={s}
                         type="button"
                         onClick={() => sendMessage(s)}
-                        className="text-left text-xs px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/[0.04] hover:bg-orange-50 dark:hover:bg-white/[0.07] border border-black/[0.08] dark:border-white/[0.08] hover:border-orange-300/60 text-[#3D3B37] dark:text-[#E4E2DD] transition-colors"
+                        className="text-left text-xs px-3.5 py-2.5 rounded-xl bg-surface bg-surface/[0.04] hover:bg-accent-soft hover:bg-surface/[0.07] border border-border/[0.08] border-border/[0.08] hover:border-accent/60 text-primary text-primary transition-colors"
                       >
                         {s}
                       </button>
@@ -764,7 +764,7 @@ const AIAssistantWidget = () => {
                   {msg.role === "user" ? (
                     editingIdx === i ? (
                       /* ── Inline edit mode (Claude-style) ──────────────── */
-                      <div className="w-[92%] rounded-2xl rounded-br-sm bg-[#3D3B37] dark:bg-[#E4E2DD] px-2.5 pt-2.5 pb-2 shadow-sm">
+                      <div className="w-[92%] rounded-2xl rounded-br-sm bg-surface bg-surface px-2.5 pt-2.5 pb-2 shadow-sm">
                         <textarea
                           ref={editTextareaRef}
                           value={editDraft}
@@ -779,14 +779,14 @@ const AIAssistantWidget = () => {
                             }
                           }}
                           rows={Math.min(6, Math.max(2, editDraft.split("\n").length))}
-                          className="w-full bg-transparent text-sm leading-relaxed text-white dark:text-[#1A1918] resize-none focus:outline-none placeholder:text-white/50 dark:placeholder:text-black/40"
+                          className="w-full bg-transparent text-sm leading-relaxed text-primary-foreground text-primary resize-none focus:outline-none placeholder:text-primary-foreground dark:placeholder:text-primary"
                           placeholder="Edit your message…"
                         />
                         <div className="flex items-center justify-end gap-1.5 pt-1.5">
                           <button
                             type="button"
                             onClick={cancelEdit}
-                            className="text-[11px] px-2.5 py-1 rounded-full text-white/70 hover:text-white hover:bg-white/10 dark:text-black/60 dark:hover:text-black dark:hover:bg-black/10 transition-colors"
+                            className="text-[11px] px-2.5 py-1 rounded-full text-primary-foreground hover:text-primary-foreground hover:bg-surface/10 text-primary hover:text-primary hover:bg-background/10 transition-colors"
                           >
                             Cancel
                           </button>
@@ -794,7 +794,7 @@ const AIAssistantWidget = () => {
                             type="button"
                             onClick={saveEdit}
                             disabled={!editDraft.trim()}
-                            className="text-[11px] px-3 py-1 rounded-full bg-orange-500 text-white hover:bg-orange-600 disabled:opacity-40 transition-colors"
+                            className="text-[11px] px-3 py-1 rounded-full bg-primary text-primary-foreground hover:bg-primary-strong disabled:opacity-40 transition-colors"
                           >
                             Save
                           </button>
@@ -810,7 +810,7 @@ const AIAssistantWidget = () => {
                               setActionsIdx((cur) => (cur === i ? null : i));
                             }
                           }}
-                          className={`max-w-[85%] rounded-2xl rounded-br-sm px-3.5 py-2 text-sm leading-relaxed whitespace-pre-wrap break-words bg-[#3D3B37] dark:bg-[#E4E2DD] text-white dark:text-[#1A1918] ${
+                          className={`max-w-[85%] rounded-2xl rounded-br-sm px-3.5 py-2 text-sm leading-relaxed whitespace-pre-wrap break-words bg-surface bg-surface text-primary-foreground text-primary ${
                             canHover ? "" : "cursor-pointer"
                           }`}
                         >
@@ -832,12 +832,12 @@ const AIAssistantWidget = () => {
                             type="button"
                             onClick={() => copyMessage(i)}
                             aria-label="Copy message"
-                            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-[11px] leading-none text-[#8A8880] hover:text-[#3D3B37] hover:bg-black/[0.06] dark:text-[#8A8880] dark:hover:text-[#E4E2DD] dark:hover:bg-white/[0.08] transition-colors"
+                            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-[11px] leading-none text-primary hover:text-primary hover:bg-background/[0.06] text-primary hover:text-primary hover:bg-surface/[0.08] transition-colors"
                           >
                             {copiedIdx === i ? (
                               <>
-                                <Check className="w-3 h-3 text-green-600" />
-                                <span className="text-green-600">Copied</span>
+                                <Check className="w-3 h-3 text-primary" />
+                                <span className="text-primary">Copied</span>
                               </>
                             ) : (
                               <>
@@ -850,7 +850,7 @@ const AIAssistantWidget = () => {
                             type="button"
                             onClick={() => startEdit(i)}
                             aria-label="Edit message"
-                            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-[11px] leading-none text-[#8A8880] hover:text-[#3D3B37] hover:bg-black/[0.06] dark:text-[#8A8880] dark:hover:text-[#E4E2DD] dark:hover:bg-white/[0.08] transition-colors"
+                            className="inline-flex items-center gap-1 rounded-md px-1.5 py-1 text-[11px] leading-none text-primary hover:text-primary hover:bg-background/[0.06] text-primary hover:text-primary hover:bg-surface/[0.08] transition-colors"
                           >
                             <Pencil className="w-3 h-3" />
                             Edit
@@ -864,7 +864,7 @@ const AIAssistantWidget = () => {
                        Claude-style sparkle (rotate + heartbeat + glow).
                        Once tokens arrive: partial text typed LIVE letter
                        by letter with a blinking caret. */
-                    <div className="max-w-[92%] rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-white dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] text-[#3D3B37] dark:text-[#E4E2DD] min-w-[52px]">
+                    <div className="max-w-[92%] rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-surface bg-surface/[0.04] border border-border/[0.08] border-border/[0.08] text-primary text-primary min-w-[52px]">
                       {waitingFirstToken && !msg.content ? (
                         <span className="inline-flex items-center justify-center h-6 min-w-[24px]">
                           <AnimatedSparkle size={20} active />
@@ -872,14 +872,14 @@ const AIAssistantWidget = () => {
                       ) : (
                         <span className="whitespace-pre-wrap break-words">
                           {msg.content}
-                          <span className="inline-block w-[3px] h-3.5 ml-0.5 align-text-bottom rounded-[1px] bg-orange-500 animate-pulse" />
+                          <span className="inline-block w-[3px] h-3.5 ml-0.5 align-text-bottom rounded-[1px] bg-accent-soft animate-pulse" />
                         </span>
                       )}
                     </div>
                   ) : (
                     <div className="max-w-[92%]">
                       <div
-                        className="ai-message-bubble rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-white dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] text-[#3D3B37] dark:text-[#E4E2DD]"
+                        className="ai-message-bubble rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-surface bg-surface/[0.04] border border-border/[0.08] border-border/[0.08] text-primary text-primary"
                         dangerouslySetInnerHTML={{
                           __html: renderedAssistant[i] ?? "",
                         }}
@@ -899,7 +899,7 @@ const AIAssistantWidget = () => {
             {/* Input */}
             <form
               onSubmit={handleSubmit}
-              className="shrink-0 flex items-center gap-2 p-2.5 border-t border-black/[0.06] dark:border-white/[0.06] bg-[#FAFAF8] dark:bg-[#1A1918]"
+              className="shrink-0 flex items-center gap-2 p-2.5 border-t border-border/[0.06] border-border/[0.06] bg-surface bg-primary-strong"
             >
               <input
                 ref={inputRef}
@@ -908,13 +908,13 @@ const AIAssistantWidget = () => {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about results, admission, notices…"
                 disabled={loading}
-                className="flex-1 min-w-0 text-sm px-3.5 py-2.5 rounded-full bg-white dark:bg-white/[0.04] border border-black/[0.1] dark:border-white/[0.1] text-[#1F1E1D] dark:text-[#F2F1EE] placeholder:text-[#9C9A93] focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-400/60 disabled:opacity-60"
+                className="flex-1 min-w-0 text-sm px-3.5 py-2.5 rounded-full bg-surface bg-surface/[0.04] border border-border/[0.1] border-border/[0.1] text-primary text-primary-foreground placeholder:text-primary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/60 disabled:opacity-60"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
                 aria-label="Send message"
-                className="shrink-0 w-9 h-9 rounded-full bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center disabled:opacity-40 transition-colors"
+                className="shrink-0 w-9 h-9 rounded-full bg-primary hover:bg-primary-strong text-primary-foreground flex items-center justify-center disabled:opacity-40 transition-colors"
               >
                 <Send className="w-4 h-4" />
               </button>

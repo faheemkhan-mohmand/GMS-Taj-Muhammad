@@ -137,7 +137,7 @@ export default function PeriodicTable({
           gridColumn: el.xpos,
           gridRow: el.ypos,
           backgroundColor: bg,
-          color: "#0f172a",
+          color: "var(--primary)",
         }}
         title={`${el.name} (${el.symbol}) — Z=${el.num}`}
       >
@@ -172,7 +172,7 @@ export default function PeriodicTable({
       <div className="flex items-center gap-2 text-[10px]">
         <span className="text-muted-foreground">{min}</span>
         <div className="h-3 w-32 rounded-full"
-          style={{ background: "linear-gradient(to right, hsl(220, 70%, 65%), hsl(0, 70%, 65%))" }}
+          style={{ background: "var(--gradient-hero)" }}
         />
         <span className="text-muted-foreground">{max}</span>
         <span className="font-medium text-foreground ml-1">{label}</span>
@@ -204,7 +204,7 @@ export default function PeriodicTable({
                 key={mode}
                 onClick={() => setTrend(mode)}
                 className={`px-2 py-1 text-[10px] font-medium ${
-                  trend === mode ? "text-white" : "bg-card hover:bg-secondary text-muted-foreground"
+                  trend === mode ? "text-primary-foreground" : "bg-card hover:bg-secondary text-muted-foreground"
                 }`}
                 style={trend === mode ? { backgroundColor: subjectColor } : {}}
               >
@@ -260,7 +260,7 @@ export default function PeriodicTable({
         {/* Hover preview / quick info */}
         {hovered && !selected && (
           <div className="p-2 rounded-lg bg-secondary/30 border border-border text-xs flex items-center gap-3">
-            <div className="w-10 h-10 rounded-md flex items-center justify-center text-white font-bold shrink-0"
+            <div className="w-10 h-10 rounded-md flex items-center justify-center text-primary-foreground font-bold shrink-0"
               style={{ backgroundColor: CATEGORY_COLORS[hovered.category] || "#64748b" }}>
               {hovered.symbol}
             </div>
@@ -285,7 +285,7 @@ export default function PeriodicTable({
       {/* Element detail modal */}
       {selected && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center p-0 sm:p-4"
+          className="fixed inset-0 z-50 bg-background/50 flex items-end sm:items-center justify-center p-0 sm:p-4"
           onClick={() => setSelected(null)}
         >
           <div
@@ -295,7 +295,7 @@ export default function PeriodicTable({
             {/* Header */}
             <div className="p-4 flex items-center gap-3 border-b border-border"
               style={{ backgroundColor: (CATEGORY_COLORS[selected.category] || "#64748b") + "20" }}>
-              <div className="w-14 h-14 rounded-lg flex flex-col items-center justify-center text-white shrink-0"
+              <div className="w-14 h-14 rounded-lg flex flex-col items-center justify-center text-primary-foreground shrink-0"
                 style={{ backgroundColor: CATEGORY_COLORS[selected.category] || "#64748b" }}>
                 <span className="text-[10px] font-mono opacity-80">{selected.num}</span>
                 <span className="text-xl font-bold leading-none">{selected.symbol}</span>
@@ -313,7 +313,7 @@ export default function PeriodicTable({
             {/* Body */}
             <div className="p-4 space-y-4">
               {/* Bohr diagram */}
-              <div className="bg-white rounded-lg p-3 border border-border">
+              <div className="bg-surface rounded-lg p-3 border border-border">
                 <div className="text-[10px] text-muted-foreground mb-1 flex items-center gap-1">
                   <FlaskConical className="w-3 h-3" /> Electron shells (Bohr model)
                 </div>

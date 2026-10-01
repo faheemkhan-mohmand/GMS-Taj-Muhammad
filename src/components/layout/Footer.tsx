@@ -41,7 +41,7 @@ const Footer = () => {
     // FIXED: footer was oversized (py-16, 5 columns, duplicated social icons
     // in two places). Tightened padding, dropped the redundant Classes column
     // and the second social row in the bottom bar, kept everything essential.
-    <footer className="bg-[hsl(20_22%_13%)] dark:bg-[hsl(26_16%_8%)] text-white border-t border-white/10">
+    <footer className="bg-surface bg-accent-soft text-primary border-t border-border/10">
       {/* Signature brand hairline — tangerine flowing into honey and back */}
       <div className="h-0.5 bg-gradient-to-r from-primary via-gold to-primary" aria-hidden="true" />
       <div className="container mx-auto px-4 py-8 md:py-10">
@@ -58,7 +58,7 @@ const Footer = () => {
                   onError={() => setLogoFailed(true)}
                 />
               ) : (
-                <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-surface/15 flex items-center justify-center">
                   <GraduationCap className="w-5 h-5" />
                 </div>
               )}
@@ -66,13 +66,13 @@ const Footer = () => {
                 <span className="font-heading font-bold text-base block">
                   {settings?.school_name || "GMS Taj Muhammad"}
                 </span>
-                <span className="text-xs text-white/70">
+                <span className="text-xs text-primary-foreground">
                   {settings?.tagline || "Excellence in Education"}
                 </span>
               </div>
             </div>
 
-            <p className="text-sm text-white/70 leading-relaxed max-w-xs mb-4">
+            <p className="text-sm text-primary-foreground leading-relaxed max-w-xs mb-4">
               {settings?.description ||
                 "Government Middle School Taj Muhammad is committed to providing quality education and nurturing the future leaders of Pakistan."}
             </p>
@@ -80,18 +80,18 @@ const Footer = () => {
             {/* Contact info */}
             <div className="space-y-2 text-sm">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-[hsl(30_95%_66%)] dark:text-[hsl(32_96%_68%)]" />
-                <span className="text-white/75">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary text-primary" />
+                <span className="text-primary-foreground">
                   {settings?.address || "Village Dawat Kor, District Mohmand, KPK"}
                 </span>
               </div>
 
               {displayPhone && (
                 <div className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 shrink-0 text-[hsl(30_95%_66%)] dark:text-[hsl(32_96%_68%)]" />
+                  <Phone className="w-4 h-4 shrink-0 text-primary text-primary" />
                   <a
                     href={`tel:${displayPhone.replace(/\s/g, "")}`}
-                    className="text-white/75 hover:text-white transition-colors"
+                    className="text-primary-foreground hover:text-primary-foreground transition-colors"
                   >
                     {displayPhone}
                   </a>
@@ -99,10 +99,10 @@ const Footer = () => {
               )}
 
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 shrink-0 text-[hsl(30_95%_66%)] dark:text-[hsl(32_96%_68%)]" />
+                <Mail className="w-4 h-4 shrink-0 text-primary text-primary" />
                 <a
                   href={`mailto:${displayEmail}`}
-                  className="text-white/75 hover:text-white transition-colors"
+                  className="text-primary-foreground hover:text-primary-foreground transition-colors"
                 >
                   {displayEmail}
                 </a>
@@ -116,25 +116,25 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Follow GMS Taj Muhammad on Facebook"
-                className="w-8 h-8 rounded-lg bg-[#1877F2] flex items-center justify-center hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-sm"
+                className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-sm"
               >
-                <Facebook className="w-4 h-4 text-white" />
+                <Facebook className="w-4 h-4 text-primary-foreground" />
               </a>
               <a
                 href={`https://wa.me/${SCHOOL_PROFILE.phoneE164.replace(/^\+/, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Contact GMS Taj Muhammad on WhatsApp"
-                className="w-8 h-8 rounded-lg bg-[#25D366] flex items-center justify-center hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-sm"
+                className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-sm"
               >
-                <MessageCircle className="w-4 h-4 text-white fill-white" />
+                <MessageCircle className="w-4 h-4 text-primary-foreground fill-white" />
               </a>
             </div>
           </div>
 
           {/* ── Quick Links ── */}
           <div>
-            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider mb-3 text-white/90">
+            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider mb-3 text-primary-foreground">
               Quick Links
             </h4>
             <ul className="space-y-2">
@@ -142,7 +142,7 @@ const Footer = () => {
                 <li key={link.to + link.label}>
                   <Link
                     to={link.to}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-sm text-primary-foreground hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -153,7 +153,7 @@ const Footer = () => {
 
           {/* ── Resources ── */}
           <div>
-            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider mb-3 text-white/90">
+            <h4 className="font-heading font-semibold text-sm uppercase tracking-wider mb-3 text-primary-foreground">
               Resources
             </h4>
             <ul className="space-y-2">
@@ -161,7 +161,7 @@ const Footer = () => {
                 <li key={i}>
                   <Link
                     to={link.to}
-                    className="text-sm text-white/70 hover:text-white transition-colors"
+                    className="text-sm text-primary-foreground hover:text-primary-foreground transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -172,7 +172,7 @@ const Footer = () => {
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="border-t border-white/10 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-white/50">
+        <div className="border-t border-border/10 mt-6 pt-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-primary-foreground">
           <p>
             &copy; {new Date().getFullYear()}{" "}
             {settings?.school_name || "GMS Taj Muhammad"}. All rights reserved.

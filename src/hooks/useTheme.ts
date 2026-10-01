@@ -1,27 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 
-/**
- * The site ships exactly THREE user-selectable appearances:
- *   • "system"  — follows the device (bright on light-mode devices, dark on
- *     dark-mode devices). This is the default.
- *   • "dark"    — always the black/dark theme.
- *   • "lantern" — Lantern Mode · The Hujra Reading Experience. A warm amber
- *     "place mode" inspired by a Pashtun hujra at night: the page feels lit
- *     by a single kerosene lantern, not by a screen. Lantern always renders
- *     on a dark base (the `dark` class is applied alongside
- *     `theme-lantern`), so every dark-mode-safe component stays readable —
- *     the lantern palette then warms the whole site. The full ambience
- *     (flicker, vignette, sepia reading tone) is layered onto the reading
- *     pages (Notes / News / Notices) by HujraAmbiance.
- * The old standalone "light" choice and the legacy colour themes
- * (midnight / forest / violet) were removed — any saved value migrates
- * to "system" (midnight fans keep "dark" so their site stays dark).
- */
-export type ThemeMode = "system" | "dark" | "lantern";
+/** System preference is the default; explicit bright/dark choices persist. */
+export type ThemeMode = "system" | "bright" | "dark";
 
 const STORAGE_KEY = "gms-theme";
-// Belt-and-suspenders: strip any legacy theme class that may still be on <html>
-const LEGACY_CLASSES = ["theme-midnight", "theme-forest", "theme-violet"];
+const LEGACY_CLASSES = ["theme-midnight", "theme-forest", "theme-violet", "theme-lantern"];
 
 function getSystemPrefersDark(): boolean {
   if (typeof window === "undefined") return false;
@@ -30,25 +13,20 @@ function getSystemPrefersDark(): boolean {
 
 function readInitial(): ThemeMode {
   if (typeof window === "undefined") return "system";
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved === "dark") return "dark";
-  if (saved === "lantern") return "lantern";
-  if (saved === "midnight") return "dark"; // was a dark colour theme
-  // "system", "light" (removed mode), unknown legacy values and no saved
-  // value all resolve to the default: follow the device.
+  let saved: string | null = null;
+  try { saved = localStorage.getItem(STORAGE_KEY); } catch { /* storage may be blocked */ }
+  if (saved === "dark" || saved === "midnight" || saved === "lantern") return "dark";
+  if (saved === "bright" || saved === "light") return "bright";
   return "system";
 }
 
 function applyTheme(mode: ThemeMode) {
   const root = document.documentElement;
-  // Always strip legacy custom theme classes
   LEGACY_CLASSES.forEach((c) => root.classList.remove(c));
-  const isDark = mode === "dark" || mode === "lantern" ||
-    (mode === "system" && getSystemPrefersDark());
-  // Lantern sits on the dark base so every dark-safe component keeps its
-  // contrast; .theme-lantern then warms the palette in index.css.
+  const isDark = mode === "dark" || (mode === "system" && getSystemPrefersDark());
+  root.dataset.theme = isDark ? "dark" : "bright";
   root.classList.toggle("dark", isDark);
-  root.classList.toggle("theme-lantern", mode === "lantern");
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", isDark ? "#0B1F14" : "#FAFDF7");
 }
 
 export function useTheme() {
@@ -64,9 +42,12 @@ export function useTheme() {
   }, [theme]);
 
   const setTheme = useCallback((mode: ThemeMode) => {
-    localStorage.setItem(STORAGE_KEY, mode);
-    localStorage.removeItem("gms-dark-mode");
-    localStorage.removeItem("gms-dark-mode-manual");
+    try {
+      localStorage.setItem(STORAGE_KEY, mode);
+      localStorage.removeItem("gms-dark-mode");
+      localStorage.removeItem("gms-dark-mode-manual");
+    } catch { /* theme remains usable for this page even if storage is blocked */ }
+    applyTheme(mode);
     setThemeState(mode);
   }, []);
 

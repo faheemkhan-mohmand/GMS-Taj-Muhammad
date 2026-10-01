@@ -398,16 +398,14 @@ export const CircuitFill = memo(function CircuitFill({
           <span
             className="absolute inset-0 rounded-full opacity-35"
             style={{
-              backgroundImage:
-                "repeating-linear-gradient(90deg, rgba(255,255,255,0.7) 0 2px, rgba(255,255,255,0) 2px 8px)",
+              backgroundImage: "var(--gradient-hero)",
             }}
           />
           {/* Glowing energy tip riding the leading edge (stretches with scaleX = free motion) */}
           <span
             className="absolute inset-y-0 right-0 w-[7px] rounded-full"
             style={{
-              background:
-                "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.95) 100%)",
+              background: "var(--gradient-hero)",
               boxShadow: "0 0 9px rgba(147,214,255,0.95)",
             }}
           />

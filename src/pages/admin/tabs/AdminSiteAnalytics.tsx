@@ -25,8 +25,8 @@ class SiteAnalyticsBoundary extends Component<{ children: ReactNode }, EBState> 
         <div className="space-y-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-violet-100 dark:bg-violet-500/20 flex items-center justify-center">
-                <BarChart2 className="w-4 h-4 text-violet-600 dark:text-violet-400" />
+              <div className="w-8 h-8 rounded-xl bg-surface-raised bg-background/20 flex items-center justify-center">
+                <BarChart2 className="w-4 h-4 text-primary text-primary" />
               </div>
               <h3 className="text-base font-bold text-foreground">Site Analytics</h3>
             </div>
@@ -39,8 +39,8 @@ class SiteAnalyticsBoundary extends Component<{ children: ReactNode }, EBState> 
             </button>
           </div>
           <div className="bg-card border border-border rounded-2xl p-8 text-center">
-            <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-500/20 flex items-center justify-center mx-auto mb-3">
-              <AlertCircle className="w-6 h-6 text-amber-600 dark:text-amber-400" />
+            <div className="w-12 h-12 rounded-full bg-accent-soft bg-accent-soft/20 flex items-center justify-center mx-auto mb-3">
+              <AlertCircle className="w-6 h-6 text-primary text-primary" />
             </div>
             <h4 className="text-sm font-bold text-foreground mb-2">Site Analytics failed to load</h4>
             <p className="text-xs text-muted-foreground mb-3">
@@ -62,8 +62,8 @@ class SiteAnalyticsBoundary extends Component<{ children: ReactNode }, EBState> 
 // ── Page Header ──────────────────────────────────────────────────────────────
 const PageHeader = () => (
   <div className="flex items-center gap-3 mb-6">
-    <div className="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-500/20 flex items-center justify-center shrink-0">
-      <BarChart2 className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+    <div className="w-10 h-10 rounded-xl bg-surface-raised bg-background/20 flex items-center justify-center shrink-0">
+      <BarChart2 className="w-5 h-5 text-primary text-primary" />
     </div>
     <div>
       <h2 className="text-lg font-extrabold text-foreground leading-tight">Site Analytics</h2>

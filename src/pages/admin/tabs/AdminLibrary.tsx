@@ -54,8 +54,8 @@ const AdminLibrary = () => {
             <span>Files</span>
           </TabsTrigger>
           <TabsTrigger value="videos" className="gap-1.5 text-xs sm:text-sm">
-            <span className="flex items-center justify-center w-5 h-5 rounded-md bg-red-100 dark:bg-red-900/40 shrink-0">
-              <Video className="w-3 h-3 text-red-500" />
+            <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+              <Video className="w-3 h-3 text-primary" />
             </span>
             <span>Videos</span>
           </TabsTrigger>
@@ -223,7 +223,7 @@ const FilesSection = () => {
               <TableRow key={f.id} className="hover:bg-secondary/50">
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    {f.file_type === "LINK" ? <LinkIcon className="w-4 h-4 text-emerald-600 shrink-0" /> : <FileText className="w-4 h-4 text-primary shrink-0" />}
+                    {f.file_type === "LINK" ? <LinkIcon className="w-4 h-4 text-primary shrink-0" /> : <FileText className="w-4 h-4 text-primary shrink-0" />}
                     <span className="font-medium truncate max-w-[200px]">{f.title}</span>
                   </div>
                 </TableCell>
@@ -277,13 +277,13 @@ const FilesSection = () => {
               <Tabs value={sourceMode} onValueChange={(v) => setSourceMode(v as "upload" | "link")} className="mt-2">
                 <TabsList className="w-full">
                   <TabsTrigger value="upload" className="flex-1 gap-1.5">
-                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-blue-100 dark:bg-blue-900/40 shrink-0">
-                      <Upload className="w-3 h-3 text-blue-500" />
+                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                      <Upload className="w-3 h-3 text-primary" />
                     </span> Upload File
                   </TabsTrigger>
                   <TabsTrigger value="link" className="flex-1 gap-1.5">
-                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-emerald-100 dark:bg-emerald-900/40 shrink-0">
-                      <LinkIcon className="w-3 h-3 text-emerald-600" />
+                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                      <LinkIcon className="w-3 h-3 text-primary" />
                     </span> Paste Link
                   </TabsTrigger>
                 </TabsList>
@@ -550,8 +550,8 @@ const VideosSection = () => {
                       </div>
                     )}
                     {ytId && (
-                      <div className="absolute bottom-0.5 right-0.5 bg-red-600 rounded p-0.5">
-                        <Youtube className="w-2.5 h-2.5 text-white" />
+                      <div className="absolute bottom-0.5 right-0.5 bg-primary rounded p-0.5">
+                        <Youtube className="w-2.5 h-2.5 text-primary-foreground" />
                       </div>
                     )}
                   </div>
@@ -686,13 +686,13 @@ const VideosSection = () => {
               <Tabs value={uploadMode} onValueChange={(v) => setUploadMode(v as "youtube" | "upload")} className="mt-2">
                 <TabsList className="w-full">
                   <TabsTrigger value="youtube" className="flex-1 gap-1.5">
-                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-red-100 dark:bg-red-900/40 shrink-0">
-                      <Youtube className="w-3 h-3 text-red-500" />
+                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                      <Youtube className="w-3 h-3 text-primary" />
                     </span> YouTube URL
                   </TabsTrigger>
                   <TabsTrigger value="upload" className="flex-1 gap-1.5">
-                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-blue-100 dark:bg-blue-900/40 shrink-0">
-                      <Upload className="w-3 h-3 text-blue-500" />
+                    <span className="flex items-center justify-center w-5 h-5 rounded-md bg-surface-raised bg-primary-strong/40 shrink-0">
+                      <Upload className="w-3 h-3 text-primary" />
                     </span> Upload File
                   </TabsTrigger>
                 </TabsList>

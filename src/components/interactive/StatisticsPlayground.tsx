@@ -56,7 +56,7 @@ export default function StatisticsPlayground({
               key={t.id}
               onClick={() => setTool(t.id)}
               className={`shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium ${
-                active ? "text-white" : "bg-secondary hover:bg-secondary/70 text-foreground"
+                active ? "text-primary-foreground" : "bg-secondary hover:bg-secondary/70 text-foreground"
               }`}
               style={active ? { backgroundColor: subjectColor } : {}}
             >
@@ -118,7 +118,7 @@ function DiceTool({ subjectColor }: { subjectColor: string }) {
       </div>
 
       <button onClick={roll}
-        className="w-full py-2.5 rounded-lg text-white font-semibold text-sm"
+        className="w-full py-2.5 rounded-lg text-primary-foreground font-semibold text-sm"
         style={{ backgroundColor: subjectColor }}>
         Roll dice
       </button>
@@ -126,7 +126,7 @@ function DiceTool({ subjectColor }: { subjectColor: string }) {
       {lastRoll.length > 0 && (
         <div className="flex items-center justify-center gap-2 py-2">
           {lastRoll.map((v, i) => (
-            <div key={i} className="w-12 h-12 rounded-lg bg-white border-2 flex items-center justify-center text-2xl font-bold shadow-sm"
+            <div key={i} className="w-12 h-12 rounded-lg bg-surface border-2 flex items-center justify-center text-2xl font-bold shadow-sm"
               style={{ borderColor: subjectColor, color: subjectColor }}>
               {v}
             </div>
@@ -204,7 +204,7 @@ function CoinTool({ subjectColor }: { subjectColor: string }) {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2 flex-wrap">
-        <button onClick={flipOnce} className="px-3 py-1.5 rounded-md text-xs font-semibold text-white"
+        <button onClick={flipOnce} className="px-3 py-1.5 rounded-md text-xs font-semibold text-primary-foreground"
           style={{ backgroundColor: subjectColor }}>Flip 1</button>
         <button onClick={flip100} className="px-3 py-1.5 rounded-md text-xs font-semibold bg-secondary hover:bg-secondary/70">Flip 100</button>
         <button onClick={flip1000} className="px-3 py-1.5 rounded-md text-xs font-semibold bg-secondary hover:bg-secondary/70">Flip 1000</button>
@@ -215,13 +215,13 @@ function CoinTool({ subjectColor }: { subjectColor: string }) {
 
       {/* Big ratio display */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="p-4 rounded-lg bg-amber-50 border border-amber-200 text-center">
-          <div className="text-[10px] text-amber-700 uppercase tracking-wide">Heads</div>
-          <div className="text-3xl font-bold text-amber-700">{heads}</div>
+        <div className="p-4 rounded-lg bg-accent-soft border border-border text-center">
+          <div className="text-[10px] text-primary uppercase tracking-wide">Heads</div>
+          <div className="text-3xl font-bold text-primary">{heads}</div>
         </div>
-        <div className="p-4 rounded-lg bg-slate-50 border border-slate-200 text-center">
-          <div className="text-[10px] text-slate-700 uppercase tracking-wide">Tails</div>
-          <div className="text-3xl font-bold text-slate-700">{tails}</div>
+        <div className="p-4 rounded-lg bg-background border border-border text-center">
+          <div className="text-[10px] text-primary uppercase tracking-wide">Tails</div>
+          <div className="text-3xl font-bold text-primary">{tails}</div>
         </div>
       </div>
 
@@ -231,8 +231,8 @@ function CoinTool({ subjectColor }: { subjectColor: string }) {
           <span className="text-xs text-muted-foreground">Heads ratio: <strong className="text-foreground">{ratio.toFixed(4)}</strong></span>
         </div>
         {/* ratio bar */}
-        <div className="h-4 rounded-full overflow-hidden bg-slate-200 flex">
-          <div className="bg-amber-500" style={{ width: `${ratio * 100}%` }} />
+        <div className="h-4 rounded-full overflow-hidden bg-surface-raised flex">
+          <div className="bg-accent-soft" style={{ width: `${ratio * 100}%` }} />
         </div>
         <p className="text-[10px] text-muted-foreground mt-2">
           Theoretical: 0.5000 — watch your ratio converge as you flip more. This is the <strong>Law of Large Numbers</strong>.
@@ -246,10 +246,10 @@ function CoinTool({ subjectColor }: { subjectColor: string }) {
 
 function SpinnerTool({ subjectColor }: { subjectColor: string }) {
   const [sectors, setSectors] = useState([
-    { label: "A", color: "#ef4444", count: 0 },
-    { label: "B", color: "#3b82f6", count: 0 },
-    { label: "C", color: "#10b981", count: 0 },
-    { label: "D", color: "#f59e0b", count: 0 },
+    { label: "A", color: "var(--primary)", count: 0 },
+    { label: "B", color: "var(--primary)", count: 0 },
+    { label: "C", color: "var(--primary)", count: 0 },
+    { label: "D", color: "var(--primary)", count: 0 },
   ]);
   const [angle, setAngle] = useState(0);
   const [spinning, setSpinning] = useState(false);
@@ -308,7 +308,7 @@ function SpinnerTool({ subjectColor }: { subjectColor: string }) {
 
         <div className="flex-1 space-y-2 w-full">
           <button onClick={spin} disabled={spinning}
-            className="w-full py-2.5 rounded-lg text-white font-semibold text-sm disabled:opacity-50"
+            className="w-full py-2.5 rounded-lg text-primary-foreground font-semibold text-sm disabled:opacity-50"
             style={{ backgroundColor: subjectColor }}>
             {spinning ? "Spinning…" : "Spin!"}
           </button>
@@ -376,7 +376,7 @@ function BoxPlotTool({ subjectColor }: { subjectColor: string }) {
         <textarea value={input} onChange={(e) => setInput(e.target.value)}
           className="w-full p-2 rounded-md border border-border bg-background text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary/30"
           rows={3} />
-        <p className="text-xs text-red-500">Need at least 4 valid numbers.</p>
+        <p className="text-xs text-primary">Need at least 4 valid numbers.</p>
       </div>
     );
   }
@@ -427,7 +427,7 @@ function BoxPlotTool({ subjectColor }: { subjectColor: string }) {
           <div className="absolute top-6 h-4 w-px bg-foreground" style={{ left: `${scale(whiskerHigh)}%` }} />
           {/* outliers */}
           {outliers.map((o, i) => (
-            <div key={i} className="absolute w-2 h-2 rounded-full bg-red-500"
+            <div key={i} className="absolute w-2 h-2 rounded-full bg-background"
               style={{ left: `${scale(o)}%`, top: 30, transform: "translate(-50%, -50%)" }} />
           ))}
           {/* labels */}
@@ -451,7 +451,7 @@ function BoxPlotTool({ subjectColor }: { subjectColor: string }) {
       </div>
 
       {outliers.length > 0 && (
-        <p className="text-[10px] text-amber-700">
+        <p className="text-[10px] text-primary">
           ⚠ Outliers detected: {outliers.map((o) => o.toFixed(1)).join(", ")} (beyond 1.5×IQR)
         </p>
       )}

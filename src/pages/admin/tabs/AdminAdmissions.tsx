@@ -33,17 +33,17 @@ import { format } from "date-fns";
 const PAGE_SIZE = 20;
 
 const statusConfig: Record<AdmissionStatus, { label: string; badge: string; desc: string }> = {
-  pending:              { label: "Pending",              badge: "bg-blue-100 text-blue-800",         desc: "Eligibility application received — review needed" },
-  under_review:         { label: "Under Review",         badge: "bg-purple-100 text-purple-800",     desc: "Currently reviewing eligibility" },
-  approved:             { label: "Eligible ✅",          badge: "bg-green-100 text-green-800",       desc: "Eligible for admission — ask student to bring documents" },
-  rejected:             { label: "Not Eligible",         badge: "bg-red-100 text-red-800",           desc: "Does not meet eligibility criteria" },
-  documents_missing:    { label: "Docs Missing",         badge: "bg-orange-100 text-orange-800",     desc: "Student needs to bring missing documents" },
-  documents_verified:   { label: "Docs Verified",        badge: "bg-teal-100 text-teal-800",         desc: "All documents verified at office" },
-  interview_scheduled:  { label: "Interview Scheduled",  badge: "bg-cyan-100 text-cyan-800",         desc: "Interview slot booked" },
-  interview_completed:  { label: "Interview Done",       badge: "bg-emerald-100 text-emerald-800",   desc: "Interview completed successfully" },
-  waitlisted:           { label: "Waitlisted",           badge: "bg-amber-100 text-amber-800",       desc: "Waiting for a seat to open" },
-  admitted:             { label: "Admitted ✅",          badge: "bg-green-200 text-green-900",       desc: "Fully admitted — enrolled in students register" },
-  admit_card_issued:    { label: "Admit Card Issued",    badge: "bg-green-300 text-green-900",       desc: "Admit card generated and issued" },
+  pending:              { label: "Pending",              badge: "bg-surface-raised text-primary",         desc: "Eligibility application received — review needed" },
+  under_review:         { label: "Under Review",         badge: "bg-surface-raised text-primary",     desc: "Currently reviewing eligibility" },
+  approved:             { label: "Eligible ✅",          badge: "bg-surface-raised text-primary",       desc: "Eligible for admission — ask student to bring documents" },
+  rejected:             { label: "Not Eligible",         badge: "bg-surface-raised text-primary",           desc: "Does not meet eligibility criteria" },
+  documents_missing:    { label: "Docs Missing",         badge: "bg-accent-soft text-primary",     desc: "Student needs to bring missing documents" },
+  documents_verified:   { label: "Docs Verified",        badge: "bg-surface-raised text-primary",         desc: "All documents verified at office" },
+  interview_scheduled:  { label: "Interview Scheduled",  badge: "bg-surface-raised text-primary",         desc: "Interview slot booked" },
+  interview_completed:  { label: "Interview Done",       badge: "bg-surface-raised text-primary",   desc: "Interview completed successfully" },
+  waitlisted:           { label: "Waitlisted",           badge: "bg-accent-soft text-primary",       desc: "Waiting for a seat to open" },
+  admitted:             { label: "Admitted ✅",          badge: "bg-surface-raised text-primary",       desc: "Fully admitted — enrolled in students register" },
+  admit_card_issued:    { label: "Admit Card Issued",    badge: "bg-surface-raised text-primary",       desc: "Admit card generated and issued" },
 };
 
 const MIGRATION_STEPS = [
@@ -133,9 +133,9 @@ async function enrollStudentFromAdmission(app: Admission, classRollNo: string): 
   // admin sets the actual amount in Fee Management → Structures.
   // If amount is 0 (or no row), we silently skip voucher creation — the
   // enrollment itself must still succeed.
-  
+
   const targetFeeType = app.admission_type === "migration" ? "migration" : "admission";
-  
+
   const { data: feeStruct, error: fsErr } = await supabase
     .from("fee_structures")
     .select("id, label, amount, is_optional, payment_methods")
@@ -340,7 +340,7 @@ function AdmissionDetail({ app, onClose, onSaved, onDelete }: { app: Admission; 
         toast(
           () => (
             <span className="flex items-start gap-2 text-xs">
-              <Wallet className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <Wallet className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <span>
                 <b>{feeLabel} voucher generated.</b>
                 <br />
@@ -358,7 +358,7 @@ function AdmissionDetail({ app, onClose, onSaved, onDelete }: { app: Admission; 
         toast(
           () => (
             <span className="flex items-start gap-2 text-xs">
-              <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+              <AlertTriangle className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <span>
                 <b>Enrolled, but no fee voucher was created.</b>
                 <br />
@@ -502,24 +502,24 @@ function AdmissionDetail({ app, onClose, onSaved, onDelete }: { app: Admission; 
 
           {/* Enroll to students register — only show when approved and admission no. assigned */}
           {isApproved && rollNo && (
-            <div className="border border-green-200 bg-green-50 rounded-xl p-3">
-              <p className="text-xs font-bold text-green-800 mb-1 flex items-center gap-1.5">
+            <div className="border border-border bg-background rounded-xl p-3">
+              <p className="text-xs font-bold text-primary mb-1 flex items-center gap-1.5">
                 <UserCheck className="w-3.5 h-3.5" /> Enroll into Students Register
               </p>
 
               <div className="mb-2">
-                <Label className="text-[11px] font-bold mb-1 block text-green-900">
+                <Label className="text-[11px] font-bold mb-1 block text-primary">
                   Class Roll No. (for Class {app.applying_class})
                 </Label>
                 <Input value={classRollNo} onChange={e => setClassRollNo(e.target.value)}
-                  placeholder="e.g. 12" className="text-xs h-9 bg-white" />
+                  placeholder="e.g. 12" className="text-xs h-9 bg-surface" />
               </div>
 
-              <p className="text-[11px] text-green-700 mb-1">
+              <p className="text-[11px] text-primary mb-1">
                 This will add {app.full_name} to Class {app.applying_class} with Roll No{" "}
                 {classRollNo || "—"}. No duplicate will be created.
               </p>
-              <p className="text-[11px] text-green-700 mb-2 flex items-start gap-1.5">
+              <p className="text-[11px] text-primary mb-2 flex items-start gap-1.5">
                 <Wallet className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                 <span>
                   Also auto-generates the <b>admission fee voucher</b> from Fee Structures
@@ -529,7 +529,7 @@ function AdmissionDetail({ app, onClose, onSaved, onDelete }: { app: Admission; 
                 </span>
               </p>
               <Button size="sm" onClick={handleEnroll} disabled={enrolling || !classRollNo}
-                className="w-full bg-green-600 hover:bg-green-700 text-white gap-2 h-8 text-xs">
+                className="w-full bg-primary hover:bg-primary text-primary-foreground gap-2 h-8 text-xs">
                 {enrolling
                   ? <><Loader2 className="w-3.5 h-3.5 animate-spin" /> Enrolling...</>
                   : <><UserCheck className="w-3.5 h-3.5" /> Enroll Student</>}
@@ -538,11 +538,11 @@ function AdmissionDetail({ app, onClose, onSaved, onDelete }: { app: Admission; 
           )}
 
           {/* Delete admission */}
-          <div className="border border-red-200 bg-red-50 rounded-xl p-3">
-            <p className="text-xs font-bold text-red-800 mb-1 flex items-center gap-1.5">
+          <div className="border border-border bg-background rounded-xl p-3">
+            <p className="text-xs font-bold text-primary mb-1 flex items-center gap-1.5">
               <AlertTriangle className="w-3.5 h-3.5" /> Danger Zone
             </p>
-            <p className="text-[11px] text-red-700 mb-2">
+            <p className="text-[11px] text-primary mb-2">
               Permanently delete this admission record and all associated documents. This action cannot be undone.
             </p>
             <AlertDialog>
@@ -563,7 +563,7 @@ function AdmissionDetail({ app, onClose, onSaved, onDelete }: { app: Admission; 
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
+                  <AlertDialogAction onClick={handleDelete} className="bg-primary hover:bg-primary">
                     Yes, Delete
                   </AlertDialogAction>
                 </AlertDialogFooter>
@@ -847,7 +847,7 @@ function InterviewSlotsPanel() {
                   <p className="text-[11px] text-muted-foreground flex items-center gap-2 mt-0.5">
                     <Users className="w-3 h-3" /> {slot.current_bookings}/{slot.capacity}
                     {slot.location && <><MapPin className="w-3 h-3 ml-1" /> {slot.location}</>}
-                    {!slot.is_active && <span className="text-red-500 font-semibold">· Inactive</span>}
+                    {!slot.is_active && <span className="text-primary font-semibold">· Inactive</span>}
                   </p>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
@@ -855,7 +855,7 @@ function InterviewSlotsPanel() {
                     onClick={() => toggleActive(slot)}>
                     {slot.is_active ? "Deactivate" : "Activate"}
                   </Button>
-                  <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-50"
+                  <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-primary hover:text-primary hover:bg-background"
                     onClick={() => deleteSlot(slot)}>
                     <Trash2 className="w-3.5 h-3.5" />
                   </Button>
@@ -954,10 +954,10 @@ const AdminAdmissions = () => {
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {[
           { key: "total",     label: "Total",     value: stats.total,     icon: Users,        color: "text-primary",    activeBg: "bg-primary/10 border-primary" },
-          { key: "pending",   label: "Pending",   value: stats.pending,   icon: Clock,        color: "text-blue-600",   activeBg: "bg-blue-50 border-blue-400" },
-          { key: "approved",  label: "Approved",  value: stats.approved,  icon: CheckCircle2, color: "text-green-600",  activeBg: "bg-green-50 border-green-400" },
-          { key: "rejected",  label: "Rejected",  value: stats.rejected,  icon: XCircle,      color: "text-red-500",    activeBg: "bg-red-50 border-red-400" },
-          { key: "migration", label: "Migration", value: stats.migration, icon: RefreshCw,    color: "text-purple-600", activeBg: "bg-purple-50 border-purple-400" },
+          { key: "pending",   label: "Pending",   value: stats.pending,   icon: Clock,        color: "text-primary",   activeBg: "bg-background border-border" },
+          { key: "approved",  label: "Approved",  value: stats.approved,  icon: CheckCircle2, color: "text-primary",  activeBg: "bg-background border-border" },
+          { key: "rejected",  label: "Rejected",  value: stats.rejected,  icon: XCircle,      color: "text-primary",    activeBg: "bg-background border-border" },
+          { key: "migration", label: "Migration", value: stats.migration, icon: RefreshCw,    color: "text-primary", activeBg: "bg-background border-border" },
         ].map(s => (
           <Card
             key={s.key}
@@ -983,10 +983,10 @@ const AdminAdmissions = () => {
           <div className="bg-muted/50 px-4 py-3 flex items-center justify-between">
             <h3 className="text-sm font-bold flex items-center gap-2">
               {activeStatFilter === "total" && <Users className="w-4 h-4 text-primary" />}
-              {activeStatFilter === "pending" && <Clock className="w-4 h-4 text-blue-600" />}
-              {activeStatFilter === "approved" && <CheckCircle2 className="w-4 h-4 text-green-600" />}
-              {activeStatFilter === "rejected" && <XCircle className="w-4 h-4 text-red-500" />}
-              {activeStatFilter === "migration" && <RefreshCw className="w-4 h-4 text-purple-600" />}
+              {activeStatFilter === "pending" && <Clock className="w-4 h-4 text-primary" />}
+              {activeStatFilter === "approved" && <CheckCircle2 className="w-4 h-4 text-primary" />}
+              {activeStatFilter === "rejected" && <XCircle className="w-4 h-4 text-primary" />}
+              {activeStatFilter === "migration" && <RefreshCw className="w-4 h-4 text-primary" />}
               {activeStatFilter === "total" ? "All" : activeStatFilter.charAt(0).toUpperCase() + activeStatFilter.slice(1)} Admissions
               <Badge variant="secondary" className="text-[10px] h-5">{statFilteredAdmissions.length}</Badge>
             </h3>
@@ -1004,9 +1004,9 @@ const AdminAdmissions = () => {
             ) : (
               <table className="w-full text-xs border-collapse">
                 <thead className="sticky top-0 z-10">
-                  <tr className="bg-slate-100">
+                  <tr className="bg-surface-raised">
                     {["Name", "Class", "Type", "Status", "Date", "Action"].map(h => (
-                      <th key={h} className="text-center px-3 py-2.5 font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap border border-slate-200">{h}</th>
+                      <th key={h} className="text-center px-3 py-2.5 font-semibold text-muted uppercase tracking-wide whitespace-nowrap border border-border">{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -1014,22 +1014,22 @@ const AdminAdmissions = () => {
                   {statFilteredAdmissions.map((app, i) => {
                     const cfg = statusConfig[app.status];
                     return (
-                      <tr key={app.id} className={`hover:bg-blue-50/40 transition-colors ${i % 2 === 1 ? "bg-slate-50/60" : "bg-white"}`}>
-                        <td className="px-3 py-2.5 border border-slate-200 text-center">
+                      <tr key={app.id} className={`hover:bg-background/40 transition-colors ${i % 2 === 1 ? "bg-background/60" : "bg-surface"}`}>
+                        <td className="px-3 py-2.5 border border-border text-center">
                           <p className="font-medium whitespace-nowrap">{app.full_name}</p>
                           <p className="text-[10px] text-muted-foreground font-mono">{app.reference_no}</p>
                         </td>
-                        <td className="px-3 py-2.5 border border-slate-200 whitespace-nowrap text-center">Class {app.applying_class}</td>
-                        <td className="px-3 py-2.5 border border-slate-200 capitalize text-center">{app.admission_type}</td>
-                        <td className="px-3 py-2.5 border border-slate-200 text-center">
+                        <td className="px-3 py-2.5 border border-border whitespace-nowrap text-center">Class {app.applying_class}</td>
+                        <td className="px-3 py-2.5 border border-border capitalize text-center">{app.admission_type}</td>
+                        <td className="px-3 py-2.5 border border-border text-center">
                           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${cfg.badge}`}>
                             {cfg.label}
                           </span>
                         </td>
-                        <td className="px-3 py-2.5 border border-slate-200 text-muted-foreground whitespace-nowrap text-center">
+                        <td className="px-3 py-2.5 border border-border text-muted-foreground whitespace-nowrap text-center">
                           {format(new Date(app.created_at), "dd MMM yy")}
                         </td>
-                        <td className="px-3 py-2.5 border border-slate-200 text-center">
+                        <td className="px-3 py-2.5 border border-border text-center">
                           <div className="flex items-center justify-center gap-1">
                             <Button size="sm" variant="outline"
                               onClick={() => setSelected(app)}
@@ -1040,7 +1040,7 @@ const AdminAdmissions = () => {
                               <AlertDialogTrigger asChild>
                                 <Button size="sm" variant="ghost"
                                   disabled={deleteMut.isPending}
-                                  className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-50">
+                                  className="h-7 w-7 p-0 text-primary hover:text-primary hover:bg-background">
                                   <Trash2 className="w-3.5 h-3.5" />
                                 </Button>
                               </AlertDialogTrigger>
@@ -1055,7 +1055,7 @@ const AdminAdmissions = () => {
                                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                                   <AlertDialogAction
                                     onClick={() => handleDeleteAdmission(app.id)}
-                                    className="bg-red-600 hover:bg-red-700">
+                                    className="bg-primary hover:bg-primary">
                                     Yes, Delete
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
@@ -1128,9 +1128,9 @@ const AdminAdmissions = () => {
           ) : (
             <table className="w-full text-xs border-collapse">
               <thead>
-                <tr className="bg-slate-100">
+                <tr className="bg-surface-raised">
                   {["Name", "Class", "Type", "Status", "Date", "Action"].map(h => (
-                    <th key={h} className="text-center px-3 py-2.5 font-semibold text-slate-600 uppercase tracking-wide whitespace-nowrap border border-slate-200">{h}</th>
+                    <th key={h} className="text-center px-3 py-2.5 font-semibold text-muted uppercase tracking-wide whitespace-nowrap border border-border">{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -1138,22 +1138,22 @@ const AdminAdmissions = () => {
                 {filtered.map((app, i) => {
                   const cfg = statusConfig[app.status];
                   return (
-                    <tr key={app.id} className={`hover:bg-blue-50/40 transition-colors ${i % 2 === 1 ? "bg-slate-50/60" : "bg-white"}`}>
-                      <td className="px-3 py-2.5 border border-slate-200 text-center">
+                    <tr key={app.id} className={`hover:bg-background/40 transition-colors ${i % 2 === 1 ? "bg-background/60" : "bg-surface"}`}>
+                      <td className="px-3 py-2.5 border border-border text-center">
                         <p className="font-medium whitespace-nowrap">{app.full_name}</p>
                         <p className="text-[10px] text-muted-foreground font-mono">{app.reference_no}</p>
                       </td>
-                      <td className="px-3 py-2.5 border border-slate-200 whitespace-nowrap text-center">Class {app.applying_class}</td>
-                      <td className="px-3 py-2.5 border border-slate-200 capitalize text-center">{app.admission_type}</td>
-                      <td className="px-3 py-2.5 border border-slate-200 text-center">
+                      <td className="px-3 py-2.5 border border-border whitespace-nowrap text-center">Class {app.applying_class}</td>
+                      <td className="px-3 py-2.5 border border-border capitalize text-center">{app.admission_type}</td>
+                      <td className="px-3 py-2.5 border border-border text-center">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${cfg.badge}`}>
                           {cfg.label}
                         </span>
                       </td>
-                      <td className="px-3 py-2.5 border border-slate-200 text-muted-foreground whitespace-nowrap text-center">
+                      <td className="px-3 py-2.5 border border-border text-muted-foreground whitespace-nowrap text-center">
                         {format(new Date(app.created_at), "dd MMM yy")}
                       </td>
-                      <td className="px-3 py-2.5 border border-slate-200 text-center">
+                      <td className="px-3 py-2.5 border border-border text-center">
                         <div className="flex items-center justify-center gap-1">
                           <Button size="sm" variant="outline"
                             onClick={() => setSelected(app)}
@@ -1164,7 +1164,7 @@ const AdminAdmissions = () => {
                             <AlertDialogTrigger asChild>
                               <Button size="sm" variant="ghost"
                                 disabled={deleteMut.isPending}
-                                className="h-7 w-7 p-0 text-red-500 hover:text-red-700 hover:bg-red-50">
+                                className="h-7 w-7 p-0 text-primary hover:text-primary hover:bg-background">
                                 <Trash2 className="w-3.5 h-3.5" />
                               </Button>
                             </AlertDialogTrigger>
@@ -1179,7 +1179,7 @@ const AdminAdmissions = () => {
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                 <AlertDialogAction
                                   onClick={() => handleDeleteAdmission(app.id)}
-                                  className="bg-red-600 hover:bg-red-700">
+                                  className="bg-primary hover:bg-primary">
                                   Yes, Delete
                                 </AlertDialogAction>
                               </AlertDialogFooter>

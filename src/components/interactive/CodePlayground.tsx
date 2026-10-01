@@ -1,7 +1,7 @@
 /**
  * CodePlayground.tsx - ENHANCED VERSION
  * Live code playground with HTML/CSS/JS + simulated Python
- * 
+ *
  * ENHANCEMENTS:
  * ✅ Multiple language modes (HTML, JavaScript, Python)
  * ✅ Beautiful syntax highlighting (basic)
@@ -107,17 +107,17 @@ const EXAMPLES = {
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7', '#dfe6e9'];
-  
+
   canvas.addEventListener('click', e => {
     const rect = canvas.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     ctx.beginPath();
     ctx.arc(x, y, Math.random() * 25 + 10, 0, Math.PI * 2);
     ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
     ctx.fill();
-    
+
     // Add glow effect
     ctx.shadowColor = ctx.fillStyle;
     ctx.shadowBlur = 15;
@@ -252,15 +252,15 @@ async function fetchPosts(userId) {
 // Main async function
 async function main() {
   console.log('%c\\n🚀 Starting...', 'color: green;');
-  
+
   const user = await fetchUser(1);
   console.log('%c✅ User fetched:', 'color: green;', user);
-  
+
   const posts = await fetchPosts(user.id);
   console.log('%c✅ Posts fetched:', 'color: green;', posts);
-  
+
   console.log('%c\\n🎉 All done!', 'color: purple; font-size: 16px;');
-  
+
   // Display in page
   document.body.innerHTML = \`
     <div style="max-width:500px;margin:40px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.1);">
@@ -473,15 +473,15 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
   // Run code
   const run = useCallback(() => {
     setIsRunning(true);
-    
+
     if (language === "python") {
       // Simulate Python execution (display as formatted output)
       setCode(code);
-      
+
       // Extract print statements and simulate output
       const lines = code.split('\n');
       const output: string[] = [];
-      
+
       lines.forEach(line => {
         const printMatch = line.match(/print\((.*)\)/);
         if (printMatch) {
@@ -492,37 +492,37 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
           output.push(outputStr);
         }
       });
-      
+
       if (output.length === 0) {
         output.push("✅ Python code executed!");
         output.push("(Output would appear in real Python environment)");
       }
-      
+
       setConsoleOutput(output);
       setShowConsole(true);
-      
+
       // Show a nice display
       const displayHtml = `
         <!DOCTYPE html>
         <html>
         <head>
           <style>
-            body { 
-              font-family: 'Courier New', monospace; 
-              padding: 20px; 
-              background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%); 
-              color: #00ff00; 
+            body {
+              font-family: 'Courier New', monospace;
+              padding: 20px;
+              background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+              color: #00ff00;
               min-height: 100vh;
               margin: 0;
             }
-            pre { 
-              line-height: 1.6; 
+            pre {
+              line-height: 1.6;
               font-size: 14px;
               white-space: pre-wrap;
             }
-            .header { 
-              color: #ffd700; 
-              font-size: 18px; 
+            .header {
+              color: #ffd700;
+              font-size: 18px;
               margin-bottom: 16px;
               border-bottom: 1px solid #ffd70033;
               padding-bottom: 12px;
@@ -544,7 +544,7 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
       setSrcDoc(code);
       setShowConsole(false);
     }
-    
+
     setTimeout(() => setIsRunning(false), 500);
   }, [code, language]);
 
@@ -577,8 +577,8 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
   return (
     <div className={`rounded-2xl border border-border bg-card overflow-hidden shadow-sm ${isFullscreen ? 'fixed inset-4 z-50' : ''}`}>
       {/* Header */}
-      <div className="flex items-center gap-2.5 p-3.5 border-b border-border bg-gradient-to-r from-purple-50 to-violet-50 dark:from-purple-950/30 dark:to-violet-950/20">
-        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm bg-white/80"
+      <div className="flex items-center gap-2.5 p-3.5 border-b border-border bg-gradient-to-r from-primary to-primary from-primary-strong/30 to-primary-strong/20">
+        <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 shadow-sm bg-surface/80"
           style={{ backgroundColor: subjectColor + "25" }}>
           <Code2 className="w-4.5 h-4.5" style={{ color: subjectColor }} />
         </div>
@@ -586,7 +586,7 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
           <span className="font-bold text-sm text-foreground">Code Playground</span>
           <p className="text-[10px] text-muted-foreground">Live editor • {LANGUAGES.find(l => l.id === language)?.label}</p>
         </div>
-        
+
         {/* Language Selector */}
         <div className="flex rounded-lg overflow-hidden mr-2">
           {LANGUAGES.map((lang) => (
@@ -594,8 +594,8 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
               key={lang.id}
               onClick={() => { setLanguage(lang.id as any); reset(); }}
               className={`px-2 py-1 text-xs font-medium transition-all ${
-                language === lang.id 
-                  ? 'text-white' 
+                language === lang.id
+                  ? 'text-primary-foreground'
                   : 'bg-secondary hover:bg-secondary/70 text-muted-foreground'
               }`}
               style={language === lang.id ? { backgroundColor: subjectColor } : {}}
@@ -608,7 +608,7 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
         {/* Action Buttons */}
         <div className="flex items-center gap-1">
           <button onClick={run} disabled={isRunning}
-            className="p-2 rounded-lg text-white hover:opacity-90 disabled:opacity-50 transition-all"
+            className="p-2 rounded-lg text-primary-foreground hover:opacity-90 disabled:opacity-50 transition-all"
             style={{ backgroundColor: subjectColor }}
             title="Run code">
             <Play className={`w-4 h-4 ${isRunning ? 'animate-spin' : ''}`} />
@@ -674,7 +674,7 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
             <div className="px-3 py-1.5 bg-secondary/30 text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center justify-between">
               <span>{language.toUpperCase()} Editor</span>
               <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-background animate-pulse" />
                 Ready
               </span>
             </div>
@@ -682,8 +682,8 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
               value={code}
               onChange={(e) => setCode(e.target.value)}
               spellCheck={false}
-              className="w-full h-64 lg:h-80 p-4 font-mono text-xs bg-slate-900 text-green-400 resize-none focus:outline-none leading-relaxed"
-              style={{ 
+              className="w-full h-64 lg:h-80 p-4 font-mono text-xs bg-primary-strong text-primary resize-none focus:outline-none leading-relaxed"
+              style={{
                 fontFamily: "'Fira Code', 'Cascadia Code', 'Consolas', monospace",
                 tabSize: 2
               }}
@@ -696,14 +696,14 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
             <div className="px-3 py-1.5 bg-secondary/30 text-[10px] font-bold text-muted-foreground uppercase tracking-wider flex items-center justify-between">
               <span>{language === 'python' ? '🐍 Output' : '👁️ Live Preview'}</span>
               {(language !== 'python') && (
-                <span className="text-green-500">● Running</span>
+                <span className="text-primary">● Running</span>
               )}
             </div>
-            
+
             {language === 'python' && showConsole ? (
               /* Python Console Output */
-              <div className="h-64 lg:h-80 bg-slate-900 p-4 overflow-auto">
-                <pre className="text-green-400 font-mono text-sm whitespace-pre-wrap leading-relaxed">
+              <div className="h-64 lg:h-80 bg-primary-strong p-4 overflow-auto">
+                <pre className="text-primary font-mono text-sm whitespace-pre-wrap leading-relaxed">
                   {consoleOutput.join('\n')}
                 </pre>
               </div>
@@ -713,7 +713,7 @@ export default function CodePlayground({ subjectColor = "#8b5cf6" }: { subjectCo
                 srcDoc={srcDoc}
                 title="Code Preview"
                 sandbox="allow-scripts allow-modals"
-                className="w-full h-64 lg:h-80 bg-white border-0"
+                className="w-full h-64 lg:h-80 bg-surface border-0"
               />
             )}
           </div>

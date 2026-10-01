@@ -10,11 +10,11 @@ import toast from "react-hot-toast";
 
 // ─── Annotation Color Picker ──────────────────────────────────────────────────
 const ANNOTATION_COLORS = [
-  { id: "yellow", bg: "bg-yellow-200 dark:bg-yellow-900/40", border: "border-yellow-400", dot: "bg-yellow-400" },
-  { id: "green",  bg: "bg-green-200 dark:bg-green-900/40",  border: "border-green-400",  dot: "bg-green-400" },
-  { id: "blue",   bg: "bg-blue-200 dark:bg-blue-900/40",    border: "border-blue-400",   dot: "bg-blue-400" },
-  { id: "pink",   bg: "bg-pink-200 dark:bg-pink-900/40",    border: "border-pink-400",   dot: "bg-pink-400" },
-  { id: "orange", bg: "bg-orange-200 dark:bg-orange-900/40", border: "border-orange-400", dot: "bg-orange-400" },
+  { id: "yellow", bg: "bg-accent-soft bg-accent/40", border: "border-accent", dot: "bg-accent" },
+  { id: "green",  bg: "bg-surface-raised bg-primary-strong/40",  border: "border-border",  dot: "bg-primary" },
+  { id: "blue",   bg: "bg-surface-raised bg-primary-strong/40",    border: "border-border",   dot: "bg-primary" },
+  { id: "pink",   bg: "bg-accent-soft bg-accent/40",    border: "border-accent",   dot: "bg-accent" },
+  { id: "orange", bg: "bg-accent-soft bg-accent/40", border: "border-accent", dot: "bg-accent" },
 ];
 
 function getColorClasses(colorId: string) {
@@ -176,7 +176,7 @@ const CreateAnnotationPopup = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 bg-black/40"
+          className="fixed inset-0 z-50 bg-background/40"
           onClick={onClose}
         />
         <motion.div
@@ -234,7 +234,7 @@ const AnnotationViewPopup = ({
       <div className={`px-3 py-2 ${colorClasses.bg} border-b ${colorClasses.border}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-white/50 dark:bg-black/30 flex items-center justify-center text-xs font-bold">
+            <div className="w-6 h-6 rounded-full bg-surface/50 bg-background/30 flex items-center justify-center text-xs font-bold">
               {(annotation.profiles?.full_name || "?")[0]?.toUpperCase()}
             </div>
             <div>
@@ -244,7 +244,7 @@ const AnnotationViewPopup = ({
               </div>
             </div>
           </div>
-          <button onClick={onClose} className="p-1 hover:bg-white/30 dark:hover:bg-black/20 rounded-lg">
+          <button onClick={onClose} className="p-1 hover:bg-surface/30 hover:bg-background/20 rounded-lg">
             <X className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -586,7 +586,7 @@ const AnnotationOverlay = ({ chapterId, contentRef, hideFab = false, open: contr
       {/* View annotation popup */}
       <AnimatePresence>
         {viewingAnnotation && (
-          <div className="fixed inset-0 z-50 bg-black/30 flex items-start justify-center pt-20 p-4" onClick={() => setViewingAnnotation(null)}>
+          <div className="fixed inset-0 z-50 bg-background/30 flex items-start justify-center pt-20 p-4" onClick={() => setViewingAnnotation(null)}>
             <div onClick={e => e.stopPropagation()}>
               <AnnotationViewPopup
                 annotation={viewingAnnotation}

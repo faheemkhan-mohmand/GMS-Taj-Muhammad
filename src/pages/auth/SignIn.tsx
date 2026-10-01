@@ -150,8 +150,8 @@ const SignIn = () => {
   return (
     <div className="min-h-screen gradient-hero flex items-center justify-center p-4">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/10 blur-3xl" />
-        <div className="absolute bottom-20 -left-20 w-80 h-80 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-surface/10 blur-3xl" />
+        <div className="absolute bottom-20 -left-20 w-80 h-80 rounded-full bg-surface/5 blur-3xl" />
       </div>
 
       <motion.div
@@ -181,20 +181,20 @@ const SignIn = () => {
           </div>
 
           {pendingStatus === "pending" && (
-            <div className="mb-6 p-4 rounded-xl bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 text-center">
-              <Clock className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-              <p className="text-sm font-semibold text-blue-800 dark:text-blue-400">Waiting for Admin Approval</p>
-              <p className="text-xs text-blue-700 dark:text-blue-400/80 mt-1">
+            <div className="mb-6 p-4 rounded-xl bg-background bg-background/10 border border-border border-border/20 text-center">
+              <Clock className="w-8 h-8 text-primary mx-auto mb-2" />
+              <p className="text-sm font-semibold text-primary text-primary">Waiting for Admin Approval</p>
+              <p className="text-xs text-primary text-primary mt-1">
                 Your account is under review. You'll be able to login once an administrator approves your account.
               </p>
             </div>
           )}
 
           {pendingStatus === "rejected" && (
-            <div className="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-center">
+            <div className="mb-6 p-4 rounded-xl bg-background bg-background/10 border border-border border-border/20 text-center">
               <XCircle className="w-8 h-8 text-destructive mx-auto mb-2" />
-              <p className="text-sm font-semibold text-red-700 dark:text-red-400">Account Rejected</p>
-              <p className="text-xs text-red-600 dark:text-red-400/80 mt-1">
+              <p className="text-sm font-semibold text-primary text-primary">Account Rejected</p>
+              <p className="text-xs text-primary text-primary mt-1">
                 Your account request was rejected by the administrator. Please contact the school for more information.
               </p>
             </div>

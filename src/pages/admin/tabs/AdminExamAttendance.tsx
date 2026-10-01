@@ -48,9 +48,9 @@ const todayStr = () => formatLocalDate(new Date());
 
 type Status = ExamAttStatus;
 const statusConfig: Record<Status, { icon: React.ReactNode; label: string; color: string; bg: string }> = {
-  present: { icon: <Check className="w-4 h-4" />, label: "Present", color: "text-emerald-600", bg: "bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700/50" },
-  absent:  { icon: <X className="w-4 h-4" />, label: "Absent",  color: "text-red-600", bg: "bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-700/50" },
-  leave:   { icon: <Palmtree className="w-4 h-4" />, label: "Leave",  color: "text-blue-600", bg: "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700/50" },
+  present: { icon: <Check className="w-4 h-4" />, label: "Present", color: "text-primary", bg: "bg-surface-raised bg-primary-strong/30 border-border border-border/50" },
+  absent:  { icon: <X className="w-4 h-4" />, label: "Absent",  color: "text-primary", bg: "bg-surface-raised bg-primary-strong/30 border-border border-border/50" },
+  leave:   { icon: <Palmtree className="w-4 h-4" />, label: "Leave",  color: "text-primary", bg: "bg-surface-raised bg-primary-strong/30 border-border border-border/50" },
 };
 
 // ── Camera QR Scanner using html5-qrcode ───────────────────────────────────
@@ -93,7 +93,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       observerRef.current.disconnect();
       observerRef.current = null;
     }
-    
+
     // Clean up resize observer and safety interval from container
     const container = document.getElementById(containerIdRef.current);
     if (container) {
@@ -108,7 +108,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
         delete (container as any)._safetyInterval;
       }
     }
-    
+
     // Stop and clear scanner instance
     const inst = scannerRef.current;
     if (inst) {
@@ -127,14 +127,14 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       return;
     }
     setActive(true);
-    
+
     // Small delay to ensure DOM is ready with container dimensions
     await new Promise(r => setTimeout(r, 100));
-    
+
     try {
       const qr = new Html5Qrcode(containerIdRef.current);
       scannerRef.current = qr;
-      
+
       // ── WHY THE PREVIOUS FIX DIDN'T WORK ──
       // html5-qrcode's core-impl.js sets `videoElement.style.width` to a
       // literal PIXEL value (e.g. "1280px") taken from the resolution
@@ -156,7 +156,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
 
       const forceVideoFill = () => {
         if (!container) return;
-        
+
         // Get actual container dimensions for responsive sizing
         const containerRect = container.getBoundingClientRect();
         const containerWidth = containerRect.width || container.clientWidth || 320;
@@ -181,7 +181,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
         const innerDivs = container.querySelectorAll('div');
         innerDivs.forEach(div => {
           const el = div as HTMLDivElement;
-          
+
           // Leave the scan-box overlay (qr-shaded-region) mostly alone but ensure it's positioned
           if (el.id === 'qr-shaded-region') {
             el.style.setProperty('position', 'absolute', 'important');
@@ -191,7 +191,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
             el.style.setProperty('height', '100%', 'important');
             return;
           }
-          
+
           // Fix #html5qrcode-scan-region overlay
           if (el.id?.includes('scan-region') || el.className?.toString().includes('scan-region')) {
             el.style.setProperty('width', `${containerWidth}px`, 'important');
@@ -201,7 +201,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
             el.style.setProperty('left', '0', 'important');
             return;
           }
-          
+
           // All other divs - make them fill the container
           el.style.setProperty('width', `${containerWidth}px`, 'important');
           el.style.setProperty('height', `${containerHeight}px`, 'important');
@@ -233,15 +233,15 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       let observer: MutationObserver | null = null;
       let resizeObserver: ResizeObserver | null = null;
       let safetyInterval: ReturnType<typeof setInterval> | null = null;
-      
+
       if (container) {
         // Main mutation observer - catches when html5-qrcode adds/modifies elements
         observer = new MutationObserver(forceVideoFill);
-        observer.observe(container, { 
-          childList: true, 
-          subtree: true, 
-          attributes: true, 
-          attributeFilter: ['style', 'class', 'width', 'height'] 
+        observer.observe(container, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['style', 'class', 'width', 'height']
         });
         observerRef.current = observer;
 
@@ -255,7 +255,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
         // Safety interval - catches any late-loading or async style changes
         // Critical for mobile where camera initialization can be slow
         safetyInterval = setInterval(forceVideoFill, 500);
-        
+
         // Store cleanup refs
         (container as any)._resizeObserver = resizeObserver;
         (container as any)._safetyInterval = safetyInterval;
@@ -268,12 +268,12 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       // to the actual camera stream, and forceVideoFill above stretches it
       // to fill our container via the observer instead.
       await qr.start(
-        { 
+        {
           facingMode: "environment",
           width: { min: 640, ideal: 1280, max: 1920 },
           height: { min: 480, ideal: 720, max: 1080 }
         },
-        { 
+        {
           fps: 15,
           qrbox: { width: boxSize, height: boxSize },
         },
@@ -284,7 +284,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
       // Run once immediately too, in case the video was already attached
       // synchronously (fast camera / cached permission).
       forceVideoFill();
-      
+
     } catch (e: any) {
       // Handle specific camera errors with user-friendly messages
       const errMsg = e?.message || e?.toString() || "";
@@ -316,15 +316,15 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
   return (
     <div className="space-y-3">
       {!active ? (
-        <Button onClick={start} disabled={!enabled} className="gap-2 w-full bg-emerald-500 hover:bg-emerald-600 text-white" size="lg">
+        <Button onClick={start} disabled={!enabled} className="gap-2 w-full bg-background hover:bg-primary text-primary-foreground" size="lg">
           <Camera className="w-5 h-5" /> {error ? "Retry Camera" : "Starting Camera…"}
         </Button>
       ) : (
         <div className="space-y-3">
-          <div 
-            id={containerIdRef.current} 
-            className="qr-scanner-container w-full rounded-xl overflow-hidden bg-black border-2 border-emerald-400/50"
-            style={{ 
+          <div
+            id={containerIdRef.current}
+            className="qr-scanner-container w-full rounded-xl overflow-hidden bg-background border-2 border-border/50"
+            style={{
               width: '100%',
               aspectRatio: '4/3',
               minHeight: '250px',
@@ -333,7 +333,7 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
               // Critical: ensure container is block-level and doesn't shrink
               display: 'block',
               flexShrink: 0
-            }} 
+            }}
           />
           <p className="text-[11px] text-center text-muted-foreground">Camera stays open — just point it at the next student's QR/desk sticker.</p>
           <Button onClick={stop} variant="outline" className="w-full gap-1.5">
@@ -342,8 +342,8 @@ function QRScanner({ onScan, enabled }: { onScan: (data: string) => void; enable
         </div>
       )}
       {error && (
-        <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/50 rounded-xl p-3 space-y-2">
-          <div className="text-sm text-red-600 flex items-start gap-2">
+        <div className="bg-background bg-primary-strong/30 border border-border border-border/50 rounded-xl p-3 space-y-2">
+          <div className="text-sm text-primary flex items-start gap-2">
             <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" /> {error}
           </div>
         </div>
@@ -879,7 +879,7 @@ const AdminExamAttendance = () => {
                   ) : displayPaperStart ? (
                     <span className="font-mono font-bold">{displayPaperStart}</span>
                   ) : (
-                    <span className="text-red-500 italic text-xs">Not set in seating plan</span>
+                    <span className="text-primary italic text-xs">Not set in seating plan</span>
                   )}
                 </div>
               </div>
@@ -894,7 +894,7 @@ const AdminExamAttendance = () => {
                   ) : displayPaperEnd ? (
                     <span className="font-mono font-bold">{displayPaperEnd}</span>
                   ) : (
-                    <span className="text-red-500 italic text-xs">Not set in seating plan</span>
+                    <span className="text-primary italic text-xs">Not set in seating plan</span>
                   )}
                 </div>
               </div>
@@ -904,9 +904,9 @@ const AdminExamAttendance = () => {
           {/* Live paper window banner */}
           {selectedSubject && (
             <div className={`flex items-start gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold ${
-              windowStatus === "in_progress" ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400"
-              : windowStatus === "no_paper_times" ? "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
-              : "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400"
+              windowStatus === "in_progress" ? "bg-surface-raised bg-primary-strong/30 text-primary text-primary"
+              : windowStatus === "no_paper_times" ? "bg-surface-raised bg-primary-strong/30 text-primary text-primary"
+              : "bg-accent-soft bg-accent/30 text-primary text-primary"
             }`}>
               {windowStatus === "in_progress" ? <Clock className="w-4 h-4 mt-0.5 shrink-0" /> : <Lock className="w-4 h-4 mt-0.5 shrink-0" />}
               <span>{paperWindowMessage(windowStatus, displayPaperStart, displayPaperEnd)}</span>
@@ -934,9 +934,9 @@ const AdminExamAttendance = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-3">
             {[
-              { icon: Check, label: "Present", value: stats.present, color: "text-emerald-600", bg: "bg-emerald-50 dark:bg-emerald-950/20" },
-              { icon: X, label: "Absent", value: stats.absent, color: "text-red-600", bg: "bg-red-50 dark:bg-red-950/20" },
-              { icon: Palmtree, label: "Leave", value: stats.leave, color: "text-blue-600", bg: "bg-blue-50 dark:bg-blue-950/20" },
+              { icon: Check, label: "Present", value: stats.present, color: "text-primary", bg: "bg-background bg-primary-strong/20" },
+              { icon: X, label: "Absent", value: stats.absent, color: "text-primary", bg: "bg-background bg-primary-strong/20" },
+              { icon: Palmtree, label: "Leave", value: stats.leave, color: "text-primary", bg: "bg-background bg-primary-strong/20" },
             ].map(s => (
               <div key={s.label} className={`${s.bg} rounded-xl p-3 text-center border border-border/50`}>
                 <s.icon className={`w-4 h-4 mx-auto mb-1 ${s.color}`} />
@@ -957,7 +957,7 @@ const AdminExamAttendance = () => {
                 </p>
                 {/* Block init if no seating paper times or window closed */}
                 {(!seatingPaperTimes || windowStatus !== "in_progress") && (
-                  <div className="mx-auto max-w-md bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 flex items-start gap-2 text-amber-700 dark:text-amber-400">
+                  <div className="mx-auto max-w-md bg-accent-soft bg-accent/30 border border-border border-accent/50 rounded-xl p-3 flex items-start gap-2 text-primary text-primary">
                     <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
                     <span className="text-xs font-semibold text-left">
                       {paperWindowMessage(windowStatus, displayPaperStart, displayPaperEnd)}
@@ -988,21 +988,21 @@ const AdminExamAttendance = () => {
                 </div>
                 <Button variant="outline" size="sm" onClick={exportExcel} className="gap-1.5"><Download className="w-3.5 h-3.5" /> Excel</Button>
                 <Button variant="outline" size="sm" onClick={handleDeleteSheet}
-                  className={`gap-1.5 ${confirmDelete ? "bg-red-500 text-white hover:bg-red-600" : "text-destructive hover:bg-destructive/10"}`}>
+                  className={`gap-1.5 ${confirmDelete ? "bg-background text-primary-foreground hover:bg-primary" : "text-destructive hover:bg-destructive/10"}`}>
                   <Trash2 className="w-3.5 h-3.5" /> {confirmDelete ? "Confirm Delete?" : "Delete Sheet"}
                 </Button>
               </div>
 
               {/* Locked banner when sheet exists but paper window is closed */}
               {!canMark && (
-                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/50 rounded-xl p-3 flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                <div className="bg-accent-soft bg-accent/30 border border-border border-accent/50 rounded-xl p-3 flex items-start gap-2">
+                  <AlertTriangle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                   <div className="text-xs">
-                    <p className="font-semibold text-amber-700 dark:text-amber-400">Attendance Locked — paper is not in progress.</p>
-                    <p className="text-amber-600 dark:text-amber-500 mt-0.5">
+                    <p className="font-semibold text-primary text-primary">Attendance Locked — paper is not in progress.</p>
+                    <p className="text-primary text-primary mt-0.5">
                       {paperWindowMessage(windowStatus, displayPaperStart, displayPaperEnd)}
                     </p>
-                    <p className="text-amber-600/70 dark:text-amber-500/70 mt-1">
+                    <p className="text-primary text-primary mt-1">
                       Records are read-only until the paper window opens. Extend the paper end-time from the Live Console to re-open editing.
                     </p>
                   </div>
@@ -1146,9 +1146,9 @@ const AdminExamAttendance = () => {
 
               {allScanSubject && (
                 <div className={`flex items-start gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold ${
-                  allScanWindowStatus === "in_progress" ? "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400"
-                  : allScanWindowStatus === "no_paper_times" ? "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400"
-                  : "bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400"
+                  allScanWindowStatus === "in_progress" ? "bg-surface-raised bg-primary-strong/30 text-primary text-primary"
+                  : allScanWindowStatus === "no_paper_times" ? "bg-surface-raised bg-primary-strong/30 text-primary text-primary"
+                  : "bg-accent-soft bg-accent/30 text-primary text-primary"
                 }`}>
                   {allScanWindowStatus === "in_progress" ? <Clock className="w-4 h-4 mt-0.5 shrink-0" /> : <Lock className="w-4 h-4 mt-0.5 shrink-0" />}
                   <span>{loadingAllScanPaperTimes ? "Checking paper time…" : paperWindowMessage(allScanWindowStatus, allScanPaperTimes?.start, allScanPaperTimes?.end)}</span>
@@ -1160,14 +1160,14 @@ const AdminExamAttendance = () => {
           {selectedSession && allScanSubject && (
             <>
               <Button onClick={() => setShowAllScanner(!showAllScanner)} disabled={!canAllScan}
-                className={`w-full gap-2 ${showAllScanner ? "bg-red-500 hover:bg-red-600" : "bg-emerald-500 hover:bg-emerald-600"} text-white disabled:opacity-50 disabled:cursor-not-allowed`} size="lg">
+                className={`w-full gap-2 ${showAllScanner ? "bg-background hover:bg-primary" : "bg-background hover:bg-primary"} text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed`} size="lg">
                 {showAllScanner ? <><X className="w-5 h-5" /> Close Scanner</> : <><Camera className="w-5 h-5" /> Open QR Scanner (All Classes)</>}
               </Button>
 
               {showAllScanner && (
-                <Card className="border-emerald-200 dark:border-emerald-800/50">
+                <Card className="border-border border-border/50">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-base flex items-center gap-2"><ScanLine className="w-4 h-4 text-emerald-500" /> Scan Desk QR — Any Class</CardTitle>
+                    <CardTitle className="text-base flex items-center gap-2"><ScanLine className="w-4 h-4 text-primary" /> Scan Desk QR — Any Class</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <QRScanner onScan={handleAllClassScan} enabled={!!selectedSession && !!allScanSubject} />
@@ -1175,8 +1175,8 @@ const AdminExamAttendance = () => {
                       <div className="space-y-1.5">
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider flex items-center gap-1"><History className="w-3 h-3" />Recent Scans</p>
                         {allScanLog.slice(0, 8).map((log, i) => (
-                          <div key={i} className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/20 rounded-lg px-3 py-2">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                          <div key={i} className="flex items-center gap-2 bg-background bg-primary-strong/20 rounded-lg px-3 py-2">
+                            <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
                             <span className="text-sm font-medium flex-1 truncate">{log.name}</span>
                             <Badge variant="secondary" className="shrink-0">Class {log.cls}</Badge>
                             <span className="text-xs text-muted-foreground font-mono shrink-0">{log.seat}</span>
@@ -1250,12 +1250,12 @@ const AdminExamAttendance = () => {
                             <p className="text-xs text-muted-foreground">Roll: <span className="font-mono font-bold text-primary">{s.examRoll}</span></p>
                           </div>
                           <div className="flex items-center gap-1.5 shrink-0">
-                            <span className="text-emerald-600 font-bold text-xs">P:{presentCount}</span>
-                            <span className="text-red-600 font-bold text-xs">A:{absentCount}</span>
+                            <span className="text-primary font-bold text-xs">P:{presentCount}</span>
+                            <span className="text-primary font-bold text-xs">A:{absentCount}</span>
                             <button
                               onClick={() => handleDeleteStudent(s.id, s.name)}
                               disabled={deleteStudent.isPending}
-                              className="p-1.5 rounded-lg text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-40"
+                              className="p-1.5 rounded-lg text-primary hover:bg-background hover:bg-primary-strong/20 transition-colors disabled:opacity-40"
                               title="Delete all attendance for this student"
                             >
                               <UserX className="w-3.5 h-3.5" />
@@ -1280,7 +1280,7 @@ const AdminExamAttendance = () => {
                                   <button
                                     onClick={() => handleDeleteCell(s.id, col.subject, cell.examDate)}
                                     disabled={deleteCell.isPending}
-                                    className="p-0.5 rounded text-red-500 hover:bg-red-100 dark:hover:bg-red-900/30 shrink-0 disabled:opacity-40"
+                                    className="p-0.5 rounded text-primary hover:bg-surface-raised hover:bg-primary-strong/30 shrink-0 disabled:opacity-40"
                                     title="Delete this record"
                                   >
                                     <Trash2 className="w-3 h-3" />
@@ -1331,7 +1331,7 @@ const AdminExamAttendance = () => {
                                     <button
                                       onClick={() => handleDeleteCell(s.id, col.subject, cell.examDate)}
                                       disabled={deleteCell.isPending}
-                                      className={`inline-flex items-center justify-center w-8 h-8 rounded-md text-[10px] font-bold ${cfg.bg} ${cfg.color} hover:ring-2 hover:ring-red-400 transition-all disabled:opacity-40`}
+                                      className={`inline-flex items-center justify-center w-8 h-8 rounded-md text-[10px] font-bold ${cfg.bg} ${cfg.color} hover:ring-2 hover:ring-accent transition-all disabled:opacity-40`}
                                       title="Click to delete this record"
                                     >
                                       {cell.status === "present" ? "P" : cell.status === "absent" ? "A" : "L"}
@@ -1342,13 +1342,13 @@ const AdminExamAttendance = () => {
                                 </td>
                               );
                             })}
-                            <td className="p-2 text-center font-bold text-emerald-600">{presentCount}</td>
-                            <td className="p-2 text-center font-bold text-red-600">{absentCount}</td>
+                            <td className="p-2 text-center font-bold text-primary">{presentCount}</td>
+                            <td className="p-2 text-center font-bold text-primary">{absentCount}</td>
                             <td className="p-2 text-center">
                               <button
                                 onClick={() => handleDeleteStudent(s.id, s.name)}
                                 disabled={deleteStudent.isPending}
-                                className="p-1 rounded text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors disabled:opacity-40"
+                                className="p-1 rounded text-primary hover:bg-background hover:bg-primary-strong/20 transition-colors disabled:opacity-40"
                                 title="Delete all attendance for this student"
                               >
                                 <UserX className="w-3.5 h-3.5" />

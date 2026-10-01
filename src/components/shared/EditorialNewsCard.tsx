@@ -100,14 +100,13 @@ const SchoolSeal = ({
   return (
     <div
       className={`relative ${dims} ${className}`}
-      style={{ filter: "drop-shadow(0 4px 8px rgba(122,31,43,0.35))" }}
+      style={{ filter: "drop-shadow(0 4px 8px color-mix(in srgb, var(--primary-strong) 35%, transparent))" }}
     >
       {/* Outer gold hexagon (gradient ring) */}
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(135deg, hsl(35 92% 48%) 0%, hsl(40 95% 65%) 50%, hsl(35 92% 48%) 100%)",
+          background: "var(--gradient-hero)",
           clipPath: HEXAGON_CLIP,
           WebkitClipPath: HEXAGON_CLIP,
         }}
@@ -115,7 +114,7 @@ const SchoolSeal = ({
         {/* Inner hexagon — ivory ground + logo image, inset 2px to reveal
             the outer gold ring as a uniform hexagonal border. */}
         <div
-          className="absolute inset-[2px] bg-[hsl(38_45%_97%)] overflow-hidden flex items-center justify-center"
+          className="absolute inset-[2px] bg-accent-soft overflow-hidden flex items-center justify-center"
           style={{ clipPath: HEXAGON_CLIP, WebkitClipPath: HEXAGON_CLIP }}
         >
           <img
@@ -218,7 +217,7 @@ const MastheadEmblem = ({
         </div>
 
         {/* Edition tag */}
-        <p className={`text-[7px] font-bold uppercase tracking-[0.32em] text-[hsl(20_74%_38%)] ${big ? "text-[10px]" : ""}`}>
+        <p className={`text-[7px] font-bold uppercase tracking-[0.32em] text-primary ${big ? "text-[10px]" : ""}`}>
           {lang === "ur" ? "اداریہ" : "Editorial Dispatch"}
         </p>
       </div>
@@ -253,9 +252,9 @@ const FramedImage = ({
 
     {/* Bottom-left "plate credit" — same emblem-style tag, sits over the
         image so even photo cards carry the editorial signature. */}
-    <div className="absolute bottom-3 left-3 px-2 py-1 rounded-sm bg-[hsl(20_74%_38%)]/85 backdrop-blur-sm shadow-md flex items-center gap-1.5">
-      <Feather className="w-2.5 h-2.5 text-[hsl(40_50%_97%)]" />
-      <span className="text-[8px] font-bold uppercase tracking-[0.22em] text-[hsl(40_50%_97%)]">
+    <div className="absolute bottom-3 left-3 px-2 py-1 rounded-sm bg-surface backdrop-blur-sm shadow-md flex items-center gap-1.5">
+      <Feather className="w-2.5 h-2.5 text-primary" />
+      <span className="text-[8px] font-bold uppercase tracking-[0.22em] text-primary">
         {lang === "ur" ? "تصویر" : "Plate"} · № {articleNo}
       </span>
     </div>
@@ -274,9 +273,9 @@ const ListenPill = ({
     onClick={onClick}
     aria-label={lang === "ur" ? "سننے کے لیے دبائیں" : "Listen to this article"}
     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold tracking-wide
-               bg-gradient-to-r from-[hsl(20_74%_38%)] to-[hsl(20_70%_30%)] text-[hsl(40_50%_97%)]
+               bg-gradient-to-r from-primary to-primary text-primary
                shadow-sm hover:shadow-md hover:brightness-110 active:scale-95 transition-all
-               ring-1 ring-[hsl(20_74%_38%)]/30"
+               ring-1 ring-accent"
   >
     <Volume2 className="w-3 h-3" />
     <span>{lang === "ur" ? "سنئیں" : "Listen"}</span>
@@ -360,7 +359,7 @@ const ContentPreview = ({
       className={`text-foreground/80 leading-[1.6] line-clamp-2
                   first-letter:font-display first-letter:font-bold
                   first-letter:mr-1.5 first-letter:float-left
-                  first-letter:text-[hsl(20_74%_38%)]
+                  first-letter:text-primary
                   ${variant === "featured"
                     ? "text-[14px] line-clamp-4 first-letter:text-[2.8rem] first-letter:leading-[0.85]"
                     : "text-[12px] first-letter:text-[1.8rem] first-letter:leading-[0.85]"
@@ -415,13 +414,13 @@ const EditorialNewsCard = ({
       >
         <Link
           to={detailUrl}
-          className="block relative bg-card rounded-md overflow-hidden shadow-[0_10px_40px_-12px_rgba(0,0,0,0.25)] hover:shadow-[0_22px_60px_-12px_rgba(0,0,0,0.38)] transition-all duration-500 border border-gold/30 hover:border-gold/70"
+          className="block relative bg-card rounded-md overflow-hidden shadow-[0_10px_40px_-12px_color-mix(in_srgb,var(--text-primary)_25%,transparent)] hover:shadow-[0_22px_60px_-12px_color-mix(in_srgb,var(--text-primary)_38%,transparent)] transition-all duration-500 border border-gold/30 hover:border-gold/70"
         >
           {/* Top triple-rule masthead bar */}
           <div className="relative">
             <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
             <div className="h-px w-full bg-gold/40" />
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-[hsl(20_74%_38%)]/40 to-transparent" />
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
           </div>
 
           <div className="grid md:grid-cols-2">
@@ -433,13 +432,13 @@ const EditorialNewsCard = ({
                 <MastheadEmblem articleNo={articleNo} lang={titleLang} size="lg" />
               )}
               {/* Featured ribbon */}
-              <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-[hsl(20_74%_38%)] text-[hsl(40_50%_97%)] shadow-md ring-1 ring-[hsl(20_74%_38%)]/30">
+              <span className="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-surface text-primary shadow-md ring-1 ring-accent">
                 <Sparkles className="w-3 h-3" />
                 {titleLang === "ur" ? "نمایاں" : "Featured"}
               </span>
               {/* Pinned badge — only when is_pinned is true */}
               {item.is_pinned && (
-                <span className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-gradient-to-r from-[hsl(24_92%_46%)] to-[hsl(30_95%_55%)] text-[hsl(20_75%_20%)] shadow-md ring-1 ring-[hsl(24_92%_46%)]/40">
+                <span className="absolute top-4 right-4 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm text-[9px] font-bold uppercase tracking-[0.28em] bg-gradient-to-r from-primary to-accent text-primary shadow-md ring-1 ring-accent">
                   <Pin className="w-3 h-3" />
                   {titleLang === "ur" ? "پن کردہ" : "Pinned"}
                 </span>
@@ -450,10 +449,10 @@ const EditorialNewsCard = ({
             <div className="p-6 md:p-8 flex flex-col justify-center relative">
               {/* Eyebrow with dual-tone rule + article number */}
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-[10px] font-bold uppercase tracking-[0.32em] text-[hsl(20_74%_38%)]">
+                <span className="text-[10px] font-bold uppercase tracking-[0.32em] text-primary">
                   {titleLang === "ur" ? "خلاصہ" : "Abstract"}
                 </span>
-                <span className="h-px flex-1 bg-gradient-to-r from-[hsl(20_74%_38%_40%)] to-transparent" />
+                <span className="h-px flex-1 bg-gradient-to-r from-primary to-transparent" />
                 <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
                   №&nbsp;{articleNo}
                 </span>
@@ -465,7 +464,7 @@ const EditorialNewsCard = ({
               {/* Meta row — date is now the most prominent element */}
               <div className="flex items-baseline flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground mt-4 mb-5">
                 <span
-                  className="font-display italic text-[14px] font-semibold text-[hsl(215_45%_28%)] tracking-wide"
+                  className="font-display italic text-[14px] font-semibold text-primary tracking-wide"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {dateText}
@@ -486,12 +485,12 @@ const EditorialNewsCard = ({
               {/* Footer: signature + actions */}
               <div className="mt-7 pt-5 border-t border-gold/30 flex items-center justify-between flex-wrap gap-3">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground italic flex items-center gap-1.5">
-                  <Feather className="w-3 h-3 text-gold/70" />
+                  <Feather className="w-3 h-3 text-primary" />
                   {titleLang === "ur" ? "اداریہ محکمہ" : "GMS Taj Muhammad · Editorial Desk"}
                 </span>
                 <div className="flex items-center gap-3">
                   <ListenPill onClick={handleListen} lang={titleLang} />
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-[hsl(20_74%_38%)] group-hover:gap-2 transition-all">
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary group-hover:gap-2 transition-all">
                     {titleLang === "ur" ? "مکمل پڑھیں" : "Read paper"}
                     <ArrowUpRight className="w-4 h-4" />
                   </span>
@@ -502,7 +501,7 @@ const EditorialNewsCard = ({
 
           {/* Bottom triple-rule */}
           <div className="relative">
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-[hsl(20_74%_38%)]/40 to-transparent" />
+            <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
             <div className="h-px w-full bg-gold/40" />
             <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
           </div>
@@ -522,13 +521,13 @@ const EditorialNewsCard = ({
     >
       <Link
         to={detailUrl}
-        className="block h-full bg-card rounded-md overflow-hidden shadow-[0_6px_28px_-12px_rgba(0,0,0,0.22)] hover:shadow-[0_18px_44px_-12px_rgba(0,0,0,0.36)] transition-all duration-400 border border-gold/30 hover:border-gold/70 flex flex-col"
+        className="block h-full bg-card rounded-md overflow-hidden shadow-[0_6px_28px_-12px_color-mix(in_srgb,var(--text-primary)_22%,transparent)] hover:shadow-[0_18px_44px_-12px_color-mix(in_srgb,var(--text-primary)_36%,transparent)] transition-all duration-400 border border-gold/30 hover:border-gold/70 flex flex-col"
       >
         {/* Top triple-rule */}
         <div className="relative">
           <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-gold to-transparent" />
           <div className="h-px w-full bg-gold/40" />
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-[hsl(20_74%_38%)]/40 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
         </div>
 
         {/* Image / masthead emblem — shrunk from h-48 (192px) to h-32 (128px) */}
@@ -540,7 +539,7 @@ const EditorialNewsCard = ({
           )}
           {/* Pinned badge on compact cards */}
           {item.is_pinned && (
-            <span className="absolute top-2 right-2 z-10 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[7px] font-bold uppercase tracking-[0.25em] bg-gradient-to-r from-[hsl(24_92%_46%)] to-[hsl(30_95%_55%)] text-[hsl(20_75%_20%)] shadow-md ring-1 ring-[hsl(24_92%_46%)]/40">
+            <span className="absolute top-2 right-2 z-10 inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[7px] font-bold uppercase tracking-[0.25em] bg-gradient-to-r from-primary to-accent text-primary shadow-md ring-1 ring-accent">
               <Pin className="w-2 h-2" />
               {titleLang === "ur" ? "پن" : "Pinned"}
             </span>
@@ -551,10 +550,10 @@ const EditorialNewsCard = ({
         <div className="p-4 flex flex-col flex-1">
           {/* Eyebrow row */}
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[8px] font-bold uppercase tracking-[0.32em] text-[hsl(20_74%_38%)]">
+            <span className="text-[8px] font-bold uppercase tracking-[0.32em] text-primary">
               {titleLang === "ur" ? "خلاصہ" : "Abstract"}
             </span>
-            <span className="h-px flex-1 bg-gradient-to-r from-[hsl(20_74%_38%_40%)] to-transparent" />
+            <span className="h-px flex-1 bg-gradient-to-r from-primary to-transparent" />
             <span className="text-[8px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
               №&nbsp;{articleNo}
             </span>
@@ -566,7 +565,7 @@ const EditorialNewsCard = ({
           {/* Meta */}
           <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 text-[9px] text-muted-foreground mt-2 mb-2">
             <span
-              className="font-display italic text-[11px] font-semibold text-[hsl(215_45%_28%)] tracking-wide"
+              className="font-display italic text-[11px] font-semibold text-primary tracking-wide"
               style={{ fontFamily: "var(--font-display)" }}
             >
               {dateText}
@@ -583,7 +582,7 @@ const EditorialNewsCard = ({
           {/* Footer */}
           <div className="mt-auto pt-3 flex items-center justify-between gap-2">
             <ListenPill onClick={handleListen} lang={titleLang} />
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-[hsl(20_74%_38%)] group-hover:gap-1.5 transition-all">
+            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-primary group-hover:gap-1.5 transition-all">
               {titleLang === "ur" ? "مزید" : "Read"}
               <ArrowUpRight className="w-3 h-3" />
             </span>
@@ -592,7 +591,7 @@ const EditorialNewsCard = ({
 
         {/* Bottom triple-rule */}
         <div className="relative">
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-[hsl(20_74%_38%)]/40 to-transparent" />
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-primary to-transparent" />
           <div className="h-px w-full bg-gold/40" />
           <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
         </div>

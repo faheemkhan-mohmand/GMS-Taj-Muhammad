@@ -422,7 +422,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
   // modal into inline content sitting on the page).
   return createPortal(
     <div
-      className="fixed inset-0 z-[9999] flex items-start sm:items-center justify-center bg-black/60 backdrop-blur-sm p-0 sm:p-4"
+      className="fixed inset-0 z-[9999] flex items-start sm:items-center justify-center bg-background/60 backdrop-blur-sm p-0 sm:p-4"
       onClick={onClose}
     >
       <div
@@ -450,7 +450,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
                 any browser chrome. */}
             <button
               onClick={onClose}
-              className="rounded-lg hover:opacity-90 active:opacity-80 transition-opacity shrink-0 flex items-center justify-center gap-1.5 h-9 px-2.5 sm:px-2 sm:h-9 sm:bg-transparent sm:hover:bg-white/15 sm:active:bg-white/25 bg-white text-primary sm:text-primary-foreground sm:bg-transparent shadow-sm sm:shadow-none"
+              className="rounded-lg hover:opacity-90 active:opacity-80 transition-opacity shrink-0 flex items-center justify-center gap-1.5 h-9 px-2.5 sm:px-2 sm:h-9 sm:bg-transparent sm:hover:bg-surface/15 sm:active:bg-surface/25 bg-surface text-primary sm:text-primary-foreground sm:bg-transparent shadow-sm sm:shadow-none"
               aria-label="Back to results"
               title="Back to results"
             >
@@ -715,7 +715,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
                         <p className="text-[10px] text-muted-foreground mb-0.5">{classDisplayName(pairA)}</p>
                         <div className="h-1.5 bg-background rounded-full overflow-hidden border border-border">
                           <div
-                            className="h-full bg-sky-500 transition-all duration-200 ease-out"
+                            className="h-full bg-background transition-all duration-200 ease-out"
                             style={{
                               width: `${combinedProgress.aTotal > 0
                                 ? (combinedProgress.aDone / combinedProgress.aTotal) * 100
@@ -728,7 +728,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
                         <p className="text-[10px] text-muted-foreground mb-0.5">{classDisplayName(pairB)}</p>
                         <div className="h-1.5 bg-background rounded-full overflow-hidden border border-border">
                           <div
-                            className="h-full bg-violet-500 transition-all duration-200 ease-out"
+                            className="h-full bg-background transition-all duration-200 ease-out"
                             style={{
                               width: `${combinedProgress.bTotal > 0
                                 ? (combinedProgress.bDone / combinedProgress.bTotal) * 100
@@ -788,10 +788,9 @@ export default function ReportCardModal({ open, onClose }: Props) {
                     <button
                       onClick={startCombinedSearch}
                       disabled={!canCombine}
-                      className="w-full px-3.5 py-2.5 rounded-lg font-semibold text-sm text-white disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-opacity hover:opacity-90"
+                      className="w-full px-3.5 py-2.5 rounded-lg font-semibold text-sm text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 transition-opacity hover:opacity-90"
                       style={{
-                        background:
-                          "linear-gradient(90deg, #0284c7 0%, #7c3aed 100%)",
+                        background: "var(--gradient-hero)",
                       }}
                     >
                       <Layers className="w-4 h-4" />
@@ -838,14 +837,14 @@ export default function ReportCardModal({ open, onClose }: Props) {
                   <StatTile label="Found" value={stats.foundCount} />
                   <StatTile label="Not Found" value={stats.notFoundCount} />
                   <StatTile label="Errors" value={stats.errorCount} />
-                  <StatTile label="Passed" value={stats.passCount} color="text-emerald-600 dark:text-emerald-400" />
-                  <StatTile label="Failed" value={stats.failCount} color="text-red-600 dark:text-red-400" />
+                  <StatTile label="Passed" value={stats.passCount} color="text-primary text-primary" />
+                  <StatTile label="Failed" value={stats.failCount} color="text-primary text-primary" />
                   <StatTile label="Pass %" value={`${stats.passPercentage}%`} />
                   <StatTile label="Average" value={stats.averageMarks} />
                 </div>
                 {stats.topScorerName && (
-                  <div className="mt-3 p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/40 rounded-lg">
-                    <p className="text-xs text-emerald-800 dark:text-emerald-300 font-semibold">
+                  <div className="mt-3 p-3 bg-background bg-primary-strong/20 border border-border border-border/40 rounded-lg">
+                    <p className="text-xs text-primary text-primary font-semibold">
                       🏆 Top Scorer: {stats.topScorerName} (Roll {stats.topScorerRoll}) — {stats.highestMarks} marks
                     </p>
                   </div>
@@ -863,7 +862,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
                 </button>
                 <button
                   onClick={downloadExcel}
-                  className="flex-1 px-4 py-3 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-3 bg-primary text-primary-foreground rounded-xl font-semibold hover:bg-primary transition-colors flex items-center justify-center gap-2"
                 >
                   <FileSpreadsheet className="w-5 h-5" />
                   Download Excel
@@ -873,9 +872,9 @@ export default function ReportCardModal({ open, onClose }: Props) {
               {/* Retry only the missing results (never re-requests rolls that
                   already have a result). Shown only when something is missing. */}
               {(missingCount > 0 || retryNote) && (
-                <section className="rounded-xl border border-amber-300/60 bg-amber-50 dark:bg-amber-950/20 dark:border-amber-800/40 p-3">
+                <section className="rounded-xl border border-accent/60 bg-accent-soft bg-accent/20 border-accent/40 p-3">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                    <p className="flex-1 text-xs text-amber-900 dark:text-amber-200">
+                    <p className="flex-1 text-xs text-primary text-primary">
                       {missingCount > 0
                         ? `${missingCount} result${missingCount === 1 ? " is" : "s are"} missing (BISE was busy or unreachable). Retry fetches only those — results already loaded are kept.`
                         : "No missing results."}
@@ -884,7 +883,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
                       <button
                         onClick={retryMissing}
                         disabled={retrying}
-                        className="shrink-0 px-3 py-2 rounded-lg bg-amber-600 text-white text-xs font-semibold hover:bg-amber-700 disabled:opacity-60 flex items-center justify-center gap-1.5"
+                        className="shrink-0 px-3 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-semibold hover:bg-primary-strong disabled:opacity-60 flex items-center justify-center gap-1.5"
                       >
                         {retrying ? (
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -898,7 +897,7 @@ export default function ReportCardModal({ open, onClose }: Props) {
                     )}
                   </div>
                   {retryNote && (
-                    <p className="mt-2 text-xs font-medium text-amber-900 dark:text-amber-200">{retryNote}</p>
+                    <p className="mt-2 text-xs font-medium text-primary text-primary">{retryNote}</p>
                   )}
                 </section>
               )}
@@ -938,12 +937,12 @@ export default function ReportCardModal({ open, onClose }: Props) {
                           {!r.found ? (
                             <span className="text-muted-foreground">—</span>
                           ) : r.isFail ? (
-                            <span className="inline-flex items-center gap-1 text-red-600 dark:text-red-400 text-xs font-semibold">
+                            <span className="inline-flex items-center gap-1 text-primary text-primary text-xs font-semibold">
                               <XCircle className="w-3.5 h-3.5" />
                               FAIL
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
+                            <span className="inline-flex items-center gap-1 text-primary text-primary text-xs font-semibold">
                               <CheckCircle2 className="w-3.5 h-3.5" />
                               PASS
                             </span>

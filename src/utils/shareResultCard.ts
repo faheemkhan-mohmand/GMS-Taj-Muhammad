@@ -127,36 +127,36 @@ export type ShareOutcome =
 // ── Palette (fixed — shared images must be theme-independent) ───────────────
 
 const C = {
-  bgTop: "#241812",
-  bgBottom: "#3A2417",
-  card: "#FDFBF6",
-  headerTop: "#7A2D0E",
-  headerMid: "#B4530A",
-  headerBottom: "#E4650D",
-  navy: "#2A1B10",
-  navyBottom: "#3E2818",
-  ink: "#29231C",
-  sub: "#5C5142",
-  label: "#7A6C5B",
-  line: "#E8DFCF",
-  track: "#F2EBDD",
-  tile: "#FBF6EC",
-  gold: "#EFA70C",
-  goldBright: "#FBBF4C",
-  goldDark: "#B45309",
-  goldBg: "#FFF7EA",
+  bgTop: "#0E3B20",
+  bgBottom: "#14532D",
+  card: "#FFFFFF",
+  headerTop: "#0E3B20",
+  headerMid: "#14532D",
+  headerBottom: "#14532D",
+  navy: "#0E3B20",
+  navyBottom: "#14532D",
+  ink: "#1A2E22",
+  sub: "#5B6B5F",
+  label: "#5B6B5F",
+  line: "#D7E5D9",
+  track: "#F5E6C4",
+  tile: "#F5E6C4",
+  gold: "#B8860B",
+  goldBright: "#B8860B",
+  goldDark: "#0E3B20",
+  goldBg: "#F5E6C4",
   goldBorder: "#FDE3B3",
-  blue: "#1D4ED8",
-  blueBg: "#EFF6FF",
-  blueBorder: "#BFDBFE",
-  green: "#16A34A",
-  greenBg: "#F0FDF4",
-  greenBorder: "#BBF7D0",
-  red: "#DC2626",
-  redBg: "#FEF2F2",
-  redBorder: "#FECACA",
-  slateBg: "#F5EFE2",
-  slateBorder: "#E8DFCF",
+  blue: "#14532D",
+  blueBg: "#F0F7F1",
+  blueBorder: "#D7E5D9",
+  green: "#14532D",
+  greenBg: "#F0F7F1",
+  greenBorder: "#D7E5D9",
+  red: "#0E3B20",
+  redBg: "#F5E6C4",
+  redBorder: "#F5E6C4",
+  slateBg: "#F0F7F1",
+  slateBorder: "#D7E5D9",
 } as const;
 
 const FONT = `'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif`;
@@ -342,8 +342,8 @@ const HEADER_H = 300;
 // Marks Certificate): warm off-white header, dark serif-weight ink text,
 // a restrained gold hairline instead of a photographic gradient or seal.
 const HEADER_TONES = {
-  blue:  { top: "#F7F5EF", mid: "#F3F0E7", bottom: "#EFEBDF" },
-  green: { top: "#F7F5EF", mid: "#F3F0E7", bottom: "#EFEBDF" },
+  blue:  { top: "#FAFDF7", mid: "#F0F7F1", bottom: "#F0F7F1" },
+  green: { top: "#FAFDF7", mid: "#F0F7F1", bottom: "#F0F7F1" },
 } as const;
 
 function drawHeader(ctx: Ctx, o: HeaderOpts) {
@@ -611,9 +611,9 @@ function buildSchoolCanvas(d: SchoolResultShareData, photo: HTMLImageElement | n
       const pct = s.total > 0 ? Math.min(Math.max(s.obtained / s.total, 0), 1) : 0;
       if (pct > 0) {
         const fg = ctx.createLinearGradient(trackX, 0, trackX + trackW, 0);
-        if (pct >= 0.5) { fg.addColorStop(0, "#1D4ED8"); fg.addColorStop(1, "#60A5FA"); }
+        if (pct >= 0.5) { fg.addColorStop(0, "#14532D"); fg.addColorStop(1, "#14532D"); }
         else if (pct >= 0.33) { fg.addColorStop(0, "#D97706"); fg.addColorStop(1, "#FBBF24"); }
-        else { fg.addColorStop(0, "#DC2626"); fg.addColorStop(1, "#F87171"); }
+        else { fg.addColorStop(0, "#0E3B20"); fg.addColorStop(1, "#0E3B20"); }
         rr(ctx, trackX, cy - 7, Math.max(trackW * pct, 14), 14, 7);
         ctx.fillStyle = fg;
         ctx.fill();
@@ -760,8 +760,8 @@ function buildBiseCanvas(d: BiseResultShareData): HTMLCanvasElement | null {
         const frac = Math.min(Math.max(s.barPct / 100, 0), 1);
         const fw = Math.max(barW * frac, bh);
         const fg = ctx.createLinearGradient(barX, 0, barX + barW, 0);
-        if (failed) { fg.addColorStop(0, "#DC2626"); fg.addColorStop(1, "#F87171"); }
-        else { fg.addColorStop(0, "#1D4ED8"); fg.addColorStop(1, "#38BDF8"); }
+        if (failed) { fg.addColorStop(0, "#0E3B20"); fg.addColorStop(1, "#0E3B20"); }
+        else { fg.addColorStop(0, "#14532D"); fg.addColorStop(1, "#B8860B"); }
         rr(ctx, barX, by, fw, bh, bh / 2);
         ctx.fillStyle = fg;
         ctx.fill();
@@ -863,7 +863,7 @@ function drawMedallion(ctx: Ctx, cx: number, cy: number, position: number) {
   // gold ring (gradient rim → keeps it alive without extra colours)
   const rim = ctx.createLinearGradient(cx - 92, cy - 92, cx + 92, cy + 92);
   rim.addColorStop(0, C.goldBright);
-  rim.addColorStop(1, "#C6912A");
+  rim.addColorStop(1, "#B8860B");
   ctx.beginPath(); ctx.arc(cx, cy, 92, 0, Math.PI * 2);
   ctx.fillStyle = rim; ctx.fill();
   ctx.beginPath(); ctx.arc(cx, cy, 79, 0, Math.PI * 2);
@@ -1130,8 +1130,8 @@ function buildTop3Canvas(d: Top3ShareData, photos: (HTMLImageElement | null)[]):
   drawTop3Header(ctx, d.examLabel);
 
   const cols: [string, string][] = [
-    ["#CBD5E1", "#94A3B8"], // silver
-    [C.goldBright, "#C6912A"], // gold
+    ["#D7E5D9", "#5B6B5F"], // silver
+    [C.goldBright, "#B8860B"], // gold
     ["#FCD9A8", "#C2703D"], // bronze
   ];
   const emojis = ["🥈", "🥇", "🥉"];
@@ -1324,7 +1324,7 @@ export interface ComparisonShareData {
 }
 
 // Side-B "sky" identity — side A reuses the palette's blue family.
-const SKY_FG = "#0284C7";
+const SKY_FG = "#14532D";
 const SKY_BG = "#F0F9FF";
 const SKY_BORDER = "#BAE6FD";
 
@@ -1455,8 +1455,8 @@ export function buildComparisonCanvas(d: ComparisonShareData): HTMLCanvasElement
     roll: d.rollA,
     pct: pctText(d.pctA, d.marksA),
     grade: (d.gradeA || "").trim(),
-    accentTop: "#1D4ED8",
-    accentBottom: "#60A5FA",
+    accentTop: "#14532D",
+    accentBottom: "#14532D",
     bg: C.blueBg,
     border: C.blueBorder,
     leading: leaderA,
@@ -1466,8 +1466,8 @@ export function buildComparisonCanvas(d: ComparisonShareData): HTMLCanvasElement
     roll: d.rollB,
     pct: pctText(d.pctB, d.marksB),
     grade: (d.gradeB || "").trim(),
-    accentTop: "#0369A1",
-    accentBottom: "#38BDF8",
+    accentTop: "#14532D",
+    accentBottom: "#B8860B",
     bg: SKY_BG,
     border: SKY_BORDER,
     leading: leaderB,
@@ -1561,9 +1561,9 @@ export function buildComparisonCanvas(d: ComparisonShareData): HTMLCanvasElement
         if (ob == null || r.max == null || r.max <= 0) return;
         const frac = Math.min(Math.max(ob / r.max, 0), 1);
         const fg = ctx.createLinearGradient(leftX, 0, leftX + barW, 0);
-        if (win) { fg.addColorStop(0, "#059669"); fg.addColorStop(1, "#34D399"); }
-        else if (sideA) { fg.addColorStop(0, "#1D4ED8"); fg.addColorStop(1, "#60A5FA"); }
-        else { fg.addColorStop(0, "#0284C7"); fg.addColorStop(1, "#38BDF8"); }
+        if (win) { fg.addColorStop(0, "#0E3B20"); fg.addColorStop(1, "#14532D"); }
+        else if (sideA) { fg.addColorStop(0, "#14532D"); fg.addColorStop(1, "#14532D"); }
+        else { fg.addColorStop(0, "#14532D"); fg.addColorStop(1, "#B8860B"); }
         rr(ctx, leftX, yTop, Math.max(barW * frac, barH), barH, barH / 2);
         ctx.fillStyle = fg;
         ctx.fill();
@@ -1719,7 +1719,7 @@ export async function captureNodeAsPngFile(node: HTMLElement, fileName: string):
       const dataUrl = await toPng(node, {
         pixelRatio: Math.max(2, Math.min(3.5, widthFloor, areaCap)),
         cacheBust: true,
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--surface-raised)",
         style: { transform: "none" },
         // Skip anything marked data-capture-exclude (e.g. the Share/Save/
         // Compare action row) so buttons never end up baked into the image.

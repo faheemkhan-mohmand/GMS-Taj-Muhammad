@@ -82,10 +82,10 @@ export function getGradeColor(grade: string): string {
   switch (grade) {
     case "A+": return "bg-primary-dark text-primary-foreground";
     case "A": return "bg-primary text-primary-foreground";
-    case "B": return "bg-[hsl(172,66%,40%)] text-white";
-    case "C": return "bg-warning text-white";
-    case "D": return "bg-[hsl(25,95%,53%)] text-white";
-    case "E": return "bg-orange-400 text-white";
+    case "B": return "bg-surface text-primary-foreground";
+    case "C": return "bg-warning text-primary-foreground";
+    case "D": return "bg-accent-soft text-primary-foreground";
+    case "E": return "bg-accent text-primary-foreground";
     default: return "bg-destructive text-destructive-foreground";
   }
 }

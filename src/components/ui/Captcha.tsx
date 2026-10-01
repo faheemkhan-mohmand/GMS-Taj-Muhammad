@@ -26,7 +26,7 @@ interface CaptchaProps {
 }
 
 // Generate random number in range
-const randomInt = (min: number, max: number): number => 
+const randomInt = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
 // Shuffle array
@@ -62,7 +62,7 @@ const obfuscateText = (text: string): string => {
 // CAPTCHA Challenge Generators
 const generateMathChallenge = (difficulty: string): CaptchaChallenge => {
   const ops = ['+', '-', '×'];
-  
+
   switch(difficulty) {
     case 'easy': {
       const a = randomInt(1, 10);
@@ -80,7 +80,7 @@ const generateMathChallenge = (difficulty: string): CaptchaChallenge => {
         answer: answer.toString()
       };
     }
-    
+
     case 'medium': {
       const a = randomInt(10, 50);
       const b = randomInt(2, 20);
@@ -99,7 +99,7 @@ const generateMathChallenge = (difficulty: string): CaptchaChallenge => {
         hint: 'Calculate the result'
       };
     }
-    
+
     case 'hard': {
       const a = randomInt(20, 100);
       const b = randomInt(5, 30);
@@ -117,7 +117,7 @@ const generateMathChallenge = (difficulty: string): CaptchaChallenge => {
         hint: 'Remember order of operations'
       };
     }
-    
+
     case 'extreme': {
       const a = randomInt(50, 200);
       const b = randomInt(20, 80);
@@ -136,7 +136,7 @@ const generateMathChallenge = (difficulty: string): CaptchaChallenge => {
         hint: 'PEMDAS: Parentheses, Exponents, Multiplication/Division, Addition/Subtraction'
       };
     }
-    
+
     default:
       return generateMathChallenge('easy');
   }
@@ -165,16 +165,16 @@ const generateLogicChallenge = (difficulty: string): CaptchaChallenge => {
       { q: 'How many ways to arrange letters in "SECURITY"?', a: '40320', hint: '8! permutations' },
     ]
   };
-  
+
   const puzzles = logicPuzzles[difficulty as keyof typeof logicPuzzles] || logicPuzzles.easy;
   const puzzle = puzzles[randomInt(0, puzzles.length - 1)];
-  
+
   return {
     type: 'logic',
     question: puzzle.q,
     answer: puzzle.a,
     hint: puzzle.hint,
-    options: shuffleArray([puzzle.a, ...Array.from({length: 3}, () => 
+    options: shuffleArray([puzzle.a, ...Array.from({length: 3}, () =>
       (parseFloat(puzzle.a) + randomInt(-10, 10)).toString()
     )]).slice(0, 4)
   };
@@ -203,16 +203,16 @@ const generatePatternChallenge = (difficulty: string): CaptchaChallenge => {
       { seq: 'α β γ δ ε ζ η ?', a: 'θ', hint: 'Greek alphabet' },
     ]
   };
-  
+
   const patternList = patterns[difficulty as keyof typeof patterns] || patterns.easy;
   const pattern = patternList[randomInt(0, patternList.length - 1)];
-  
+
   return {
     type: 'pattern',
     question: `Complete the pattern:\n${pattern.seq}`,
     answer: pattern.a,
     hint: pattern.hint,
-    options: shuffleArray([pattern.a, ...Array.from({length: 3}, () => 
+    options: shuffleArray([pattern.a, ...Array.from({length: 3}, () =>
       (randomInt(1, 999)).toString()
     )]).slice(0, 4)
   };
@@ -240,10 +240,10 @@ const generateWordChallenge = (difficulty: string): CaptchaChallenge => {
       { scrambled: 'THUENACITIOIN', answer: 'AUTHENTICATION', hint: 'Login process' },
     ]
   };
-  
+
   const wordList = words[difficulty as keyof typeof words] || words.easy;
   const word = wordList[randomInt(0, wordList.length - 1)];
-  
+
   return {
     type: 'word',
     question: `Unscramble: ${word.scrambled}`,
@@ -268,7 +268,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
   const [timeStarted, setTimeStarted] = useState<number>(Date.now());
   const [token, setToken] = useState('');
   const [lastVerificationResult, setLastVerificationResult] = useState<boolean | null>(null);
-  
+
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const onVerifyRef = useRef(onVerify);
@@ -303,20 +303,20 @@ export const Captcha: React.FC<CaptchaProps> = ({
     setTimeStarted(Date.now());
     setToken(generateToken());
     setLastVerificationResult(null);
-    
+
     const generators = [
       generateMathChallenge,
       generateLogicChallenge,
       generatePatternChallenge,
       generateWordChallenge,
     ];
-    
+
     // Pick random generator with weighted probability
     const weights = [0.35, 0.25, 0.25, 0.15]; // Math most common
     const random = Math.random();
     let cumulative = 0;
     let selectedIndex = 0;
-    
+
     for (let i = 0; i < weights.length; i++) {
       cumulative += weights[i];
       if (random <= cumulative) {
@@ -324,11 +324,11 @@ export const Captcha: React.FC<CaptchaProps> = ({
         break;
       }
     }
-    
+
     const generator = generators[selectedIndex];
     setChallenge(generator(difficulty));
     setAttempts(0);
-    
+
     if (autoFocus) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
@@ -344,19 +344,19 @@ export const Captcha: React.FC<CaptchaProps> = ({
   // Bot detection: Check solving time (too fast = bot)
   const checkBotBehavior = (): boolean => {
     const timeTaken = Date.now() - timeStarted;
-    
+
     // If solved in less than 1.5 seconds, likely a bot
     if (timeTaken < 1500) {
       console.warn('[CAPTCHA] Suspicious: Solved too fast');
       return true;
     }
-    
+
     // Check for automation indicators
     if (navigator.webdriver) {
       console.warn('[CAPTCHA] WebDriver detected');
       return true;
     }
-    
+
     return false;
   };
 
@@ -366,29 +366,29 @@ export const Captcha: React.FC<CaptchaProps> = ({
   // propagated yet.
   const verifyAnswer = useCallback((answerOverride?: string) => {
     const answerToCheck = answerOverride ?? userAnswer;
-    
+
     if (!challenge || !answerToCheck.trim()) {
       onErrorRef.current?.('Please enter an answer');
       return;
     }
 
     setIsLoading(true);
-    
+
     // Simulate small delay to prevent timing attacks
     setTimeout(() => {
       const normalizedAnswer = answerToCheck.trim().toUpperCase();
       const correctAnswer = challenge.answer.toString().toUpperCase();
       const isCorrect = normalizedAnswer === correctAnswer;
-      
+
       // Bot behavior check
       const isSuspicious = checkBotBehavior();
-      
+
       if (isCorrect && !isSuspicious) {
         setIsVerified(true);
         setLastVerificationResult(true);
         // Use ref to call latest onVerify to avoid stale closure issues
         onVerifyRef.current(true, token);
-        
+
         // Auto-refresh after successful verification (optional)
         // Uncomment if you want fresh CAPTCHA each time:
         // setTimeout(generateNewChallenge, 5000);
@@ -396,7 +396,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
         const newAttempts = attempts + 1;
         setAttempts(newAttempts);
         setLastVerificationResult(false);
-        
+
         if (newAttempts >= 3) {
           // After 3 failed attempts, generate new challenge
           onErrorRef.current?.('Too many incorrect attempts. New challenge generated.');
@@ -410,10 +410,10 @@ export const Captcha: React.FC<CaptchaProps> = ({
           setShowHint(true); // Show hint after first wrong attempt
           inputRef.current?.focus();
         }
-        
+
         onVerifyRef.current(false, '');
       }
-      
+
       setIsLoading(false);
     }, 300 + Math.random() * 200); // Random delay 300-500ms
   }, [challenge, userAnswer, attempts, token, checkBotBehavior, generateNewChallenge]);
@@ -442,10 +442,10 @@ export const Captcha: React.FC<CaptchaProps> = ({
   }
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className={`captcha-container bg-card border-2 rounded-xl p-4 shadow-sm ${
-        isVerified ? 'border-green-300 dark:border-green-700' : 'border-border'
+        isVerified ? 'border-border border-border' : 'border-border'
       } ${className}`}
       data-captcha-type={challenge.type}
       data-captcha-difficulty={difficulty}
@@ -454,7 +454,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
-          <ShieldCheck className={`w-5 h-5 ${isVerified ? 'text-green-600' : 'text-primary'}`} />
+          <ShieldCheck className={`w-5 h-5 ${isVerified ? 'text-primary' : 'text-primary'}`} />
           <span className="text-sm font-semibold text-foreground">
             Security Verification
           </span>
@@ -471,7 +471,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
             </button>
           )}
           {isVerified && (
-            <span className="text-xs font-medium text-green-600 flex items-center gap-1">
+            <span className="text-xs font-medium text-primary flex items-center gap-1">
               <CheckCircle2 className="w-4 h-4" /> Verified
             </span>
           )}
@@ -481,10 +481,10 @@ export const Captcha: React.FC<CaptchaProps> = ({
       {/* Difficulty Badge */}
       <div className="mb-3">
         <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
-          difficulty === 'easy' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' :
-          difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200' :
-          difficulty === 'hard' ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200' :
-          'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+          difficulty === 'easy' ? 'bg-surface-raised text-primary bg-primary-strong text-primary' :
+          difficulty === 'medium' ? 'bg-accent-soft text-primary bg-accent text-primary' :
+          difficulty === 'hard' ? 'bg-accent-soft text-primary bg-accent text-primary' :
+          'bg-surface-raised text-primary bg-primary-strong text-primary'
         }`}>
           {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
         </span>
@@ -494,7 +494,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
       </div>
 
       {/* Question Display */}
-      <div 
+      <div
         className="captcha-question bg-secondary/50 rounded-lg p-4 mb-4 text-center"
         style={{
           fontFamily: "'Courier New', monospace",
@@ -507,25 +507,25 @@ export const Captcha: React.FC<CaptchaProps> = ({
         }}
       >
         {/* Background noise lines to prevent OCR */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-10"
           style={{
             backgroundImage: `repeating-linear-gradient(
               0deg,
               transparent,
               transparent 2px,
-              rgba(0,0,0,.05) 2px,
-              rgba(0,0,0,.05) 4px
+              color-mix(in srgb,var(--text-primary) 5%,transparent) 2px,
+              color-mix(in srgb,var(--text-primary) 5%,transparent) 4px
             ), repeating-linear-gradient(
               90deg,
               transparent,
               transparent 2px,
-              rgba(0,0,0,.05) 2px,
-              rgba(0,0,0,.05) 4px
+              color-mix(in srgb,var(--text-primary) 5%,transparent) 2px,
+              color-mix(in srgb,var(--text-primary) 5%,transparent) 4px
             )`
           }}
         />
-        
+
         <pre className="relative z-10 whitespace-pre-wrap font-mono">
           {challenge.question}
         </pre>
@@ -533,7 +533,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
 
       {/* Hint (shown after wrong attempt or on demand) */}
       {(showHint || challenge.hint) && (
-        <div className="mb-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded text-xs text-blue-700 dark:text-blue-300 flex items-start gap-2">
+        <div className="mb-3 p-2 bg-background bg-primary-strong/20 rounded text-xs text-primary text-primary flex items-start gap-2">
           <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
           <span>💡 Hint: {challenge.hint}</span>
         </div>
@@ -586,7 +586,7 @@ export const Captcha: React.FC<CaptchaProps> = ({
                 aria-label="CAPTCHA answer input"
                 aria-invalid={lastVerificationResult === false}
               />
-              
+
               {/* Submit Button */}
               <button
                 onClick={() => verifyAnswer()}
@@ -618,8 +618,8 @@ export const Captcha: React.FC<CaptchaProps> = ({
 
       {/* Verified State */}
       {isVerified && (
-        <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
-          <p className="text-sm font-medium text-green-700 dark:text-green-300 flex items-center justify-center gap-2">
+        <div className="text-center p-3 bg-background bg-primary-strong/20 rounded-lg">
+          <p className="text-sm font-medium text-primary text-primary flex items-center justify-center gap-2">
             <CheckCircle2 className="w-5 h-5" />
             Human verified successfully!
           </p>
@@ -635,12 +635,12 @@ export const Captcha: React.FC<CaptchaProps> = ({
       {/* Hidden fields for bot detection */}
       <div className="hidden" aria-hidden="true">
         <input type="hidden" name="captcha_token" value={token} />
-        <input 
-          type="text" 
-          name="website" 
+        <input
+          type="text"
+          name="website"
           tabIndex={-1}
           autoComplete="off"
-          onChange={() => {}} 
+          onChange={() => {}}
           // Honeypot field - bots will fill this
         />
       </div>
@@ -686,8 +686,8 @@ export function useCaptcha(difficulty: 'easy' | 'medium' | 'hard' | 'extreme' = 
   // user actually clicks "refresh" or gets an answer wrong.
   const CaptchaComponent = useMemo(() => {
     const Component = (props: Partial<CaptchaProps>) => (
-      <Captcha 
-        {...props} 
+      <Captcha
+        {...props}
         difficulty={difficulty}
         onVerify={handleVerify}
       />

@@ -233,7 +233,7 @@ function AdminSchoolNewsPanel() {
               {n.image_url
                 ? <img src={n.image_url} alt="" className="w-full h-full object-cover" />
                 : <div className="w-full h-full flex items-center justify-center"><ImageIcon className="w-8 h-8 text-muted-foreground/30" /></div>}
-              <Badge className={`absolute top-2 right-2 ${n.is_published ? "bg-[hsl(var(--success))] hover:bg-[hsl(var(--success))]" : "bg-muted-foreground"}`}>
+              <Badge className={`absolute top-2 right-2 ${n.is_published ? "bg-primary-strong hover:bg-primary-strong" : "bg-muted-foreground"}`}>
                 {n.is_published ? "Published" : "Draft"}
               </Badge>
             </div>
@@ -309,4 +309,4 @@ const AdminNews = () => (
 );
 
 export default AdminNews;
-    
+

@@ -229,7 +229,7 @@ const FAQ = () => {
             viewport={{ once: true }}
             className="gradient-hero rounded-2xl p-6 md:p-8 text-center"
           >
-            <MessageCircle className="w-8 h-8 mx-auto text-gold" />
+            <MessageCircle className="w-8 h-8 mx-auto text-primary" />
             <h2 className="mt-3 text-xl md:text-2xl font-heading font-bold text-on-hero">
               Still have a question?
             </h2>
@@ -249,7 +249,7 @@ const FAQ = () => {
               </a>
               <a
                 href="/admission"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold text-on-hero hover:bg-white/10 transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border border-border/25 px-5 py-2.5 text-sm font-semibold text-on-hero hover:bg-surface/10 transition-colors"
               >
                 <GraduationCap className="w-4 h-4" />
                 Admission Page

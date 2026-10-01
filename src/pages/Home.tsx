@@ -346,15 +346,15 @@ function GlobalDefinitionPopup() {
       {/* Header */}
       <div className="bg-gradient-to-r from-primary to-primary/80 px-4 py-2.5 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
-          <BookMarked className="w-3.5 h-3.5 text-white shrink-0" />
-          <span className="font-black text-white text-sm truncate capitalize">{popup.word}</span>
-          {phonetic && <span className="text-white/70 text-[11px] font-mono shrink-0">{phonetic}</span>}
+          <BookMarked className="w-3.5 h-3.5 text-primary-foreground shrink-0" />
+          <span className="font-black text-primary-foreground text-sm truncate capitalize">{popup.word}</span>
+          {phonetic && <span className="text-primary-foreground text-[11px] font-mono shrink-0">{phonetic}</span>}
         </div>
         <div className="flex items-center gap-1 shrink-0">
-          <button onClick={speakPopupWord} className="p-1 rounded-full hover:bg-white/20 text-white transition-colors" title="Hear pronunciation">
+          <button onClick={speakPopupWord} className="p-1 rounded-full hover:bg-surface/20 text-primary-foreground transition-colors" title="Hear pronunciation">
               <Volume2 className="w-3.5 h-3.5" />
             </button>
-          <button onClick={() => setPopup(null)} className="p-1 rounded-full hover:bg-white/20 text-white transition-colors">
+          <button onClick={() => setPopup(null)} className="p-1 rounded-full hover:bg-surface/20 text-primary-foreground transition-colors">
             <XIcon className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -370,7 +370,7 @@ function GlobalDefinitionPopup() {
           <p className="text-muted-foreground py-1">No definition found for "{popup.word}".</p>
         ) : (
           <>
-            {meaning && <span className="text-[10px] font-bold uppercase tracking-wider text-azure-strong dark:text-azure bg-azure-soft px-2 py-0.5 rounded-full">{meaning.partOfSpeech}</span>}
+            {meaning && <span className="text-[10px] font-bold uppercase tracking-wider text-azure-strong text-azure bg-azure-soft px-2 py-0.5 rounded-full">{meaning.partOfSpeech}</span>}
             {def && <p className="text-foreground leading-relaxed mt-1">{def.definition}</p>}
             {def?.example && <p className="text-muted-foreground italic">"{def.example}"</p>}
             {def?.synonyms && def.synonyms.length > 0 && (
@@ -455,8 +455,8 @@ function WordOfDaySection() {
               <div className="bg-card border border-gold/40 rounded-3xl overflow-hidden shadow-card">
                 <div className="bg-gradient-to-r from-primary via-primary to-primary/80 px-5 py-8">
                   <div className="flex items-center justify-center gap-3">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                    <span className="text-white/80 text-sm font-medium">Loading today's word…</span>
+                    <div className="w-5 h-5 border-2 border-border border-t-transparent rounded-full animate-spin" />
+                    <span className="text-primary-foreground text-sm font-medium">Loading today's word…</span>
                   </div>
                 </div>
               </div>
@@ -487,10 +487,10 @@ function WordOfDaySection() {
               <div className="bg-card border border-gold/40 rounded-3xl overflow-hidden shadow-card">
                 <div className="bg-gradient-to-r from-primary via-primary to-primary/80 px-5 py-8">
                   <div className="flex flex-col items-center justify-center gap-3">
-                    <span className="text-white/80 text-sm font-medium">Could not load today's word. Please check your connection.</span>
+                    <span className="text-primary-foreground text-sm font-medium">Could not load today's word. Please check your connection.</span>
                     <button
                       onClick={fetchEntry}
-                      className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/35 text-white px-4 py-2 rounded-xl text-sm font-bold transition-colors"
+                      className="inline-flex items-center gap-2 bg-surface/20 hover:bg-surface/35 text-primary-foreground px-4 py-2 rounded-xl text-sm font-bold transition-colors"
                     >
                       <RefreshCw className="w-4 h-4" /> Retry
                     </button>
@@ -548,7 +548,7 @@ function WordOfDaySection() {
               <div className="bg-gradient-to-r from-primary via-primary to-primary/80 px-5 py-5">
                 {/* Date badge row — top right */}
                 <div className="flex justify-end mb-3">
-                  <span className="text-[11px] bg-white/20 text-white px-3 py-1.5 rounded-full font-bold border border-white/25 flex items-center gap-1.5">
+                  <span className="text-[11px] bg-surface/20 text-primary-foreground px-3 py-1.5 rounded-full font-bold border border-border/25 flex items-center gap-1.5">
                     📅 {todayLabel}
                   </span>
                 </div>
@@ -559,16 +559,16 @@ function WordOfDaySection() {
                     onClick={speakWord}
                     title="Tap to hear pronunciation"
                     className={`w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center transition-all duration-200 shadow-lg
-                      bg-white/20 hover:bg-white/35 active:scale-95 cursor-pointer
-                      ${speaking ? "ring-4 ring-white/60 bg-white/30" : ""}`}
+                      bg-surface/20 hover:bg-surface/35 active:scale-95 cursor-pointer
+                      ${speaking ? "ring-4 ring-white/60 bg-surface/30" : ""}`}
                   >
-                    <Volume2 className={`w-7 h-7 text-white ${speaking ? "animate-pulse" : ""}`} />
+                    <Volume2 className={`w-7 h-7 text-primary-foreground ${speaking ? "animate-pulse" : ""}`} />
                   </button>
 
                   {/* Word + phonetic — font scales down for long words */}
                   <div className="flex-1 min-w-0">
                     <h3
-                      className={`font-black text-white capitalize leading-tight ${
+                      className={`font-black text-primary-foreground capitalize leading-tight ${
                         todayEntry.word.length > 10
                           ? "text-2xl"
                           : todayEntry.word.length > 7
@@ -579,9 +579,9 @@ function WordOfDaySection() {
                       {todayEntry.word}
                     </h3>
                     {phonetic && (
-                      <p className="text-white/75 text-sm font-mono mt-1">{phonetic}</p>
+                      <p className="text-primary-foreground text-sm font-mono mt-1">{phonetic}</p>
                     )}
-                    <p className="text-white/55 text-[11px] mt-1 flex items-center gap-1">
+                    <p className="text-primary-foreground text-[11px] mt-1 flex items-center gap-1">
                       <Volume2 className="w-3 h-3" /> Tap speaker to hear pronunciation
                     </p>
                   </div>
@@ -597,7 +597,7 @@ function WordOfDaySection() {
                       onClick={() => setActiveMeaning(i)}
                       className={`px-3 py-1 rounded-full text-[11px] font-bold transition-colors ${
                         activeMeaning === i
-                          ? "bg-primary text-white"
+                          ? "bg-primary text-primary-foreground"
                           : "bg-secondary text-muted-foreground hover:bg-secondary/80"
                       }`}
                     >
@@ -613,18 +613,18 @@ function WordOfDaySection() {
                   {meaning.definitions.slice(0, 3).map((def, i) => (
                     <div key={i} className={`${i > 0 ? "border-t border-border/50 pt-3" : ""}`}>
                       <div className="flex gap-3">
-                        <span className="w-5 h-5 rounded-full bg-azure-soft text-azure-strong dark:text-azure text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
+                        <span className="w-5 h-5 rounded-full bg-azure-soft text-azure-strong text-azure text-[10px] font-black flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
                         <div className="space-y-1.5 flex-1 min-w-0">
                           <p className="text-sm text-foreground leading-relaxed">{def.definition}</p>
                           {def.example && (
                             <p className="text-xs text-muted-foreground italic bg-secondary/50 rounded-lg px-3 py-1.5">
-                              <span className="not-italic font-semibold text-azure-strong dark:text-azure">Example:</span> "{def.example}"
+                              <span className="not-italic font-semibold text-azure-strong text-azure">Example:</span> "{def.example}"
                             </p>
                           )}
                           {def.synonyms?.length > 0 && (
                             <div className="flex flex-wrap gap-1 mt-1">
                               {def.synonyms.slice(0, 4).map((s) => (
-                                <span key={s} className="text-[10px] bg-azure-soft text-azure-strong dark:text-azure px-2 py-0.5 rounded-full font-medium">{s}</span>
+                                <span key={s} className="text-[10px] bg-azure-soft text-azure-strong text-azure px-2 py-0.5 rounded-full font-medium">{s}</span>
                               ))}
                             </div>
                           )}
@@ -637,9 +637,9 @@ function WordOfDaySection() {
 
               {/* Footer hint */}
               <div className="px-5 pb-4">
-                <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-xl px-4 py-2.5 flex items-center gap-2">
-                  <BookMarked className="w-4 h-4 text-indigo-500 shrink-0" />
-                  <p className="text-[11px] text-indigo-600 dark:text-indigo-400 font-medium">
+                <div className="bg-gradient-to-r from-primary/10 to-primary/10 border border-border/20 rounded-xl px-4 py-2.5 flex items-center gap-2">
+                  <BookMarked className="w-4 h-4 text-primary shrink-0" />
+                  <p className="text-[11px] text-primary text-primary font-medium">
                     <span className="font-bold">Pro tip:</span> Double-click any English word on this website to instantly see its definition!
                   </p>
                 </div>
@@ -663,8 +663,8 @@ const TopperSection = () => {
   const { data: toppers = [], isLoading } = useSchoolToppers();
   if (!isLoading && toppers.length === 0) return null;
   const gradients = [
-    "from-[#0c4a6e] via-[#0369a1] to-[#0ea5e9]", "from-[#075985] via-[#0284c7] to-[#38bdf8]",
-    "from-[#0c4a6e] via-[#0e7490] to-[#22d3ee]",  "from-[#1e3a8a] via-[#1d4ed8] to-[#3b82f6]",
+    "from-primary via-primary to-primary", "from-primary via-primary to-primary",
+    "from-primary via-primary to-primary",  "from-primary via-primary to-primary",
     "from-primary-dark via-primary to-primary-light",
   ];
   return (
@@ -688,19 +688,19 @@ const TopperSection = () => {
                     <div className="relative flex flex-col items-center pt-7 pb-3 px-3">
                       <div className="text-xl mb-1 drop-shadow">👑</div>
                       {photoUrl
-                        ? <img src={photoUrl} alt={name} className="w-16 h-16 rounded-full object-cover border-4 border-white/50 shadow-lg" />
-                        : <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm border-4 border-white/40 flex items-center justify-center text-2xl font-black text-white shadow-lg">{initials}</div>
+                        ? <img src={photoUrl} alt={name} className="w-16 h-16 rounded-full object-cover border-4 border-border/50 shadow-lg" />
+                        : <div className="w-16 h-16 rounded-full bg-surface/20 backdrop-blur-sm border-4 border-border/40 flex items-center justify-center text-2xl font-black text-primary-foreground shadow-lg">{initials}</div>
                       }
-                      <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-sm rounded-full px-2 py-0.5 text-[9px] font-black text-white border border-white/30">#1</div>
+                      <div className="absolute top-3 right-3 bg-surface/20 backdrop-blur-sm rounded-full px-2 py-0.5 text-[9px] font-black text-primary-foreground border border-border/30">#1</div>
                     </div>
-                    <div className="bg-black/20 backdrop-blur-sm mx-2 mb-2 rounded-2xl p-2.5 text-center">
-                      <h3 className="text-xs font-black text-white leading-tight line-clamp-1">{name}</h3>
-                      <p className="text-[9px] text-white/70 mt-0.5">Class {t.class}</p>
+                    <div className="bg-background/20 backdrop-blur-sm mx-2 mb-2 rounded-2xl p-2.5 text-center">
+                      <h3 className="text-xs font-black text-primary-foreground leading-tight line-clamp-1">{name}</h3>
+                      <p className="text-[9px] text-primary-foreground mt-0.5">Class {t.class}</p>
                       <div className="flex items-center justify-center gap-1.5 mt-2">
-                        <div className="bg-white/20 rounded-lg px-2 py-0.5"><span className="text-xs font-black text-white">{Number(t.percentage || 0).toFixed(0)}%</span></div>
-                        <div className="bg-white/20 rounded-lg px-2 py-0.5"><span className="text-xs font-black text-white">{t.grade || "A+"}</span></div>
+                        <div className="bg-surface/20 rounded-lg px-2 py-0.5"><span className="text-xs font-black text-primary-foreground">{Number(t.percentage || 0).toFixed(0)}%</span></div>
+                        <div className="bg-surface/20 rounded-lg px-2 py-0.5"><span className="text-xs font-black text-primary-foreground">{t.grade || "A+"}</span></div>
                       </div>
-                      <p className="text-[8px] text-white/50 mt-1">{t.exam_type} · {t.year}</p>
+                      <p className="text-[8px] text-primary-foreground mt-1">{t.exam_type} · {t.year}</p>
                     </div>
                   </div>
                 </m.div>
@@ -1130,7 +1130,7 @@ const Home = () => {
 
         {/* ── Background: warm cream-peach gradient (light) / soft cocoa
              gradient (dark) — dark: variant keeps hero text tokens readable ── */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[hsl(36,48%,94%)] via-[hsl(33,44%,96%)] to-[hsl(28,66%,88%)] dark:from-[hsl(24,20%,9%)] dark:via-[hsl(22,26%,12%)] dark:to-[hsl(26,32%,16%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent to-accent from-primary via-primary to-accent" />
 
         {/* ── Dark gradient overlay so text stays readable ── */}
         <div className={`absolute inset-0 ${heroOverlay}`} />
@@ -1157,13 +1157,13 @@ const Home = () => {
               <m.div variants={stagger.child} className="mt-10 flex flex-wrap gap-4">
                 <Link to="/results">
                   <m.button whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-7 py-3.5 rounded-xl border border-transparent shadow-md hover:shadow-lg hover:bg-primary/90 transition-all duration-200 dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90 dark:shadow-md">
+                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground font-semibold px-7 py-3.5 rounded-xl border border-transparent shadow-md hover:shadow-lg hover:bg-primary/90 transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 dark:shadow-md">
                     View Results <ArrowRight className="w-4 h-4" />
                   </m.button>
                 </Link>
                 <Link to="/about">
                   <m.button whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 bg-card text-foreground font-semibold px-7 py-3.5 rounded-xl border border-border shadow-sm hover:shadow-md hover:bg-secondary/60 transition-all duration-200 dark:bg-white/10 dark:text-foreground dark:border-border">
+                    className="inline-flex items-center gap-2 bg-card text-foreground font-semibold px-7 py-3.5 rounded-xl border border-border shadow-sm hover:shadow-md hover:bg-secondary/60 transition-all duration-200 bg-surface/10 text-foreground border-border">
                     Learn more
                   </m.button>
                 </Link>
@@ -1182,7 +1182,7 @@ const Home = () => {
                 <m.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 + i * 0.1 }}
                   className={`${heroStatCard} rounded-2xl p-4 shadow-sm`}>
                   <div className="w-10 h-10 rounded-xl bg-azure-soft flex items-center justify-center mb-2">
-                    <stat.icon className="w-5 h-5 text-azure-strong dark:text-azure" />
+                    <stat.icon className="w-5 h-5 text-azure-strong text-azure" />
                   </div>
                   <p className="text-2xl font-bold text-foreground"><AnimCounter value={stat.value} suffix={stat.suffix} isInView={statsInView} /></p>
                   <p className="text-xs text-muted-foreground mt-1 font-medium">{stat.label}</p>
@@ -1268,7 +1268,7 @@ const Home = () => {
                 <span className="inline-block text-azure text-xs md:text-sm font-semibold uppercase tracking-[0.2em] mb-3">
                   Campus · Mohmand
                 </span>
-                <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-medium text-white leading-tight max-w-2xl">
+                <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-medium text-primary-foreground leading-tight max-w-2xl">
                   A place shaped by mountains, made for learners.
                 </h2>
               </div>
@@ -1325,7 +1325,7 @@ const Home = () => {
               <span className="inline-block w-1 h-1 rotate-45 bg-gold/50" />
               <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold/40" />
             </div>
-            <Link to="/notices" className="inline-flex items-center gap-1 text-sm font-semibold text-[hsl(18,72%,36%)] hover:gap-2 transition-all mt-4">
+            <Link to="/notices" className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:gap-2 transition-all mt-4">
               View All Notices <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
@@ -1388,7 +1388,7 @@ const Home = () => {
             </p>
             <Link
               to="/news"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[hsl(18,72%,36%)] hover:gap-2 transition-all mt-4"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2 transition-all mt-4"
             >
               View archive <ChevronRight className="w-4 h-4" />
             </Link>
@@ -1442,7 +1442,7 @@ const Home = () => {
                 className="bg-card rounded-2xl p-4 sm:p-6 text-center shadow-card hover:shadow-elevated transition-all duration-300 group">
                 {teacher.photo_url
                   ? <img src={teacher.photo_url} alt={teacher.full_name} loading="lazy" decoding="async" className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 object-cover ring-4 ring-secondary group-hover:ring-primary/30 transition-all" />
-                  : <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 bg-primary flex items-center justify-center text-white text-lg sm:text-xl font-heading font-bold">{(teacher.full_name || "?").split(" ").map((n: string) => n[0]).join("").slice(0, 2)}</div>
+                  : <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full mx-auto mb-4 bg-primary flex items-center justify-center text-primary-foreground text-lg sm:text-xl font-heading font-bold">{(teacher.full_name || "?").split(" ").map((n: string) => n[0]).join("").slice(0, 2)}</div>
                 }
                 <h3 className="font-heading font-semibold text-foreground">{teacher.full_name}</h3>
                 {teacher.subject       && <p className="text-sm text-muted-foreground font-medium mt-1">{teacher.subject}</p>}
@@ -1495,17 +1495,17 @@ const Home = () => {
                 {isAdmissionEffectivelyOpen ? (
                   <>
                     {/* Admissions OPEN — Editorial Style */}
-                    <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-[#FFFDFA] via-white to-[#FFF3E4] text-[#7C2D12] border border-[#F5C89A]/50 text-sm font-semibold tracking-wide uppercase px-5 py-2.5 rounded-full mb-5 shadow-sm">
+                    <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-accent via-accent-soft to-accent text-primary border border-accent text-sm font-semibold tracking-wide uppercase px-5 py-2.5 rounded-full mb-5 shadow-sm">
                       <span className="relative flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EA580C] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#EA580C]"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-surface opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-surface"></span>
                       </span>
                       <span className="font-display text-base italic normal-case tracking-normal">Admissions Open</span>
-                      <span className="text-[#9A3412]/70 font-light">— Session {admSettings.session_year}</span>
+                      <span className="text-primary font-light">— Session {admSettings.session_year}</span>
                     </div>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-4 leading-tight">
                       Apply for Admission{" "}
-                      <span className="text-[#C2410C]">Today</span>
+                      <span className="text-primary">Today</span>
                     </h2>
                     {admSettings.last_date && (
                       <p className="text-muted-foreground text-base mb-3">
@@ -1521,7 +1521,7 @@ const Home = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Link to="/admission">
                         <m.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-                          className="w-full sm:w-auto px-10 py-5 bg-transparent text-[#C2410C] border-2 border-[#C2410C] rounded-2xl font-semibold hover:bg-[#C2410C]/10 transition-all flex items-center justify-center gap-2 text-lg">
+                          className="w-full sm:w-auto px-10 py-5 bg-transparent text-primary border-2 border-border rounded-2xl font-semibold hover:bg-surface transition-all flex items-center justify-center gap-2 text-lg">
                           <Send className="w-5 h-5" /> Apply Online
                         </m.button>
                       </Link>
@@ -1532,7 +1532,7 @@ const Home = () => {
                           reload), NOT the old window.location full reload. */}
                       <Link to="/admission" onClick={(e) => { e.preventDefault(); const el = document.querySelector('[data-track-section]'); if (el) { el.scrollIntoView({ behavior: 'smooth' }); } else { navigate("/admission", { state: { view: "track" } }); }}}>
                         <m.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-                          className="w-full sm:w-auto px-10 py-5 bg-transparent text-[#C2410C] border-2 border-[#C2410C] rounded-2xl font-semibold hover:bg-[#C2410C]/10 transition-all flex items-center justify-center gap-2 text-lg">
+                          className="w-full sm:w-auto px-10 py-5 bg-transparent text-primary border-2 border-border rounded-2xl font-semibold hover:bg-surface transition-all flex items-center justify-center gap-2 text-lg">
                           <Search className="w-5 h-5" /> My Tracking
                         </m.button>
                       </Link>
@@ -1563,7 +1563,7 @@ const Home = () => {
                     </div>
                     <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground mb-6 leading-tight">
                       Ready to Begin Your{" "}
-                      <span className="text-[#C2410C]">Educational Journey?</span>
+                      <span className="text-primary">Educational Journey?</span>
                     </h2>
                     <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
                       Access your student portal to view results, attendance, timetables, and stay connected with your academic progress.
@@ -1571,13 +1571,13 @@ const Home = () => {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Link to="/auth/signin">
                         <m.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-                          className="w-full sm:w-auto px-10 py-5 bg-primary text-white rounded-2xl font-bold shadow-md flex items-center justify-center gap-2 text-lg">
+                          className="w-full sm:w-auto px-10 py-5 bg-primary text-primary-foreground rounded-2xl font-bold shadow-md flex items-center justify-center gap-2 text-lg">
                           Sign In to Portal <ArrowRight className="w-5 h-5" />
                         </m.button>
                       </Link>
                       <Link to="/results">
                         <m.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-                          className="w-full sm:w-auto px-10 py-5 bg-accent text-accent-foreground rounded-2xl font-semibold border border-accent/30 hover:bg-accent/90 transition-all flex items-center justify-center gap-2 text-lg">
+                          className="w-full sm:w-auto px-10 py-5 bg-primary text-primary-foreground rounded-2xl font-semibold border border-primary/30 hover:bg-primary-strong transition-all flex items-center justify-center gap-2 text-lg">
                           Check Results
                         </m.button>
                       </Link>
@@ -1613,7 +1613,7 @@ const Home = () => {
                   ].map((item, i) => (
                     <m.div key={i} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                       className="flex items-center gap-3 bg-card rounded-xl p-3 border border-border">
-                      <div className="w-10 h-10 rounded-lg bg-azure-soft flex items-center justify-center shrink-0"><item.icon className="w-5 h-5 text-azure-strong dark:text-azure" /></div>
+                      <div className="w-10 h-10 rounded-lg bg-azure-soft flex items-center justify-center shrink-0"><item.icon className="w-5 h-5 text-azure-strong text-azure" /></div>
                       <span className="text-sm text-muted-foreground">{item.text}</span>
                     </m.div>
                   ))}
@@ -1649,13 +1649,13 @@ const Home = () => {
                 )}
                 <m.div animate={motionOk ? { y: [0, -10, 0] } : {}} transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }} className="absolute -bottom-6 -left-6 bg-card rounded-2xl shadow-2xl p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-lg"><Star className="w-6 h-6 text-white" /></div>
+                    <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center shadow-lg"><Star className="w-6 h-6 text-primary-foreground" /></div>
                     <div><p className="text-2xl font-black text-foreground">{settings?.pass_percentage || 95}%</p><p className="text-xs text-muted-foreground font-medium">Pass Rate</p></div>
                   </div>
                 </m.div>
                 <m.div animate={motionOk ? { y: [0, 10, 0] } : {}} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-4 -right-4 bg-card rounded-2xl shadow-2xl p-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-400 to-amber-400 flex items-center justify-center shadow-lg"><Award className="w-6 h-6 text-white" /></div>
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-accent flex items-center justify-center shadow-lg"><Award className="w-6 h-6 text-primary-foreground" /></div>
                     <div><p className="text-2xl font-black text-foreground">{settings?.board_results || "A+"}</p><p className="text-xs text-muted-foreground font-medium">Results</p></div>
                   </div>
                 </m.div>

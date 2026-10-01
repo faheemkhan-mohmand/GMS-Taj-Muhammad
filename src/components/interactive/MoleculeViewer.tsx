@@ -34,17 +34,17 @@ function load3Dmol(): Promise<any> {
     loadResolved = true;
     return Promise.resolve(window.$3Dmol);
   }
-  
+
   // Return existing promise if loading
   if (loadPromise) return loadPromise;
-  
+
   loadPromise = new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       if (!loadResolved) {
         reject(new Error("CDN load timed out. Check your internet connection."));
       }
     }, CDN_TIMEOUT);
-    
+
     // Check if script already exists in head
     const existingScript = document.querySelector(`script[src="${CDN_URL}"]`);
     if (existingScript) {
@@ -59,7 +59,7 @@ function load3Dmol(): Promise<any> {
       }, 200);
       return;
     }
-    
+
     const script = document.createElement("script");
     script.src = CDN_URL;
     script.async = true;
@@ -72,10 +72,10 @@ function load3Dmol(): Promise<any> {
       clearTimeout(timeoutId);
       reject(new Error("Failed to load 3Dmol.js from CDN."));
     };
-    
+
     document.head.appendChild(script);
   });
-  
+
   return loadPromise;
 }
 
@@ -98,7 +98,7 @@ function fetchWithTimeout(url: string, timeout: number): Promise<Response> {
       controller.abort();
       reject(new Error(`Request timed out (${timeout/1000}s). Try again or check connection.`));
     }, timeout);
-    
+
     fetch(url, { signal: controller.signal })
       .then(response => {
         clearTimeout(timer);
@@ -119,7 +119,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
   const viewerRef = useRef<any>(null);
   const retryCountRef = useRef(0);
   const mountedRef = useRef(true);
-  
+
   const [query, setQuery] = useState("c1ccccc1");
   const [inputValue, setInputValue] = useState("benzene");
   const [loading, setLoading] = useState(false);
@@ -132,16 +132,16 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
   const nameToSmiles = useCallback(async (name: string): Promise<string | null> => {
     try {
       console.log(`[MoleculeViewer] Looking up molecule: ${name}`);
-      
+
       // Try direct SMILES lookup first
       const res = await fetchWithTimeout(
         `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(name)}/property/CanonicalSMILES,IsomericSMILES/JSON`,
         API_TIMEOUT
       );
-      
+
       if (!res.ok) {
         console.warn(`[MoleculeViewer] PubChem API returned status: ${res.status}`);
-        
+
         // Fallback: try CID-based lookup
         try {
           const cidRes = await fetchWithTimeout(
@@ -170,21 +170,21 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
         } catch (fallbackErr) {
           console.warn(`[MoleculeViewer] CID fallback failed:`, fallbackErr);
         }
-        
+
         return null;
       }
-      
+
       const json = await res.json();
-      
+
       // Try IsomericSMILES first (more detailed), then CanonicalSMILES
-      let smiles = json?.PropertyTable?.Properties?.[0]?.IsomericSMILES || 
+      let smiles = json?.PropertyTable?.Properties?.[0]?.IsomericSMILES ||
                    json?.PropertyTable?.Properties?.[0]?.CanonicalSMILES;
-      
+
       if (smiles) {
         console.log(`[MoleculeViewer] Found SMILES: ${smiles}`);
         return smiles;
       }
-      
+
       console.warn(`[MoleculeViewer] No SMILES found in response`);
       return null;
     } catch (err: any) {
@@ -211,15 +211,15 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
   const renderMolecule = useCallback(async (smiles: string, attempt = 0) => {
     if (!mountedRef.current) return;
     if (!viewerContainerRef.current) return;
-    
+
     setLoading(true);
     setError(null);
-    
+
     try {
       // Step 1: Load 3Dmol library with timeout
       setCdnLoading(true);
       setCdnError(null);
-      
+
       let $3Dmol;
       try {
         $3Dmol = await load3Dmol();
@@ -228,49 +228,49 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
         setCdnError(cdnErr.message || "Failed to load 3D molecule library.");
         throw new Error(`Library load failed: ${cdnErr.message}`);
       }
-      
+
       setCdnLoading(false);
-      
+
       if (!mountedRef.current) return;
-      
+
       // Step 2: Clean up previous viewer safely
       safeCleanup();
-      
+
       if (!mountedRef.current) return;
-      
+
       // Step 3: Fetch 3D structure from PubChem with timeout
       const sdfUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(smiles)}/SDF?record_type=3d`;
-      
+
       let resp;
       try {
         resp = await fetchWithTimeout(sdfUrl, API_TIMEOUT);
       } catch (fetchErr: any) {
         throw new Error(`Network error: ${fetchErr.message}. Check your internet connection.`);
       }
-      
+
       if (!resp.ok) {
         throw new Error("Could not fetch molecule data. Try a simpler molecule like Water or Methane.");
       }
-      
+
       const sdf = await resp.text();
-      
+
       if (!mountedRef.current) return;
       if (!viewerContainerRef.current) return;
-      
+
       // Step 4: Create a fresh container for 3Dmol
       // This avoids React's DOM management conflicts
       const element = viewerContainerRef.current;
-      
+
       // Clear only our inner container, not React's DOM
       while (element.firstChild) {
         element.removeChild(element.firstChild);
       }
-      
+
       // Step 5: Create viewer
       const config = { backgroundColor: "white" };
       const viewer = $3Dmol.createViewer(element, config);
       viewerRef.current = viewer;
-      
+
       // Step 6: Load and render model
       viewer.addModel(sdf, "sdf");
       viewer.setStyle({}, {
@@ -278,31 +278,31 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
         sphere: style === "sphere" ? { scale: 0.3 } : undefined,
         line: style === "line" ? {} : undefined,
       } as any);
-      
+
       if (style === "cartoon") {
         viewer.setStyle({}, { cartoon: {} } as any);
       }
-      
+
       viewer.zoomTo();
       viewer.render();
       viewer.zoom(1.5, 200);
-      
+
       retryCountRef.current = 0; // Reset retry count on success
-      
+
     } catch (e: any) {
       console.error("[MoleculeViewer] Render error:", e);
-      
+
       // Auto-retry with backoff for transient errors
       const errorMsg = e?.message || String(e);
-      const isTransient = errorMsg.includes("timed out") || 
-                          errorMsg.includes("network") || 
+      const isTransient = errorMsg.includes("timed out") ||
+                          errorMsg.includes("network") ||
                           errorMsg.includes("Failed to fetch") ||
                           errorMsg.includes("load failed");
-      
+
       if (isTransient && attempt < MAX_RETRIES && mountedRef.current) {
         const delay = 1000 * Math.pow(2, attempt); // 1s, 2s, 4s
         console.log(`[MoleculeViewer] Retrying in ${delay}ms... (attempt ${attempt + 1}/${MAX_RETRIES})`);
-        
+
         setTimeout(() => {
           if (mountedRef.current) {
             renderMolecule(smiles, attempt + 1);
@@ -310,7 +310,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
         }, delay);
         return; // Keep loading state
       }
-      
+
       if (mountedRef.current) {
         setError(errorMsg);
       }
@@ -325,7 +325,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
   // Cleanup on unmount
   useEffect(() => {
     mountedRef.current = true;
-    
+
     return () => {
       mountedRef.current = false;
       safeCleanup();
@@ -335,14 +335,14 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
   const load = async () => {
     const trimmed = inputValue.trim();
     if (!trimmed) return;
-    
+
     setLoading(true);
     setError(null);
-    
+
     // If input looks like SMILES (contains C, O, N, brackets, etc.) use it directly
     const looksLikeSmiles = /^[A-Za-z0-9\[\]\(\)\\\/@+=\-#.:]+$/.test(trimmed) && /[CNOScnos\[\]]/.test(trimmed);
     let smiles = trimmed;
-    
+
     if (!looksLikeSmiles) {
       const result = await nameToSmiles(trimmed);
       if (!result) {
@@ -352,7 +352,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
       }
       smiles = result;
     }
-    
+
     setQuery(smiles);
     await renderMolecule(smiles);
   };
@@ -364,13 +364,13 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
     loadResolved = false;
     setCdnError(null);
     setError(null);
-    
+
     // Remove old script if exists
     const oldScript = document.querySelector(`script[src="${CDN_URL}"]`);
     if (oldScript) {
       oldScript.remove();
     }
-    
+
     // Retry current molecule
     if (query) {
       renderMolecule(query);
@@ -406,7 +406,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
           <button
             onClick={load}
             disabled={loading}
-            className="shrink-0 px-4 py-2 rounded-lg text-white text-sm font-semibold flex items-center gap-1.5 hover:opacity-90 disabled:opacity-50"
+            className="shrink-0 px-4 py-2 rounded-lg text-primary-foreground text-sm font-semibold flex items-center gap-1.5 hover:opacity-90 disabled:opacity-50"
             style={{ backgroundColor: subjectColor }}
           >
             {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
@@ -419,10 +419,10 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
           {POPULAR_MOLECULES.map((m) => (
             <button
               key={m.name}
-              onClick={() => { 
-                setInputValue(m.name); 
-                setQuery(m.query); 
-                renderMolecule(m.query); 
+              onClick={() => {
+                setInputValue(m.name);
+                setQuery(m.query);
+                renderMolecule(m.query);
               }}
               disabled={loading}
               className="text-[10px] px-2.5 py-1.5 rounded-lg bg-secondary hover:bg-secondary/70 text-foreground font-medium disabled:opacity-50 transition-all"
@@ -451,7 +451,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
         {/* Viewer Container - Nested div for 3Dmol isolation */}
         <div
           ref={containerRef}
-          className="relative w-full rounded-xl bg-white overflow-hidden touch-none border border-border/50"
+          className="relative w-full rounded-xl bg-surface overflow-hidden touch-none border border-border/50"
           style={{ aspectRatio: "1 / 1", minHeight: "300px" }}
         >
           {/* Inner container for 3Dmol - this isolates it from React's DOM */}
@@ -462,7 +462,7 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
 
           {/* Loading Overlay */}
           {(loading || cdnLoading) && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 z-10 backdrop-blur-sm">
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-surface/90 z-10 backdrop-blur-sm">
               <Loader2 className="w-8 h-8 animate-spin mb-2" style={{ color: subjectColor }} />
               <p className="text-xs text-muted-foreground font-medium">
                 {cdnLoading ? "Loading 3D library..." : "Rendering molecule..."}
@@ -475,23 +475,23 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
 
           {/* Error State */}
           {error && !loading && !cdnLoading && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-white/95 z-10">
-              <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mb-3">
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-surface/95 z-10">
+              <div className="w-12 h-12 rounded-full bg-background flex items-center justify-center mb-3">
                 {error.includes("timed out") || error.includes("network") || error.includes("internet") ? (
-                  <WifiOff className="w-6 h-6 text-red-500" />
+                  <WifiOff className="w-6 h-6 text-primary" />
                 ) : (
-                  <AlertCircle className="w-6 h-6 text-red-500" />
+                  <AlertCircle className="w-6 h-6 text-primary" />
                 )}
               </div>
-              <p className="text-xs text-red-600 font-semibold mb-2 max-w-xs">
+              <p className="text-xs text-primary font-semibold mb-2 max-w-xs">
                 Couldn't load molecule
               </p>
-              <p className="text-[10px] text-red-500/80 mb-4 max-w-xs break-words">
+              <p className="text-[10px] text-primary/80 mb-4 max-w-xs break-words">
                 {error}
               </p>
               <button
                 onClick={() => { setError(null); if (query) renderMolecule(query); }}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-white text-xs font-semibold hover:opacity-90 transition-all"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-primary-foreground text-xs font-semibold hover:opacity-90 transition-all"
                 style={{ backgroundColor: subjectColor }}
               >
                 <RotateCcw className="w-3 h-3" /> Try Again
@@ -501,20 +501,20 @@ export default function MoleculeViewer({ subjectColor = "#10b981" }: { subjectCo
 
           {/* CDN Error State */}
           {cdnError && !loading && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-white/95 z-10">
-              <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center mb-3">
-                <WifiOff className="w-6 h-6 text-orange-500" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center bg-surface/95 z-10">
+              <div className="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center mb-3">
+                <WifiOff className="w-6 h-6 text-primary" />
               </div>
-              <p className="text-xs text-orange-700 font-semibold mb-2">
+              <p className="text-xs text-primary font-semibold mb-2">
                 Library couldn't load
               </p>
-              <p className="text-[10px] text-orange-600/80 mb-4 max-w-xs">
+              <p className="text-[10px] text-primary mb-4 max-w-xs">
                 {cdnError}
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={retryCdnLoad}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-white text-xs font-semibold hover:opacity-90 transition-all"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-primary-foreground text-xs font-semibold hover:opacity-90 transition-all"
                   style={{ backgroundColor: subjectColor }}
                 >
                   <RotateCcw className="w-3 h-3" /> Reload Library

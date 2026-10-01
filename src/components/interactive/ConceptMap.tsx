@@ -8,7 +8,7 @@
  *
  * v8 CRITICAL FIX for "Cannot read properties of null (reading 'cx')":
  *   - Component-level error boundary with try-catch wrapper around render
- *   - All SVG operations guarded with null/undefined checks  
+ *   - All SVG operations guarded with null/undefined checks
  *   - Safe tree data access with fallbacks
  *   - Pointer handlers wrapped in comprehensive try-catch blocks
  *   - Graceful degradation UI when errors occur
@@ -472,7 +472,7 @@ export default function ConceptMap({
 }) {
   // Component-level error state for graceful degradation
   const [componentError, setComponentError] = useState<Error | null>(null);
-  
+
   // Safe tree generation — wrapped in try/catch with ultimate fallback.
   const safeHtmlToTree = (html: string, title: string): Tree => {
     try {
@@ -552,7 +552,7 @@ export default function ConceptMap({
       const target = e.target as Element;
       if (target === e.currentTarget || (target.getAttribute && target.getAttribute("data-bg") === "true")) {
         try { target.setPointerCapture(e.pointerId); } catch { /* ignore */ }
-        
+
         // Safe access to viewport state
         const currentVp = vp || { tx: 0, ty: 0, scale: 1 };
         panRef.current = { x: e.clientX, y: e.clientY, tx: currentVp.tx, ty: currentVp.ty };
@@ -568,10 +568,10 @@ export default function ConceptMap({
       if (panRef.current) {
         const dx = e.clientX - panRef.current.x;
         const dy = e.clientY - panRef.current.y;
-        setVp((v) => ({ 
-          ...v, 
-          tx: (panRef.current?.tx ?? 0) + dx, 
-          ty: (panRef.current?.ty ?? 0) + dy 
+        setVp((v) => ({
+          ...v,
+          tx: (panRef.current?.tx ?? 0) + dx,
+          ty: (panRef.current?.ty ?? 0) + dy
         }));
       }
     } catch (err) {
@@ -694,17 +694,17 @@ export default function ConceptMap({
   // Show error state if component crashed
   if (componentError) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center">
-        <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-3">
+      <div className="rounded-2xl border border-border bg-background p-6 text-center">
+        <div className="w-12 h-12 rounded-full bg-surface-raised flex items-center justify-center mx-auto mb-3">
           <span className="text-2xl">⚠️</span>
         </div>
-        <h3 className="text-sm font-bold text-red-900 mb-1">Concept Map Error</h3>
-        <p className="text-xs text-red-700 mb-3 max-w-sm mx-auto">
+        <h3 className="text-sm font-bold text-primary mb-1">Concept Map Error</h3>
+        <p className="text-xs text-primary mb-3 max-w-sm mx-auto">
           The concept map encountered an error. This has been logged and won't happen again.
         </p>
         <button
           onClick={() => setComponentError(null)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-red-600 hover:bg-red-700"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary"
         >
           Try Again
         </button>
@@ -739,10 +739,10 @@ export default function ConceptMap({
       setTimeout(() => {
         setComponentError(outlineError instanceof Error ? outlineError : new Error(String(outlineError)));
       }, 0);
-      
+
       return (
-        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-          <p className="text-sm text-amber-700">Loading outline view...</p>
+        <div className="rounded-2xl border border-border bg-accent-soft p-6 text-center">
+          <p className="text-sm text-primary">Loading outline view...</p>
         </div>
       );
     }
@@ -983,14 +983,14 @@ export default function ConceptMap({
     setTimeout(() => {
       setComponentError(renderError instanceof Error ? renderError : new Error(String(renderError)));
     }, 0);
-    
+
     return (
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-        <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-3">
+      <div className="rounded-2xl border border-border bg-accent-soft p-6 text-center">
+        <div className="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center mx-auto mb-3">
           <span className="text-2xl">🗺️</span>
         </div>
-        <h3 className="text-sm font-bold text-amber-900 mb-1">Loading Concept Map...</h3>
-        <p className="text-xs text-amber-700 mb-3 max-w-sm mx-auto">
+        <h3 className="text-sm font-bold text-primary mb-1">Loading Concept Map...</h3>
+        <p className="text-xs text-primary mb-3 max-w-sm mx-auto">
           The concept map is initializing. Please wait a moment.
         </p>
       </div>

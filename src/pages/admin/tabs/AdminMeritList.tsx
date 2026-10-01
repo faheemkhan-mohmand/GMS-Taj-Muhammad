@@ -66,11 +66,11 @@ const medalLabel = (pos: number) =>
 
 // Visual theme presets — admin picks one at publish time, student view inherits
 const THEME_PRESETS = [
-  { id: "gold",    label: "Royal Gold",    from: "from-amber-500",  to: "to-yellow-600",  accent: "text-amber-600",  ring: "ring-amber-400/40"  },
-  { id: "royal",   label: "Royal Blue",    from: "from-blue-600",   to: "to-indigo-700",  accent: "text-blue-600",   ring: "ring-blue-400/40"   },
-  { id: "emerald", label: "Emerald Pride", from: "from-emerald-500",to: "to-teal-700",    accent: "text-emerald-600",ring: "ring-emerald-400/40"},
-  { id: "rose",    label: "Rose Honour",   from: "from-rose-500",   to: "to-pink-700",    accent: "text-rose-600",   ring: "ring-rose-400/40"   },
-  { id: "violet",  label: "Violet Crest",  from: "from-violet-500", to: "to-purple-700",  accent: "text-violet-600", ring: "ring-violet-400/40" },
+  { id: "gold",    label: "Royal Gold",    from: "from-accent",  to: "to-accent",  accent: "text-primary",  ring: "ring-accent/40"  },
+  { id: "royal",   label: "Royal Blue",    from: "from-primary",   to: "to-primary",  accent: "text-primary",   ring: "ring-accent/40"   },
+  { id: "emerald", label: "Emerald Pride", from: "from-primary",to: "to-primary",    accent: "text-primary",ring: "ring-accent/40"},
+  { id: "rose",    label: "Rose Honour",   from: "from-accent",   to: "to-accent",    accent: "text-primary",   ring: "ring-accent/40"   },
+  { id: "violet",  label: "Violet Crest",  from: "from-primary", to: "to-primary",  accent: "text-primary", ring: "ring-accent/40" },
 ] as const;
 type ThemeId = typeof THEME_PRESETS[number]["id"];
 
@@ -571,7 +571,7 @@ function CountdownBadge({ publishAt }: { publishAt: string }) {
   const now = useNowTick(1000);
   const target = new Date(publishAt);
   if (!isAfter(target, now)) {
-    return <Badge className="bg-emerald-100 text-emerald-700 gap-1"><CheckCircle2 className="w-3 h-3" /> Published</Badge>;
+    return <Badge className="bg-surface-raised text-primary gap-1"><CheckCircle2 className="w-3 h-3" /> Published</Badge>;
   }
   const diff = target.getTime() - now.getTime();
   const days = Math.floor(diff / 86400000);
@@ -584,7 +584,7 @@ function CountdownBadge({ publishAt }: { publishAt: string }) {
       ? `${hours}h ${mins}m ${secs}s`
       : `${mins}m ${secs}s`;
   return (
-    <Badge className="bg-amber-100 text-amber-800 gap-1 animate-pulse">
+    <Badge className="bg-accent-soft text-primary gap-1 animate-pulse">
       <Clock className="w-3 h-3" /> {label}
     </Badge>
   );
@@ -619,10 +619,10 @@ function StatsRow({ entries }: { entries: MeritEntry[] }) {
   const passRate = Math.round((passing.length / entries.length) * 100);
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-      <StatCard icon={Users}       label="Total Students" value={entries.length}                accent="bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300" />
-      <StatCard icon={CheckCircle2} label="Pass Rate"     value={`${passRate}%`} sub={`${passing.length} passed`} accent="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-300" />
-      <StatCard icon={TrendingUp}  label="Highest %"      value={`${highest.toFixed(1)}%`}      accent="bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-300" />
-      <StatCard icon={Target}      label="Average %"      value={`${avg}%`}                     accent="bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-300" />
+      <StatCard icon={Users}       label="Total Students" value={entries.length}                accent="bg-surface-raised bg-primary-strong/40 text-primary text-primary" />
+      <StatCard icon={CheckCircle2} label="Pass Rate"     value={`${passRate}%`} sub={`${passing.length} passed`} accent="bg-surface-raised bg-primary-strong/40 text-primary text-primary" />
+      <StatCard icon={TrendingUp}  label="Highest %"      value={`${highest.toFixed(1)}%`}      accent="bg-accent-soft bg-accent/40 text-primary text-primary" />
+      <StatCard icon={Target}      label="Average %"      value={`${avg}%`}                     accent="bg-surface-raised bg-primary-strong/40 text-primary text-primary" />
     </div>
   );
 }
@@ -635,19 +635,19 @@ function Top3Podium({ entries, showClass = false }: { entries: MeritEntry[]; sho
   const order = [top3[1], top3[0], top3[2]].filter(Boolean);
   const heights = ["h-14 sm:h-24", "h-20 sm:h-32", "h-11 sm:h-20"]; // 2nd, 1st, 3rd — shorter on mobile so the card doesn't overflow
   const medalColors = [
-    "from-gray-300 to-gray-400",   // 2nd - silver
-    "from-amber-400 to-yellow-500", // 1st - gold
-    "from-orange-400 to-amber-600", // 3rd - bronze
+    "from-primary to-primary",   // 2nd - silver
+    "from-accent to-accent", // 1st - gold
+    "from-accent to-accent", // 3rd - bronze
   ];
   const medalEmojis = ["🥈", "🥇", "🥉"];
   const podiumRanks = [2, 1, 3];
 
   return (
-    <div className="rounded-2xl border border-border bg-gradient-to-br from-amber-50/50 via-card to-yellow-50/30 dark:from-amber-950/20 dark:to-yellow-950/10 p-3 sm:p-5 overflow-hidden">
+    <div className="rounded-2xl border border-border bg-gradient-to-br from-accent/50 via-card to-accent/30 from-accent/20 to-accent/10 p-3 sm:p-5 overflow-hidden">
       <div className="flex items-center gap-2 mb-3 sm:mb-4">
-        <Crown className="w-4 h-4 text-amber-500" />
+        <Crown className="w-4 h-4 text-primary" />
         <h3 className="text-sm font-bold">Top 3 Achievers</h3>
-        <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+        <Sparkles className="w-3.5 h-3.5 text-primary animate-pulse" />
       </div>
       <div className="flex items-end justify-center gap-1.5 sm:gap-6">
         {order.map((entry, idx) => {
@@ -670,19 +670,19 @@ function Top3Podium({ entries, showClass = false }: { entries: MeritEntry[]; sho
                 </span>
               </div>
               {/* Name & details */}
-              <p className={`text-[11px] sm:text-sm font-bold leading-tight line-clamp-2 break-words w-full px-0.5 ${isFirst ? "text-amber-700 dark:text-amber-300" : ""}`}>
+              <p className={`text-[11px] sm:text-sm font-bold leading-tight line-clamp-2 break-words w-full px-0.5 ${isFirst ? "text-primary text-primary" : ""}`}>
                 {entry.full_name}
               </p>
               <div className="flex items-center gap-1 mt-0.5 flex-wrap justify-center">
                 {showClass && <span className="text-[9px] sm:text-[10px] font-semibold bg-primary/10 text-primary px-1.5 py-0.5 rounded whitespace-nowrap">Cls {entry.class}</span>}
                 <span className="text-[9px] sm:text-[10px] text-muted-foreground font-mono truncate">{entry.roll_number}</span>
               </div>
-              <p className={`text-xs sm:text-base font-black tabular-nums mt-1 ${isFirst ? "text-amber-600" : "text-foreground"}`}>
+              <p className={`text-xs sm:text-base font-black tabular-nums mt-1 ${isFirst ? "text-primary" : "text-foreground"}`}>
                 {Number(entry.percentage).toFixed(1)}%
               </p>
               {/* Podium pillar */}
               <div className={`mt-2 w-full min-w-[44px] sm:min-w-[56px] ${heights[idx]} rounded-t-lg bg-gradient-to-br ${medalColors[idx]} flex items-start justify-center pt-1`}>
-                <span className="text-white font-black text-sm sm:text-lg drop-shadow">{rank}</span>
+                <span className="text-primary-foreground font-black text-sm sm:text-lg drop-shadow">{rank}</span>
               </div>
             </div>
           );
@@ -752,16 +752,16 @@ function MeritTable({ entries, showClass = false }: { entries: MeritEntry[]; sho
                 const originalIdx = entries.indexOf(e);
                 return (
                   <tr key={`${e.student_id}-${i}`} className={`border-b border-border transition-colors ${
-                    originalIdx === 0 ? "bg-yellow-50 dark:bg-yellow-900/20" :
-                    originalIdx === 1 ? "bg-gray-50 dark:bg-gray-900/20" :
-                    originalIdx === 2 ? "bg-orange-50 dark:bg-orange-900/20" :
+                    originalIdx === 0 ? "bg-accent-soft bg-accent/20" :
+                    originalIdx === 1 ? "bg-background bg-primary-strong/20" :
+                    originalIdx === 2 ? "bg-accent-soft bg-accent/20" :
                     "hover:bg-muted/30"
                   }`}>
                     <td className="p-3 text-center">
                       <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-xs font-bold ${
-                        originalIdx === 0 ? "bg-yellow-400 text-yellow-900" :
-                        originalIdx === 1 ? "bg-gray-300 text-gray-800" :
-                        originalIdx === 2 ? "bg-orange-300 text-orange-900" :
+                        originalIdx === 0 ? "bg-accent text-primary" :
+                        originalIdx === 1 ? "bg-surface-raised text-primary" :
+                        originalIdx === 2 ? "bg-accent text-primary" :
                         "bg-muted text-muted-foreground"
                       }`}>
                         {originalIdx < 3 ? ["🥇","🥈","🥉"][originalIdx] : originalIdx + 1}
@@ -786,8 +786,8 @@ function MeritTable({ entries, showClass = false }: { entries: MeritEntry[]; sho
                     <td className="p-3 text-center">
                       <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                         e.is_pass
-                          ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                          : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                          ? "bg-surface-raised text-primary bg-primary-strong/30 text-primary"
+                          : "bg-surface-raised text-primary bg-primary-strong/30 text-primary"
                       }`}>
                         {e.is_pass ? "Pass" : "Fail"}
                       </span>
@@ -984,18 +984,18 @@ function PublishDialog({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header with gradient accent */}
-        <div className={`p-6 sm:p-8 border-b border-border bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} text-white shrink-0`}>
+        <div className={`p-6 sm:p-8 border-b border-border bg-gradient-to-br ${selectedTheme.from} ${selectedTheme.to} text-primary-foreground shrink-0`}>
           <h3 className="font-heading font-bold text-xl sm:text-2xl flex items-center gap-3">
-            <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
+            <span className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-surface/15 flex items-center justify-center shrink-0">
               <Send className="w-5 h-5" />
             </span>
             {isMultiClass ? `Publish ${scopeNoun} Merit List` : `Publish Class ${cls} Merit List`}
           </h3>
-          <p className="text-sm sm:text-base text-white/85 mt-2.5 leading-relaxed">
+          <p className="text-sm sm:text-base text-primary-foreground mt-2.5 leading-relaxed">
             {visibleCount} of {totalStudents} students will be visible to the public.
             {" "}{isMultiClass ? "All classes combined." : `${examTypeLabel(examType)} · ${year}`}
             {hiddenIds.size > 0 && (
-              <span className="inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full bg-white/20 text-xs font-semibold align-middle">
+              <span className="inline-flex items-center gap-1 ml-2 px-2 py-0.5 rounded-full bg-surface/20 text-xs font-semibold align-middle">
                 <EyeOff className="w-3 h-3" /> {hiddenIds.size} hidden
               </span>
             )}
@@ -1053,11 +1053,11 @@ function PublishDialog({
               individual students has no place here — only School Merit
               (class or whole-school) gets this panel. */}
           {scope !== "school-bise" && (
-          <div className="rounded-2xl border-2 border-amber-200 dark:border-amber-800/60 bg-gradient-to-br from-amber-50/70 via-card to-yellow-50/40 dark:from-amber-950/20 dark:via-card dark:to-yellow-950/10 overflow-hidden">
-            <div className="p-4 sm:p-5 pb-3 sm:pb-4 border-b border-amber-200/70 dark:border-amber-800/40">
+          <div className="rounded-2xl border-2 border-border border-accent/60 bg-gradient-to-br from-accent/70 via-card to-accent/40 from-accent/20 via-card to-accent/10 overflow-hidden">
+            <div className="p-4 sm:p-5 pb-3 sm:pb-4 border-b border-border/70 border-accent/40">
               <div className="flex items-center gap-2">
-                <span className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center shrink-0 shadow-sm">
-                  <ShieldCheck className="w-4 h-4 text-white" />
+                <span className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-accent flex items-center justify-center shrink-0 shadow-sm">
+                  <ShieldCheck className="w-4 h-4 text-primary-foreground" />
                 </span>
                 <div>
                   <Label className="text-sm font-bold block leading-tight">Student Visibility</Label>
@@ -1073,14 +1073,14 @@ function PublishDialog({
               <div className="flex flex-wrap gap-1.5 mt-3.5">
                 <button
                   onClick={() => hideTopNOverall(3)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 hover:brightness-105 transition-all"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/40 bg-surface-raised text-primary hover:bg-primary hover:text-primary-foreground transition-all"
                 >
                   <Crown className="w-3.5 h-3.5" /> Hide top 3 students
                 </button>
                 {isMultiClass && (
                   <button
                     onClick={() => hideTopNPerClass(3)}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-300 hover:brightness-105 transition-all"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full border border-primary/40 bg-surface-raised text-primary hover:bg-primary hover:text-primary-foreground transition-all"
                   >
                     <ListFilter className="w-3.5 h-3.5" /> Hide top 3 of each class
                   </button>
@@ -1117,7 +1117,7 @@ function PublishDialog({
                   <label
                     key={e.student_id}
                     className={`flex items-center gap-3 px-4 sm:px-5 py-2.5 cursor-pointer transition-colors ${
-                      isHidden ? "bg-muted/40 opacity-60" : "hover:bg-amber-50/50 dark:hover:bg-amber-950/10"
+                      isHidden ? "bg-muted/40 opacity-60" : "hover:bg-accent-soft/50 hover:bg-accent/10"
                     }`}
                   >
                     <input
@@ -1127,7 +1127,7 @@ function PublishDialog({
                       className="w-4 h-4 rounded accent-amber-500 shrink-0 cursor-pointer"
                     />
                     <span className={`text-xs font-bold tabular-nums w-7 shrink-0 text-center ${
-                      e.position <= 3 ? "text-amber-600" : "text-muted-foreground"
+                      e.position <= 3 ? "text-primary" : "text-muted-foreground"
                     }`}>
                       #{e.position}
                     </span>
@@ -1142,7 +1142,7 @@ function PublishDialog({
                         <EyeOff className="w-3 h-3" /> Hidden
                       </span>
                     ) : e.position <= 3 ? (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-amber-600 shrink-0">
+                      <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-primary shrink-0">
                         <Crown className="w-3 h-3" /> Topper
                       </span>
                     ) : null}
@@ -1182,15 +1182,15 @@ function PublishDialog({
 
           {/* Schedule datetime picker */}
           {publishMode === "schedule" && (
-            <div className="rounded-xl bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 p-4">
-              <Label className="text-sm font-semibold mb-2 block text-amber-800 dark:text-amber-300">Publish at (date & time)</Label>
+            <div className="rounded-xl bg-accent-soft bg-accent/20 border border-border border-accent p-4">
+              <Label className="text-sm font-semibold mb-2 block text-primary text-primary">Publish at (date & time)</Label>
               <Input
                 type="datetime-local"
                 value={scheduleAt}
                 onChange={(e) => setScheduleAt(e.target.value)}
                 className="text-sm h-11 bg-card"
               />
-              <p className="text-xs text-amber-700 dark:text-amber-400 mt-2 flex items-center gap-1.5">
+              <p className="text-xs text-primary text-primary mt-2 flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 shrink-0" />
                 Students will see a live countdown on their dashboard until this moment.
               </p>
@@ -1198,8 +1198,8 @@ function PublishDialog({
           )}
 
           {/* Snapshot notice */}
-          <div className="rounded-xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800 p-4">
-            <p className="text-xs text-emerald-700 dark:text-emerald-400 flex items-start gap-2 leading-relaxed">
+          <div className="rounded-xl bg-background bg-primary-strong/20 border border-border border-border p-4">
+            <p className="text-xs text-primary text-primary flex items-start gap-2 leading-relaxed">
               <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" />
               <span>
                 <strong>Permanent snapshot:</strong> Once published, this merit list
@@ -1270,7 +1270,7 @@ function PublishedList({ records }: { records: MeritListRow[] }) {
             <div className={`h-1.5 bg-gradient-to-r ${theme.from} ${theme.to}`} />
             <div className="p-4">
               <div className="flex items-start gap-3">
-                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${theme.from} ${theme.to} text-white flex items-center justify-center shrink-0 shadow-sm`}>
+                <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${theme.from} ${theme.to} text-primary-foreground flex items-center justify-center shrink-0 shadow-sm`}>
                   {r.scope === "school" ? <School className="w-5 h-5" /> : r.scope === "school-bise" ? <Trophy className="w-5 h-5" /> : <BookOpen className="w-5 h-5" />}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -1304,7 +1304,7 @@ function PublishedList({ records }: { records: MeritListRow[] }) {
                         )
                       )}
                       {hasHiddenStudents && (
-                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 font-semibold">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-accent-soft text-primary bg-accent/30 text-primary font-semibold">
                           <EyeOff className="w-3 h-3" /> {hiddenCount} hidden
                         </span>
                       )}
@@ -1334,7 +1334,7 @@ function PublishedList({ records }: { records: MeritListRow[] }) {
 
               <div className="flex items-center gap-2 mt-3 flex-wrap">
                 {isLive && (
-                  <Badge className="bg-emerald-100 text-emerald-700 gap-1">
+                  <Badge className="bg-surface-raised text-primary gap-1">
                     <CheckCircle2 className="w-3 h-3" /> Live
                   </Badge>
                 )}
@@ -1349,7 +1349,7 @@ function PublishedList({ records }: { records: MeritListRow[] }) {
                 {/* Snapshot badge — counts the VISIBLE rows; withheld students
                     sit in the snapshot as anonymous dash placeholders */}
                 {entryRows.length > 0 && (
-                  <Badge variant="outline" className="gap-1 text-[10px] border-emerald-300 text-emerald-700 dark:border-emerald-700 dark:text-emerald-400">
+                  <Badge variant="outline" className="gap-1 text-[10px] border-border text-primary border-border text-primary">
                     <Award className="w-3 h-3" /> Snapshot ({visibleRows.length})
                   </Badge>
                 )}
@@ -1365,16 +1365,16 @@ function PublishedList({ records }: { records: MeritListRow[] }) {
 // ─── Hero Banner ──────────────────────────────────────────────────────────────
 function HeroBanner({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 via-yellow-500 to-orange-500 dark:from-amber-700 dark:via-yellow-700 dark:to-orange-700 p-5 text-white shadow-lg">
-      <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 -translate-y-12 translate-x-12" />
-      <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-white/5 translate-y-8 -translate-x-8" />
+    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent via-accent to-accent from-accent via-accent to-accent p-5 text-primary-foreground shadow-lg">
+      <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-surface/10 -translate-y-12 translate-x-12" />
+      <div className="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-surface/5 translate-y-8 -translate-x-8" />
       <div className="relative flex items-start gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
+        <div className="w-12 h-12 rounded-2xl bg-surface/20 backdrop-blur-sm flex items-center justify-center shrink-0">
           <Trophy className="w-6 h-6" />
         </div>
         <div>
           <h2 className="text-xl font-heading font-black leading-tight">{title}</h2>
-          <p className="text-sm text-white/90 mt-0.5">{subtitle}</p>
+          <p className="text-sm text-primary-foreground mt-0.5">{subtitle}</p>
         </div>
       </div>
     </div>
@@ -1459,7 +1459,7 @@ function SchoolMeritTab() {
             {existing ? "Update Published Merit List" : "Publish School Merit List"}
           </Button>
           {existing && (
-            <Badge className="self-center bg-emerald-100 text-emerald-700 gap-1">
+            <Badge className="self-center bg-surface-raised text-primary gap-1">
               <CheckCircle2 className="w-3 h-3" />
               {existing.publish_at && isAfter(new Date(existing.publish_at), new Date())
                 ? "Scheduled"
@@ -1602,21 +1602,21 @@ function BiseMeritTab() {
           </p>
         )}
         {!isLoading && !isFetching && totalStudents > 0 && (
-          <p className="text-xs text-emerald-600 dark:text-emerald-400 mt-2.5 flex items-center gap-1.5">
+          <p className="text-xs text-primary text-primary mt-2.5 flex items-center gap-1.5">
             <CheckCircle2 className="w-3 h-3" />
             {totalStudents} BISE Peshawar result{totalStudents === 1 ? "" : "s"} (Class 9th: 600 total, Class 10th: 1200 total — ranked by percentage, never raw marks).
           </p>
         )}
         {!isLoading && !isFetching && meta && meta.missingRolls.length > 0 && (
-          <div className="mt-2.5 flex flex-wrap items-center gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2">
-            <p className="text-xs text-amber-800 flex-1 min-w-[200px]">
+          <div className="mt-2.5 flex flex-wrap items-center gap-2 rounded-lg border border-accent bg-accent-soft px-3 py-2">
+            <p className="text-xs text-primary flex-1 min-w-[200px]">
               ⚠️ {meta.resolvedRolls} of {meta.savedRolls} saved roll numbers fetched. {meta.missingRolls.length} still missing
               ({meta.missingRolls.map(m => m.roll).join(", ")}) — this is usually a temporary BISE server hiccup, not a real gap.
             </p>
             <Button
               size="sm"
               variant="outline"
-              className="h-7 gap-1.5 text-xs border-amber-400 text-amber-800 hover:bg-amber-100 shrink-0"
+              className="h-7 gap-1.5 text-xs border-accent text-primary hover:bg-accent-soft shrink-0"
               onClick={async () => {
                 setIsRetryingMissing(true);
                 try {
@@ -1648,7 +1648,7 @@ function BiseMeritTab() {
             {existing ? "Update Published BISE Merit List" : "Publish BISE Merit List"}
           </Button>
           {existing && (
-            <Badge className="self-center bg-emerald-100 text-emerald-700 gap-1">
+            <Badge className="self-center bg-surface-raised text-primary gap-1">
               <CheckCircle2 className="w-3 h-3" />
               {existing.publish_at && isAfter(new Date(existing.publish_at), new Date())
                 ? "Scheduled"

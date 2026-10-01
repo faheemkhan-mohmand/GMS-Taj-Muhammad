@@ -425,7 +425,7 @@ const ParticleManifesto = () => {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#120C07]" aria-label="Our mission">
+    <section className="relative w-full overflow-hidden bg-primary-strong" aria-label="Our mission">
       <div
         ref={wrapRef}
         className="relative w-full h-[62vh] min-h-[360px] max-h-[620px] sm:h-[68vh] touch-none"
@@ -441,7 +441,7 @@ const ParticleManifesto = () => {
         {/* Quiet caption beneath the particle field — no eyebrow label,
             just a small on-brand signature so the moment stays wordless. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-5 sm:bottom-7 flex justify-center">
-          <span className="text-[10px] sm:text-[11px] tracking-[0.3em] text-[#F7B145]/60 font-medium">
+          <span className="text-[10px] sm:text-[11px] tracking-[0.3em] text-primary font-medium">
             GMS TAJ MUHAMMAD
           </span>
         </div>

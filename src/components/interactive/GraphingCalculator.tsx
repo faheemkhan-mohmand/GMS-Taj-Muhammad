@@ -251,7 +251,7 @@ export default function GraphingCalculator({
 }) {
   // Component-level error state for graceful degradation
   const [componentError, setComponentError] = useState<Error | null>(null);
-  
+
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
@@ -673,18 +673,18 @@ export default function GraphingCalculator({
     try {
       if (!e.currentTarget) return;
       if (!view || !isFinite(view.scale) || view.scale <= 0) return;
-      
+
       const rect = (e.currentTarget as HTMLCanvasElement).getBoundingClientRect();
       const px = e.clientX - rect.left;
       const py = e.clientY - rect.top;
-      
+
       // Safe access to view properties with explicit checks
       const cx = typeof view.cx === 'number' && isFinite(view.cx) ? view.cx : 0;
       const cy = typeof view.cy === 'number' && isFinite(view.cy) ? view.cy : 0;
       const scale = typeof view.scale === 'number' && isFinite(view.scale) && view.scale > 0 ? view.scale : 40;
       const w = canvasSize?.w > 0 ? canvasSize.w : 600;
       const h = canvasSize?.h > 0 ? canvasSize.h : 400;
-      
+
       // hover point in math coords
       const mx = cx + (px - w / 2) / scale;
       setHoverPoint({ x: mx, y: 0 });
@@ -725,23 +725,23 @@ export default function GraphingCalculator({
       // for browsers that don't have the passive-by-default behaviour.
       try { e.preventDefault(); } catch { /* passive listener — ignore */ }
       if (!e.currentTarget) return;
-      
+
       const rect = (e.currentTarget as HTMLCanvasElement).getBoundingClientRect();
       const px = e.clientX - rect.left;
       const py = e.clientY - rect.top;
       const factor = Math.exp(-e.deltaY * 0.001);
-      
+
       // Safe canvas dimensions with fallbacks
       const w = canvasSize?.w > 0 ? canvasSize.w : 600;
       const h = canvasSize?.h > 0 ? canvasSize.h : 400;
-      
+
       setView((v) => {
         if (!v) return { cx: 0, cy: 0, scale: 40 };
-        
+
         const vCx = typeof v.cx === 'number' && isFinite(v.cx) ? v.cx : 0;
         const vCy = typeof v.cy === 'number' && isFinite(v.cy) ? v.cy : 0;
         const vScale = typeof v.scale === 'number' && isFinite(v.scale) && v.scale > 0 ? v.scale : 40;
-        
+
         const mx = vCx + (px - w / 2) / vScale;
         const my = vCy - (py - h / 2) / vScale;
         const newScale = Math.max(2, Math.min(500, vScale * factor));
@@ -849,17 +849,17 @@ export default function GraphingCalculator({
   // Show error state if component crashed
   if (componentError) {
     return (
-      <div className="rounded-2xl border border-red-200 bg-red-50 p-6 text-center">
-        <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-3">
+      <div className="rounded-2xl border border-border bg-background p-6 text-center">
+        <div className="w-12 h-12 rounded-full bg-surface-raised flex items-center justify-center mx-auto mb-3">
           <span className="text-2xl">⚠️</span>
         </div>
-        <h3 className="text-sm font-bold text-red-900 mb-1">Graphing Calculator Error</h3>
-        <p className="text-xs text-red-700 mb-3 max-w-sm mx-auto">
+        <h3 className="text-sm font-bold text-primary mb-1">Graphing Calculator Error</h3>
+        <p className="text-xs text-primary mb-3 max-w-sm mx-auto">
           The calculator encountered an error. This has been logged and won't happen again.
         </p>
         <button
           onClick={() => setComponentError(null)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-red-600 hover:bg-red-700"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold text-primary-foreground bg-primary hover:bg-primary"
         >
           Try Again
         </button>
@@ -878,7 +878,7 @@ export default function GraphingCalculator({
         <span className="font-bold text-sm text-foreground">Graphing Calculator</span>
         <div className="ml-auto flex items-center gap-1">
           <button onClick={() => setShowTable((v) => !v)}
-            className={`px-2 py-1 rounded-md text-[10px] font-semibold flex items-center gap-1 ${showTable ? "bg-primary text-white" : "bg-secondary hover:bg-secondary/70"}`}
+            className={`px-2 py-1 rounded-md text-[10px] font-semibold flex items-center gap-1 ${showTable ? "bg-primary text-primary-foreground" : "bg-secondary hover:bg-secondary/70"}`}
             style={showTable ? { backgroundColor: subjectColor } : {}}
             title="Toggle table view">
             <Table2 className="w-3 h-3" /> Table
@@ -925,7 +925,7 @@ export default function GraphingCalculator({
                   />
                   <button
                     onClick={(e) => { e.stopPropagation(); removeExpr(p.id); }}
-                    className="shrink-0 p-1 rounded text-muted-foreground hover:text-red-500"
+                    className="shrink-0 p-1 rounded text-muted-foreground hover:text-primary"
                     title="Delete"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -979,7 +979,7 @@ export default function GraphingCalculator({
         </div>
 
         {/* canvas + table */}
-        <div className="bg-white relative">
+        <div className="bg-surface relative">
           <div ref={wrapRef} className="relative">
             <canvas
               ref={canvasRef}
@@ -992,7 +992,7 @@ export default function GraphingCalculator({
               style={{ width: "100%", height: canvasSize.h }}
             />
             {/* zoom controls */}
-            <div className="absolute bottom-2 right-2 flex flex-col gap-1 bg-white/80 backdrop-blur-sm rounded-lg p-1 border border-border">
+            <div className="absolute bottom-2 right-2 flex flex-col gap-1 bg-surface/80 backdrop-blur-sm rounded-lg p-1 border border-border">
               <button
                 onClick={() => setView((v) => ({ ...v, scale: Math.min(500, v.scale * 1.25) }))}
                 className="p-1.5 hover:bg-secondary rounded-md" title="Zoom in"
@@ -1013,7 +1013,7 @@ export default function GraphingCalculator({
               </button>
             </div>
             {/* active expression indicator */}
-            <div className="absolute top-2 left-2 bg-white/80 backdrop-blur-sm rounded-md px-2 py-1 text-[10px] font-mono border border-border flex items-center gap-1.5">
+            <div className="absolute top-2 left-2 bg-surface/80 backdrop-blur-sm rounded-md px-2 py-1 text-[10px] font-mono border border-border flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: parsedExprs[activeExprIdx]?.color }} />
               <span className="text-muted-foreground">Drag to pan · Wheel to zoom</span>
             </div>
@@ -1056,7 +1056,7 @@ export default function GraphingCalculator({
               onClick={() => insertAtCursor(k)}
               className={`py-2 rounded-md text-xs font-mono font-semibold transition-colors ${
                 k === "del" || k === "clr"
-                  ? "bg-red-100 text-red-700 hover:bg-red-200"
+                  ? "bg-surface-raised text-primary hover:bg-surface-raised"
                   : "bg-card hover:bg-secondary border border-border"
               }`}
             >
@@ -1074,14 +1074,14 @@ export default function GraphingCalculator({
     setTimeout(() => {
       setComponentError(renderError instanceof Error ? renderError : new Error(String(renderError)));
     }, 0);
-    
+
     return (
-      <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
-        <div className="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center mx-auto mb-3">
+      <div className="rounded-2xl border border-border bg-accent-soft p-6 text-center">
+        <div className="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center mx-auto mb-3">
           <span className="text-2xl">📊</span>
         </div>
-        <h3 className="text-sm font-bold text-amber-900 mb-1">Loading Calculator...</h3>
-        <p className="text-xs text-amber-700 mb-3 max-w-sm mx-auto">
+        <h3 className="text-sm font-bold text-primary mb-1">Loading Calculator...</h3>
+        <p className="text-xs text-primary mb-3 max-w-sm mx-auto">
           The graphing calculator is initializing. Please wait a moment.
         </p>
       </div>

@@ -1313,7 +1313,7 @@ export default function AttendanceAnalyticsReportButton({
                     className={`rounded-xl border px-2 py-2 text-sm font-semibold transition-colors disabled:opacity-50 ${
                       checked
                         ? "bg-primary border-primary text-primary-foreground"
-                        : "bg-background border-input text-foreground hover:bg-accent"
+                        : "bg-background border-input text-foreground hover:bg-secondary"
                     }`}
                   >
                     Class {c}

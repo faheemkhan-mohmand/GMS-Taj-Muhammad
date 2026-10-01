@@ -12,35 +12,35 @@ const QUOTE_CATEGORIES = {
   motivational: {
     emoji: "💡",
     icon: Sparkles,
-    gradient: "from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20",
+    gradient: "from-accent to-accent from-accent/30 to-accent/20",
     borderLeft: "border-l-amber-500",
-    border: "border-amber-200 dark:border-amber-700/30",
-    accent: "text-amber-600 dark:text-amber-400",
-    textClass: "text-amber-900 dark:text-amber-100",
-    authorClass: "text-amber-700 dark:text-amber-300",
-    watermarkColor: "text-amber-200 dark:text-amber-900/20",
+    border: "border-border border-accent/30",
+    accent: "text-primary text-primary",
+    textClass: "text-primary text-primary",
+    authorClass: "text-primary text-primary",
+    watermarkColor: "text-primary text-primary",
   },
   islamic: {
     emoji: "🌙",
     icon: BookOpen,
-    gradient: "from-teal-50 to-cyan-50 dark:from-teal-950/30 dark:to-cyan-950/20",
+    gradient: "from-primary to-primary from-primary-strong/30 to-primary-strong/20",
     borderLeft: "border-l-teal-500",
-    border: "border-teal-200 dark:border-teal-700/30",
-    accent: "text-teal-600 dark:text-teal-400",
-    textClass: "text-teal-900 dark:text-teal-100",
-    authorClass: "text-teal-700 dark:text-teal-300",
-    watermarkColor: "text-teal-200 dark:text-teal-900/20",
+    border: "border-border border-border/30",
+    accent: "text-primary text-primary",
+    textClass: "text-primary text-primary",
+    authorClass: "text-primary text-primary",
+    watermarkColor: "text-primary text-primary",
   },
   educational: {
     emoji: "📚",
     icon: BookOpen,
-    gradient: "from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/20",
+    gradient: "from-primary to-primary from-primary-strong/30 to-primary-strong/20",
     borderLeft: "border-l-blue-500",
-    border: "border-blue-200 dark:border-blue-700/30",
-    accent: "text-blue-600 dark:text-blue-400",
-    textClass: "text-blue-900 dark:text-blue-100",
-    authorClass: "text-blue-700 dark:text-blue-300",
-    watermarkColor: "text-blue-200 dark:text-blue-900/20",
+    border: "border-border border-border/30",
+    accent: "text-primary text-primary",
+    textClass: "text-primary text-primary",
+    authorClass: "text-primary text-primary",
+    watermarkColor: "text-primary text-primary",
   },
 };
 
@@ -48,23 +48,23 @@ const QUOTE_CATEGORIES = {
 
 function getAuthorBadge(author: string | null, category: string): { icon: React.ReactNode; show: boolean } {
   if (!author) return { icon: null, show: false };
-  
+
   const lowerAuthor = author.toLowerCase();
   if (category === "islamic" && (lowerAuthor.includes("prophet") || lowerAuthor.includes("muhammad") || lowerAuthor.includes("pbuh"))) {
-    return { 
-      icon: <span className="text-base">ﷺ</span>, 
+    return {
+      icon: <span className="text-base">ﷺ</span>,
       show: true
     };
   }
   if (category === "educational") {
-    return { 
-      icon: <BookOpen className="w-3.5 h-3.5" />, 
+    return {
+      icon: <BookOpen className="w-3.5 h-3.5" />,
       show: true
     };
   }
   if (category === "motivational") {
-    return { 
-      icon: <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />, 
+    return {
+      icon: <Star className="w-3.5 h-3.5 fill-accent text-primary" />,
       show: true
     };
   }
@@ -97,12 +97,12 @@ export function DailyQuoteCard() {
     >
       {/* Main Card Container */}
       <div className={`relative overflow-hidden rounded-2xl bg-gradient-to-r ${categoryConfig.gradient} border ${categoryConfig.border} shadow-lg hover:shadow-xl transition-shadow duration-300`}>
-        
+
         {/* Decorative Quotation Mark Watermark - Large & Faded */}
         <div className={`absolute -top-4 -right-4 text-[120px] font-serif select-none pointer-events-none opacity-[0.07] ${categoryConfig.watermarkColor} leading-none`}>
           ❝
         </div>
-        
+
         {/* Subtle Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `radial-gradient(circle at 20% 50%, currentColor 1px, transparent 1px)`,
@@ -111,18 +111,18 @@ export function DailyQuoteCard() {
 
         {/* Card Content */}
         <div className="relative z-10 p-6 sm:p-8">
-          
+
           {/* Category Badge */}
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">{categoryConfig.emoji}</span>
-            <span className={`text-xs font-semibold uppercase tracking-wider ${categoryConfig.accent} bg-white/60 dark:bg-black/20 px-3 py-1 rounded-full backdrop-blur-sm`}>
+            <span className={`text-xs font-semibold uppercase tracking-wider ${categoryConfig.accent} bg-surface/60 bg-background/20 px-3 py-1 rounded-full backdrop-blur-sm`}>
               {quote.category === 'islamic' ? 'Islamic Wisdom' : quote.category === 'educational' ? 'Knowledge' : 'Inspiration'}
             </span>
           </div>
 
           {/* Quote Text - Italic Serif */}
           <blockquote className="relative pl-4 border-l-4 border-current opacity-80">
-            <p 
+            <p
               className={`text-lg sm:text-xl leading-relaxed ${categoryConfig.textClass}`}
               style={{ fontFamily: 'Georgia, "Times New Roman", "Noto Serif", serif', fontStyle: 'italic' }}
             >
@@ -134,22 +134,22 @@ export function DailyQuoteCard() {
           {quote.author && (
             <div className="mt-5 flex items-center justify-between flex-wrap gap-3">
               <div className="flex items-center gap-2">
-                <cite 
+                <cite
                   className={`not-italic text-sm font-medium ${categoryConfig.authorClass}`}
                   style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
                 >
                   — {quote.author}
                 </cite>
                 {authorBadge.show && (
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/70 dark:bg-black/20 text-xs font-medium backdrop-blur-sm">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface/70 bg-background/20 text-xs font-medium backdrop-blur-sm">
                     {authorBadge.icon}
                   </span>
                 )}
               </div>
-              
+
               {/* Source if available */}
               {quote.source && (
-                <span className="text-xs text-muted-foreground bg-white/50 dark:bg-black/15 px-2 py-1 rounded-md">
+                <span className="text-xs text-muted-foreground bg-surface/50 bg-background/15 px-2 py-1 rounded-md">
                   📖 {quote.source}
                 </span>
               )}
@@ -173,7 +173,7 @@ export function DailyQuoteCard() {
         {/* Corner Accents */}
         <div className={`absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 ${categoryConfig.borderLeft} rounded-tl-2xl opacity-40`} />
         <div className={`absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 ${categoryConfig.borderLeft} rounded-br-2xl opacity-40`} />
-        
+
       </div>
     </div>
   );

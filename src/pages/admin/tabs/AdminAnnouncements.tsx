@@ -228,13 +228,13 @@ const NoticesSection = () => {
               <TableRow key={n.id} className={!n.is_published ? "opacity-50" : ""}>
                 <TableCell className="font-medium max-w-[140px] sm:max-w-[200px] truncate">
                   <div className="flex items-center gap-1.5">
-                    {n.is_pinned && <Pin className="w-3.5 h-3.5 text-[hsl(43_70%_48%)] shrink-0 fill-[hsl(43_70%_48%)]" />}
+                    {n.is_pinned && <Pin className="w-3.5 h-3.5 text-primary shrink-0 fill-accent" />}
                     <span className="truncate">{n.title}</span>
                   </div>
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
                   {n.is_poll ? (
-                    <Badge className="gap-1 bg-[hsl(258_60%_55%)]/10 text-[hsl(258_60%_45%)] hover:bg-[hsl(258_60%_55%)]/10">
+                    <Badge className="gap-1 bg-surface text-primary hover:bg-surface">
                       <BarChart3 className="w-3 h-3" /> {(n.poll_options || []).reduce((s, o) => s + (o.votes || 0), 0)} votes
                     </Badge>
                   ) : (
@@ -277,7 +277,7 @@ const NoticesSection = () => {
                 separate flow. Locked once a poll has real votes so an admin
                 can't accidentally flip it back to a plain notice and lose
                 vote data. */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-[hsl(258_60%_55%)]/5 border border-[hsl(258_60%_55%)]/20">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-surface border border-border">
               <Switch
                 checked={form.is_poll}
                 disabled={!!editing && (editing.poll_options || []).some(o => (o.votes || 0) > 0)}
@@ -285,7 +285,7 @@ const NoticesSection = () => {
               />
               <div className="flex-1">
                 <Label className="flex items-center gap-1.5 cursor-pointer" onClick={() => { if (!editing || !(editing.poll_options || []).some(o => (o.votes || 0) > 0)) set("is_poll", !form.is_poll); }}>
-                  <BarChart3 className="w-3.5 h-3.5 text-[hsl(258_60%_55%)]" /> Make this a Poll
+                  <BarChart3 className="w-3.5 h-3.5 text-primary" /> Make this a Poll
                 </Label>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
                   Visitors vote for one option — no login needed, one vote per device.
@@ -483,16 +483,16 @@ const NewsSection = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {news.map(n => (
-          <Card key={n.id} className={`border-border overflow-hidden relative ${!n.is_published ? "opacity-60" : ""} ${n.is_pinned ? "ring-2 ring-[hsl(43_70%_58%)]/60" : ""}`}>
+          <Card key={n.id} className={`border-border overflow-hidden relative ${!n.is_published ? "opacity-60" : ""} ${n.is_pinned ? "ring-2 ring-accent" : ""}`}>
             <div className="aspect-video bg-muted relative">
               {n.image_url
                 ? <img src={n.image_url} alt="" className="w-full h-full object-cover" />
                 : <div className="w-full h-full flex items-center justify-center"><ImageIcon className="w-8 h-8 text-muted-foreground/30" /></div>}
-              <Badge className={`absolute top-2 right-2 ${n.is_published ? "bg-[hsl(var(--success))] hover:bg-[hsl(var(--success))]" : "bg-muted-foreground"}`}>
+              <Badge className={`absolute top-2 right-2 ${n.is_published ? "bg-primary-strong hover:bg-primary-strong" : "bg-muted-foreground"}`}>
                 {n.is_published ? "Published" : "Draft"}
               </Badge>
               {n.is_pinned && (
-                <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-[0.22em] bg-gradient-to-r from-[hsl(43_70%_48%)] to-[hsl(43_80%_55%)] text-[hsl(348_55%_22%)] shadow-sm">
+                <span className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[9px] font-bold uppercase tracking-[0.22em] bg-gradient-to-r from-accent to-accent text-primary shadow-sm">
                   <Pin className="w-2.5 h-2.5" /> Pinned
                 </span>
               )}
@@ -507,7 +507,7 @@ const NewsSection = () => {
               <div className="flex items-center gap-2 pt-2 flex-wrap">
                 <div className="flex items-center gap-1" title="Pin to top">
                   <Switch checked={!!n.is_pinned} onCheckedChange={v => togglePin.mutate({ id: n.id, val: v })} />
-                  <Pin className={`w-3.5 h-3.5 ${n.is_pinned ? "text-[hsl(43_70%_48%)] fill-[hsl(43_70%_48%)]" : "text-muted-foreground"}`} />
+                  <Pin className={`w-3.5 h-3.5 ${n.is_pinned ? "text-primary fill-accent" : "text-muted-foreground"}`} />
                 </div>
                 <div className="flex items-center gap-1" title="Publish">
                   <Switch checked={n.is_published} onCheckedChange={v => togglePublish.mutate({ id: n.id, val: v })} />
@@ -534,7 +534,7 @@ const NewsSection = () => {
               {editing ? "Edit News" : "Add News"}
             </DialogTitle>
             <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1.5">
-              <Sparkles className="w-3 h-3 text-gold" />
+              <Sparkles className="w-3 h-3 text-primary" />
               Write in English or Urdu — the homepage will auto-format it as a typeset editorial article.
             </p>
           </DialogHeader>
@@ -545,8 +545,8 @@ const NewsSection = () => {
                 {form.title && (
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
                     detectTextLanguage(form.title) === "ur"
-                      ? "bg-[hsl(348_55%_28%)]/10 text-[hsl(348_55%_28%)]"
-                      : "bg-[hsl(215_45%_28%)]/10 text-[hsl(215_45%_28%)]"
+                      ? "bg-surface text-primary"
+                      : "bg-surface text-primary"
                   }`}>
                     {detectTextLanguage(form.title) === "ur" ? "اردو · RTL" : "English · LTR"}
                   </span>
@@ -565,8 +565,8 @@ const NewsSection = () => {
                 {form.content && (
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
                     detectTextLanguage(form.content) === "ur"
-                      ? "bg-[hsl(348_55%_28%)]/10 text-[hsl(348_55%_28%)]"
-                      : "bg-[hsl(215_45%_28%)]/10 text-[hsl(215_45%_28%)]"
+                      ? "bg-surface text-primary"
+                      : "bg-surface text-primary"
                   }`}>
                     {detectTextLanguage(form.content) === "ur" ? "اردو" : "English"}
                   </span>

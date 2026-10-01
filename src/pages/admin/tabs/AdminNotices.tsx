@@ -168,7 +168,7 @@ const AdminNotices = () => {
                 <TableCell className="font-medium max-w-[200px] truncate">{n.title}</TableCell>
                 <TableCell>
                   {n.is_poll ? (
-                    <Badge className="gap-1 bg-[hsl(258_60%_55%)]/10 text-[hsl(258_60%_45%)] hover:bg-[hsl(258_60%_55%)]/10">
+                    <Badge className="gap-1 bg-surface text-primary hover:bg-surface">
                       <BarChart3 className="w-3 h-3" /> Poll · {(n.poll_options || []).reduce((s, o) => s + (o.votes || 0), 0)} votes
                     </Badge>
                   ) : (
@@ -215,7 +215,7 @@ const AdminNotices = () => {
                 attached. Locked once a poll has any votes, to avoid an admin
                 accidentally turning a live poll back into a plain notice and
                 silently discarding real vote data. */}
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-[hsl(258_60%_55%)]/5 border border-[hsl(258_60%_55%)]/20">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-surface border border-border">
               <Switch
                 checked={form.is_poll}
                 disabled={!!editing && (editing.poll_options || []).some(o => (o.votes || 0) > 0)}
@@ -223,7 +223,7 @@ const AdminNotices = () => {
               />
               <div className="flex-1">
                 <Label className="flex items-center gap-1.5 cursor-pointer" onClick={() => { if (!editing || !(editing.poll_options || []).some(o => (o.votes || 0) > 0)) set("is_poll", !form.is_poll); }}>
-                  <BarChart3 className="w-3.5 h-3.5 text-[hsl(258_60%_55%)]" /> Make this a Poll
+                  <BarChart3 className="w-3.5 h-3.5 text-primary" /> Make this a Poll
                 </Label>
                 <p className="text-[11px] text-muted-foreground mt-0.5">
                   Visitors vote for one option — no login needed, one vote per device.
@@ -317,4 +317,4 @@ const AdminNotices = () => {
 };
 
 export default AdminNotices;
-      
+

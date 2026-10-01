@@ -133,9 +133,9 @@ const SearchPage = () => {
 
   const groups = [
     { key: "pages",    label: "Pages",    icon: Compass,    items: results.pages,    color: "text-primary"        },
-    { key: "notices",  label: "Notices",  icon: Bell,       items: results.notices,  color: "text-red-500"        },
-    { key: "news",     label: "News",     icon: Newspaper,  items: results.news,     color: "text-blue-500"       },
-    { key: "teachers", label: "Teachers", icon: Users,      items: results.teachers, color: "text-emerald-500"    },
+    { key: "notices",  label: "Notices",  icon: Bell,       items: results.notices,  color: "text-primary"        },
+    { key: "news",     label: "News",     icon: Newspaper,  items: results.news,     color: "text-primary"       },
+    { key: "teachers", label: "Teachers", icon: Users,      items: results.teachers, color: "text-primary"    },
   ];
 
   return (

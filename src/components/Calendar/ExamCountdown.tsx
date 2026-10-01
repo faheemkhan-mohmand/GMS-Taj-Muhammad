@@ -57,7 +57,7 @@ export default function ExamCountdown({ onClose }: { onClose?: () => void }) {
   const close = () => { setDismissed(true); onClose?.(); };
 
   return (
-    <div className={`sticky top-0 z-30 w-full ${isUrgent ? "bg-red-600" : "bg-amber-500"} text-white shadow-lg`}>
+    <div className={`sticky top-0 z-30 w-full ${isUrgent ? "bg-primary" : "bg-accent-soft"} text-primary-foreground shadow-lg`}>
       <div className="max-w-5xl mx-auto px-3 py-2 flex items-center gap-2 sm:gap-3">
         <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 animate-pulse" />
         <div className="flex-1 min-w-0 flex items-center gap-2 flex-wrap">
@@ -69,17 +69,17 @@ export default function ExamCountdown({ onClose }: { onClose?: () => void }) {
           </span>
           <div className="flex items-center gap-1 font-mono text-xs sm:text-sm font-bold tabular-nums shrink-0">
             {remaining.d > 0 && (
-              <span className="bg-white/20 px-1.5 py-0.5 rounded">
+              <span className="bg-surface/20 px-1.5 py-0.5 rounded">
                 {remaining.d}<span className="text-[10px] opacity-80 ml-0.5">d</span>
               </span>
             )}
-            <span className="bg-white/20 px-1.5 py-0.5 rounded">
+            <span className="bg-surface/20 px-1.5 py-0.5 rounded">
               {PAD(remaining.h)}<span className="text-[10px] opacity-80 ml-0.5">h</span>
             </span>
-            <span className="bg-white/20 px-1.5 py-0.5 rounded">
+            <span className="bg-surface/20 px-1.5 py-0.5 rounded">
               {PAD(remaining.m)}<span className="text-[10px] opacity-80 ml-0.5">m</span>
             </span>
-            <span className="bg-white/20 px-1.5 py-0.5 rounded hidden sm:inline-block">
+            <span className="bg-surface/20 px-1.5 py-0.5 rounded hidden sm:inline-block">
               {PAD(remaining.s)}<span className="text-[10px] opacity-80 ml-0.5">s</span>
             </span>
           </div>
@@ -87,7 +87,7 @@ export default function ExamCountdown({ onClose }: { onClose?: () => void }) {
         <button
           onClick={close}
           aria-label="Dismiss"
-          className="p-1 rounded hover:bg-white/20 transition-colors shrink-0"
+          className="p-1 rounded hover:bg-surface/20 transition-colors shrink-0"
         >
           <X className="w-4 h-4" />
         </button>

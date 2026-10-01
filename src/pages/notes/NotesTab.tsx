@@ -70,9 +70,9 @@ const NotesTab = () => {
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
         {[
-          { icon: CheckCircle, label: "Completed", value: completedTotal, color: "text-green-600" },
-          { icon: Bookmark,    label: "Bookmarked", value: bookmarkedChapterIds.length, color: "text-blue-700" },
-          { icon: Trophy,      label: "Subjects",  value: subjects.length, color: "text-violet-600" },
+          { icon: CheckCircle, label: "Completed", value: completedTotal, color: "text-primary" },
+          { icon: Bookmark,    label: "Bookmarked", value: bookmarkedChapterIds.length, color: "text-primary" },
+          { icon: Trophy,      label: "Subjects",  value: subjects.length, color: "text-primary" },
         ].map(s => (
           <div key={s.label} className="bg-card border border-border rounded-2xl p-4 text-center">
             <s.icon className={`w-5 h-5 mx-auto mb-1 ${s.color}`} />

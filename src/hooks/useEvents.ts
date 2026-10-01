@@ -63,10 +63,10 @@ export function useUpcomingEvents(limit = 5) {
 }
 
 export const EVENT_TYPE_META: Record<EventType, { label: string; color: string; dot: string }> = {
-  exam:     { label: "Exam",          color: "bg-red-500/10 text-red-600 border-red-200",         dot: "bg-red-500" },
-  holiday:  { label: "Holiday",       color: "bg-green-500/10 text-green-600 border-green-200",   dot: "bg-green-500" },
-  ptm:      { label: "PTM",           color: "bg-blue-500/10 text-blue-600 border-blue-200",      dot: "bg-blue-500" },
-  sports:   { label: "Sports Day",    color: "bg-orange-500/10 text-orange-600 border-orange-200",dot: "bg-orange-500" },
-  results:  { label: "Results Day",   color: "bg-purple-500/10 text-purple-600 border-purple-200",dot: "bg-purple-500" },
+  exam:     { label: "Exam",          color: "bg-background/10 text-primary border-border",         dot: "bg-background0" },
+  holiday:  { label: "Holiday",       color: "bg-background/10 text-primary border-border",   dot: "bg-background0" },
+  ptm:      { label: "PTM",           color: "bg-background/10 text-primary border-border",      dot: "bg-background0" },
+  sports:   { label: "Sports Day",    color: "bg-accent-soft/10 text-primary border-border",dot: "bg-accent-soft0" },
+  results:  { label: "Results Day",   color: "bg-background/10 text-primary border-border",dot: "bg-background0" },
   general:  { label: "General",       color: "bg-primary/10 text-primary border-primary/20",      dot: "bg-primary" },
 };

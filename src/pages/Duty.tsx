@@ -58,50 +58,50 @@ const ROLES: RoleCfg[] = [
     key: "monitor",
     label: "Class Monitor",
     icon: <Shield className="w-5 h-5" />,
-    gradient: "from-blue-600 via-blue-500 to-blue-700",
+    gradient: "from-primary via-primary to-primary",
     glow: "shadow-blue-400/40",
-    accent: "bg-blue-600",
-    ribbon: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
+    accent: "bg-primary",
+    ribbon: "bg-surface-raised text-primary bg-primary-strong text-primary",
     emoji: "🛡️",
   },
   {
     key: "proctor",
     label: "Proctor",
     icon: <ShieldCheck className="w-5 h-5" />,
-    gradient: "from-sky-500 via-sky-400 to-sky-700",
+    gradient: "from-primary via-primary to-primary",
     glow: "shadow-sky-400/40",
-    accent: "bg-sky-600",
-    ribbon: "bg-sky-100 text-sky-700 dark:bg-sky-950 dark:text-sky-300",
+    accent: "bg-primary",
+    ribbon: "bg-surface-raised text-primary bg-primary-strong text-primary",
     emoji: "✅",
   },
   {
     key: "social_worker",
     label: "Social Worker",
     icon: <Users className="w-5 h-5" />,
-    gradient: "from-indigo-500 via-indigo-400 to-indigo-700",
+    gradient: "from-primary via-primary to-primary",
     glow: "shadow-indigo-400/40",
-    accent: "bg-indigo-600",
-    ribbon: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300",
+    accent: "bg-primary",
+    ribbon: "bg-surface-raised text-primary bg-primary-strong text-primary",
     emoji: "🤝",
   },
   {
     key: "head_boy",
     label: "Head Boy",
     icon: <Star className="w-5 h-5" />,
-    gradient: "from-cyan-500 via-blue-400 to-cyan-700",
+    gradient: "from-primary via-primary to-primary",
     glow: "shadow-cyan-400/40",
-    accent: "bg-cyan-600",
-    ribbon: "bg-cyan-100 text-cyan-700 dark:bg-cyan-950 dark:text-cyan-300",
+    accent: "bg-primary",
+    ribbon: "bg-surface-raised text-primary bg-primary-strong text-primary",
     emoji: "⭐",
   },
   {
     key: "nazira",
     label: "Nazira",
     icon: <BookOpen className="w-5 h-5" />,
-    gradient: "from-slate-500 via-blue-500 to-slate-700",
+    gradient: "from-primary via-primary to-primary",
     glow: "shadow-blue-300/30",
-    accent: "bg-slate-600",
-    ribbon: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+    accent: "bg-primary-strong",
+    ribbon: "bg-surface-raised text-primary bg-primary-strong text-muted",
     emoji: "📖",
   },
 ];
@@ -136,11 +136,11 @@ function BadgeCard({ role, name, index }: { role: RoleCfg; name: string; index: 
       initial={{ opacity: 0, y: 16, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay: index * 0.06, duration: 0.35, ease: "easeOut" }}
-      className={`relative rounded-2xl bg-white dark:bg-slate-900 border border-blue-100 dark:border-slate-700 shadow-lg ${role.glow} overflow-hidden group`}
+      className={`relative rounded-2xl bg-surface bg-primary-strong border border-border border-border shadow-lg ${role.glow} overflow-hidden group`}
     >
       <div className={`h-1.5 w-full bg-gradient-to-r ${role.gradient}`} />
       <div className="p-4 flex items-start gap-3">
-        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${role.gradient} flex items-center justify-center text-white shadow-lg shrink-0 group-hover:scale-105 transition-transform`}>
+        <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${role.gradient} flex items-center justify-center text-primary-foreground shadow-lg shrink-0 group-hover:scale-105 transition-transform`}>
           {role.icon}
         </div>
         <div className="min-w-0 flex-1">
@@ -149,7 +149,7 @@ function BadgeCard({ role, name, index }: { role: RoleCfg; name: string; index: 
             {role.emoji} {role.label}
           </span>
         </div>
-        <BadgeCheck className="w-5 h-5 text-blue-400 dark:text-blue-500 shrink-0 mt-0.5" />
+        <BadgeCheck className="w-5 h-5 text-primary text-primary shrink-0 mt-0.5" />
       </div>
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none bg-gradient-to-br from-white/5 to-transparent" />
     </motion.div>
@@ -159,7 +159,7 @@ function BadgeCard({ role, name, index }: { role: RoleCfg; name: string; index: 
 // ── Empty badge ────────────────────────────────────────────────────────────────
 function EmptyBadge({ role }: { role: RoleCfg }) {
   return (
-    <div className="rounded-2xl border border-dashed border-blue-200 dark:border-slate-700 bg-blue-50/30 dark:bg-slate-900/30 p-4 flex items-center gap-3 opacity-50">
+    <div className="rounded-2xl border border-dashed border-border border-border bg-background/30 bg-primary-strong/30 p-4 flex items-center gap-3 opacity-50">
       <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center text-muted-foreground shrink-0">
         {role.icon}
       </div>
@@ -184,20 +184,20 @@ function ClassSection({ cls, duty, index }: { cls: ClassId; duty: ClassDuty; ind
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.4 }}
-      className="rounded-2xl border border-blue-200 dark:border-blue-900/50 bg-white dark:bg-slate-900/80 shadow-md overflow-hidden"
+      className="rounded-2xl border border-border border-border/50 bg-surface bg-primary-strong/80 shadow-md overflow-hidden"
     >
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-3 px-5 py-4 bg-gradient-to-r from-blue-600 to-sky-500 text-white"
+        className="w-full flex items-center gap-3 px-5 py-4 bg-gradient-to-r from-primary to-primary text-primary-foreground"
       >
         <GraduationCap className="w-5 h-5 shrink-0" />
         <span className="font-bold text-lg flex-1 text-left">Class {cls}</span>
         {hasAny ? (
-          <span className="text-xs font-semibold bg-white/25 rounded-full px-3 py-1">
+          <span className="text-xs font-semibold bg-surface/25 rounded-full px-3 py-1">
             {assigned} of {ROLES.length} assigned
           </span>
         ) : (
-          <span className="text-xs font-semibold bg-white/15 rounded-full px-3 py-1 italic opacity-70">
+          <span className="text-xs font-semibold bg-surface/15 rounded-full px-3 py-1 italic opacity-70">
             No assignments yet
           </span>
         )}
@@ -260,7 +260,7 @@ const DutyPage = () => {
         {/* Controls */}
         <div className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Info className="w-4 h-4 text-blue-500 shrink-0" />
+            <Info className="w-4 h-4 text-primary shrink-0" />
             <span>
               Duty assignments are managed by the school administration.
               {updatedStr && (
@@ -273,7 +273,7 @@ const DutyPage = () => {
           <button
             onClick={() => refetch()}
             disabled={isFetching}
-            className="flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 px-3 py-1.5 rounded-lg border border-blue-200 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 text-xs font-semibold text-primary text-primary px-3 py-1.5 rounded-lg border border-border border-border hover:bg-background hover:bg-primary-strong/40 transition-colors disabled:opacity-50"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isFetching ? "animate-spin" : ""}`} />
             Refresh
@@ -284,7 +284,7 @@ const DutyPage = () => {
         {isLoading && (
           <div className="flex items-center justify-center py-24">
             <div className="flex flex-col items-center gap-3 text-muted-foreground">
-              <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-10 h-10 border-4 border-border border-t-transparent rounded-full animate-spin" />
               <p className="text-sm font-medium">Loading duty assignments…</p>
             </div>
           </div>
@@ -297,7 +297,7 @@ const DutyPage = () => {
             <p className="text-muted-foreground text-sm">Please check your connection and try again.</p>
             <button
               onClick={() => refetch()}
-              className="mt-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700 transition-colors"
+              className="mt-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary transition-colors"
             >
               Try Again
             </button>
@@ -311,8 +311,8 @@ const DutyPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-24 space-y-4"
           >
-            <div className="w-20 h-20 mx-auto rounded-2xl bg-blue-50 dark:bg-blue-950/40 flex items-center justify-center">
-              <Shield className="w-10 h-10 text-blue-400" />
+            <div className="w-20 h-20 mx-auto rounded-2xl bg-background bg-primary-strong/40 flex items-center justify-center">
+              <Shield className="w-10 h-10 text-primary" />
             </div>
             <p className="text-lg font-bold text-foreground">No Duty Assignments Yet</p>
             <p className="text-muted-foreground text-sm max-w-sm mx-auto">
@@ -333,32 +333,32 @@ const DutyPage = () => {
                 transition={{ duration: 0.4 }}
                 className="relative rounded-3xl overflow-hidden shadow-2xl"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-orange-400 to-yellow-600 opacity-90" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.2),transparent)]" />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent via-accent to-accent opacity-90" />
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--primary-foreground-rgb) / 0.2),transparent)]" />
                 <div className="relative px-6 py-8 flex flex-col sm:flex-row items-center gap-6">
-                  <div className="w-20 h-20 rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-xl shrink-0">
-                    <Crown className="w-10 h-10 text-white" />
+                  <div className="w-20 h-20 rounded-2xl bg-surface/25 backdrop-blur-sm flex items-center justify-center shadow-xl shrink-0">
+                    <Crown className="w-10 h-10 text-primary-foreground" />
                   </div>
                   <div className="text-center sm:text-left">
-                    <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-1">
+                    <p className="text-primary-foreground text-sm font-semibold uppercase tracking-widest mb-1">
                       Chief Proctor — GMS Taj Muhammad
                     </p>
-                    <p className="text-white font-extrabold text-3xl sm:text-4xl leading-tight drop-shadow">
+                    <p className="text-primary-foreground font-extrabold text-3xl sm:text-4xl leading-tight drop-shadow">
                       {data.chief_proctor}
                     </p>
-                    <p className="text-white/70 text-sm mt-1">Whole School Supervisor</p>
+                    <p className="text-primary-foreground text-sm mt-1">Whole School Supervisor</p>
                   </div>
                   <div className="sm:ml-auto flex flex-col items-center gap-1">
-                    <Award className="w-12 h-12 text-white/70" />
-                    <span className="text-white/60 text-[10px] font-semibold uppercase tracking-wider">Verified</span>
+                    <Award className="w-12 h-12 text-primary-foreground" />
+                    <span className="text-primary-foreground text-[10px] font-semibold uppercase tracking-wider">Verified</span>
                   </div>
                 </div>
               </motion.div>
             )}
 
             {/* Role legend */}
-            <div className="rounded-2xl border border-blue-100 dark:border-slate-800 bg-blue-50/50 dark:bg-slate-900/40 p-4">
-              <p className="text-xs font-bold uppercase tracking-widest text-sky-700 dark:text-sky-400 mb-3">
+            <div className="rounded-2xl border border-border border-border bg-background/50 bg-primary-strong/40 p-4">
+              <p className="text-xs font-bold uppercase tracking-widest text-primary text-primary mb-3">
                 Duty Roles
               </p>
               <div className="flex flex-wrap gap-2">
@@ -395,4 +395,4 @@ const DutyPage = () => {
 };
 
 export default DutyPage;
-      
+

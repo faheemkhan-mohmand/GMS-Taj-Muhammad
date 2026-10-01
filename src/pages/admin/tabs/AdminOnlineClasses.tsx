@@ -1,6 +1,6 @@
 /**
  * AdminOnlineClasses.tsx
- * Admin dashboard tab — full control over all online classes.   
+ * Admin dashboard tab — full control over all online classes.
  */
 import { useState, useMemo } from "react";
 import ClassCard from "@/components/shared/ClassCard";
@@ -64,9 +64,9 @@ export default function AdminOnlineClasses() {
 
   const analytics = [
     { icon: BarChart3,   label: "Total Classes",     value: classes.length,         color: "text-primary",     bg: "bg-primary/10",      border: "border-primary/20"      },
-    { icon: Wifi,        label: "Live Right Now",     value: liveClasses.length,     color: "text-red-500",     bg: "bg-red-500/10",      border: "border-red-400/20"      },
-    { icon: TrendingUp,  label: "Completed Today",    value: completedToday.length,  color: "text-emerald-500", bg: "bg-emerald-500/10",  border: "border-emerald-400/20"  },
-    { icon: Clock,       label: "Upcoming",           value: upcomingClasses.length, color: "text-blue-500",    bg: "bg-blue-500/10",     border: "border-blue-400/20"     },
+    { icon: Wifi,        label: "Live Right Now",     value: liveClasses.length,     color: "text-primary",     bg: "bg-background/10",      border: "border-border/20"      },
+    { icon: TrendingUp,  label: "Completed Today",    value: completedToday.length,  color: "text-primary", bg: "bg-background/10",  border: "border-border/20"  },
+    { icon: Clock,       label: "Upcoming",           value: upcomingClasses.length, color: "text-primary",    bg: "bg-background/10",     border: "border-border/20"     },
   ];
 
   return (
@@ -102,7 +102,7 @@ export default function AdminOnlineClasses() {
             <p className="text-xs text-muted-foreground mt-0.5">{a.label}</p>
             {a.label === "Live Right Now" && a.value > 0 && (
               <span className="absolute top-3 right-3 flex h-2.5 w-2.5">
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-background" />
               </span>
             )}
           </div>
@@ -112,14 +112,14 @@ export default function AdminOnlineClasses() {
       {/* Live warning */}
       {liveClasses.length > 0 && (
           <div
-            className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800/40 rounded-2xl p-4 flex items-center gap-3"
+            className="bg-background bg-primary-strong/30 border border-border border-border/40 rounded-2xl p-4 flex items-center gap-3"
           >
-            <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
+            <AlertCircle className="w-5 h-5 text-primary shrink-0" />
             <div>
-              <p className="text-sm font-semibold text-red-600 dark:text-red-400">
+              <p className="text-sm font-semibold text-primary text-primary">
                 {liveClasses.length} active class{liveClasses.length > 1 ? "es" : ""} live right now
               </p>
-              <p className="text-xs text-red-500/80">{liveClasses.map(c => `${c.subject} — ${c.teacher_name}`).join(" · ")}</p>
+              <p className="text-xs text-primary/80">{liveClasses.map(c => `${c.subject} — ${c.teacher_name}`).join(" · ")}</p>
             </div>
           </div>
         )}
@@ -204,11 +204,11 @@ export default function AdminOnlineClasses() {
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div
               onClick={() => setConfirmId(null)}
-              className="absolute inset-0 bg-black/60" />
+              className="absolute inset-0 bg-background/60" />
             <div
               className="relative bg-card rounded-2xl border border-border p-6 max-w-sm w-full shadow-2xl text-center">
-              <div className="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Trash2 className="w-5 h-5 text-red-500" />
+              <div className="w-12 h-12 bg-surface-raised bg-primary-strong/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trash2 className="w-5 h-5 text-primary" />
               </div>
               <h3 className="font-heading font-bold text-foreground mb-2">Delete Class?</h3>
               <p className="text-sm text-muted-foreground mb-5">This action cannot be undone.</p>
@@ -216,7 +216,7 @@ export default function AdminOnlineClasses() {
                 <button onClick={() => setConfirmId(null)}
                   className="flex-1 py-2.5 rounded-xl bg-secondary text-sm font-semibold">Cancel</button>
                 <button onClick={() => handleDelete(confirmId)}
-                  className="flex-1 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white text-sm font-bold">Delete</button>
+                  className="flex-1 py-2.5 rounded-xl bg-background hover:bg-primary text-primary-foreground text-sm font-bold">Delete</button>
               </div>
             </div>
           </div>
@@ -234,4 +234,4 @@ export default function AdminOnlineClasses() {
   );
     }
 
-        
+

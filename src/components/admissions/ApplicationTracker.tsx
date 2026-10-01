@@ -20,17 +20,17 @@ interface TimelineEntry {
 }
 
 const STATUS_META: Record<string, { label: string; icon: any; color: string }> = {
-  pending:              { label: "Application Submitted",     icon: FileText,     color: "#3b82f6" },
-  under_review:         { label: "Under Review",              icon: Clock,        color: "#8b5cf6" },
-  documents_verified:   { label: "Documents Verified",        icon: ShieldCheck,  color: "#10b981" },
-  documents_missing:    { label: "Documents Missing",         icon: AlertCircle,  color: "#f59e0b" },
-  interview_scheduled:  { label: "Interview Scheduled",       icon: Calendar,     color: "#06b6d4" },
-  interview_completed:  { label: "Interview Completed",       icon: CheckCircle2, color: "#10b981" },
-  waitlisted:           { label: "Waitlisted",                icon: Clock,        color: "#f59e0b" },
-  approved:             { label: "Approved",                  icon: CheckCircle2, color: "#10b981" },
-  admitted:             { label: "Admitted",                  icon: Award,        color: "#10b981" },
-  admit_card_issued:    { label: "Admit Card Issued",         icon: Award,        color: "#10b981" },
-  rejected:             { label: "Not Approved",              icon: AlertCircle,  color: "#ef4444" },
+  pending:              { label: "Application Submitted",     icon: FileText,     color: "var(--primary)" },
+  under_review:         { label: "Under Review",              icon: Clock,        color: "var(--primary)" },
+  documents_verified:   { label: "Documents Verified",        icon: ShieldCheck,  color: "var(--primary)" },
+  documents_missing:    { label: "Documents Missing",         icon: AlertCircle,  color: "var(--primary)" },
+  interview_scheduled:  { label: "Interview Scheduled",       icon: Calendar,     color: "var(--primary)" },
+  interview_completed:  { label: "Interview Completed",       icon: CheckCircle2, color: "var(--primary)" },
+  waitlisted:           { label: "Waitlisted",                icon: Clock,        color: "var(--primary)" },
+  approved:             { label: "Approved",                  icon: CheckCircle2, color: "var(--primary)" },
+  admitted:             { label: "Admitted",                  icon: Award,        color: "var(--primary)" },
+  admit_card_issued:    { label: "Admit Card Issued",         icon: Award,        color: "var(--primary)" },
+  rejected:             { label: "Not Approved",              icon: AlertCircle,  color: "var(--primary)" },
 };
 
 const ACTOR_LABELS: Record<string, string> = {
@@ -64,7 +64,7 @@ export default function ApplicationTracker({
 
           <div className="space-y-4">
             {timeline.map((entry, i) => {
-              const meta = STATUS_META[entry.to_status] || { label: entry.to_status, icon: Circle, color: "#64748b" };
+              const meta = STATUS_META[entry.to_status] || { label: entry.to_status, icon: Circle, color: "var(--primary)" };
               const Icon = meta.icon;
               const isLatest = i === 0;
               const isCurrent = entry.to_status === currentStatus;
@@ -81,11 +81,11 @@ export default function ApplicationTracker({
                   <div
                     className="absolute left-0 top-0 w-7 h-7 rounded-full flex items-center justify-center shrink-0 shadow-sm"
                     style={{
-                      backgroundColor: isCurrent ? meta.color : meta.color + "20",
+                      backgroundColor: isCurrent ? meta.color : "color-mix(in srgb, var(--primary) 12%, transparent)",
                       border: `2px solid ${meta.color}`,
                     }}
                   >
-                    <Icon className="w-3.5 h-3.5" style={{ color: isCurrent ? "white" : meta.color }} />
+                    <Icon className="w-3.5 h-3.5" style={{ color: isCurrent ? "var(--primary-foreground)" : meta.color }} />
                   </div>
 
                   {/* Content */}
@@ -94,7 +94,7 @@ export default function ApplicationTracker({
                       <span className="font-semibold text-sm text-foreground">{meta.label}</span>
                       {isCurrent && (
                         <span
-                          className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full text-white"
+                          className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full text-primary-foreground"
                           style={{ backgroundColor: meta.color }}
                         >
                           Current

@@ -103,7 +103,7 @@ export default function NumberLineLab({
               key={m}
               onClick={() => setMode(m)}
               className={`text-[10px] px-2.5 py-1.5 rounded-lg font-medium ${
-                mode === m ? "text-white" : "bg-secondary hover:bg-secondary/70 text-foreground"
+                mode === m ? "text-primary-foreground" : "bg-secondary hover:bg-secondary/70 text-foreground"
               }`}
               style={mode === m ? { backgroundColor: subjectColor } : {}}
             >
@@ -144,7 +144,7 @@ export default function NumberLineLab({
 
         {/* Number line visualization */}
         {mode !== "fractions" ? (
-          <div className="bg-white rounded-lg p-3 border border-border overflow-x-auto">
+          <div className="bg-surface rounded-lg p-3 border border-border overflow-x-auto">
             <svg viewBox={`0 0 ${W} ${H}`} className="w-full min-w-[500px]">
               {/* line */}
               <line x1={pad} y1={H / 2} x2={W - pad} y2={H / 2} stroke="#0f172a" strokeWidth={2} />
@@ -251,7 +251,7 @@ function FractionLine({ subjectColor, denominator, setDenominator }: {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg p-3 border border-border">
+      <div className="bg-surface rounded-lg p-3 border border-border">
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full">
           {/* base line */}
           <line x1={pad} y1={H / 2} x2={W - pad} y2={H / 2} stroke="#0f172a" strokeWidth={2} />

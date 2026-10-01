@@ -32,8 +32,8 @@ import { Badge } from "@/components/ui/badge";
 
 const PlayOverlay = () => (
   <div className="absolute inset-0 flex items-center justify-center bg-primary-dark/15 pointer-events-none">
-    <div className="w-11 h-11 rounded-full bg-black/50 border border-white/35 flex items-center justify-center shadow-elevated">
-      <Play className="w-5 h-5 text-white ml-0.5" />
+    <div className="w-11 h-11 rounded-full bg-background/50 border border-border/35 flex items-center justify-center shadow-elevated">
+      <Play className="w-5 h-5 text-primary-foreground ml-0.5" />
     </div>
   </div>
 );
@@ -166,13 +166,13 @@ const AlbumCard = ({
         {/* emerald wash + hover spotlight */}
         <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/75 via-primary-dark/10 to-transparent" />
         <div className="absolute inset-0 bg-primary-dark/0 group-hover:bg-primary-dark/20 transition-colors duration-300 flex items-center justify-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/95 text-primary text-xs font-heading font-bold px-4 py-2 shadow-elevated opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-surface/95 text-primary text-xs font-heading font-bold px-4 py-2 shadow-elevated opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Explore Album <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </div>
         {/* item counter */}
         {typeof count === "number" && (
-          <div className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-black/45 text-white text-[11px] font-semibold px-2.5 py-1 border border-white/15">
+          <div className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-background/45 text-primary-foreground text-[11px] font-semibold px-2.5 py-1 border border-border/15">
             <Images className="w-3.5 h-3.5" />
             {count}
           </div>
@@ -303,8 +303,8 @@ const Gallery = () => {
                 : albumsError && !albums.length
                   ? (
                     <div className="col-span-full text-center py-20">
-                      <div className="w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
-                        <WifiOff className="w-8 h-8 text-orange-500" />
+                      <div className="w-16 h-16 rounded-full bg-accent-soft bg-accent/30 flex items-center justify-center mx-auto mb-4">
+                        <WifiOff className="w-8 h-8 text-primary" />
                       </div>
                       <p className="font-semibold text-foreground text-lg">
                         Can't load gallery
@@ -340,8 +340,8 @@ const Gallery = () => {
                   : photosError && !photos.length
                     ? (
                       <div className="col-span-full text-center py-16">
-                        <div className="w-16 h-16 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
-                          <WifiOff className="w-8 h-8 text-orange-500" />
+                        <div className="w-16 h-16 rounded-full bg-accent-soft bg-accent/30 flex items-center justify-center mx-auto mb-4">
+                          <WifiOff className="w-8 h-8 text-primary" />
                         </div>
                         <p className="font-semibold text-foreground">
                           Can't load photos
@@ -380,7 +380,7 @@ const Gallery = () => {
                           >
                             <MediaThumb photo={photo} />
                             {badge && (
-                              <Badge className="absolute top-2 left-2 z-10 bg-black/55 text-white text-[10px] gap-1 border border-white/10">
+                              <Badge className="absolute top-2 left-2 z-10 bg-background/55 text-primary-foreground text-[10px] gap-1 border border-border/10">
                                 <Play className="w-3 h-3" />
                                 {badge}
                               </Badge>
@@ -434,19 +434,18 @@ const Gallery = () => {
             style={{
               // Neutral near-black backdrop — theme-independent, so it never
               // tints gold (dark theme) or green (light/system theme).
-              background:
-                "linear-gradient(180deg, rgba(8,8,10,0.97), rgba(2,2,3,0.98))",
+              background: "var(--gradient-hero)",
             }}
           >
             {/* top chrome */}
             <div className="absolute top-0 inset-x-0 flex items-center justify-between px-4 py-3 z-20">
-              <span className="rounded-full bg-white/10 text-white/90 text-xs font-semibold px-3 py-1.5 tabular-nums border border-white/10">
+              <span className="rounded-full bg-surface/10 text-primary-foreground text-xs font-semibold px-3 py-1.5 tabular-nums border border-border/10">
                 {lightboxIndex! + 1} / {photos.length}
               </span>
               <button
                 onClick={closeLightbox}
                 aria-label="Close viewer"
-                className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors border border-white/10"
+                className="p-2.5 rounded-full bg-surface/10 hover:bg-surface/20 text-primary-foreground transition-colors border border-border/10"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -459,7 +458,7 @@ const Gallery = () => {
                   prevPhoto();
                 }}
                 aria-label="Previous"
-                className="absolute left-3 md:left-5 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-20 border border-white/10"
+                className="absolute left-3 md:left-5 p-2.5 rounded-full bg-surface/10 hover:bg-surface/20 text-primary-foreground transition-colors z-20 border border-border/10"
               >
                 <ChevronLeft className="w-6 h-6 md:w-8 md:h-8" />
               </button>
@@ -472,7 +471,7 @@ const Gallery = () => {
                   nextPhoto();
                 }}
                 aria-label="Next"
-                className="absolute right-3 md:right-5 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-20 border border-white/10"
+                className="absolute right-3 md:right-5 p-2.5 rounded-full bg-surface/10 hover:bg-surface/20 text-primary-foreground transition-colors z-20 border border-border/10"
               >
                 <ChevronRight className="w-6 h-6 md:w-8 md:h-8" />
               </button>
@@ -489,7 +488,7 @@ const Gallery = () => {
               {activeEmbed ? (
                 /* Facebook / YouTube — official player, inline, never a new tab */
                 <div
-                  className="relative rounded-2xl overflow-hidden bg-black shadow-elevated"
+                  className="relative rounded-2xl overflow-hidden bg-background shadow-elevated"
                   style={{
                     aspectRatio: String(activeEmbed.aspect),
                     width: `min(94vw, ${(78 * activeEmbed.aspect).toFixed(2)}vh)`,
@@ -509,7 +508,7 @@ const Gallery = () => {
                   controls
                   autoPlay
                   playsInline
-                  className="max-w-full max-h-[78vh] w-auto rounded-2xl bg-black shadow-elevated"
+                  className="max-w-full max-h-[78vh] w-auto rounded-2xl bg-background shadow-elevated"
                 />
               ) : (
                 <img
@@ -519,7 +518,7 @@ const Gallery = () => {
                 />
               )}
               {activePhoto.caption && (
-                <p className="text-white/85 text-sm text-center max-w-[80vw]">
+                <p className="text-primary-foreground text-sm text-center max-w-[80vw]">
                   {activePhoto.caption}
                 </p>
               )}

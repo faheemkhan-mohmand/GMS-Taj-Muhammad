@@ -234,7 +234,7 @@ const SubjectRows = memo(function SubjectRows({ subjects, visible, animate }: {
                     energized={animate}
                     delay={animate ? 0.85 + i * 0.045 : 0}
                     duration={0.55}
-                    className={pct < 33 ? "bg-gradient-to-r from-rose-500 to-rose-400" : "bg-gradient-to-r from-orange-600 to-amber-400"}
+                    className={pct < 33 ? "bg-gradient-to-r from-accent to-accent" : "bg-gradient-to-r from-accent to-accent"}
                   />
                 </div>
                 <span className="text-[11px] font-bold text-foreground w-14 text-right tabular-nums shrink-0">{s.obtained}/{s.total}</span>
@@ -249,7 +249,7 @@ const SubjectRows = memo(function SubjectRows({ subjects, visible, animate }: {
                     energized={animate}
                     delay={animate ? 0.85 + i * 0.045 : 0}
                     duration={0.55}
-                    className={s.barFail ? "bg-gradient-to-r from-red-500 to-red-400" : "bg-gradient-to-r from-blue-600 to-sky-400"}
+                    className={s.barFail ? "bg-gradient-to-r from-primary to-primary" : "bg-gradient-to-r from-primary to-primary"}
                   />
                 </div>
               )}
@@ -288,15 +288,15 @@ const SummaryCard = ({ data, mode, celebrate }: { data: RevealResultData; mode: 
   // fall back to the raw marks line + grade + remarks.
   const stats = hasFullMarks
     ? [
-        { l: "Obtained", v: data.obtained, c: "text-blue-600 dark:text-blue-400" },
+        { l: "Obtained", v: data.obtained, c: "text-primary text-primary" },
         { l: "Total", v: data.total, c: "text-foreground" },
-        { l: "Percent", v: `${data.percentage}%`, c: "text-orange-600 dark:text-orange-400" },
-        { l: "Grade", v: data.grade, c: "text-amber-600 dark:text-amber-400" },
+        { l: "Percent", v: `${data.percentage}%`, c: "text-primary text-primary" },
+        { l: "Grade", v: data.grade, c: "text-primary text-primary" },
       ]
     : [
-        { l: "Marks", v: data.marksLine || "—", c: "text-blue-600 dark:text-blue-400" },
-        { l: "Grade", v: data.grade, c: "text-amber-600 dark:text-amber-400" },
-        { l: "Remarks", v: data.remarksLine || "—", c: "text-teal-600 dark:text-teal-400" },
+        { l: "Marks", v: data.marksLine || "—", c: "text-primary text-primary" },
+        { l: "Grade", v: data.grade, c: "text-primary text-primary" },
+        { l: "Remarks", v: data.remarksLine || "—", c: "text-primary text-primary" },
       ];
 
   // ── Iron Man HUD: energy pulse scheduling.
@@ -333,7 +333,7 @@ const SummaryCard = ({ data, mode, celebrate }: { data: RevealResultData; mode: 
           animate={{ x: "130%" }}
           transition={{ duration: 1.25, ease: "easeInOut", delay: 0.15 }}
           className="absolute inset-0 pointer-events-none z-20"
-          style={{ background: "linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.35) 50%, transparent 58%)" }}
+          style={{ background: "var(--gradient-hero)" }}
         />
       )}
 
@@ -355,7 +355,7 @@ const SummaryCard = ({ data, mode, celebrate }: { data: RevealResultData; mode: 
               animate={visible ? { scale: 1, opacity: 1 } : {}}
               transition={{ type: "spring", stiffness: 300, damping: 20, delay: animate ? 0.1 : 0 }}
               className="shrink-0 rounded-full p-[2.5px]"
-              style={{ background: "linear-gradient(135deg,#FFD9A8 0%,#F59E4C 45%,#D97A1E 100%)", boxShadow: "0 5px 16px -5px rgba(240,140,50,0.6)" }}
+              style={{ background: "var(--gradient-hero)", boxShadow: "0 5px 16px -5px rgba(240,140,50,0.6)" }}
             >
               <img src={data.photoUrl} alt="" className="w-11 h-11 rounded-full object-cover" />
             </motion.div>
@@ -368,18 +368,18 @@ const SummaryCard = ({ data, mode, celebrate }: { data: RevealResultData; mode: 
             >
               <div
                 className="w-12 h-12 rounded-full p-[2.5px]"
-                style={{ background: "linear-gradient(135deg,#FFD9A8 0%,#F59E4C 45%,#D97A1E 100%)", boxShadow: "0 5px 16px -5px rgba(240,140,50,0.6)" }}
+                style={{ background: "var(--gradient-hero)", boxShadow: "0 5px 16px -5px rgba(240,140,50,0.6)" }}
               >
                 <div
                   className="w-full h-full rounded-full flex items-center justify-center"
-                  style={{ background: "linear-gradient(160deg,#6B3A16 0%,#3E2110 100%)" }}
+                  style={{ background: "var(--gradient-hero)" }}
                 >
-                  <span className="text-white text-lg font-black font-heading leading-none">{displayName.charAt(0)}</span>
+                  <span className="text-primary-foreground text-lg font-black font-heading leading-none">{displayName.charAt(0)}</span>
                 </div>
               </div>
               <span
                 className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg,#FFD9A8,#F0A70C)", boxShadow: "0 1px 5px rgba(240,140,50,0.65)" }}
+                style={{ background: "var(--gradient-hero)", boxShadow: "0 1px 5px rgba(240,140,50,0.65)" }}
               >
                 <svg viewBox="0 0 10 10" className="w-2 h-2" aria-hidden>
                   <path d="M5 0 l1.2 3.8 L10 5 6.2 6.2 5 10 3.8 6.2 0 5 3.8 3.8 Z" fill="#fff" />
@@ -406,8 +406,8 @@ const SummaryCard = ({ data, mode, celebrate }: { data: RevealResultData; mode: 
         {/* Respectful support line for the hard days — no red, no shame */}
         {!data.isPass && visible && (
           <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: animate ? 0.9 : 0, duration: 0.5 }}
-            className="mt-3 mx-auto max-w-[300px] rounded-xl bg-teal-50 dark:bg-teal-900/25 border border-teal-200/70 dark:border-teal-800/60 px-3.5 py-2">
-            <p className="text-[11.5px] leading-relaxed font-medium text-teal-800 dark:text-teal-300">
+            className="mt-3 mx-auto max-w-[300px] rounded-xl bg-background bg-primary-strong/25 border border-border/70 border-border/60 px-3.5 py-2">
+            <p className="text-[11.5px] leading-relaxed font-medium text-primary text-primary">
               Every result is a step. Talk to your teacher tomorrow.
             </p>
           </motion.div>
@@ -452,8 +452,8 @@ const SummaryCard = ({ data, mode, celebrate }: { data: RevealResultData; mode: 
             className="mt-3 flex items-center justify-center gap-2 flex-wrap"
           >
             {data.schoolRank != null && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 px-3 py-1 text-[11px] font-bold text-amber-900 dark:text-amber-300">
-                <Trophy className="w-3 h-3 text-amber-500" />
+              <span className="inline-flex items-center gap-1 rounded-full bg-accent-soft bg-accent/30 border border-border border-accent px-3 py-1 text-[11px] font-bold text-primary text-primary">
+                <Trophy className="w-3 h-3 text-primary" />
                 Rank #{data.schoolRank}
               </span>
             )}
@@ -488,8 +488,8 @@ const SummaryStage = ({ data, onDone }: { data: RevealResultData; onDone: () => 
         <SummaryCard data={data} mode={reduced ? "static" : "animate"} celebrate />
       </motion.div>
       <motion.button onClick={onDone} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
-        className="mt-5 inline-flex items-center gap-2 rounded-2xl px-6 py-3 font-bold text-sm text-white shadow-lg"
-        style={{ background: "linear-gradient(135deg, hsl(20 40% 18%), hsl(20 45% 28%))" }}>
+        className="mt-5 inline-flex items-center gap-2 rounded-2xl px-6 py-3 font-bold text-sm text-primary-foreground shadow-lg"
+        style={{ background: "var(--gradient-hero)" }}>
         View Full Result Card <ArrowDown className="w-4 h-4" />
       </motion.button>
     </div>
@@ -646,7 +646,7 @@ const ResultRevealOverlay = ({ open, onClose, data }: Props) => {
         >
           {/* Close — anchored to the viewport root, so it never scrolls away. */}
           <button onClick={onClose} aria-label="Close"
-            className="absolute top-4 right-4 z-40 w-10 h-10 rounded-full bg-black/55 hover:bg-black/70 border border-white/25 text-white flex items-center justify-center shadow-lg backdrop-blur-sm transition-colors">
+            className="absolute top-4 right-4 z-40 w-10 h-10 rounded-full bg-background/55 hover:bg-background/70 border border-border/25 text-primary-foreground flex items-center justify-center shadow-lg backdrop-blur-sm transition-colors">
             <X className="w-5 h-5" />
           </button>
 

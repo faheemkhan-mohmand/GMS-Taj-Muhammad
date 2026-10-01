@@ -110,20 +110,20 @@ const VideoCard = ({ video, onClick }: { video: VideoItem; onClick: () => void }
           />
         ) : (
           <div className="w-full h-full gradient-hero flex items-center justify-center">
-            <Video className="w-10 h-10 text-white/40" />
+            <Video className="w-10 h-10 text-primary-foreground" />
           </div>
         )}
 
         {/* Play overlay */}
         <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/30 transition-colors flex items-center justify-center">
-          <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity scale-75 group-hover:scale-100 duration-200">
+          <div className="w-12 h-12 rounded-full bg-surface/90 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity scale-75 group-hover:scale-100 duration-200">
             <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
           </div>
         </div>
 
         {/* YouTube badge */}
         {ytId && (
-          <div className="absolute top-2 left-2 flex items-center gap-1 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+          <div className="absolute top-2 left-2 flex items-center gap-1 bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">
             <Youtube className="w-2.5 h-2.5" /> YouTube
           </div>
         )}
@@ -188,7 +188,7 @@ const VideoPlayerModal = ({ video, onClose }: { video: VideoItem; onClose: () =>
           </div>
 
           {/* Player */}
-          <div className="aspect-video bg-black">
+          <div className="aspect-video bg-background">
             {ytId ? (
               // ✅ YouTube embed — auto plays, full controls
               <iframe

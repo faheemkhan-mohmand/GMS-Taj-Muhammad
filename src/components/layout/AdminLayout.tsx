@@ -32,7 +32,7 @@ const navSections: NavSection[] = [
       { id: "overview",         label: "Overview",              emoji: "📊" },
       { id: "settings",         label: "School Settings",       emoji: "⚙️" },
       { id: "site-analytics",   label: "Site Analytics",        emoji: "📈",
-        lucideIcon: BarChart2,  lucideColor: "text-violet-500" },
+        lucideIcon: BarChart2,  lucideColor: "text-primary" },
     ],
   },
   {
@@ -190,13 +190,13 @@ const NavBtn = memo(({ item, activeTab, onTabChange, onItemClick }: NavBtnProps)
       onClick={() => { onTabChange(item.id); onItemClick?.(); }}
       className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
         isActive
-          ? "bg-orange-600 text-white shadow-sm"
+          ? "bg-primary text-primary-foreground shadow-sm"
           : "hover:bg-secondary text-foreground"
       }`}
     >
       {item.lucideIcon ? (
         <item.lucideIcon
-          className={`w-5 h-5 shrink-0 ${isActive ? "text-white" : item.lucideColor ?? "text-muted-foreground"}`}
+          className={`w-5 h-5 shrink-0 ${isActive ? "text-primary-foreground" : item.lucideColor ?? "text-muted-foreground"}`}
         />
       ) : (
         <EmojiIcon emoji={item.emoji} size="w-5 h-5" />
@@ -384,10 +384,10 @@ const AdminLayout = ({ activeTab, onTabChange, children }: AdminLayoutProps) => 
               <button
                 key={item.id}
                 onClick={() => onTabChange(item.id)}
-                className={`flex flex-col items-center gap-0.5 p-2 min-w-[3rem] ${isActive ? "text-accent" : "text-muted-foreground"}`}
+                className={`flex flex-col items-center gap-0.5 p-2 min-w-[3rem] ${isActive ? "text-primary" : "text-muted-foreground"}`}
               >
                 {item.lucideIcon ? (
-                  <item.lucideIcon className={`w-5 h-5 ${isActive ? "text-accent" : item.lucideColor ?? "text-muted-foreground"}`} />
+                  <item.lucideIcon className={`w-5 h-5 ${isActive ? "text-primary" : item.lucideColor ?? "text-muted-foreground"}`} />
                 ) : (
                   <span className="text-lg leading-none">{item.emoji}</span>
                 )}

@@ -129,7 +129,7 @@ const MiniPlayer = ({
         <div className="flex items-center gap-3 px-4 py-2.5">
           <button
             onClick={(e) => { e.stopPropagation(); onPlayPause(); }}
-            className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-white"
+            className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-primary-foreground"
             style={{ backgroundColor: subjectColor }}
           >
             {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
@@ -174,7 +174,7 @@ const FullPlayer = ({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-black/60 flex items-end sm:items-center justify-center"
+      className="fixed inset-0 z-50 bg-background/60 flex items-end sm:items-center justify-center"
       onClick={onMini}
     >
       <motion.div
@@ -248,7 +248,7 @@ const FullPlayer = ({
             <SkipBack className="w-5 h-5" />
           </button>
           <button onClick={onPlayPause}
-            className="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-transform hover:scale-105"
+            className="w-14 h-14 rounded-full flex items-center justify-center text-primary-foreground shadow-lg transition-transform hover:scale-105"
             style={{ backgroundColor: subjectColor }}>
             {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
           </button>
@@ -267,7 +267,7 @@ const FullPlayer = ({
               onClick={() => onSpeedChange(s)}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors ${
                 speed === s
-                  ? "text-white shadow-sm"
+                  ? "text-primary-foreground shadow-sm"
                   : "bg-secondary text-muted-foreground hover:bg-secondary/70"
               }`}
               style={speed === s ? { backgroundColor: subjectColor } : {}}
@@ -280,7 +280,7 @@ const FullPlayer = ({
           </button>
           {audioUrl && (
             <button onClick={onDownload} disabled={downloading || cached}
-              className={`p-1.5 rounded-lg hover:bg-secondary ml-1 ${cached ? "text-green-500" : ""}`}
+              className={`p-1.5 rounded-lg hover:bg-secondary ml-1 ${cached ? "text-primary" : ""}`}
               title={cached ? "Cached for offline" : "Download for offline"}>
               {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : cached ? <WifiOff className="w-4 h-4" /> : <Download className="w-4 h-4" />}
             </button>
@@ -293,7 +293,7 @@ const FullPlayer = ({
             onClick={onPodcastToggle}
             className={`w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-all ${
               podcastMode
-                ? "text-white shadow-sm"
+                ? "text-primary-foreground shadow-sm"
                 : "bg-secondary text-muted-foreground hover:bg-secondary/70"
             }`}
             style={podcastMode ? { backgroundColor: subjectColor } : {}}
@@ -569,7 +569,7 @@ const AudioNotesPlayer: React.FC<AudioNotesPlayerProps> = ({
             className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 w-full"
             title="Audio Notes"
           >
-            <Volume2 className="w-5 h-5 text-blue-600" />
+            <Volume2 className="w-5 h-5 text-primary" />
           </button>
         ) : (
           <button

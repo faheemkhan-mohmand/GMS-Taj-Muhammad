@@ -49,25 +49,25 @@ const MONTH_NAMES = ["January","February","March","April","May","June","July","A
 // ─── Color Helpers ──────────────────────────────────────────────────────────
 
 function heatColor(rate: number): string {
-  if (rate >= 95) return "bg-green-500";
-  if (rate >= 85) return "bg-green-400";
-  if (rate >= 75) return "bg-yellow-400";
-  if (rate >= 60) return "bg-orange-400";
-  return "bg-red-500";
+  if (rate >= 95) return "bg-background";
+  if (rate >= 85) return "bg-primary";
+  if (rate >= 75) return "bg-accent";
+  if (rate >= 60) return "bg-accent";
+  return "bg-background";
 }
 
 function heatText(rate: number): string {
-  if (rate >= 85) return "text-white";
-  if (rate >= 60) return "text-gray-900";
-  return "text-white";
+  if (rate >= 85) return "text-primary-foreground";
+  if (rate >= 60) return "text-primary";
+  return "text-primary-foreground";
 }
 
 function heatBorder(rate: number): string {
-  if (rate >= 95) return "border-green-600";
-  if (rate >= 85) return "border-green-500";
-  if (rate >= 75) return "border-yellow-500";
-  if (rate >= 60) return "border-orange-500";
-  return "border-red-600";
+  if (rate >= 95) return "border-border";
+  if (rate >= 85) return "border-border";
+  if (rate >= 75) return "border-border";
+  if (rate >= 60) return "border-border";
+  return "border-border";
 }
 
 // ─── Sub-Components ─────────────────────────────────────────────────────────
@@ -85,28 +85,28 @@ function MetricsCards({ cls, month, year }: { cls: string; month: number; year: 
       label: "Avg Daily Rate",
       value: `${metrics.avgDailyRate}%`,
       sub: "This month",
-      tone: metrics.avgDailyRate >= 85 ? "text-green-600 bg-green-50 dark:bg-green-900/20" : metrics.avgDailyRate >= 75 ? "text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20" : "text-red-600 bg-red-50 dark:bg-red-900/20",
+      tone: metrics.avgDailyRate >= 85 ? "text-primary bg-background bg-primary-strong/20" : metrics.avgDailyRate >= 75 ? "text-primary bg-accent-soft bg-accent/20" : "text-primary bg-background bg-primary-strong/20",
     },
     {
       icon: <AlertTriangle className="w-5 h-5" />,
       label: "Chronic Absentees",
       value: `${metrics.chronicAbsenteeCount}`,
       sub: `${metrics.chronicAbsenteeRate}% of class (below 75%)`,
-      tone: metrics.chronicAbsenteeCount === 0 ? "text-green-600 bg-green-50 dark:bg-green-900/20" : "text-red-600 bg-red-50 dark:bg-red-900/20",
+      tone: metrics.chronicAbsenteeCount === 0 ? "text-primary bg-background bg-primary-strong/20" : "text-primary bg-background bg-primary-strong/20",
     },
     {
       icon: <Award className="w-5 h-5" />,
       label: "Most Improved",
       value: metrics.mostImprovedStudent ? metrics.mostImprovedStudent.name.split(" ")[0] : "N/A",
       sub: metrics.mostImprovedStudent ? `+${metrics.mostImprovedStudent.improvement}% this month` : "Not enough data",
-      tone: "text-blue-600 bg-blue-50 dark:bg-blue-900/20",
+      tone: "text-primary bg-background bg-primary-strong/20",
     },
     {
       icon: <Calendar className="w-5 h-5" />,
       label: "Peak Absence Day",
       value: metrics.peakAbsenceDay ? format(new Date(metrics.peakAbsenceDay.date), "dd MMM") : "N/A",
       sub: metrics.peakAbsenceDay ? `${metrics.peakAbsenceDay.rate}% attendance` : "No absences",
-      tone: "text-orange-600 bg-orange-50 dark:bg-orange-900/20",
+      tone: "text-primary bg-accent-soft bg-accent/20",
     },
   ];
 
@@ -146,11 +146,11 @@ function MonthlyTrendChart({ cls, year }: { cls: string; year: number }) {
           <AreaChart data={trends} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
             <defs>
               <linearGradient id="colorPct" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#6366f1" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis dataKey="month" tick={{ fontSize: 11 }} />
             <YAxis tick={{ fontSize: 10 }} domain={[0, 100]} />
             <Tooltip
@@ -160,8 +160,8 @@ function MonthlyTrendChart({ cls, year }: { cls: string; year: number }) {
               }}
               contentStyle={{ fontSize: 12, borderRadius: 8 }}
             />
-            <ReferenceLine y={75} stroke="#ef4444" strokeDasharray="4 2" label={{ value: "Min 75%", fontSize: 9, fill: "#ef4444" }} />
-            <Area type="monotone" dataKey="percentage" stroke="#6366f1" strokeWidth={2.5} fill="url(#colorPct)" dot={{ fill: "#6366f1", r: 4 }} activeDot={{ r: 6 }} />
+            <ReferenceLine y={75} stroke="var(--accent)" strokeDasharray="4 2" label={{ value: "Min 75%", fontSize: 9, fill: "var(--accent)" }} />
+            <Area type="monotone" dataKey="percentage" stroke="var(--primary)" strokeWidth={2.5} fill="url(#colorPct)" dot={{ fill: "var(--primary)", r: 4 }} activeDot={{ r: 6 }} />
           </AreaChart>
         </ResponsiveContainer>
       </CardContent>
@@ -188,14 +188,14 @@ function ClassComparisonChart({ month, year }: { month: number; year: number }) 
         </h3>
         <ResponsiveContainer width="100%" height={260}>
           <BarChart data={comparison} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis dataKey="className" tick={{ fontSize: 11 }} />
             <YAxis tick={{ fontSize: 10 }} domain={[0, 100]} />
             <Tooltip formatter={(v: number) => [`${v}%`]} contentStyle={{ fontSize: 12, borderRadius: 8 }} />
-            <ReferenceLine y={75} stroke="#ef4444" strokeDasharray="4 2" label={{ value: "Min", fontSize: 9, fill: "#ef4444" }} />
+            <ReferenceLine y={75} stroke="var(--accent)" strokeDasharray="4 2" label={{ value: "Min", fontSize: 9, fill: "var(--accent)" }} />
             <Bar dataKey="averagePercentage" radius={[6, 6, 0, 0]} name="Attendance %">
               {comparison.map((entry, i) => (
-                <Cell key={i} fill={entry.averagePercentage >= 85 ? "#10b981" : entry.averagePercentage >= 75 ? "#6366f1" : "#ef4444"} />
+                <Cell key={i} fill={entry.averagePercentage >= 85 ? "var(--primary)" : entry.averagePercentage >= 75 ? "var(--primary)" : "var(--accent)"} />
               ))}
             </Bar>
           </BarChart>
@@ -224,14 +224,14 @@ function DayOfWeekChart({ cls, year }: { cls: string; year: number }) {
         </h3>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={patterns} margin={{ top: 5, right: 10, left: -15, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" />
             <XAxis dataKey="day" tick={{ fontSize: 11 }} />
             <YAxis tick={{ fontSize: 10 }} domain={[0, 100]} />
             <Tooltip formatter={(v: number) => [`${v}%`]} contentStyle={{ fontSize: 12, borderRadius: 8 }} />
-            <ReferenceLine y={75} stroke="#ef4444" strokeDasharray="4 2" />
+            <ReferenceLine y={75} stroke="var(--accent)" strokeDasharray="4 2" />
             <Bar dataKey="avgAttendanceRate" radius={[6, 6, 0, 0]} name="Avg Rate %">
               {patterns.map((entry, i) => (
-                <Cell key={i} fill={entry.avgAttendanceRate >= 90 ? "#10b981" : entry.avgAttendanceRate >= 80 ? "#6366f1" : "#ef4444"} />
+                <Cell key={i} fill={entry.avgAttendanceRate >= 90 ? "var(--primary)" : entry.avgAttendanceRate >= 80 ? "var(--primary)" : "var(--accent)"} />
               ))}
             </Bar>
           </BarChart>
@@ -283,11 +283,11 @@ function HeatmapCalendar({ cls, month, year }: { cls: string; month: number; yea
         <div className="flex items-center gap-2 mb-3 text-[10px] text-muted-foreground">
           <span>Low</span>
           <div className="flex gap-0.5">
-            <div className="w-4 h-4 rounded-sm bg-red-500" />
-            <div className="w-4 h-4 rounded-sm bg-orange-400" />
-            <div className="w-4 h-4 rounded-sm bg-yellow-400" />
-            <div className="w-4 h-4 rounded-sm bg-green-400" />
-            <div className="w-4 h-4 rounded-sm bg-green-500" />
+            <div className="w-4 h-4 rounded-sm bg-background" />
+            <div className="w-4 h-4 rounded-sm bg-accent" />
+            <div className="w-4 h-4 rounded-sm bg-accent" />
+            <div className="w-4 h-4 rounded-sm bg-primary" />
+            <div className="w-4 h-4 rounded-sm bg-background" />
           </div>
           <span>High</span>
           <span className="ml-2">(95%+ green, 85-94% yellow, &lt;85% red)</span>
@@ -349,22 +349,22 @@ function WarningsTable({ cls, year }: { cls: string; year: number }) {
   if (isLoading) return <Skeleton className="h-48 rounded-xl" />;
   if (!warnings?.length) return (
     <Card><CardContent className="py-8 text-center text-sm text-muted-foreground">
-      <ShieldCheck className="w-8 h-8 text-green-500 mx-auto mb-2" />
+      <ShieldCheck className="w-8 h-8 text-primary mx-auto mb-2" />
       All students have good attendance. No warnings to show.
     </CardContent></Card>
   );
 
   const statusConfig = {
-    critical: { label: "Critical", icon: <ShieldAlert className="w-3.5 h-3.5" />, cls: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-red-200" },
-    warning: { label: "Warning", icon: <Shield className="w-3.5 h-3.5" />, cls: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 border-orange-200" },
-    caution: { label: "Caution", icon: <AlertTriangle className="w-3.5 h-3.5" />, cls: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 border-yellow-200" },
+    critical: { label: "Critical", icon: <ShieldAlert className="w-3.5 h-3.5" />, cls: "bg-surface-raised text-primary bg-primary-strong/30 text-primary border-border" },
+    warning: { label: "Warning", icon: <Shield className="w-3.5 h-3.5" />, cls: "bg-accent-soft text-primary bg-accent/30 text-primary border-border" },
+    caution: { label: "Caution", icon: <AlertTriangle className="w-3.5 h-3.5" />, cls: "bg-accent-soft text-primary bg-accent/30 text-primary border-border" },
   };
 
   return (
     <Card>
       <CardContent className="p-0">
-        <div className="px-4 py-3 border-b border-border bg-red-50/50 dark:bg-red-900/10">
-          <h3 className="font-semibold text-sm flex items-center gap-2 text-red-700 dark:text-red-400">
+        <div className="px-4 py-3 border-b border-border bg-background/50 bg-primary-strong/10">
+          <h3 className="font-semibold text-sm flex items-center gap-2 text-primary text-primary">
             <AlertTriangle className="w-4 h-4" /> Attendance Warnings — {warnings.length} student{warnings.length !== 1 ? "s" : ""} flagged
           </h3>
         </div>
@@ -379,7 +379,7 @@ function WarningsTable({ cls, year }: { cls: string; year: number }) {
                   <p className="text-[11px] text-muted-foreground">Roll: {w.roll_number} · {w.days_present}P / {w.days_halfday}HD / {w.days_absent}A of {w.total_days} days</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className={`text-sm font-bold ${w.attendance_percentage < 75 ? "text-red-600" : "text-orange-600"}`}>
+                  <span className={`text-sm font-bold ${w.attendance_percentage < 75 ? "text-primary" : "text-primary"}`}>
                     {w.attendance_percentage}%
                   </span>
                 </div>

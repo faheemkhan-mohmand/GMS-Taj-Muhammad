@@ -33,7 +33,7 @@ export default function ReportCardButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1.5 gradient-hero text-white rounded-t-md px-3 py-1.5 text-xs font-semibold hover:opacity-90 active:bg-primary-dark active:opacity-100 focus:bg-primary-dark focus:opacity-100 transition-colors"
+        className="inline-flex items-center gap-1.5 gradient-hero text-primary-foreground rounded-t-md px-3 py-1.5 text-xs font-semibold hover:opacity-90 active:bg-primary-dark active:opacity-100 focus:bg-primary-dark focus:opacity-100 transition-colors"
       >
         <FileText className="w-3.5 h-3.5" />
         Report Card

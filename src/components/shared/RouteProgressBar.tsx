@@ -149,10 +149,10 @@ export default function RouteProgressBar() {
                 ? "width 200ms ease-out"
                 : "width 250ms ease-out",
             background: slow
-              ? "linear-gradient(90deg, #EA580C, #FDBA74)"
-              : "linear-gradient(90deg, hsl(var(--primary)), hsl(var(--gold)))",
+              ? "linear-gradient(90deg, var(--primary), var(--accent))"
+              : "linear-gradient(90deg, var(--primary), var(--accent))",
             boxShadow:
-              "0 0 8px rgba(228, 101, 13, 0.55), 0 0 2px rgba(228, 101, 13, 0.8)",
+              "0 0 8px color-mix(in srgb, var(--accent) 55%, transparent), 0 0 2px color-mix(in srgb, var(--accent) 80%, transparent)",
             borderRadius: "0 2px 2px 0",
           }}
         />

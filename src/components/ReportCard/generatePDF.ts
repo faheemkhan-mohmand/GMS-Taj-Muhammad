@@ -11,8 +11,8 @@
 //   • Footer: generated timestamp + page numbers
 //
 // Color palette (deliberately restrained — the user asked for "not too much
-// color"): dark slate text (#0f172a), light gray section bg (#f1f5f9),
-// single accent for headers (#1e293b), red ONLY for FAIL marks (#b91c1c).
+// color"): dark slate text (#1A2E22), light gray section bg (#F0F7F1),
+// single accent for headers (#1A2E22), red ONLY for FAIL marks (#0E3B20).
 // No blues, greens, gradients.
 
 // PROBLEM 6 FIX (lazy PDF): jspdf + jspdf-autotable (~142 KB compressed)
@@ -25,14 +25,14 @@ import type { ExamSelection, NormalizedResult, ResultStats } from "./types";
 import { classDisplayName } from "./classMaxMarks";
 import { SCHOOL_PROFILE } from "@/data/schoolProfile.mjs";
 
-const COLOR_TEXT = "#0f172a";
-const COLOR_MUTED = "#64748b";
-const COLOR_HEADER_BG = "#f1f5f9";
-const COLOR_HEADER_TEXT = "#0f172a";
-const COLOR_STRIPE = "#f8fafc";
-const COLOR_BORDER = "#e2e8f0";
-const COLOR_FAIL = "#b91c1c";
-const COLOR_PASS = "#15803d";
+const COLOR_TEXT = "#1A2E22";
+const COLOR_MUTED = "#5B6B5F";
+const COLOR_HEADER_BG = "#F0F7F1";
+const COLOR_HEADER_TEXT = "#1A2E22";
+const COLOR_STRIPE = "#FAFDF7";
+const COLOR_BORDER = "#D7E5D9";
+const COLOR_FAIL = "#0E3B20";
+const COLOR_PASS = "#14532D";
 
 /** Pretty-print a subject's failed-paper marker.
  *  E.g. { name: "STAT-T-I", theoryFail: true, practicalFail: false } → "STAT-T-I (Theory)" */
@@ -273,7 +273,7 @@ export async function generateResultPDF(
       body: failRows,
       theme: "grid",
       headStyles: {
-        fillColor: "#fef2f2",
+        fillColor: "#F5E6C4",
         textColor: COLOR_FAIL,
         fontSize: 9,
         fontStyle: "normal",
@@ -283,8 +283,8 @@ export async function generateResultPDF(
       columnStyles: {
         0: { cellWidth: 55 },
       },
-      alternateRowStyles: { fillColor: "#fef2f2" },
-      styles: { cellPadding: 4, lineColor: "#fecaca", lineWidth: 0.3, halign: "center" },
+      alternateRowStyles: { fillColor: "#F5E6C4" },
+      styles: { cellPadding: 4, lineColor: "#F5E6C4", lineWidth: 0.3, halign: "center" },
       margin: { left: margin, right: margin },
     });
     y = (doc as any).lastAutoTable.finalY + 12;

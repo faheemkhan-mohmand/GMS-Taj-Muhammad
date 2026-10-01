@@ -144,9 +144,9 @@ function useAutoPublishWatcher() {
   const qc = useQueryClient();
   useEffect(() => {
     if (scheduled.length === 0) return;
-    
+
     let intervalId: ReturnType<typeof setInterval>;
-    
+
     const check = async () => {
       const now = Date.now();
       const dueNow = scheduled.some(s => new Date(s.publish_at).getTime() <= now);
@@ -165,7 +165,7 @@ function useAutoPublishWatcher() {
         if (intervalId) clearInterval(intervalId);
       }
     };
-    
+
     // Adaptive interval function - faster when close to publish time
     const setupAdaptiveInterval = () => {
       const getInterval = () => {
@@ -177,10 +177,10 @@ function useAutoPublishWatcher() {
         // Otherwise: check every 2 seconds
         return 2000;
       };
-      
+
       // Initial check
       check();
-      
+
       // Setup interval with adaptive timing
       const tick = async () => {
         await check();
@@ -190,12 +190,12 @@ function useAutoPublishWatcher() {
           intervalId = setInterval(tick, getInterval());
         }
       };
-      
+
       intervalId = setInterval(tick, getInterval());
     };
-    
+
     setupAdaptiveInterval();
-    
+
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
@@ -226,24 +226,24 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
     <svg viewBox="0 0 64 64" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="resultClockFace" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#FFFDF5" />
-          <stop offset="100%" stopColor="#F3E9C7" />
+          <stop offset="0%" stopColor="var(--surface)" />
+          <stop offset="100%" stopColor="var(--accent-soft)" />
         </linearGradient>
         <linearGradient id="resultClockRim" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#F4C550" />
-          <stop offset="100%" stopColor="#C6912A" />
+          <stop offset="0%" stopColor="var(--accent)" />
+          <stop offset="100%" stopColor="var(--accent)" />
         </linearGradient>
       </defs>
       {/* Bells */}
       <circle cx="16" cy="10" r="5.5" fill="url(#resultClockRim)" />
       <circle cx="48" cy="10" r="5.5" fill="url(#resultClockRim)" />
       {/* Legs */}
-      <rect x="22" y="52" width="4.5" height="8" rx="2" fill="#8A6416" />
-      <rect x="37.5" y="52" width="4.5" height="8" rx="2" fill="#8A6416" />
+      <rect x="22" y="52" width="4.5" height="8" rx="2" fill="var(--primary-strong)" />
+      <rect x="37.5" y="52" width="4.5" height="8" rx="2" fill="var(--primary-strong)" />
       {/* Outer rim */}
       <circle cx="32" cy="34" r="24" fill="url(#resultClockRim)" />
       {/* Face */}
-      <circle cx="32" cy="34" r="19.5" fill="url(#resultClockFace)" stroke="#C6912A" strokeWidth="1.5" />
+      <circle cx="32" cy="34" r="19.5" fill="url(#resultClockFace)" stroke="var(--accent)" strokeWidth="1.5" />
       {/* Tick marks */}
       {Array.from({ length: 12 }).map((_, i) => {
         const angle = (i * 30 * Math.PI) / 180;
@@ -252,15 +252,15 @@ function RealisticClockIcon({ className = "w-8 h-8", hours = 0, minutes = 0, sec
         const x2 = 32 + Math.sin(angle) * 14;
         const y2 = 34 - Math.cos(angle) * 14;
         return (
-          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#B08628" strokeWidth={i % 3 === 0 ? 1.4 : 0.8} strokeLinecap="round" />
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="var(--accent)" strokeWidth={i % 3 === 0 ? 1.4 : 0.8} strokeLinecap="round" />
         );
       })}
       {/* Hands — rotate live with the actual countdown remaining */}
-      <line x1="32" y1="34" x2={hourHand.x2} y2={hourHand.y2} stroke="#3F2E10" strokeWidth="2.2" strokeLinecap="round" />
-      <line x1="32" y1="34" x2={minHand.x2} y2={minHand.y2} stroke="#3F2E10" strokeWidth="2.2" strokeLinecap="round" />
-      <line x1="32" y1="34" x2={secHand.x2} y2={secHand.y2} stroke="#D64545" strokeWidth="1.3" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={hourHand.x2} y2={hourHand.y2} stroke="var(--text-primary)" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={minHand.x2} y2={minHand.y2} stroke="var(--text-primary)" strokeWidth="2.2" strokeLinecap="round" />
+      <line x1="32" y1="34" x2={secHand.x2} y2={secHand.y2} stroke="var(--primary)" strokeWidth="1.3" strokeLinecap="round" />
       {/* Center pin */}
-      <circle cx="32" cy="34" r="2.2" fill="#3F2E10" />
+      <circle cx="32" cy="34" r="2.2" fill="var(--text-primary)" />
     </svg>
   );
 }
@@ -318,17 +318,17 @@ function CountdownCard({ item }: { item: { publish_at: string; exam_type: string
   // When due, show publishing state
   if (timeLeft.isDue) {
     return (
-      <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 sm:p-8 text-center border border-gray-200 dark:border-gray-700">
+      <div className="bg-surface bg-primary-strong rounded-2xl shadow-lg p-6 sm:p-8 text-center border border-border border-border">
         <div className="mb-3">
-          <p className="text-sm font-bold text-blue-600 dark:text-blue-400 mb-1">
+          <p className="text-sm font-bold text-primary text-primary mb-1">
             {classLabel} — {examTypeLabel(item.exam_type)} {item.year}
           </p>
         </div>
         <div className="animate-pulse">
-          <p className="text-2xl sm:text-3xl font-black text-green-600 dark:text-green-400">
+          <p className="text-2xl sm:text-3xl font-black text-primary text-primary">
             🎉 Publishing Now...
           </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-sm text-muted text-muted mt-2">
             Results will appear in seconds!
           </p>
         </div>
@@ -337,22 +337,22 @@ function CountdownCard({ item }: { item: { publish_at: string; exam_type: string
   }
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-3xl shadow-xl p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700 overflow-hidden relative">
+    <div className="bg-surface bg-primary-strong rounded-3xl shadow-xl p-8 sm:p-12 text-center border border-border border-border overflow-hidden relative">
       {/* Realistic clock icon */}
       <div className="flex justify-center mb-4">
         <RealisticClockIcon className="w-16 h-16 sm:w-20 sm:h-20" hours={now.getHours()} minutes={now.getMinutes()} seconds={now.getSeconds()} />
       </div>
 
       {/* Result Title */}
-      <h3 className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400 mb-4">
+      <h3 className="text-xl sm:text-2xl font-bold text-primary text-primary mb-4">
         Result – {examTypeLabel(item.exam_type)} {item.year}
       </h3>
-      
+
       {/* TIME REMAINING Label */}
-      <p className="text-base sm:text-lg font-bold text-green-600 dark:text-green-400 tracking-wide uppercase mb-4">
+      <p className="text-base sm:text-lg font-bold text-primary text-primary tracking-wide uppercase mb-4">
         Time Remaining
       </p>
-      
+
       {/* BIG RED COUNTDOWN NUMBERS — slow cinematic breathing zoom for the
           whole countdown; a calm, professional pulse, not a jarring blink. */}
       <motion.div
@@ -362,30 +362,30 @@ function CountdownCard({ item }: { item: { publish_at: string; exam_type: string
       >
         {timeLeft.d > 0 && (
           <div className="flex flex-col items-center">
-            <span className="text-4xl sm:text-6xl md:text-7xl font-black text-red-600 dark:text-red-500 tabular-nums">
+            <span className="text-4xl sm:text-6xl md:text-7xl font-black text-primary text-primary tabular-nums">
               {PAD(timeLeft.d)}<span className="text-xl sm:text-3xl md:text-4xl">d</span>
             </span>
           </div>
         )}
         <div className="flex flex-col items-center">
-          <span className="text-4xl sm:text-6xl md:text-7xl font-black text-red-600 dark:text-red-500 tabular-nums">
+          <span className="text-4xl sm:text-6xl md:text-7xl font-black text-primary text-primary tabular-nums">
             {PAD(timeLeft.h)}<span className="text-xl sm:text-3xl md:text-4xl">h</span>
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <span className="text-4xl sm:text-6xl md:text-7xl font-black text-red-600 dark:text-red-500 tabular-nums">
+          <span className="text-4xl sm:text-6xl md:text-7xl font-black text-primary text-primary tabular-nums">
             {PAD(timeLeft.m)}<span className="text-xl sm:text-3xl md:text-4xl">m</span>
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <span className="text-4xl sm:text-6xl md:text-7xl font-black text-red-600 dark:text-red-500 tabular-nums">
+          <span className="text-4xl sm:text-6xl md:text-7xl font-black text-primary text-primary tabular-nums">
             {PAD(timeLeft.s)}<span className="text-xl sm:text-3xl md:text-4xl">s</span>
           </span>
         </div>
       </motion.div>
-      
+
       {/* Announcement Date */}
-      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400">
+      <p className="text-sm sm:text-base text-muted text-muted">
         Announced on {formattedDate}
       </p>
     </div>
@@ -854,7 +854,7 @@ const ResultCardSearch = () => {
 
   return (
     <div>
-      <h2 className="text-xl sm:text-2xl font-heading font-bold text-blue-600 text-center leading-snug mb-6">
+      <h2 className="text-xl sm:text-2xl font-heading font-bold text-primary text-center leading-snug mb-6">
         {rcResults.length > 0
           ? `Result - ${examTypeLabel(rcResults[0].exam_type)} ${rcResults[0].year}`
           : latestExam
@@ -872,15 +872,15 @@ const ResultCardSearch = () => {
               inputMode="numeric"
               pattern="\d*"
               autoComplete="off"
-              className="w-full rounded-xl border border-blue-200 bg-background px-4 py-2.5 text-sm font-mono focus:ring-2 focus:ring-ring outline-none" />
+              className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-mono focus:ring-2 focus:ring-ring outline-none" />
           </div>
           <div className="flex items-stretch gap-2">
             <button onClick={handleSearch} disabled={searching}
-              className="flex-1 min-w-0 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 border border-blue-500 dark:border-blue-400 bg-white dark:bg-background text-blue-600 dark:text-blue-400 shadow-sm hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:shadow-card active:scale-[0.98] transition-all duration-200 disabled:opacity-60">
+              className="flex-1 min-w-0 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 border border-border border-border bg-surface bg-background text-primary text-primary shadow-sm hover:bg-background hover:bg-primary-strong/30 hover:shadow-card active:scale-[0.98] transition-all duration-200 disabled:opacity-60">
               {searching ? <><Loader2 className="w-4 h-4 animate-spin" />Searching...</> : <><Search className="w-4 h-4" />Search Result</>}
             </button>
             <button onClick={handleReset}
-              className="shrink-0 px-5 font-medium py-3 rounded-xl border border-blue-500 dark:border-blue-400 bg-white dark:bg-background text-blue-600 dark:text-blue-400 shadow-sm hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:shadow-card active:scale-[0.98] transition-all duration-200">
+              className="shrink-0 px-5 font-medium py-3 rounded-xl border border-border border-border bg-surface bg-background text-primary text-primary shadow-sm hover:bg-background hover:bg-primary-strong/30 hover:shadow-card active:scale-[0.98] transition-all duration-200">
               Reset
             </button>
           </div>
@@ -902,7 +902,7 @@ const ResultCardSearch = () => {
                   Found {rcResults.length} result{rcResults.length > 1 ? "s" : ""}
                   <button
                     onClick={() => { setRevealKey(k => k + 1); setRevealOpen(true); }}
-                    className="ml-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-[#B8860B] hover:text-[#8f6a0d] hover:underline underline-offset-4 transition-colors align-middle">
+                    className="ml-2.5 inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:text-primary hover:underline underline-offset-4 transition-colors align-middle">
                     <Sparkles className="w-3 h-3" /> Replay the reveal
                   </button>
                 </p>
@@ -910,28 +910,28 @@ const ResultCardSearch = () => {
                   <motion.div key={r.id} initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }}>
                   <div className="w-full bg-card rounded-2xl shadow-elevated overflow-hidden border border-border">
 
-                    <div className="result-hero-blue px-5 py-5 text-white relative overflow-hidden">
+                    <div className="result-hero-blue px-5 py-5 text-primary-foreground relative overflow-hidden">
                       {/* premium decorations — gold hairline + dual orbs */}
-                      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#E3B341] to-transparent" />
-                      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-                      <div className="absolute -bottom-16 -left-12 w-44 h-44 rounded-full bg-[#E3B341]/20 blur-2xl pointer-events-none" />
+                      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent" />
+                      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-surface/10 blur-2xl pointer-events-none" />
+                      <div className="absolute -bottom-16 -left-12 w-44 h-44 rounded-full bg-accent-soft blur-2xl pointer-events-none" />
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 relative z-10">
                         <div className="flex items-center gap-4 min-w-0">
                           {r.students?.photo_url
-                            ? <img src={r.students.photo_url} alt="" className="w-14 h-14 rounded-full object-cover ring-2 ring-[#FDE68A] shadow-lg shrink-0" />
-                            : <div className="w-14 h-14 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center text-xl font-black border-2 border-[#E3B341]/80 shadow-lg shrink-0">{(r.students?.full_name || "S").charAt(0)}</div>
+                            ? <img src={r.students.photo_url} alt="" className="w-14 h-14 rounded-full object-cover ring-2 ring-accent shadow-lg shrink-0" />
+                            : <div className="w-14 h-14 rounded-full bg-surface/15 backdrop-blur-sm flex items-center justify-center text-xl font-black border-2 border-accent shadow-lg shrink-0">{(r.students?.full_name || "S").charAt(0)}</div>
                           }
                           <div className="min-w-0 flex-1">
-                            <span className="inline-flex items-center bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase mb-1 max-w-full whitespace-normal break-words leading-tight">
+                            <span className="inline-flex items-center bg-surface/15 backdrop-blur-sm border border-border/25 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase mb-1 max-w-full whitespace-normal break-words leading-tight">
                               {examTypeLabel(r.exam_type)} {r.year} · Class {r.class}
                             </span>
                             <h3 className="font-heading font-extrabold text-lg sm:text-xl drop-shadow-sm break-words">{r.students?.full_name}</h3>
                           </div>
                         </div>
                         {r.exam_roll_no && (
-                          <div className="text-right sm:shrink-0 self-start sm:self-auto bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-3.5 py-2">
+                          <div className="text-right sm:shrink-0 self-start sm:self-auto bg-surface/10 backdrop-blur-sm border border-border/20 rounded-2xl px-3.5 py-2">
                             <p className="text-[10px] uppercase tracking-wider opacity-80 font-semibold">Exam Roll No</p>
-                            <p className="font-mono font-extrabold text-xl tracking-wider text-[#FDE68A]">{r.exam_roll_no}</p>
+                            <p className="font-mono font-extrabold text-xl tracking-wider text-primary">{r.exam_roll_no}</p>
                           </div>
                         )}
                       </div>
@@ -940,9 +940,9 @@ const ResultCardSearch = () => {
                     <div className="grid grid-cols-4 divide-x divide-border border-b border-border">
                       {[
                         { l: "Total", v: r.total_marks, c: "text-foreground" },
-                        { l: "Obtained", v: r.obtained_marks, c: "text-orange-700 dark:text-orange-400" },
-                        { l: "%", v: `${r.percentage}%`, c: "text-orange-600 dark:text-orange-400" },
-                        { l: "Grade", v: r.grade || "—", c: "text-orange-600 dark:text-orange-400" },
+                        { l: "Obtained", v: r.obtained_marks, c: "text-primary text-primary" },
+                        { l: "%", v: `${r.percentage}%`, c: "text-primary text-primary" },
+                        { l: "Grade", v: r.grade || "—", c: "text-primary text-primary" },
                       ].map(item => (
                         <div key={item.l} className="p-3 sm:p-4 text-center">
                           <p className="text-[10px] sm:text-xs uppercase tracking-wider text-muted-foreground font-semibold">{item.l}</p>
@@ -980,7 +980,7 @@ const ResultCardSearch = () => {
                                     animate={{ scaleX: Math.min(pct, 100) / 100 }}
                                     transition={{ duration: 0.7, delay: 0.06 * i, ease: "easeOut" }}
                                     style={{ transformOrigin: "left center", willChange: "transform" }}
-                                    className={`h-full w-full rounded-full ${failed ? "bg-gradient-to-r from-red-500 to-red-400" : "bg-gradient-to-r from-blue-600 to-sky-400"}`}
+                                    className={`h-full w-full rounded-full ${failed ? "bg-gradient-to-r from-primary to-primary" : "bg-gradient-to-r from-primary to-primary"}`}
                                   />
                                 </div>
                                 <span className="text-sm font-bold text-foreground w-16 text-right shrink-0 tabular-nums">{m.obtained}/{m.total}</span>
@@ -1009,11 +1009,11 @@ const ResultCardSearch = () => {
                     <div className="grid grid-cols-3 divide-x divide-border border-b border-border">
                       <div className="p-3 text-center">
                         <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold flex items-center justify-center gap-1 whitespace-nowrap">
-                          <Trophy className="w-3 h-3 text-orange-500" />
+                          <Trophy className="w-3 h-3 text-primary" />
                           {/* Trophy = whole-school rank, not class rank. */}
                           Rank
                         </p>
-                        <p className="text-base sm:text-xl font-extrabold text-orange-600 dark:text-orange-400">
+                        <p className="text-base sm:text-xl font-extrabold text-primary text-primary">
                           {r.school_rank ? `#${r.school_rank}` : "—"}
                         </p>
                       </div>
@@ -1021,7 +1021,7 @@ const ResultCardSearch = () => {
                         <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold whitespace-nowrap">
                           Class Position
                         </p>
-                        <p className="text-base sm:text-xl font-extrabold text-orange-600 dark:text-orange-400">
+                        <p className="text-base sm:text-xl font-extrabold text-primary text-primary">
                           {/* Class position shown as "#N" — no "of M" suffix. */}
                           {r.position ? `#${r.position}` : "—"}
                         </p>
@@ -1030,7 +1030,7 @@ const ResultCardSearch = () => {
                         <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold whitespace-nowrap">
                           Result
                         </p>
-                        <p className={`text-base sm:text-xl font-extrabold ${r.is_pass ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+                        <p className={`text-base sm:text-xl font-extrabold ${r.is_pass ? "text-primary text-primary" : "text-primary text-primary"}`}>
                           {r.is_pass ? "PASS" : "FAIL"}
                         </p>
                       </div>
@@ -1045,12 +1045,12 @@ const ResultCardSearch = () => {
                         marks-card PNG; Share hands it to the OS share sheet,
                         Save downloads it. Comparison opens the head-to-head
                         roll-number comparison popup. */}
-                    <div className="px-5 py-4 bg-gradient-to-r from-blue-50/70 via-transparent to-sky-50/70 dark:from-blue-950/20 dark:via-transparent dark:to-sky-950/10">
+                    <div className="px-5 py-4 bg-gradient-to-r from-primary/70 via-transparent to-primary/70 from-primary-strong/20 via-transparent to-primary-strong/10">
                       <div className="grid grid-cols-3 gap-2">
                         <button
                           onClick={() => handleShareResult(r)}
                           disabled={sharingId === r.id}
-                          className="sheen rounded-xl py-2.5 px-2 font-bold text-white bg-gradient-to-r from-blue-700 via-blue-600 to-sky-500 shadow-md shadow-blue-600/25 hover:shadow-blue-600/40 transition-all disabled:opacity-60"
+                          className="sheen rounded-xl py-2.5 px-2 font-bold text-primary-foreground bg-gradient-to-r from-primary via-primary to-primary shadow-md shadow-blue-600/25 hover:shadow-blue-600/40 transition-all disabled:opacity-60"
                         >
                           <span className="relative z-10 flex items-center justify-center gap-1.5 text-xs sm:text-sm">
                             {sharingId === r.id
@@ -1061,7 +1061,7 @@ const ResultCardSearch = () => {
                         <button
                           onClick={() => handleSaveResult(r)}
                           disabled={savingId === r.id}
-                          className="rounded-xl py-2.5 px-2 font-bold text-blue-700 dark:text-blue-400 bg-background border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all disabled:opacity-60"
+                          className="rounded-xl py-2.5 px-2 font-bold text-primary text-primary bg-background border border-border border-border hover:bg-background hover:bg-primary-strong/30 transition-all disabled:opacity-60"
                         >
                           <span className="flex items-center justify-center gap-1.5 text-xs sm:text-sm">
                             {savingId === r.id
@@ -1071,7 +1071,7 @@ const ResultCardSearch = () => {
                         </button>
                         <button
                           onClick={() => setComparisonOpen(true)}
-                          className="rounded-xl py-2.5 px-2 font-bold text-blue-700 dark:text-blue-400 bg-background border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all"
+                          className="rounded-xl py-2.5 px-2 font-bold text-primary text-primary bg-background border border-border border-border hover:bg-background hover:bg-primary-strong/30 transition-all"
                         >
                           <span className="flex items-center justify-center gap-1.5 text-xs sm:text-sm">
                             <GitCompare className="w-4 h-4" /> Compare
@@ -1327,7 +1327,7 @@ const ComparisonModal = ({
       {open && (
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[95] bg-black/60 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto"
+          className="fixed inset-0 z-[95] bg-background/60 flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto"
           role="dialog" aria-modal="true" aria-label="Result comparison"
           onClick={onClose}
         >
@@ -1339,7 +1339,7 @@ const ComparisonModal = ({
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <GitCompare className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <GitCompare className="w-5 h-5 text-primary text-primary" />
                 <h3 className="font-heading font-bold text-base sm:text-lg text-foreground">Compare Results</h3>
               </div>
               <div className="flex items-center gap-1">
@@ -1349,7 +1349,7 @@ const ComparisonModal = ({
                     disabled={sharingComparison}
                     aria-label="Share comparison to WhatsApp"
                     title="Share comparison"
-                    className="w-8 h-8 rounded-full hover:bg-secondary flex items-center justify-center transition-colors text-blue-600 dark:text-blue-400 disabled:opacity-50"
+                    className="w-8 h-8 rounded-full hover:bg-secondary flex items-center justify-center transition-colors text-primary text-primary disabled:opacity-50"
                   >
                     {sharingComparison ? <Loader2 className="w-4 h-4 animate-spin" /> : <Share2 className="w-4 h-4" />}
                   </button>
@@ -1374,7 +1374,7 @@ const ComparisonModal = ({
                       if (aPrefilled) setAPrefilled(false);
                     }}
                     placeholder="e.g. 123456"
-                    className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                    className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </div>
                 <span className="mt-4 text-xs font-bold text-muted-foreground">VS</span>
@@ -1384,7 +1384,7 @@ const ComparisonModal = ({
                     type="text" inputMode="numeric" value={b.roll}
                     onChange={e => setB(s => ({ ...s, roll: e.target.value.replace(/\D/g, "") }))}
                     placeholder="e.g. 654321"
-                    className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+                    className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-accent/40"
                   />
                 </div>
               </div>
@@ -1392,17 +1392,17 @@ const ComparisonModal = ({
               <button
                 onClick={runComparison}
                 disabled={busy}
-                className="w-full rounded-xl py-2.5 font-bold text-sm text-white bg-gradient-to-r from-blue-700 via-blue-600 to-sky-500 shadow-md shadow-blue-600/25 hover:shadow-blue-600/40 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
+                className="w-full rounded-xl py-2.5 font-bold text-sm text-primary-foreground bg-gradient-to-r from-primary via-primary to-primary shadow-md shadow-blue-600/25 hover:shadow-blue-600/40 transition-all disabled:opacity-60 flex items-center justify-center gap-2"
               >
                 {busy ? <><Loader2 className="w-4 h-4 animate-spin" /> Fetching results…</> : <><Search className="w-4 h-4" /> Compare</>}
               </button>
 
               {/* Per-slot error/not-found messaging */}
               {(a.state === "not-found" || a.state === "error") && (
-                <p className="text-xs text-red-600 dark:text-red-400 text-center">Roll {a.roll}: {a.message}</p>
+                <p className="text-xs text-primary text-primary text-center">Roll {a.roll}: {a.message}</p>
               )}
               {(b.state === "not-found" || b.state === "error") && (
-                <p className="text-xs text-red-600 dark:text-red-400 text-center">Roll {b.roll}: {b.message}</p>
+                <p className="text-xs text-primary text-primary text-center">Roll {b.roll}: {b.message}</p>
               )}
 
               {/* ── Comparison results ────────────────────────────────── */}
@@ -1423,9 +1423,9 @@ const ComparisonModal = ({
                       very long names from blowing out the card height. */}
                   <div className="grid grid-cols-2 gap-3">
                     {[{ slot: a, pct: pctA, isLeader: leader === "a" }, { slot: b, pct: pctB, isLeader: leader === "b" }].map((c, i) => (
-                      <div key={i} className={`rounded-xl border p-3 text-center ${c.isLeader ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-950/20" : "border-border bg-background/60"}`}>
+                      <div key={i} className={`rounded-xl border p-3 text-center ${c.isLeader ? "border-border bg-background bg-primary-strong/20" : "border-border bg-background/60"}`}>
                         {c.isLeader && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400 mb-1">
+                          <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wide text-primary text-primary mb-1">
                             <Trophy className="w-3 h-3" /> Leading
                           </span>
                         )}
@@ -1436,7 +1436,7 @@ const ComparisonModal = ({
                           {c.slot.result!.name || `Roll ${c.slot.roll}`}
                         </p>
                         <p className="text-[11px] text-muted-foreground font-mono">Roll {c.slot.roll}</p>
-                        <p className="text-2xl font-extrabold text-blue-600 dark:text-blue-400 mt-1">
+                        <p className="text-2xl font-extrabold text-primary text-primary mt-1">
                           {c.pct != null ? `${c.pct}%` : c.slot.result!.marks || "—"}
                         </p>
                         <p className="text-xs text-muted-foreground">{c.slot.result!.grade ? `Grade ${c.slot.result!.grade}` : ""}</p>
@@ -1450,13 +1450,13 @@ const ComparisonModal = ({
                   {leader !== "tie" && diffPct != null && (
                     <p className="text-center text-xs font-semibold text-muted-foreground">
                       {leader === "a" ? (a.result!.name || `Roll ${a.roll}`) : (b.result!.name || `Roll ${b.roll}`)}{" "}
-                      leads by <span className="text-emerald-600 dark:text-emerald-400 font-bold">{diffPct}%</span> overall
+                      leads by <span className="text-primary text-primary font-bold">{diffPct}%</span> overall
                     </p>
                   )}
                   {(tally.a > 0 || tally.b > 0) && (
                     <div className="flex items-center justify-center gap-4 text-[11px] font-semibold text-muted-foreground">
-                      <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500" /> Roll {a.roll} led {tally.a} subject{tally.a === 1 ? "" : "s"}</span>
-                      <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-sky-400" /> Roll {b.roll} led {tally.b} subject{tally.b === 1 ? "" : "s"}</span>
+                      <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-background" /> Roll {a.roll} led {tally.a} subject{tally.a === 1 ? "" : "s"}</span>
+                      <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-primary" /> Roll {b.roll} led {tally.b} subject{tally.b === 1 ? "" : "s"}</span>
                       {tally.tie > 0 && <span>· {tally.tie} tied</span>}
                     </div>
                   )}
@@ -1473,14 +1473,14 @@ const ComparisonModal = ({
                       <p className="text-[11px] font-bold uppercase tracking-wide text-muted-foreground text-center mb-1">Subject-wise Marks</p>
                       <ResponsiveContainer width="100%" height={Math.max(180, chartData.length * 34)}>
                         <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 14, left: 0, bottom: 4 }} barCategoryGap={10}>
-                          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="hsl(var(--border))" />
-                          <XAxis type="number" tick={{ fontSize: 10 }} stroke="hsl(var(--muted-foreground))" />
+                          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border)" />
+                          <XAxis type="number" tick={{ fontSize: 10 }} stroke="var(--text-muted)" />
                           <YAxis
                             type="category"
                             dataKey="subject"
                             width={56}
                             tick={{ fontSize: 10 }}
-                            stroke="hsl(var(--muted-foreground))"
+                            stroke="var(--text-muted)"
                           />
                           <Tooltip
                             formatter={(value: number, key: string) => [value, key === "A" ? nameA : nameB]}
@@ -1525,18 +1525,18 @@ const ComparisonModal = ({
                                   {row.max != null && (row.obA != null || row.obB != null) && (
                                     <div className="mt-1 space-y-0.5">
                                       <div className="h-1 w-full rounded-full bg-secondary overflow-hidden">
-                                        <div className={`h-full rounded-full ${aHigher ? "bg-emerald-500" : "bg-blue-400"}`} style={{ width: `${barA}%` }} />
+                                        <div className={`h-full rounded-full ${aHigher ? "bg-background" : "bg-primary"}`} style={{ width: `${barA}%` }} />
                                       </div>
                                       <div className="h-1 w-full rounded-full bg-secondary overflow-hidden">
-                                        <div className={`h-full rounded-full ${bHigher ? "bg-emerald-500" : "bg-sky-400"}`} style={{ width: `${barB}%` }} />
+                                        <div className={`h-full rounded-full ${bHigher ? "bg-background" : "bg-primary"}`} style={{ width: `${barB}%` }} />
                                       </div>
                                     </div>
                                   )}
                                 </td>
-                                <td className={`py-2 px-2 text-center font-semibold align-middle ${aHigher ? "text-emerald-600 dark:text-emerald-400" : "text-foreground"}`}>
+                                <td className={`py-2 px-2 text-center font-semibold align-middle ${aHigher ? "text-primary text-primary" : "text-foreground"}`}>
                                   {row.obA != null ? (row.max != null ? `${row.obA}/${row.max}` : row.obA) : "—"}
                                 </td>
-                                <td className={`py-2 pr-3 pl-2 text-center font-semibold align-middle ${bHigher ? "text-emerald-600 dark:text-emerald-400" : "text-foreground"}`}>
+                                <td className={`py-2 pr-3 pl-2 text-center font-semibold align-middle ${bHigher ? "text-primary text-primary" : "text-foreground"}`}>
                                   {row.obB != null ? (row.max != null ? `${row.obB}/${row.max}` : row.obB) : "—"}
                                 </td>
                               </tr>
@@ -1804,7 +1804,7 @@ function SubjectBar({ pct, fail, delay }: { pct: number | null; fail: boolean; d
     <div className="h-1 w-full rounded-full bg-secondary overflow-hidden" role="presentation">
       {pct !== null && (
         <motion.div
-          className={`h-full w-full rounded-full ${fail ? "bg-gradient-to-r from-red-500 to-red-400" : "bg-gradient-to-r from-blue-600 to-sky-400"}`}
+          className={`h-full w-full rounded-full ${fail ? "bg-gradient-to-r from-primary to-primary" : "bg-gradient-to-r from-primary to-primary"}`}
           initial={{ scaleX: 0 }}
           animate={{ scaleX: w / 100 }}
           transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
@@ -1890,11 +1890,11 @@ function BisepClockAndCountdown({ targetDate }: { targetDate: string }) {
       <span className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
         <RealisticClockIcon className="w-14 h-14" hours={now.getHours()} minutes={now.getMinutes()} seconds={now.getSeconds()} />
       </span>
-      <p className="text-sm font-bold text-green-600 dark:text-green-400 tracking-wide uppercase mb-3">
+      <p className="text-sm font-bold text-primary text-primary tracking-wide uppercase mb-3">
         Time Remaining
       </p>
       <motion.p
-        className="font-mono font-extrabold text-red-600 dark:text-red-500 text-3xl sm:text-4xl tracking-wider"
+        className="font-mono font-extrabold text-primary text-primary text-3xl sm:text-4xl tracking-wider"
         animate={isRunning ? { scale: [1, 1.055, 1] } : { scale: 1 }}
         transition={isRunning ? { duration: 2.2, repeat: Infinity, ease: "easeInOut" } : { duration: 0.3 }}
       >
@@ -2136,7 +2136,7 @@ const BiseResultSearch = () => {
 
   return (
     <div>
-      <h2 className="text-xl sm:text-2xl font-heading font-bold text-blue-600 text-center leading-snug mb-2">
+      <h2 className="text-xl sm:text-2xl font-heading font-bold text-primary text-center leading-snug mb-2">
         Result - {liveTitle}
       </h2>
 
@@ -2148,8 +2148,8 @@ const BiseResultSearch = () => {
           card is now the single source of truth for the countdown display. */}
       {isLive && (
         <div className="flex items-center justify-center gap-2 mb-6 text-xs">
-          <span className="inline-flex items-center gap-1.5 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 px-3 py-1 rounded-full font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+          <span className="inline-flex items-center gap-1.5 bg-surface-raised text-primary bg-primary-strong/30 text-primary px-3 py-1 rounded-full font-semibold">
+            <span className="w-1.5 h-1.5 rounded-full bg-background animate-pulse" />
             BISE Peshawar result is LIVE
           </span>
         </div>
@@ -2199,15 +2199,15 @@ const BiseResultSearch = () => {
               placeholder="e.g. 703902"
               inputMode="numeric"
               pattern="\d*"
-              className="w-full rounded-xl border border-blue-200 bg-background px-4 py-2.5 text-sm font-mono focus:ring-2 focus:ring-ring outline-none" />
+              className="w-full rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-mono focus:ring-2 focus:ring-ring outline-none" />
           </div>
           <div className="flex items-stretch gap-2">
             <button onClick={handleReset}
-              className="shrink-0 px-5 font-medium py-3 rounded-xl border border-blue-500 dark:border-blue-400 bg-white dark:bg-background text-blue-600 dark:text-blue-400 shadow-sm hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:shadow-card active:scale-[0.98] transition-all duration-200">
+              className="shrink-0 px-5 font-medium py-3 rounded-xl border border-border border-border bg-surface bg-background text-primary text-primary shadow-sm hover:bg-background hover:bg-primary-strong/30 hover:shadow-card active:scale-[0.98] transition-all duration-200">
               Reset
             </button>
             <button onClick={handleSearch} disabled={searching}
-              className="flex-1 min-w-0 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 border border-blue-500 dark:border-blue-400 bg-white dark:bg-background text-blue-600 dark:text-blue-400 shadow-sm hover:bg-blue-50 dark:hover:bg-blue-950/30 hover:shadow-card active:scale-[0.98] transition-all duration-200 disabled:opacity-60">
+              className="flex-1 min-w-0 font-semibold py-3 rounded-xl flex items-center justify-center gap-2 border border-border border-border bg-surface bg-background text-primary text-primary shadow-sm hover:bg-background hover:bg-primary-strong/30 hover:shadow-card active:scale-[0.98] transition-all duration-200 disabled:opacity-60">
               {searching ? <><Loader2 className="w-4 h-4 animate-spin" />{searchHint || "Searching..."}</> : <><Search className="w-4 h-4" />Search Result</>}
             </button>
           </div>
@@ -2219,13 +2219,13 @@ const BiseResultSearch = () => {
         {searched && (
           <motion.div ref={resultsAnchorRef} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
             {errorMsg ? (
-              <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-500/40 rounded-2xl p-6 text-center">
-                <AlertCircle className="w-10 h-10 text-amber-500 mx-auto mb-3" />
-                <h3 className="font-heading font-semibold text-amber-900 dark:text-amber-200">Couldn't fetch result</h3>
-                <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">{errorMsg}</p>
+              <div className="bg-accent-soft bg-accent/20 border border-border border-border/40 rounded-2xl p-6 text-center">
+                <AlertCircle className="w-10 h-10 text-primary mx-auto mb-3" />
+                <h3 className="font-heading font-semibold text-primary text-primary">Couldn't fetch result</h3>
+                <p className="text-sm text-primary text-primary mt-1">{errorMsg}</p>
                 <a href={`${BISEP_PORTAL_URL}ShowResult.php?Search=RollNo&RollNo=${encodeURIComponent(searchRoll.trim())}`}
                   target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-semibold text-amber-900 dark:text-amber-200 underline">
+                  className="inline-flex items-center gap-1.5 mt-4 text-xs font-semibold text-primary text-primary underline">
                   <ExternalLink className="w-3.5 h-3.5" />
                   Try directly on BISE Peshawar
                 </a>
@@ -2242,31 +2242,31 @@ const BiseResultSearch = () => {
                     directly on this card (no separate popup). */}
                 <p className="text-center">
                   <button onClick={() => fireCelebration(biseIsPass)}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-[#B8860B] hover:text-[#8f6a0d] hover:underline underline-offset-4 transition-colors">
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:text-primary hover:underline underline-offset-4 transition-colors">
                     <Sparkles className="w-3 h-3" /> Replay the reveal
                   </button>
                 </p>
                 <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }}>
                 <div ref={fullCardRef} className="w-full bg-card rounded-2xl shadow-elevated overflow-hidden border border-border">
 
-                <div className="result-hero-blue px-5 py-5 text-white relative overflow-hidden">
+                <div className="result-hero-blue px-5 py-5 text-primary-foreground relative overflow-hidden">
                   {/* premium decorations — gold hairline + dual orbs */}
-                  <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-[#E3B341] to-transparent" />
-                  <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-                  <div className="absolute -bottom-16 -left-12 w-44 h-44 rounded-full bg-[#E3B341]/20 blur-2xl pointer-events-none" />
+                  <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-accent to-transparent" />
+                  <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-surface/10 blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-16 -left-12 w-44 h-44 rounded-full bg-accent-soft blur-2xl pointer-events-none" />
                   {/* BISE Peshawar's own results page header pattern: bold
                       title on the left, a "ROLL NUMBER" pill on the right —
                       kept in this site's orange/gold theme instead of BISEP's
                       green. */}
                   <div className="flex items-center justify-between gap-3 relative z-10">
                     <h3 className="font-heading font-extrabold text-lg sm:text-xl drop-shadow-sm">Student Result Details</h3>
-                    <div className="text-right shrink-0 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-3.5 py-2">
+                    <div className="text-right shrink-0 bg-surface/10 backdrop-blur-sm border border-border/20 rounded-2xl px-3.5 py-2">
                       <p className="text-[10px] uppercase tracking-wider opacity-80 font-semibold">Roll Number</p>
-                      <p className="font-mono font-extrabold text-xl tracking-wider text-[#FDE68A]">{result.roll_no}</p>
+                      <p className="font-mono font-extrabold text-xl tracking-wider text-primary">{result.roll_no}</p>
                     </div>
                   </div>
                   <p className="mt-2 relative z-10">
-                    <span className="inline-flex items-center bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase max-w-full whitespace-normal break-words leading-tight">
+                    <span className="inline-flex items-center bg-surface/15 backdrop-blur-sm border border-border/25 rounded-full px-2.5 py-0.5 text-[10px] font-bold tracking-wide uppercase max-w-full whitespace-normal break-words leading-tight">
                       {liveTitle} · BISE Peshawar
                     </span>
                   </p>
@@ -2277,7 +2277,7 @@ const BiseResultSearch = () => {
                     Marks, Grade, Remarks, Collect DMC From), same orange
                     theme as the rest of this card. */}
                 <div className="px-5 py-4 border-b border-border">
-                  <p className="text-xs font-bold uppercase tracking-wide text-orange-700 dark:text-orange-400 mb-2">Candidate Information</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-primary text-primary mb-2">Candidate Information</p>
                   <div className="rounded-xl border border-border overflow-hidden">
                     {[
                       { l: "Student Name", v: result.name || "—" },
@@ -2289,8 +2289,8 @@ const BiseResultSearch = () => {
                       ...(result.collect_dmc_from ? [{ l: "Collect DMC From", v: result.collect_dmc_from, accent: true }] : []),
                     ].map((row, i) => (
                       <div key={row.l} className={`grid grid-cols-[auto,1fr] gap-3 px-3.5 py-2.5 ${i % 2 === 1 ? "bg-secondary/30" : ""} ${i !== 0 ? "border-t border-border" : ""}`}>
-                        <span className={`text-xs sm:text-sm font-semibold shrink-0 ${row.accent ? "text-orange-700 dark:text-orange-400" : "text-muted-foreground"}`}>{row.l}</span>
-                        <span className={`text-sm text-right sm:text-left break-words ${row.bold ? "font-extrabold text-orange-600 dark:text-orange-400 text-base" : row.accent ? "font-bold text-orange-700 dark:text-orange-400" : "font-semibold text-foreground"}`}>{row.v}</span>
+                        <span className={`text-xs sm:text-sm font-semibold shrink-0 ${row.accent ? "text-primary text-primary" : "text-muted-foreground"}`}>{row.l}</span>
+                        <span className={`text-sm text-right sm:text-left break-words ${row.bold ? "font-extrabold text-primary text-primary text-base" : row.accent ? "font-bold text-primary text-primary" : "font-semibold text-foreground"}`}>{row.v}</span>
                       </div>
                     ))}
                   </div>
@@ -2298,7 +2298,7 @@ const BiseResultSearch = () => {
 
                 {result.subjects.length > 0 ? (
                   <div className="px-5 py-4 space-y-2">
-                    <p className="text-xs font-bold uppercase tracking-wide text-orange-700 dark:text-orange-400">Subject Wise Marks</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-primary text-primary">Subject Wise Marks</p>
                     <div className="rounded-xl border border-border overflow-hidden">
                       <div className="overflow-x-auto">
                         <table className="w-full text-sm">
@@ -2323,8 +2323,8 @@ const BiseResultSearch = () => {
                                 <td className="py-2.5 pl-3.5 pr-3 text-muted-foreground">{s.sr}</td>
                                 <td className="py-2.5 pr-3 font-semibold text-foreground">{s.subject || "—"}</td>
                                 <td className="py-2.5 px-3 align-middle"><SubjectBar pct={pct} fail={s.theory_fail === true || s.practical_fail === true} delay={0.05 * i} /></td>
-                                <td className={`py-2.5 pr-3 text-center font-semibold ${s.theory_fail ? "text-red-600 dark:text-red-400" : "text-foreground"}`}>{s.theory || "—"}</td>
-                                <td className={`py-2.5 pr-3.5 text-center font-semibold ${s.practical_fail ? "text-red-600 dark:text-red-400" : "text-foreground"}`}>{s.practical || "—"}</td>
+                                <td className={`py-2.5 pr-3 text-center font-semibold ${s.theory_fail ? "text-primary text-primary" : "text-foreground"}`}>{s.theory || "—"}</td>
+                                <td className={`py-2.5 pr-3.5 text-center font-semibold ${s.practical_fail ? "text-primary text-primary" : "text-foreground"}`}>{s.practical || "—"}</td>
                               </tr>
                               );
                               });
@@ -2347,12 +2347,12 @@ const BiseResultSearch = () => {
                     data-capture-exclude: stripped out by the Save/Share DOM
                     capture (captureNodeAsPngFile's filter) so buttons never
                     show up baked into the saved/shared image. */}
-                <div data-capture-exclude="true" className="px-5 py-4 bg-gradient-to-r from-blue-50/70 via-transparent to-sky-50/70 dark:from-blue-950/20 dark:via-transparent dark:to-sky-950/10">
+                <div data-capture-exclude="true" className="px-5 py-4 bg-gradient-to-r from-primary/70 via-transparent to-primary/70 from-primary-strong/20 via-transparent to-primary-strong/10">
                   <div className="grid grid-cols-3 gap-2">
                     <button
                       onClick={handleShareBiseResult}
                       disabled={sharingBise}
-                      className="sheen rounded-xl py-2.5 px-2 font-bold text-white bg-gradient-to-r from-blue-700 via-blue-600 to-sky-500 shadow-md shadow-blue-600/25 hover:shadow-blue-600/40 transition-all disabled:opacity-60"
+                      className="sheen rounded-xl py-2.5 px-2 font-bold text-primary-foreground bg-gradient-to-r from-primary via-primary to-primary shadow-md shadow-blue-600/25 hover:shadow-blue-600/40 transition-all disabled:opacity-60"
                     >
                       <span className="relative z-10 flex items-center justify-center gap-1.5 text-xs sm:text-sm">
                         {sharingBise
@@ -2363,7 +2363,7 @@ const BiseResultSearch = () => {
                     <button
                       onClick={handleSaveBiseResult}
                       disabled={savingBise}
-                      className="rounded-xl py-2.5 px-2 font-bold text-blue-600 dark:text-blue-400 bg-background border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all disabled:opacity-60"
+                      className="rounded-xl py-2.5 px-2 font-bold text-primary text-primary bg-background border border-border border-border hover:bg-background hover:bg-primary-strong/30 transition-all disabled:opacity-60"
                     >
                       <span className="flex items-center justify-center gap-1.5 text-xs sm:text-sm">
                         {savingBise
@@ -2373,7 +2373,7 @@ const BiseResultSearch = () => {
                     </button>
                     <button
                       onClick={() => setComparisonOpen(true)}
-                      className="rounded-xl py-2.5 px-2 font-bold text-blue-600 dark:text-blue-400 bg-background border border-blue-300 dark:border-blue-800 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-all"
+                      className="rounded-xl py-2.5 px-2 font-bold text-primary text-primary bg-background border border-border border-border hover:bg-background hover:bg-primary-strong/30 transition-all"
                     >
                       <span className="flex items-center justify-center gap-1.5 text-xs sm:text-sm">
                         <GitCompare className="w-4 h-4" /> Compare

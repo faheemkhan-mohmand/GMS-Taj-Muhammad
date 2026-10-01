@@ -499,7 +499,7 @@ const NoteAiAssistant = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             onClick={() => onOpenChange(false)}
-            className="fixed inset-0 z-[59] bg-black/30 backdrop-blur-[1px]"
+            className="fixed inset-0 z-[59] bg-background/30 backdrop-blur-[1px]"
           />
 
           {/* Chat panel — wider on mobile AND desktop. */}
@@ -508,19 +508,19 @@ const NoteAiAssistant = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed bottom-28 right-3 sm:right-6 z-[60] w-[calc(100vw-1.5rem)] max-w-md h-[34rem] max-h-[78vh] bg-[#FAFAF8] dark:bg-[#1A1918] border border-black/[0.08] dark:border-white/[0.08] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            className="fixed bottom-28 right-3 sm:right-6 z-[60] w-[calc(100vw-1.5rem)] max-w-md h-[34rem] max-h-[78vh] bg-surface bg-primary-strong border border-border/[0.08] border-border/[0.08] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
           >
             {/* Header — neutral paper tone (matches homepage AI Assistant),
                 with a small subject-colored dot so it still feels tied to
                 the chapter, without painting the whole header in a loud
                 subject color. */}
-            <div className="flex items-center gap-2.5 px-4 py-3.5 bg-[#FAFAF8] dark:bg-[#1A1918] border-b border-black/[0.06] dark:border-white/[0.06] shrink-0">
-              <AiSparkleIcon size={22} className="text-orange-600 shrink-0" />
+            <div className="flex items-center gap-2.5 px-4 py-3.5 bg-surface bg-primary-strong border-b border-border/[0.06] border-border/[0.06] shrink-0">
+              <AiSparkleIcon size={22} className="text-primary shrink-0" />
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold leading-tight truncate flex items-center gap-1.5 text-[#1F1E1D] dark:text-[#F2F1EE]">
+                <p className="text-sm font-semibold leading-tight truncate flex items-center gap-1.5 text-primary text-primary-foreground">
                   AI Study Buddy
                 </p>
-                <p className="text-[11px] text-[#6B6963] dark:text-[#A8A69F] leading-tight truncate flex items-center gap-1">
+                <p className="text-[11px] text-primary text-primary leading-tight truncate flex items-center gap-1">
                   {subjectEmoji && <span>{subjectEmoji}</span>}
                   <span className="truncate">{subjectName} · {chapterTitle}</span>
                 </p>
@@ -529,7 +529,7 @@ const NoteAiAssistant = ({
                 type="button"
                 onClick={() => onOpenChange(false)}
                 aria-label="Close AI Study Buddy"
-                className="shrink-0 w-7 h-7 rounded-full hover:bg-black/[0.06] dark:hover:bg-white/[0.08] flex items-center justify-center transition-colors text-[#6B6963] dark:text-[#A8A69F]"
+                className="shrink-0 w-7 h-7 rounded-full hover:bg-background/[0.06] hover:bg-surface/[0.08] flex items-center justify-center transition-colors text-primary text-primary"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -538,15 +538,15 @@ const NoteAiAssistant = ({
             {/* Messages */}
             <div
               ref={scrollRef}
-              className="flex-1 overflow-y-auto px-3.5 py-3 space-y-3 bg-[#FAFAF8] dark:bg-[#1A1918]"
+              className="flex-1 overflow-y-auto px-3.5 py-3 space-y-3 bg-surface bg-primary-strong"
             >
               {messages.length === 0 && (
                 <div className="space-y-3">
-                  <p className="text-xs text-[#6B6963] dark:text-[#A8A69F] px-1 leading-relaxed flex items-start gap-1.5">
-                    <BookOpen className="w-3.5 h-3.5 mt-0.5 shrink-0 text-orange-600" />
+                  <p className="text-xs text-primary text-primary px-1 leading-relaxed flex items-start gap-1.5">
+                    <BookOpen className="w-3.5 h-3.5 mt-0.5 shrink-0 text-primary" />
                     <span>
                       Hi! I'm your study buddy for{" "}
-                      <strong className="text-[#1F1E1D] dark:text-[#F2F1EE] font-semibold">{chapterTitle}</strong>{" "}
+                      <strong className="text-primary text-primary-foreground font-semibold">{chapterTitle}</strong>{" "}
                       ({subjectName}). Ask me to explain a concept, summarize the
                       key points, give you practice questions, or work through an
                       example. Try one of these:
@@ -558,7 +558,7 @@ const NoteAiAssistant = ({
                         key={s}
                         type="button"
                         onClick={() => sendMessage(s)}
-                        className="text-left text-xs px-3.5 py-2.5 rounded-xl bg-white dark:bg-white/[0.04] hover:bg-orange-50 dark:hover:bg-white/[0.07] border border-black/[0.08] dark:border-white/[0.08] hover:border-orange-300/60 text-[#3D3B37] dark:text-[#E4E2DD] transition-colors"
+                        className="text-left text-xs px-3.5 py-2.5 rounded-xl bg-surface bg-surface/[0.04] hover:bg-accent-soft hover:bg-surface/[0.07] border border-border/[0.08] border-border/[0.08] hover:border-accent/60 text-primary text-primary transition-colors"
                       >
                         {s}
                       </button>
@@ -573,25 +573,25 @@ const NoteAiAssistant = ({
                   className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {m.role === "user" ? (
-                    <div className="max-w-[85%] rounded-2xl rounded-br-sm px-3.5 py-2 text-sm leading-relaxed whitespace-pre-wrap bg-[#3D3B37] dark:bg-[#E4E2DD] text-white dark:text-[#1A1918]">
+                    <div className="max-w-[85%] rounded-2xl rounded-br-sm px-3.5 py-2 text-sm leading-relaxed whitespace-pre-wrap bg-surface bg-surface text-primary-foreground text-primary">
                       {m.content}
                     </div>
                   ) : m.streaming ? (
-                    <div className="max-w-[92%] rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-white dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] text-[#3D3B37] dark:text-[#E4E2DD] min-w-[44px]">
+                    <div className="max-w-[92%] rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-surface bg-surface/[0.04] border border-border/[0.08] border-border/[0.08] text-primary text-primary min-w-[44px]">
                       {waitingFirstToken && !m.content ? (
                         <span className="inline-flex items-center h-4">
-                          <AiSparkleIcon size={14} className="text-orange-500 animate-pulse [animation-duration:1s]" />
+                          <AiSparkleIcon size={14} className="text-primary animate-pulse [animation-duration:1s]" />
                         </span>
                       ) : (
                         <span className="whitespace-pre-wrap break-words">
                           {m.content}
-                          <span className="inline-block w-1.5 h-3.5 ml-0.5 align-text-bottom bg-orange-500 animate-pulse" />
+                          <span className="inline-block w-1.5 h-3.5 ml-0.5 align-text-bottom bg-accent-soft animate-pulse" />
                         </span>
                       )}
                     </div>
                   ) : (
                     <div
-                      className="ai-message-bubble max-w-[92%] rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-white dark:bg-white/[0.04] border border-black/[0.08] dark:border-white/[0.08] text-[#3D3B37] dark:text-[#E4E2DD]"
+                      className="ai-message-bubble max-w-[92%] rounded-2xl rounded-bl-sm px-3.5 py-2.5 text-sm leading-relaxed bg-surface bg-surface/[0.04] border border-border/[0.08] border-border/[0.08] text-primary text-primary"
                       dangerouslySetInnerHTML={{
                         __html: renderedAssistant[i] ?? "",
                       }}
@@ -610,7 +610,7 @@ const NoteAiAssistant = ({
             {/* Input */}
             <form
               onSubmit={handleSubmit}
-              className="shrink-0 flex items-center gap-2 p-2.5 border-t border-black/[0.06] dark:border-white/[0.06] bg-[#FAFAF8] dark:bg-[#1A1918]"
+              className="shrink-0 flex items-center gap-2 p-2.5 border-t border-border/[0.06] border-border/[0.06] bg-surface bg-primary-strong"
             >
               <input
                 ref={inputRef}
@@ -619,13 +619,13 @@ const NoteAiAssistant = ({
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={`Ask about ${chapterTitle.slice(0, 28)}${chapterTitle.length > 28 ? "…" : ""}`}
                 disabled={loading}
-                className="flex-1 min-w-0 text-sm px-3.5 py-2.5 rounded-full bg-white dark:bg-white/[0.04] border border-black/[0.1] dark:border-white/[0.1] text-[#1F1E1D] dark:text-[#F2F1EE] placeholder:text-[#9C9A93] focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-400/60 disabled:opacity-60"
+                className="flex-1 min-w-0 text-sm px-3.5 py-2.5 rounded-full bg-surface bg-surface/[0.04] border border-border/[0.1] border-border/[0.1] text-primary text-primary-foreground placeholder:text-primary focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent/60 disabled:opacity-60"
               />
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
                 aria-label="Send message"
-                className="shrink-0 w-9 h-9 rounded-full bg-orange-500 hover:bg-orange-600 text-white flex items-center justify-center disabled:opacity-40 transition-colors"
+                className="shrink-0 w-9 h-9 rounded-full bg-primary hover:bg-primary-strong text-primary-foreground flex items-center justify-center disabled:opacity-40 transition-colors"
               >
                 <Send className="w-4 h-4" />
               </button>

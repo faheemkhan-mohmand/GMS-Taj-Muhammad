@@ -168,11 +168,11 @@ function ResultCountdownTimer({ targetDate, cls, examType, year, onPublished }: 
   }, [targetDate, cls, examType, year, done, onPublished]);
   if (done || !timeLeft) return null;
   return (
-    <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-500/30 rounded-xl px-4 py-2.5">
-      <Timer className="w-4 h-4 text-blue-500 shrink-0 animate-pulse" />
+    <div className="flex items-center gap-2 bg-background bg-primary-strong/20 border border-border border-border/30 rounded-xl px-4 py-2.5">
+      <Timer className="w-4 h-4 text-primary shrink-0 animate-pulse" />
       <div>
-        <p className="text-xs text-blue-800 dark:text-blue-400 font-medium">Auto-publishes in</p>
-        <p className="text-sm font-bold text-blue-900 dark:text-blue-300 font-mono">{timeLeft}</p>
+        <p className="text-xs text-primary text-primary font-medium">Auto-publishes in</p>
+        <p className="text-sm font-bold text-primary text-primary font-mono">{timeLeft}</p>
       </div>
     </div>
   );
@@ -1186,7 +1186,7 @@ const AdminResults = () => {
     <div className="space-y-4">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <h2 className="text-2xl font-heading font-bold text-foreground">Manage Results</h2>
-        {activeScheme && <Badge variant="outline" className="text-xs gap-1 border-green-300 text-green-600">Grading: {activeScheme.scheme_name}</Badge>}
+        {activeScheme && <Badge variant="outline" className="text-xs gap-1 border-border text-primary">Grading: {activeScheme.scheme_name}</Badge>}
       </div>
 
       {/* Sub-tab navigation — the global "Schedule Publish" button lives
@@ -1202,7 +1202,7 @@ const AdminResults = () => {
       <div className="flex gap-2 flex-wrap items-center">
         <Button
           variant="outline" size="sm"
-          className="gap-1.5 border-blue-300 text-blue-700 dark:text-blue-300 dark:border-blue-500/40"
+          className="gap-1.5 border-border text-primary text-primary border-border/40"
           onClick={() => {
             // Default the modal's class list + date to sensible values each
             // time it's opened: all 5 classes checked, current exam type's
@@ -1234,7 +1234,7 @@ const AdminResults = () => {
             each class. See handleExportAllClassesExcel below for details. */}
         <Button
           variant="outline" size="sm"
-          className="gap-1.5 border-emerald-300 text-emerald-700 dark:text-emerald-300 dark:border-emerald-500/40"
+          className="gap-1.5 border-border text-primary text-primary border-border/40"
           onClick={handleExportAllClassesExcel}
           disabled={exporting}
         >
@@ -1348,7 +1348,7 @@ const AdminResults = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
             { label: "Total Students", value: stats.total, color: "text-primary" },
-            { label: "Passed", value: stats.passed, color: "text-green-600" },
+            { label: "Passed", value: stats.passed, color: "text-primary" },
             { label: "Failed", value: stats.failed, color: "text-destructive" },
             { label: "Class Average", value: `${stats.avg}%`, color: "text-primary" },
           ].map(s => (
@@ -1378,31 +1378,31 @@ const AdminResults = () => {
       ) : (
         <Card className="overflow-hidden"><CardContent className="p-0 overflow-x-auto">
           <Table className="border-collapse">
-            <TableHeader><TableRow className="bg-slate-100 hover:bg-slate-100">
-              <TableHead className="w-10 text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">#</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Photo</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Name</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Class Roll</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Exam Roll</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Total</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Obtained</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">%</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Grade</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Status</TableHead>
-              <TableHead className="text-center border border-slate-200 text-slate-600 font-semibold uppercase tracking-wide text-xs">Actions</TableHead>
+            <TableHeader><TableRow className="bg-surface-raised hover:bg-surface-raised">
+              <TableHead className="w-10 text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">#</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Photo</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Name</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Class Roll</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Exam Roll</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Total</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Obtained</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">%</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Grade</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Status</TableHead>
+              <TableHead className="text-center border border-border text-muted font-semibold uppercase tracking-wide text-xs">Actions</TableHead>
             </TableRow></TableHeader>
             <TableBody>
               {rankedResults.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={11} className="text-center py-10 text-muted-foreground border border-slate-200">
+                  <TableCell colSpan={11} className="text-center py-10 text-muted-foreground border border-border">
                     No results yet. Click "Add Result" to begin.
                   </TableCell>
                 </TableRow>
               )}
               {rankedResults.map((r, i) => (
-                <TableRow key={r.id} className={`hover:bg-blue-50/40 ${i % 2 === 1 ? "bg-slate-50/60" : "bg-white"}`}>
-                  <TableCell className="font-bold text-primary text-center border border-slate-200">{r.rank}</TableCell>
-                  <TableCell className="text-center border border-slate-200">
+                <TableRow key={r.id} className={`hover:bg-background/40 ${i % 2 === 1 ? "bg-background/60" : "bg-surface"}`}>
+                  <TableCell className="font-bold text-primary text-center border border-border">{r.rank}</TableCell>
+                  <TableCell className="text-center border border-border">
                     <div className="flex justify-center">
                       {r.students?.photo_url
                         ? <img src={r.students.photo_url} alt="" className="w-8 h-8 rounded-full object-cover" loading="lazy" />
@@ -1411,21 +1411,21 @@ const AdminResults = () => {
                           </div>}
                     </div>
                   </TableCell>
-                  <TableCell className="font-medium text-center border border-slate-200">{r.students?.full_name || "—"}</TableCell>
-                  <TableCell className="text-muted-foreground text-sm text-center border border-slate-200">{r.students?.roll_number || "—"}</TableCell>
-                  <TableCell className="text-center border border-slate-200">
+                  <TableCell className="font-medium text-center border border-border">{r.students?.full_name || "—"}</TableCell>
+                  <TableCell className="text-muted-foreground text-sm text-center border border-border">{r.students?.roll_number || "—"}</TableCell>
+                  <TableCell className="text-center border border-border">
                     {r.exam_roll_no
                       ? <span className="font-mono font-bold text-primary text-sm">{r.exam_roll_no}</span>
                       : <span className="text-muted-foreground text-xs">—</span>}
                   </TableCell>
-                  <TableCell className="text-center border border-slate-200">{r.total_marks}</TableCell>
-                  <TableCell className="text-center border border-slate-200">{r.obtained_marks}</TableCell>
-                  <TableCell className="font-semibold text-center border border-slate-200">{r.percentage}%</TableCell>
-                  <TableCell className="text-center border border-slate-200"><Badge className={getGradeColor(r.grade || "Fail")}>{r.grade}</Badge></TableCell>
-                  <TableCell className="text-center border border-slate-200">
+                  <TableCell className="text-center border border-border">{r.total_marks}</TableCell>
+                  <TableCell className="text-center border border-border">{r.obtained_marks}</TableCell>
+                  <TableCell className="font-semibold text-center border border-border">{r.percentage}%</TableCell>
+                  <TableCell className="text-center border border-border"><Badge className={getGradeColor(r.grade || "Fail")}>{r.grade}</Badge></TableCell>
+                  <TableCell className="text-center border border-border">
                     <Badge
                       variant={r.is_pass ? "default" : "destructive"}
-                      className={r.is_pass ? "bg-[hsl(var(--success))] hover:bg-[hsl(var(--success))]" : ""}
+                      className={r.is_pass ? "bg-primary-strong hover:bg-primary-strong" : ""}
                     >
                       {r.is_pass ? "Pass" : "Fail"}
                     </Badge>
@@ -1433,7 +1433,7 @@ const AdminResults = () => {
                       <span className="text-[10px] text-muted-foreground ml-1">(manual)</span>
                     )}
                   </TableCell>
-                  <TableCell className="text-center border border-slate-200">
+                  <TableCell className="text-center border border-border">
                     <div className="flex items-center justify-center gap-1">
                       <Button size="icon" variant="ghost" onClick={() => openEdit(r)}>
                         <Pencil className="w-4 h-4" />
@@ -1520,8 +1520,8 @@ const AdminResults = () => {
               />
 
               {availableRollsForStudent.length > 1 && (
-                <div className="mt-2 border border-blue-200 bg-blue-50 dark:bg-blue-950/20 rounded-lg p-2.5 space-y-1.5">
-                  <p className="text-xs font-semibold text-blue-900 dark:text-blue-300">
+                <div className="mt-2 border border-border bg-background bg-primary-strong/20 rounded-lg p-2.5 space-y-1.5">
+                  <p className="text-xs font-semibold text-primary text-primary">
                     This student has {availableRollsForStudent.length} exam roll numbers — choose which one to use:
                   </p>
                   {availableRollsForStudent.map(roll => {
@@ -1554,7 +1554,7 @@ const AdminResults = () => {
                 </p>
               )}
               {examRolls.length === 0 && (
-                <p className="text-xs text-blue-700 mt-1">
+                <p className="text-xs text-primary mt-1">
                   No exam roll numbers generated for Class {cls} yet. Generate them in Exam Roll Numbers section.
                 </p>
               )}
@@ -1631,7 +1631,7 @@ const AdminResults = () => {
               <Badge className={getGradeColor(autoGrade)}>{autoGrade}</Badge>
               <Badge
                 variant={finalPass ? "default" : "destructive"}
-                className={finalPass ? "bg-[hsl(var(--success))] hover:bg-[hsl(var(--success))]" : ""}
+                className={finalPass ? "bg-primary-strong hover:bg-primary-strong" : ""}
               >
                 {finalPass ? "✅ Pass" : "❌ Fail"}
               </Badge>
@@ -1658,8 +1658,8 @@ const AdminResults = () => {
                     onClick={() => setF("manual_pass_fail", true)}
                     className={`flex-1 py-2.5 rounded-xl text-sm font-bold border-2 transition-all ${
                       form.manual_pass_fail === true
-                        ? "bg-green-500 text-white border-green-500"
-                        : "border-border text-muted-foreground hover:border-green-400"
+                        ? "bg-background text-primary-foreground border-border"
+                        : "border-border text-muted-foreground hover:border-border"
                     }`}
                   >
                     ✅ PASS
@@ -1668,8 +1668,8 @@ const AdminResults = () => {
                     onClick={() => setF("manual_pass_fail", false)}
                     className={`flex-1 py-2.5 rounded-xl text-sm font-bold border-2 transition-all ${
                       form.manual_pass_fail === false
-                        ? "bg-red-500 text-white border-red-500"
-                        : "border-border text-muted-foreground hover:border-red-400"
+                        ? "bg-background text-primary-foreground border-border"
+                        : "border-border text-muted-foreground hover:border-border"
                     }`}
                   >
                     ❌ FAIL
@@ -1735,7 +1735,7 @@ const AdminResults = () => {
         <DialogContent className="max-w-sm w-[92vw] sm:max-w-md rounded-2xl overflow-y-auto max-h-[85dvh] p-4 sm:p-6">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-base">
-              <Timer className="w-4 h-4 text-blue-600" /> Schedule Publish — {year}
+              <Timer className="w-4 h-4 text-primary" /> Schedule Publish — {year}
             </DialogTitle>
           </DialogHeader>
 
@@ -1762,7 +1762,7 @@ const AdminResults = () => {
                       )}
                       className={`rounded-xl border px-2 py-2 text-sm font-semibold transition-colors ${
                         checked
-                          ? "bg-blue-600 border-blue-600 text-white"
+                          ? "bg-primary border-border text-primary-foreground"
                           : "bg-background border-input text-foreground"
                       }`}
                     >
@@ -1772,17 +1772,17 @@ const AdminResults = () => {
                 })}
               </div>
               <div className="flex gap-3 mt-2">
-                <button type="button" className="text-xs text-blue-600 font-medium" onClick={() => setGsClasses(["6", "7", "8"])}>Select All</button>
+                <button type="button" className="text-xs text-primary font-medium" onClick={() => setGsClasses(["6", "7", "8"])}>Select All</button>
                 <button type="button" className="text-xs text-muted-foreground font-medium" onClick={() => setGsClasses([])}>Clear</button>
               </div>
-              <label className="mt-3 flex items-start gap-2 rounded-lg border border-amber-300 bg-amber-50 px-3 py-2.5 cursor-pointer">
+              <label className="mt-3 flex items-start gap-2 rounded-lg border border-accent bg-accent-soft px-3 py-2.5 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={gsHideTop3}
                   onChange={e => setGsHideTop3(e.target.checked)}
                   className="mt-0.5 h-4 w-4 accent-amber-600 shrink-0"
                 />
-                <span className="text-xs text-amber-800">
+                <span className="text-xs text-primary">
                   <span className="font-semibold">Hide top 3 of each class</span> — the top 3 students
                   (by percentage) in every selected class stay unpublished. Everyone else publishes
                   as scheduled; toppers can be revealed later with their own publish.
@@ -1817,7 +1817,7 @@ const AdminResults = () => {
                 half the height, still easy to tap. */}
             <div className="grid grid-cols-2 gap-2 pt-1">
               <Button
-                className="col-span-2 bg-blue-600 hover:bg-blue-700 text-white gap-1.5 w-full justify-center"
+                className="col-span-2 bg-primary hover:bg-primary text-primary-foreground gap-1.5 w-full justify-center"
                 disabled={!gsDate || gsClasses.length === 0 || gsSaving}
                 onClick={async () => {
                   if (!gsDate) { toast.error("Pick a date"); return; }
